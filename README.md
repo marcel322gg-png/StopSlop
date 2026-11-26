@@ -1,452 +1,655 @@
-![StopSlop. Take back your feed with focused controls for filtering, gestures, playback, downloads and privacy.](assets/readme-hero.png)
-
-<p align="center">
-  <a href="CHANGELOG.md"><img alt="version" src="https://img.shields.io/badge/version-0.84.0-6f42c1.svg" /></a>
-  <a href="LICENSE"><img alt="license" src="https://img.shields.io/badge/license-GPLv3-blue.svg" /></a>
-  <a href="https://www.android.com/"><img alt="platform" src="https://img.shields.io/badge/platform-Android-3ddc84.svg" /></a>
-  <a href="https://github.com/MorpheApp/morphe-manager"><img alt="Morphe" src="https://img.shields.io/badge/works%20with-Morphe-00b894.svg" /></a>
-  <a href="https://github.com/SysAdminDoc/hushfeed/discussions"><img alt="Discussions" src="https://img.shields.io/github/discussions/SysAdminDoc/hushfeed?color=0969da" /></a>
-  <a href="https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/"><img alt="TikTok 47.8.3" src="https://img.shields.io/badge/TikTok-47.8.3-ff0050.svg" /></a>
-</p>
-
-<p align="center">
-  <a href="https://ko-fi.com/X8K126YVER">
-    <img height="42" src="https://storage.ko-fi.com/cdn/kofi2.png?v=3" alt="Buy me a coffee on Ko-fi" />
-  </a>
-</p>
-
-<p align="center">
-  <sub><em>If StopSlop makes TikTok better for you, a coffee helps me keep testing patches and maintaining them as TikTok changes.</em></sub>
-</p>
-
 # StopSlop
 
-StopSlop is a [Morphe](https://github.com/MorpheApp/morphe-manager) patch bundle for TikTok. Morphe Manager applies it to a TikTok APK and adds a StopSlop settings page to the patched app. The bundle also includes inherited settings for feed controls, playback, downloads, privacy, and other TikTok behavior.
+**A local-first feed-filtering project built into a modified TikTok client.**
 
-Most switches start off, so a freshly patched TikTok looks and works the way it ships until you turn something on. What changed in each version is in the [changelog](CHANGELOG.md).
+> **Project status: early MVP foundation.** StopSlop is under active development. The current codebase contains an integrated settings shell and the first feed-filtering foundations, but several important behaviors still require source-level reconciliation and manual verification on a device. This repository is not a finished consumer release.
 
-**[Add StopSlop to Morphe](https://morphe.software/add-source?github=SysAdminDoc%2Fhushfeed)** | [Download the latest bundle](https://github.com/SysAdminDoc/hushfeed/releases/latest) | [Browse the source patches](#patches)
+<!--
+README presentation note:
+Real application screenshots, the final gallery, release artwork, and polished feature demonstrations are intentionally deferred until roadmap milestone M11. Do not add mock screenshots or imply that planned features already work.
+-->
 
-> [!IMPORTANT]
-> StopSlop targets the global TikTok package, `com.zhiliaoapp.musically`, version [47.8.3](https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/tiktok-47-8-3-release/). Patch that exact build, as the bundle or the APK ([step 1](#install) says which). See [Supported target](#supported-target) for the build details.
+## What is StopSlop?
 
-StopSlop v0.83.0 contains 151 patches for TikTok 47.8.3. New in this one: TikTok moves to 47.8.3. You can watch LIVEs unseen, remove all your comments at once, play mini dramas in their original audio and pick StopSlop's own language and theme. It needs Morphe Manager 2.6.0 or newer.
+StopSlop is a project to give users more control over the recommendations they see in TikTok. The intended experience is a **single modified TikTok application** with StopSlop settings and feed filtering integrated into the client.
 
-The main branch contains 155 patches, v0.83.0's set plus `Report a newer phone to game LIVE`, `Smaller text sizes`, `Turn profiles and comment pictures on tablets` and `UI scale`.
+StopSlop is not intended to be a standalone companion app, browser extension, DNS filter, VPN, or accessibility-based auto-swiper. The active implementation uses the Morphe patching workflow and a source tree derived from the HushFeed project. The source is built into a Morphe `.mpp` patch bundle, which is then applied to a compatible TikTok package using a compatible Morphe Manager workflow.
 
-## What it changes
+The product-facing identity is StopSlop. The technical history is not being erased: upstream licenses, copyright notices, required attribution, and identifiers needed for compatibility must remain intact.
 
-- **Feed:** Hide ads, Shop, LIVEs, stories, photo posts and any creator or video that matches your own rules. Your own posts are never hidden. TikTok can open on Following, Friends, Inbox or Profile instead of For You.
-- **Touch controls:** Ask for a second tap before Follow, Like or a quick repost goes through. Remap or turn off long press and double tap, and keep For You where it is when you tap Home.
-- **Playback:** Choose the speed and quality, stop loops, pick up where you left off or move on by itself. A video can keep playing after you leave the app.
-- **Downloads:** Save videos without the watermark, full-size photos, the sound on its own and SRT subtitles, into folders and file names you choose. Saving works even when the creator turned downloads off.
-- **Comments and inbox:** Filter comments by words or accounts and translate them into your language. Choose which Inbox rows show up.
-- **Privacy:** Turn off supported telemetry, hide that you viewed a story or that you're typing, keep videos out of Watch history and put TikTok behind your fingerprint or PIN.
-- **Screen time:** Set a daily budget in videos or minutes with a hold when it runs out, or lock the feed and keep TikTok for messages.
+### Project links
 
-The settings screen comes in English, German, Spanish, Italian, Indonesian, Brazilian Portuguese, Russian, Turkish, Azerbaijani, Vietnamese, Thai, Simplified Chinese and Arabic. It follows the language TikTok runs in. Simplified Chinese and Arabic are first passes, so corrections are welcome.
+- **Repository:** [marcel322gg-png/StopSlop](https://github.com/marcel322gg-png/StopSlop)
+- **Upstream source:** [SysAdminDoc/HushFeed](https://github.com/SysAdminDoc/hushfeed)
+- **Issues and bug reports:** [GitHub Issues](https://github.com/marcel322gg-png/StopSlop/issues)
+- **Roadmap:** this README's [Development roadmap](#development-roadmap) section; a more detailed technical roadmap should be kept in sync with it.
 
-The block, hide, sound and Not interested buttons StopSlop can put on a video:
+There are intentionally no donation links in this README. Project-specific support and release links can be added when those channels exist.
 
-![Overlay controls](assets/overlay-controls.png)
+---
 
-## Install
+## Contents
 
-1. Get the TikTok 47.8.3 bundle or APK from APKMirror, since Google Play only offers the newest build. For Morphe Manager on a phone, take the file marked **BUNDLE** (an `.apkm`) from the [47.8.3 release page](https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/tiktok-47-8-3-release/). Manager needs less memory for it, and on a device with 3 GB it ran out of memory on the APK but patched the bundle in about a minute. On a computer, take the [47.8.3 APK](https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/tiktok-47-8-3-release/) (arm64-v8a + armeabi-v7a, nodpi) instead, since the desktop tool's merge of a bundle breaks three patches ([why](#why-you-have-to-fetch-that-apk-yourself)). If you already have the APK, Manager can still try it. Get the bundle if it runs out of memory. Skip the APK marked arm64-v8a alone. It's a separate build of 47.8.3 ([why](#why-you-have-to-fetch-that-apk-yourself)), and StopSlop stops on it with a message naming the file to get.
+- [Project status](#project-status)
+- [Goals and non-goals](#goals-and-non-goals)
+- [Current implementation](#current-implementation)
+- [Feature status](#feature-status)
+- [How the filtering pipeline should work](#how-the-filtering-pipeline-should-work)
+- [Architecture](#architecture)
+- [Privacy and safety principles](#privacy-and-safety-principles)
+- [Development roadmap](#development-roadmap)
+- [Build from source](#build-from-source)
+- [Applying a patch bundle](#applying-a-patch-bundle)
+- [Manual verification](#manual-verification)
+- [Repository layout](#repository-layout)
+- [Development workflow](#development-workflow)
+- [Compatibility and release policy](#compatibility-and-release-policy)
+- [Known limitations](#known-limitations)
+- [Contributing](#contributing)
+- [Security reports](#security-reports)
+- [Licensing and attribution](#licensing-and-attribution)
+- [FAQ](#faq)
 
-   On Android 11 and newer, Morphe Manager checks that TikTok's own key signed the file and warns you if it didn't. That warning means the file was changed after TikTok published it, so download it again.
-2. Use Morphe Manager 2.7.0 or newer. StopSlop bundles after v0.83.0 are built against patcher 2.5.0, which Manager 2.7.0 was the first to ship, and older Managers won't load them (v0.83.0 itself still loads in 2.6.0). morphe-desktop 2.3.0 or newer works from a computer. Give it 2 GB of memory (`java -Xmx2g -jar morphe-desktop-2.3.0-all.jar patch ...`), because with every patch picked it runs out at 1 GB, which is Java's default on a computer with 4 GB of RAM. Universal ReVanced Manager can't import a Morphe bundle at all ([its issue #733](https://github.com/Jman-Github/Universal-ReVanced-Manager/issues/733)).
-3. Add StopSlop as a source. On the phone, open [Add StopSlop to Morphe](https://morphe.software/add-source?github=SysAdminDoc%2Fhushfeed). If **Open in Morphe** leaves you in the browser, open Morphe Manager, tap **Sources**, tap **+**, and paste `https://github.com/SysAdminDoc/hushfeed`. You can also download the `.mpp` file from the [latest release](https://github.com/SysAdminDoc/hushfeed/releases/latest) and load it as a local bundle. It's a patch bundle, not a TikTok APK.
-4. Pick the patches. Simple mode in Morphe Manager selects 133 of the 151 StopSlop patches. The other 18 need Expert mode in Manager settings, and [Patches](#patches) says why each one stays out. Manager shows all 151 StopSlop patches in eleven categories you can expand or collapse. Leave **Use embedded VM** on under **Settings > Patcher**, since it lets the patcher use whatever memory the phone can spare. Patch TikTok with StopSlop's patches alone. Another source picked beside it can add to the memory patching needs, and its patches can change the same TikTok code StopSlop does. Where Manager runs as a 32-bit app, Manager 2.7.0 gives the patcher 1.5 GB at most. On a phone with that limit, TikTok 47.9.3's APK ran out of memory about halfway through with every StopSlop patch picked, and turning off `AMOLED dark theme`'s `Switch in StopSlop settings` option didn't change that. So on a 32-bit Manager, patch the bundle and leave out the patches you don't need.
-5. Patch the original file from step 1. StopSlop stops with an error on an APK it has already patched. Keep the manager's existing signing key, because an update only installs over your copy, with your login intact, when it's signed with the same key.
-6. Install the patched APK. If TikTok from Google Play is still on the phone, uninstall it first. Android won't put the patched app over it because they're signed with different keys. Uninstalling erases TikTok's data on the phone, so you'll log in again, and drafts you haven't posted go with it. Then open TikTok and go to **Settings and privacy**. StopSlop is the first row, and [Settings](#settings) has two quicker ways in.
+---
 
-The patches that take files out of TikTok do it while patching, so Pause and a settings import can't put those files back. Read the [native-language recovery steps](#tiktok-stays-in-english-after-removing-language-packs) before you remove languages.
+## Project status
 
-There are Hush patch sources for other apps too: [Hushfacebook](https://github.com/SysAdminDoc/HushFacebook) for Facebook, [HushGram](https://github.com/SysAdminDoc/HushGram) for Instagram, [HushMessenger](https://github.com/SysAdminDoc/HushMessenger) for Messenger, [HushPine](https://github.com/SysAdminDoc/HushPine) for PineDrama, [HushPinterest](https://github.com/SysAdminDoc/HushPinterest) for Pinterest, [HushTelegram](https://github.com/SysAdminDoc/HushTelegram) for Telegram, [HushThreads](https://github.com/SysAdminDoc/HushThreads) for Threads and [HushTumblr](https://github.com/SysAdminDoc/HushTumblr) for Tumblr. Each one is a separate source in Manager, so add only the ones for apps you patch.
+**Current stage: Stage 1 - stabilize the integrated StopSlop shell and verify the first metadata/marker filters.**
 
-## Choose defaults while patching
+The project is at an early MVP foundation stage. A settings page and initial filter controls exist, and a Morphe patch bundle has been built successfully in the development environment. That does not mean every visible switch has been proven to filter the correct posts at runtime.
 
-Each patch with settings has Morphe options that set the patched app's starting values. They apply until you change a setting, and Reset goes back to them. An update keeps whatever you already saved. For example, to show an author's country as a flag:
+The first project task is to reconcile the local source with the roadmap, verify the exact TikTok target/build compatibility, and record which filters are implemented, registered with a feed hook, and manually verified on-device.
+
+### Evidence labels
+
+Feature descriptions and project reports should use these labels consistently:
+
+| Label | Meaning |
+|---|---|
+| `NOT_IMPLEMENTED` | No working implementation exists yet. |
+| `UI_ONLY` | A control or placeholder exists, but the underlying detector/action is not implemented. |
+| `SOURCE_IMPLEMENTED` | Relevant source logic exists. Runtime behavior is not implied. |
+| `HOOK_REGISTERED` | The detector/filter is connected to a relevant patch hook. |
+| `DEVICE_VERIFIED` | The behavior was manually confirmed on a named target device and compatible TikTok build. |
+| `BLOCKED_BY_FEASIBILITY` | The required data, hook, timing, or runtime capability is unavailable or not proven. |
+
+A preference key, settings row, patch declaration, successful compilation, or non-empty `.mpp` payload is not by itself proof that a feature works in the feed.
+
+## Goals and non-goals
+
+### Goals
+
+1. Filter supported unwanted recommendations as early as the verified TikTok feed integration allows.
+2. Start with deterministic, metadata-backed rules before considering machine-learning features.
+3. Make every blocking decision explainable by a rule or detector.
+4. Keep filtering local to the device by default.
+5. Fail open when evidence is missing, unsupported, late, or unreliable.
+6. Keep the feed responsive on the primary Samsung Galaxy A25 5G target, then evaluate the lower-end Samsung Galaxy A12.
+7. Preserve useful inherited HushFeed functionality while making StopSlop the primary product identity.
+
+### Non-goals
+
+- A separate companion Android app that attempts to control TikTok from outside the client.
+- AccessibilityService gestures as the core filtering mechanism.
+- Root, Shizuku, VPN traffic interception, or unsupported access to TikTok private storage/process memory.
+- Uploading watched videos, audio, frames, captions, or transcripts to a cloud service for classification.
+- Running a large generative model on every feed item.
+- Claiming generic AI detection merely because a TikTok official AI label can be read.
+- Removing inherited functionality solely because it is not a StopSlop-specific feature.
+
+---
+
+## Current implementation
+
+This table is a conservative snapshot based on the latest development reports. It must be reconciled against the active source before being treated as a release checklist.
+
+| Area | Current reported state | What remains to prove |
+|---|---|---|
+| Morphe patch project | Existing HushFeed-based source tree is the active project. A `.mpp` build completed successfully in the development environment. | Reconcile the exact current build task, output path, versions, and source state. |
+| StopSlop settings page | The settings entry/page opens on the primary Galaxy A25 after a dependency-order correction. | Recheck current branch and settings behavior after subsequent source changes. |
+| Ads & sponsorships | `stop_slop_ad_sponsorship`, default `true`; ad/paid-promotion marker filtering is reported in the source and feed-filter registration. | Verify the exact metadata source, supported labels, hook timing, and correct hide/keep behavior on-device. |
+| Official AI-generated marker | `stop_slop_ai_generated`, default `false`; marker-filter integration is reported. Existing inherited AI preference compatibility is retained. | Confirm which exact TikTok-provided marker is read and whether it is available before display. This is not generic AI-image/video detection. |
+| Minimum Likes | `stop_slop_min_likes`, default `false`; `stop_slop_min_likes_threshold`, default `0`, range `0..1,000,000`. | Verify the likes field, comparison, boundary cases, feed hook, and actual filtering on-device. |
+| Minimum Likes dependency | Threshold preference is added before dependency assignment and depends on the StopSlop enable key. | Preserve this ordering and dependency when changing the settings UI. |
+| Reload TikTok | Convenience action is reported on the settings page. | Verify action behavior on the target device. It is not a feed filter. |
+| Pause/master enable | An overall pause concept exists in the inherited settings foundation. | Verify that it pauses all StopSlop filters without resetting individual preferences. |
+| English/German localization | English source entries and German translations/runtime map have been updated. | Verify completeness and presentation in both locales. |
+| Branded settings UI | StopSlop header, section styling, and placeholder controls have been added. | Verify layout, recycled rows, accessibility, and visual consistency on-device. |
+| Topic filtering | Roadmap item only. | Not implemented as a complete feature. |
+| In-video promotion detection | Roadmap item only. | Not implemented as a complete feature. |
+| Probabilistic AI/slop detection | Roadmap/research item only. | Not implemented as a complete feature. |
+| Filter history and feedback | Roadmap item only. | Not implemented. |
+| Model management | Roadmap item only. | Not implemented. |
+
+### Current filter preferences
+
+| Preference | Type | Default | Intended meaning |
+|---|---|---:|---|
+| `stop_slop_ad_sponsorship` | Boolean | `true` | Enable filtering for supported official ad/sponsorship markers. |
+| `stop_slop_ai_generated` | Boolean | `false` | Enable filtering for a supported official TikTok AI-generated marker. |
+| `stop_slop_min_likes` | Boolean | `false` | Enable the minimum-like-count rule. |
+| `stop_slop_min_likes_threshold` | Integer | `0` | Minimum likes threshold, currently constrained to `0..1,000,000`. |
+
+These names, types, defaults, and compatibility relationships are part of the current project state. Do not rename or migrate stored keys as part of unrelated cleanup.
+
+---
+
+## How the filtering pipeline should work
+
+The target behavior is to make a decision using the most reliable information available at the verified feed hook. The conceptual pipeline is:
+
+```text
+TikTok recommendation/post object
+              |
+              v
+      Verified Morphe hook
+              |
+              v
+   Normalized post metadata
+              |
+              v
+       StopSlop detectors
+       - ad/sponsorship marker
+       - minimum likes
+       - official AI label
+       - topic rules (later)
+       - promotion signals (later)
+       - optional local models (later)
+              |
+              v
+    Filtering decision engine
+       KEEP / BLOCK / UNKNOWN
+              |
+              v
+   Existing feed/list integration
+              |
+              v
+       Modified TikTok UI
+```
+
+This is a target architecture, not a claim that every stage is implemented or that the hook has already been proven to run before first display. Exact classes, method names, fields, and insertion points must be established from the active source.
+
+### Decision contract
+
+- **`KEEP`** - available evidence does not match an enabled blocking rule.
+- **`BLOCK`** - reliable evidence satisfies an enabled rule.
+- **`UNKNOWN`** - metadata is missing, unsupported, too old, too late, low-confidence, timed out, or a detector/model failed.
+
+`UNKNOWN` must fail open: keep the post. A missing field must never be converted to a blocking value. A detector exception or unavailable model must not break feed rendering.
+
+### Before-display requirement
+
+The product goal is to filter a recommendation before it becomes visible whenever the verified TikTok/Morp hook makes that possible. This must be demonstrated, not assumed.
+
+For each candidate hook, development must establish:
+
+1. Which method receives the recommendation/post object.
+2. Which fields are available at that exact point.
+3. Whether an item can be removed before it reaches the adapter/player.
+4. Whether a first video frame can appear before the filter runs.
+5. What preload and timing constraints exist.
+6. What happens when the hook is missing or the object shape changes after a TikTok update.
+
+An accessibility node, caption text in a later UI component, or a visible ad badge does not prove that audio or frame data is available before display. Do not add OCR, ASR, frame capture, or model inference until the relevant media access and timing budget are demonstrated.
+
+---
+
+## Architecture
+
+StopSlop remains integrated into the existing Morphe/HushFeed-based patch source. The repository should not be migrated into a new standalone app or add-on project as part of routine cleanup.
+
+### Main layers
+
+1. **Morphe patch layer** - declares and applies bytecode/resource changes to the compatible TikTok target.
+2. **TikTok extension layer** - provides extension-side settings, preferences, filters, and runtime integration.
+3. **StopSlop filter layer** - owns StopSlop preference semantics and filtering decisions while reusing proven inherited integration points where appropriate.
+4. **Settings/UI layer** - exposes StopSlop controls first and inherited settings below them.
+5. **Localization/resources layer** - keeps user-facing strings, generated localization resources, and visual assets consistent.
+
+### Design rules
+
+- Keep the current working `.mpp` output pipeline.
+- Follow the existing package/module conventions unless a documented architecture decision changes them.
+- Prefer small, localized changes over broad rewrites.
+- Keep StopSlop-specific settings distinct from inherited settings when their semantics differ.
+- Reuse existing hooks only after verifying their data and timing behavior.
+- Keep compatibility keys when renaming a visible label would otherwise break stored preferences or patch integrations.
+- Do not delete inherited features just because StopSlop does not replace them yet.
+
+### AI and machine-learning strategy
+
+AI/ML work is explicitly staged. The intended order is:
+
+1. Deterministic metadata and preference-based rules.
+2. A compact text classifier or embedding model for topic similarity, if metadata access and performance allow it.
+3. Optional OCR/ASR only after media availability before display is proven.
+4. Separate evaluation of probable synthetic-content detection and low-quality/repetitive-content detection.
+5. Optional generative topic expansion only when a user edits a topic, not on every feed item.
+
+Potential Android inference technologies such as LiteRT must be evaluated for license, binary size, Android compatibility, A25 latency, RAM, heat, battery, model delivery, and A12 fallback before dependencies or model binaries are added. LiteRT-LM or another generative runtime is not a default per-video detector.
+
+---
+
+## Privacy and safety principles
+
+StopSlop is designed to be local-first.
+
+- Do not upload watched videos, audio, frames, transcripts, captions, account data, or filter history to a remote classifier.
+- Do not access TikTok private storage, private caches, or process memory through unsupported mechanisms.
+- Do not use root, Shizuku, VPN interception, or hidden APIs as a shortcut to feed access.
+- Use only the data and extension APIs available through the verified in-process patch integration and required local Android APIs.
+- Keep diagnostic records bounded and avoid raw caption/transcript logging by default.
+- Store only stable identifiers/fingerprints that have a demonstrated purpose.
+- Provide clear reset/clear behavior for any future local history.
+- On missing metadata, timeout, exception, model absence, or unsupported build, use `UNKNOWN` and keep the post.
+
+These are project design requirements. They do not imply that every current component has already been audited or that the project has received an independent security review.
+
+---
+
+## Development roadmap
+
+The roadmap is milestone-based. Complete and review one milestone at a time. Do not implement later features by adding placeholder switches that imply functionality.
+
+### M0 - current-state reconciliation
+
+**Goal:** align the written plan with the active source tree and identify the exact current baseline.
+
+Inspect only the relevant repository instructions, current Git status/branch, build output configuration, compatibility declaration, StopSlop preference/settings files, and feed-filter implementations/registrations.
+
+**Deliverables:**
+- active repository and architecture;
+- exact TikTok package, version, and versionCode where declared;
+- exact `.mpp` build task and output path;
+- implementation/hook/device-verification status for each current filter;
+- list of inherited features still registered;
+- contradictions between source and roadmap.
+
+**Restrictions:** read-only. No broad repository dump, tests, builds, Gradle, ADB, or emulator work.
+
+### M1 - lightweight legacy cleanup
+
+**Goal:** remove only accidental clutter while preserving the working Morphe/TikTok patch project.
+
+First produce a short candidate list grouped into:
+- definitely safe to remove;
+- likely obsolete but needing proof;
+- preserve.
+
+Search references, reflection/naming conventions, Gradle generation, scripts, CI, release tasks, and external workflows before recommending removal. Do not delete anything until the candidate list is reviewed and approved.
+
+README/gallery screenshots and marketing artwork are handled in the final M11 presentation pass; this README is an early project overview and can evolve as the roadmap evolves.
+
+### M2 - stabilize current P0 filters
+
+Work one filter at a time:
+
+1. Verify the official ad/sponsorship data fields and hook.
+2. Verify the likes field, threshold comparison, and feed hook.
+3. Verify the official TikTok AI marker and its exact scope.
+4. Verify pause/master-enable and the reload action.
+5. Add concise decision reasons/status diagnostics without raw-content logging.
+
+**Acceptance criteria:** each enabled filter has a verified data source, registered hook, reason for its decision, fail-open path, and manual A25 result.
+
+### M3 - verify feed timing and decision boundary
+
+Trace the exact feed hook and establish whether a post can be filtered before the first visible frame. Document method signatures, fields, ordering, and timing. Do not claim pre-display filtering without evidence.
+
+### M4 - metadata topic filtering
+
+Add user-defined topic rules using only proven metadata. Planned rule types include phrases, hashtags, exclusions, and creator allowlists/blocklists. Keep the first implementation deterministic and explainable. Add ML only in a separately approved step.
+
+### M5 - metadata-based in-video promotion detection
+
+Evaluate URLs, promo codes, calls to action, affiliate patterns, brands, products, and caption signals. Avoid treating ordinary reviews or discussions as advertisements. The initial safe behavior may hide an entire video. Do not claim segment-only skipping until timestamp detection and seeking are demonstrated.
+
+### M6 - multimodal feasibility and local inference
+
+Research frame/audio availability, pre-display timing, Android runtime compatibility, model licenses, model size, delivery, and A25 resource cost. Do not add OCR, ASR, or model binaries speculatively.
+
+### M7 - official AI label and AI/slop analysis
+
+First stabilize the official TikTok-provided AI-generated label if exposed by the verified hook. Evaluate probable synthetic-content detection and low-quality/repetitive AI-slop detection as separate concepts. An AI-generated video is not automatically slop. Use conservative confidence thresholds, clear reasons, and user overrides.
+
+### M8 - local filtered history and feedback
+
+Add bounded local history with a timestamp, stable post ID/link when available, creator, matched rule, reason, and confidence. Add feedback such as allow this post, allow creator, block creator, or refine topic. Do not archive complete videos by default.
+
+### M9 - model management and diagnostics
+
+Only after a real model is selected, add version, hash, license, size/integrity checks, explicit install/import/delete controls, lazy loading, resource release, failure fallback, and compact diagnostics.
+
+### M10 - A25 performance, then A12 compatibility
+
+Measure feed latency, detector latency, memory, CPU/accelerator use, heat, and battery on the Galaxy A25 5G. Then evaluate a Galaxy A12 profile. Provide a deterministic/rule-only fallback when a model is too slow or unavailable.
+
+### M11 - final product identity, screenshots, README gallery, and release presentation
+
+This is the **final presentation pass**, after runtime behavior and the settings UI stabilize.
+
+- Finish remaining user-facing StopSlop branding.
+- Audit and replace remaining obsolete visual assets where appropriate.
+- Capture real screenshots from the actual app/device and supported build.
+- Replace this early README presentation with final screenshots, gallery, polished feature descriptions, and current compatibility information.
+- Update release notes and user documentation together.
+- Preserve upstream/legal attribution and source notices.
+
+Do not add fake screenshots, fabricated metrics, or claims about unimplemented features.
+
+### M12 - release and version maintenance
+
+Verify exact TikTok package/version/versionCode, signer/hash, and Morphe/HushFeed compatibility. Use only a target supported by the source. Do not force fingerprints to match. Keep a known-working `.mpp`, a secure signing-key backup outside Git, and a rollback artifact. After TikTok updates, re-audit hook fingerprints and manually validate on A25 before A12.
+
+---
+
+## Build from source
+
+> The commands below describe the reported current workflow. The exact target versions and compatibility matrix remain subject to M0 reconciliation.
+
+### Requirements
+
+- Windows with PowerShell, or another environment supported by the repository's Gradle wrapper.
+- A compatible JDK as required by the checked-in Gradle wrapper and Android Gradle Plugin configuration.
+- Android build tooling and any dependencies declared by the repository.
+- Access to required upstream package registries when dependencies are not already cached.
+- A compatible Morphe Manager workflow and a legally obtained TikTok package/build supported by the patch source.
+
+Do not assume that the JDK, Gradle, Android Gradle Plugin, or TikTok target mentioned in an old log is still the authoritative version. Inspect the wrapper and project build files first.
+
+### Clone the repository
 
 ```powershell
-java -jar morphe-desktop-all.jar patch -p patches.mpp -e "Show author region" -Oshow_author_region=true -Oregion_as_flag=true tiktok.apk
+git clone https://github.com/marcel322gg-png/StopSlop.git
+cd StopSlop
 ```
 
-For repeat builds, `options-create -p patches.mpp -o options.json` writes every option to a file you can edit and pass back with `--options-file`. A setting shared by two patches needs the same value in both, or patching stops and says which one conflicts. The keys are in [the patch catalog](patches-list.json).
+### Check the working tree
 
-## Settings
+```powershell
+git status --short
+git branch --show-current
+```
 
-Besides the row at the top of TikTok's **Settings and privacy**, two shortcuts skip Profile and work while you're signed out: press and hold **For You** at the top of the feed, or long-press **Home** on the bottom bar. A quick tap on either still does what it always did. The Home shortcut needs **Feed tab navigation** selected along with **Settings** when you patch, and it's the one to use if you've hidden the tab names at the top of the feed.
+Do not overwrite or discard local changes when switching branches or updating dependencies.
 
-The search box finds controls by title or description and flips a plain switch right in the results. In unreleased builds, categories open and collapse directly beneath their main-list rows. Several can stay open at once. Hold a result switch to reveal its control in that same list; screen readers offer **Open setting location**. Back dismisses search first. Quick setups has been removed.
+### Build the Morphe patch bundle
 
-The status chip next to the StopSlop title scrolls down to the full status card. About StopSlop has the build details and the license notices. **Report a problem** opens a GitHub bug report with your versions and the switches you have on filled in, and **Support StopSlop** opens Ko-fi. A few controls you'll want to know about:
+The last reported successful task was:
 
-- **Pause StopSlop**, under the StopSlop heading, turns the runtime features off from the next start and keeps every choice you made. [Is it StopSlop?](#is-it-stopslop-pause-it-and-see) lists what it can't reach.
-- **Backup and restore** saves your settings and Feature Gate Lab rules to a JSON file. A backup from an older StopSlop restores what it has and leaves the rest as you set it. Restore and reset keep one undo copy inside TikTok, but clearing TikTok's data takes that copy too, so back up to a file first.
-- **Import watch history**, under Feed filter > Seen videos, reads the JSON file from [your TikTok data download](https://support.tiktok.com/en/account-and-privacy/personalized-ads-and-data/requesting-your-data) so Hide already seen videos knows what you've watched. The file's dates don't name a time zone, so they're read in your phone's zone when you pick the file. It takes up to 2 MB and 10,000 entries.
-- **Diagnostics** exports a report you can attach to a bug, and the report stays on your phone until you share it. Its **Hook status** row says whether the hooks found what they need in your TikTok build. It hears from comments, comment translation, the inbox, the share sheet, the feed overlay, the bottom navigation and the story viewer, feed models, playback quality, sensitive warnings, CAPTCHA account state, the external browser, sticker saves and story saves. A switch can read on while its hook found nothing, and this row is how you'd know.
+```powershell
+.\gradlew.bat :patches:buildAndroid
+```
 
-Exported diagnostics have a PUSH DELIVERY section. Its counters cover stages observed in the current process. Zero means unobserved. During timed capture, actual notification attempts also record Android permission and channel state. Native registration tracing covers global TikTok 47.7.2, and any other build marks it unsupported. Shared upload counters cover all transports, and cache hits aren't fresh server acknowledgments. Tokens and message contents stay out of the report.
-- **Feature Gate Lab** changes values TikTok reads for its own features. Its reviewed presets show each value before you apply it, and Undo last Lab change puts the old ones back. A gate outside those presets can break sign-in or the feed, so leave it alone unless you know what it does.
+The previously reported output was:
 
+```text
+patches\build\release\patches-0.84.0.mpp
+```
 
-## Patches
+That filename is a historical example from the current development snapshot, not a promise that every future build will use the same version. Confirm the actual output path and build metadata after building.
 
-Simple mode in Morphe Manager selects 133 of these patches. Each row says what the patch does, whether its switch starts on or off, and where to find it. The other 18 stay out of the default selection, and you pick them in Expert mode:
+A `.mpp` file is a Morphe patch bundle. **It is not the final TikTok APK and is not installed as a standalone Android app.**
 
-- Change app name, Custom launcher icon, Hide Play Store update offer and Look like the store app change the app's name, icon, signature or version code.
-- Accent color, Block P2P video relay, Remove content credential and card scanner assets, Remove creation tools, Remove LIVE extras, Remove unused language packs and Remove voice tools change TikTok's files while patching. Only a fresh patch takes that back.
-- AMOLED dark theme repaints dark mode as soon as it's included, because its switch starts on.
-- Trust user certificates changes TikTok with no switch in front of it.
-- Feature Gate Recorder and Network request report only record what TikTok does, for research. Hide the risk control CAPTCHA sits on TikTok's account checks.
-- Region spoof changes the region TikTok sees on every read, sign-in included. Skip first-launch setup only helps when it's picked before TikTok's first start, so its switch starts on.
+### Build troubleshooting
 
-| Patch | Description |
+- Start with the exact Gradle error, not a speculative dependency upgrade.
+- Check the repository wrapper files and configured JDK before changing toolchain versions.
+- Do not commit local credentials, package registry tokens, keystores, signing keys, or generated APKs.
+- Use a user-local Gradle properties file or an approved secret store for credentials.
+- Do not paste tokens or signing secrets into issue reports, terminal transcripts, or Codex prompts.
+- Preserve the dependency verification metadata and existing version constraints unless there is a demonstrated compatibility issue.
+
+---
+
+## Applying a patch bundle
+
+The `.mpp` bundle must be applied using a compatible Morphe Manager workflow to a TikTok package/build supported by the current patches.
+
+1. Read the current compatibility declaration and release notes.
+2. Obtain the correct TikTok package/build through a source you are entitled to use.
+3. Use a Morphe Manager version compatible with the patch bundle and target build.
+4. Apply the `.mpp` following the Manager's documented workflow.
+5. Install the resulting patched client using the supported workflow for the device.
+6. Keep a known-working build and a rollback path before changing TikTok versions.
+7. Verify the StopSlop settings page and each filter independently on the target device.
+
+Exact package names, TikTok versions, Manager versions, fingerprints, and install steps are intentionally not hard-coded here until M0 establishes the current compatibility contract. A successful patch build alone does not establish installation or runtime compatibility.
+
+---
+
+## Manual verification
+
+Manual verification is the primary acceptance method for the current project stage. Do not report a filter as `DEVICE_VERIFIED` until it has been checked on a named device with the exact tested TikTok build.
+
+### Primary target
+
+| Device | Role | Status |
+|---|---|---|
+| Samsung Galaxy A25 5G | Primary development and behavior-verification target | Settings page was reported to open. Filter behavior still needs per-filter confirmation. |
+| Samsung Galaxy A12 | Lower-end compatibility target | Deferred until A25 behavior and performance are stable. |
+
+### Suggested verification record
+
+For every test, record:
+
+- date and device model;
+- Android version;
+- TikTok package name and exact version/versionCode;
+- Morphe Manager version;
+- StopSlop commit and `.mpp` build identity;
+- preference state and configured threshold;
+- test case and expected behavior;
+- observed behavior;
+- whether the item was hidden before first display;
+- logs or screenshots only when they are necessary and contain no secrets or sensitive account data.
+
+### Initial manual test cases
+
+| Area | Test | Expected result |
+|---|---|---|
+| Settings | Open StopSlop settings from the patched TikTok client. | Page opens without crash or blank state. |
+| Ads | Compare a clearly labeled supported ad with an ordinary post. | Only supported ad markers trigger the enabled rule. |
+| Sponsorship | Compare a supported paid-partnership marker with an ordinary product mention. | The configured marker is handled; ordinary mentions are not assumed to be sponsored. |
+| AI label | Compare a TikTok-labeled AI post with an unlabeled post. | Only the supported official marker is used by this filter. |
+| Minimum Likes | Test values below, equal to, and above the threshold. | Boundary comparison matches the documented rule. |
+| Fail-open | Test missing metadata or an unsupported post shape. | The post is kept; the feed remains usable. |
+| Pause | Pause StopSlop while individual filter preferences are enabled. | Filters stop acting without losing their individual preferences. |
+| Reload | Trigger the convenience action. | TikTok restarts/reloads as documented; no filter semantics are implied. |
+
+These are test proposals, not reported results.
+
+---
+
+## Repository layout
+
+The repository evolves from the existing Morphe/HushFeed-based source. The following is a high-level guide; exact paths should be confirmed against the current branch.
+
+| Path | Purpose |
 |---|---|
-| `Accent color` | Swaps the red of TikTok's main buttons and red text for blue, green, purple, orange, teal or a color code you type in this patch's options, or for the color of the phone's wallpaper theme on Android 12 and up. Unread dots and counts change with it. Warnings stay red, and so can icons with the red drawn in. The feed's like heart and save bookmark can take colors of their own. It's built in while patching, so only patching again without it undoes it. |
-| `Account cleanup` | Adds Remove all reposts, Remove all likes, Clear Favorites, Remove all comments, Remove selected comments and Unfollow accounts that don't follow you back to StopSlop settings > Privacy. Each one takes items off your account one at a time through TikTok's own requests, with a pause between them, and stops on the first error. A switch there also lets one tap remove a video from your own Liked videos, Favorites or Reposts. |
-| `Advanced downloads` | Adds more ways to save: pick the video quality, save full-size photos, the sound on its own or a photo post as one video, hold a profile picture or story to save it, save a story, a video's cover or a mini drama's episodes from the share sheet, put a save button on the video, and pick videos on a profile grid to save in one run. Starts off. Turn it on in StopSlop settings > Downloads. The save button's switch is in Feed screen > Buttons on videos. |
-| `Allow Duet and Stitch` | Shows the Duet and Stitch buttons on videos whose creator turned them off, so you can still make one, and Add to Story in the share sheet and on stories when the creator turned off content reuse. TikTok may still refuse some videos or the upload. Starts off. Turn it on in StopSlop settings > Share sheet. |
-| `Allow screenshots and Circle to Search` | Lets screenshots, screen recordings and Circle to Search work on TikTok screens that would otherwise come out black. Starts off. Turn it on in StopSlop settings > App, then restart TikTok. |
-| `Always show publish date` | Shows the date a video was posted next to the creator's name, so you can tell how old it is. It can also show the exact time, dates and lengths on profile grids, hide the view counts there, sort the videos a grid has loaded, start your Liked grid at a year or month you pick, or add a drag handle and jump buttons to long grids. On by default. Turn it off in StopSlop settings > Feed screen. |
-| `Always upload in HD` | Posts every video you upload in HD, as if you'd turned on TikTok's own HD upload setting each time. Videos TikTok doesn't count as high quality post as usual. Starts off. Turn it on in StopSlop settings > App. |
-| `AMOLED dark theme` | Makes TikTok's dark mode backgrounds pure black, or a dark color you pick in this patch's options. Black lets OLED screens switch those pixels off. Light mode doesn't change. On by default. Turn it off in StopSlop settings > App, then restart TikTok, and dark mode goes back to TikTok's own grays. |
-| `App lock` | Asks for your fingerprint, face or PIN before TikTok opens, and again when you come back after a time you pick, so nobody else can open it on your phone. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Automatic video advance` | Moves on to the next video by itself when one ends, so you can watch hands-free. It can also turn on TikTok's auto scroll in search results. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Block author button` | Adds buttons on videos to block the creator, hide them only on your phone, or block the sound, so you can get rid of what you don't want in one tap. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Block contact list access` | Gives TikTok an empty contact list when it tries to read your phone's contacts, so it can't use them to suggest friends. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Block installed app scanning` | Gives TikTok an empty list when it asks which apps are on your phone, so it learns less about you. Opening another app from TikTok still works. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Block P2P video relay` | Removes the files TikTok uses to pass videos on to other viewers through your phone's internet connection. The app gets about 4.5 MB smaller. It's built in while patching, so only patching again without it brings them back. |
-| `Block popups` | Lets you stop TikTok's popups, like friend suggestions and offers. Each one joins a checklist after it first appears, and once ticked it won't come back. Sign-in, age and verification screens are never blocked. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Block suggested video notifications` | Stops TikTok's "Videos you might like" notifications about popular videos it picked for you. Messages, comments, likes and posts from people you follow still come through. On by default. Turn it off in StopSlop settings > Inbox. |
-| `Camera and microphone indicator` | Shows a small mark in the top corner while TikTok is using the camera or microphone, so you always know when it is. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Change app name` | Shows a name you choose under the app icon, so the patched TikTok is easy to tell apart from another copy. Type the name in this patch's options. Inside the app it still says TikTok. |
-| `Comment publish diagnostics` | Adds a note to StopSlop's diagnostic report about how far a comment got when it fails to post, which helps track down comments that vanish without an error. Works as soon as you patch it in, with no switch. |
-| `Comment send fix` | Fixes comments that TikTok sometimes drops without any message, so the comment you send actually posts. Works as soon as you patch it in, with no switch. |
-| `Comment sort controls` | Shows TikTok's full comment sort menu on every video, with hot, newest, media and creator options, even when your account only got a cut-down version. Starts off. Turn it on in StopSlop settings > Comments. |
-| `Comment tools` | Hides comments with words you pick or from accounts you pick, and adds a search box for a video's comments. It can also make links tappable and show poll results before you vote. Starts off. Turn it on in StopSlop settings > Comments. |
-| `Confirm feed interactions` | Asks for a second tap before Follow, a like, or a quick repost goes through, so a stray tap doesn't count. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Copy bio and IDs` | Lets you long-press a bio to copy it, makes the @names in a bio open those profiles on a tap, and adds share sheet buttons that copy a display name, username, user ID or video ID. On a profile card inside a LIVE room, long-press the bio or the name to copy it, long-press the username for the user ID, or tap the copy mark by the username. On by default. Turn it off in StopSlop settings > App. |
-| `Copy comments without username` | When you copy a comment, you get just its text, without the username in front. On by default. Turn it off in StopSlop settings > Comments. |
-| `Create stickers` | Adds a Create button to the Saved page of the comment sticker panel. Pick a photo and it turns into one of your saved stickers. Make sticker in a video's share sheet opens TikTok's sticker editor for any video, or uses its cover when the editor can't open. Profiles that have stickers keep their Stickers tab, and it opens their sticker sets. Works as soon as you patch it in, with no switch. |
-| `Custom launcher icon` | Gives TikTok's home screen icon a themed version that takes your wallpaper's color on Android 13 and up. The options can also make it black, plain, Material You, any background color or your own picture, and put StopSlop's H in the status bar. With `Pick the icon in StopSlop` on, an App icon row under Appearance switches between all of them on Android 8 and up, no repatch needed. Only patching again without it puts the old icons back. |
-| `Custom offline videos limit` | Lets you pick how many videos TikTok saves for watching offline, from 1 to 10,000, and keep them until you delete them. Handy when you're often without internet. Starts off. Turn it on in StopSlop settings > Downloads. |
-| `Device privacy guard` | Stops TikTok reading what you copied and gives it a blank advertising ID. Can also hide a VPN connection and root status with details about root tools, and give TikTok a new device identity. Each switch starts off in StopSlop settings > Privacy. Changing Hide root needs a restart. |
-| `Diagnostic tools` | Adds logs and reports you can save or share when something goes wrong, so a problem is easier to report and fix. Starts off. Turn it on in StopSlop settings > Diagnostics. |
-| `Disable login requirement` | Stops TikTok from forcing you to sign in before you can keep browsing. Works as soon as you patch it in, with no switch. |
-| `Disable screen capture detection` | Stops TikTok from noticing and reacting when you take a screenshot or record the screen. Works as soon as you patch it in, with no switch. |
-| `Disable telemetry` | Stops TikTok sending usage statistics and crash reports to TikTok and the tracking services it uses, so less of what you do in the app leaves your phone. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Disable the long press quick share` | Stops a long press on Share from opening TikTok's quick share, so you don't send a video by accident. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Disable the long press repost` | Stops a long press on Like from opening TikTok's repost option, so you don't repost by accident. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Double-tap controls` | Lets a double tap on a video do nothing, open its comments, copy the link, save the video, its sound or the frame on screen, name the song with Shazam, speed the video up, or set a sleep timer instead of liking it, so you don't like videos by accident. Each corner of the video can get its own action too. Starts off. Pick an action in StopSlop settings > Feed screen. |
-| `Downloads` | Saves videos and photos without TikTok's watermark, even when the creator turned downloads off. You can also choose the folders and file names. On by default. Turn it off in StopSlop settings > Downloads. |
-| `Drop the animated image cache` | Lets you make TikTok decode animated stickers and GIFs one frame at a time as they play, instead of a few frames ahead, so they use a little less memory. Starts off. Turn it on in StopSlop settings > App. |
-| `Enable voice comments` | Lets you turn on TikTok's voice comments, so you can record and post a spoken comment, for accounts that don't have them yet. It hasn't been tried on a real account, so it may not work. Starts off. Turn it on in StopSlop settings > Comments. |
-| `Expand activity list` | Shows the whole Activity and New followers lists in the Inbox, so you don't have to tap View all. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Feature Gate Lab` | Adds an advanced page that lists the hidden settings TikTok uses to test features and lets you change them. It's for people who like to experiment. Starts off. Turn it on in StopSlop settings > Diagnostics. |
-| `Feature Gate Recorder` | Records which hidden TikTok settings the app reads while you use it, and which ones changed. It's a research tool and changes nothing in TikTok. Start a recording in StopSlop settings > Diagnostics. |
-| `Feed filter` | Hides ads in the feed, and lets you hide other things you don't want to see, like LIVEs, Shop posts, AI videos or videos with words, creators or sounds you pick. Hiding ads is on by default. Everything else starts off in StopSlop settings > Feed filter. |
-| `Feed tab navigation` | Lets you hide feed and bottom tabs you don't use, put Discover in the bottom bar and Friends in the top tabs, rename the bottom tabs, pick the bottom bar's icons and height, choose the tab TikTok opens on, stop For You reloading when you tap Home and hold Profile to open your Watch history. Starts off, except holding Home to open StopSlop settings. Find it in StopSlop settings > Feed tabs. |
-| `Feed text sizes` | Lets you make video descriptions, creator names and post dates bigger or smaller, or give them a color and a backdrop, so they're easier to read. Starts off. Pick them in StopSlop settings > Feed screen. |
-| `Fit the video to the screen` | Shows the whole video instead of cutting off its sides on folding phones, squarer screens and split screen, and fits photo slideshows whole on squarer screens. Four more switches cover the whole screen instead. One crops the video, one stretches it, one does a little of each and one keeps the middle at its own shape and stretches only the top and bottom. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Fix Google login` | Makes Sign in with Google work in the patched app, where it would otherwise fail. Works as soon as you patch it in, with no switch. |
-| `Fix Spotify login` | Makes Add to Spotify work in the patched app. The Spotify app turns down a patched TikTok, so you sign in on Spotify's own page instead. Works as soon as you patch it in, with no switch. |
-| `Foldable split comment view` | On a folding phone or tablet, shows comments beside the video instead of over it when the screen is wide enough. Starts off. Turn it on in StopSlop settings > App. |
-| `Follow diagnostics` | Tells you when TikTok quietly turned down a follow, and why, since the app shows it as if it worked. With diagnostic logging on, the details go in the report too. Works as soon as you patch it in, with no switch. |
-| `Freeze TikTok's experiments` | Lets you keep the settings TikTok's servers sent it so far. TikTok tests new layouts and features on people by sending new ones all the time, and with this on it ignores them. Starts off. Turn it on in StopSlop settings > App. |
-| `Ghost mode` | Stops TikTok telling people you viewed their story or profile, or that you're typing. What TikTok already recorded stays. Each of the three has its own switch under it, and separate ones hide your online status, let you watch LIVEs unseen and keep your likes on the phone. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Group likes per comment` | Shows one row in the Inbox's Likes list for each comment or video people liked, with everyone counted, instead of a new row every few likes. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Hide already seen videos` | Remembers the videos you've watched and hides them when the feed sends them again, so you only see new ones. It can also keep a watch history you can search and reopen videos from. Both stay on your phone. Starts off. Turn them on in StopSlop settings > Feed filter. |
-| `Hide CAPTCHA popups` | Skips the puzzle TikTok shows while you're just browsing. A puzzle right after you like, follow, comment or repost still shows, and so do sign-in, SMS and two-step checks. Starts off. Turn it on in StopSlop settings > Feed screen, then restart TikTok. While it's off, the first browsing puzzle of a session shows a short note naming it. |
-| `Hide comment popup ads` | Stops the brand animation that pops up over the comments when someone types a word or emoji an advertiser paid for. Starts off. Turn it on in StopSlop settings > Comments. |
-| `Hide feed follow button` | Removes the + follow button under creators' pictures on the feed, so you don't follow someone by accident. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Hide feed LIVE button` | Removes the LIVE button and the side menu button from the top left of the feed, for a cleaner screen, and can stop a right swipe on For You from opening the side menu. Each has its own switch, and all start off. Turn them on in StopSlop settings > Feed screen. |
-| `Hide feed save button` | Removes the save button from the right side of the feed, for a cleaner screen. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Hide feed search button` | Removes the search button from the top right of the feed and the one over the video while comments are open. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Hide floating promotions` | Hides the floating promotion badges, coins and timers on the feed, and can hide the rewards button on your profile. Starts off. Turn it on in StopSlop settings > Feed screen, and App for the rewards button. |
-| `Hide inbox items` | Lets you hide Inbox rows you don't use, like message requests, TikTok Shop, the stories row and the On this day memory in it, plus call buttons and suggested replies in chats. Each has its own switch. Also offers search in loaded Activity notifications, lets you pin more than 5 chats and can show the time under each chat message. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Hide inbox stories` | Hides the row of stories at the top of the Inbox. It uses the same switch as Hide inbox items. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Hide comment typing suggestions` | Hides the emoji and sticker suggestions that pop up above the comment box while you type. The emoji and sticker buttons still work. Starts off. Turn it on in StopSlop settings > Comments. |
-| `Hide profile shortcuts` | Hides the shortcuts you pick from the row under a profile's bio, like TikTok Studio or Your orders, and the profile tabs you pick, like Reposts or Liked videos, with the tabs that stay in your order. It can hide the Thoughts bubble and the Add bio prompt, plus Balance and the TikTok Minis icons in your profile's menu. It can also turn Thoughts on for accounts TikTok left out. Starts off. Turn it on in StopSlop settings > App, then restart TikTok. |
-| `Hide read receipts` | Stops TikTok telling people you've read their messages. Your own unread badges still clear as usual. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Hide search suggestions` | Hides the searches TikTok suggests before you type, and can hide the search rewards banner. Your own search history stays. Starts off. Turn it on in StopSlop settings > App. |
-| `Hide suggested accounts` | Hides TikTok's People you may like suggestions in the Inbox, on profiles, on the Friends tab and in the feed. It uses the same switch as Hide inbox items. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Hide the launcher shortcuts` | Empties the menu that pops up when you press and hold TikTok's icon on your home screen. Tapping the icon still opens the app. Starts off. Turn it on in StopSlop settings > App. |
-| `Hide Play Store update offer` | Stops the Play Store offering to swap the patched TikTok for the store version. The catch: a build with a lower version number won't install over it, and uninstalling to go back can erase TikTok's data on your phone. |
-| `Hide the risk control CAPTCHA` | Lets Hide CAPTCHA popups also skip the puzzle TikTok's account safety check raises while you're just browsing. SMS and two-step checks always show. It sits on TikTok's account checks, which is why it isn't picked for you. |
-| `Hide video overlays` | Lets you hide clutter over videos, like the caption, the music line, buttons on the right, surveys and location labels, so you see more of the video. It can also make the music disc spin again or keep it still. Each has its own switch. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Hold-and-slide 2x lock` | Turns on TikTok's own gesture where you hold a video, slide down and let go to keep it playing fast without holding. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `In-app browser privacy guard` | Stops websites you open in TikTok's built-in browser from reaching into the TikTok app. TikTok's own pages, like Watch history and checkout, keep working. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Keep a streak going` | Sends a daily message you choose to people you pick, at a time you set, so your message streaks keep going on days you don't open TikTok. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Keep playing in the background` | Keeps the video playing when you leave TikTok or turn the screen off, with a notification to pause it. It can also start the video over when it ends. Handy for music and talks. If you only want it on some videos, a second switch adds TikTok's own row to the long-press menu. Starts off. Turn it on in StopSlop settings > Playback, then restart TikTok. |
-| `Keep pulled sounds` | Plays the sound on videos TikTok muted for copyright or because of where you live. TikTok may still say the sound isn't available. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Keep recent stickers` | Adds Recently used above Saved in the comment sticker panel, with the last stickers you sent, and keeps it when you close and reopen the app. Works as soon as you patch it in, with no switch. |
-| `Keep the app language` | Lets you keep the language you picked in TikTok's own settings. When TikTok starts and decides the phone's language changed, it drops that pick and follows the phone, which can leave it in the wrong language after a reboot. Starts off. Turn it on in StopSlop settings > App. |
-| `Keep the Favorites tab` | Keeps the Favorites tab and your saved videos on your profile when TikTok tries out a version of the app that hides them, and makes the collections popup you get by holding the Favorites button dark when TikTok is. Both are on by default. Turn them off in StopSlop settings > App. |
-| `Keep the next videos in full screen` | From most pages, TikTok's full screen view opens with only the video you were on, so there's nothing to swipe to and it can't move on by itself. This brings the videos after it along. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Keep the screen's brightness in the camera` | Stops TikTok from turning your screen brighter while you film, edit or post a video. Starts off. Turn it on in StopSlop settings > App. |
-| `Keep unsent messages` | Keeps a message in your chat when the other person unsends it, instead of removing it, and can mark it as unsent. A button removes the kept messages. Messages you unsend yourself are still removed. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Report a newer phone to effects` | Tells TikTok's effects server you have a newer phone, so effects it turns down on older phones get another chance. It says Galaxy S24 Ultra, or the phone you pick or type under it. Starts off. Turn it on in StopSlop settings > App. |
-| `Report a newer phone to game LIVE` | Tells TikTok's LIVE server you have a Galaxy S25 Ultra while you set up a LIVE, so a game LIVE can offer qualities it holds back from some phones. Starts off. Turn it on in StopSlop settings > App. |
-| `Keep the screen's refresh rate` | Stops TikTok slowing your screen down to the video's frame rate, so scrolling stays smooth on 90 or 120 Hz phones. TikTok doesn't ask on every phone, and where it doesn't, this changes nothing. Starts off. Turn it on in StopSlop settings > App. |
-| `Lift text length limits` | Lets you write longer comments, repost notes and bios than the app normally allows. TikTok can still refuse one that's too long. Starts off. Turn it on in StopSlop settings > Comments. |
-| `Limit background traffic` | Lets you stop TikTok loading upcoming videos ahead of time, which uses less data in the background, but videos may take a moment longer to start. Starts off. Turn it on in StopSlop settings > App. |
-| `LIVE controls` | Stops a LIVE in the feed from opening by itself after a countdown. It can show a LIVE's exact viewer count instead of a rounded one, offer a quality choice and clear screen in more LIVE rooms, keep clear screen on as you swipe to the next room, and keep your quality pick after TikTok restarts (on by itself once the quality choice is). Starts off. Turn it on in StopSlop settings > Playback. It also keeps a LIVE in the feed from showing the Service+ row of the LIVE before it (or hides that row altogether), can hide the AI summary on LIVE previews, and can add a Record button to a LIVE room that saves what you watch from when you tap it. |
-| `Load all saved stickers` | Loads every sticker you saved in one go when you open the sticker panel, instead of the first 100. Works as soon as you patch it in, with no switch. |
-| `Location access governor` | Gives TikTok no location when it asks, so it can't see where you are from your phone's location services. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Long-press controls` | Lets a long press on a video like it, open the comments, copy the link, save the video, its sound or the frame on screen, name the song with Shazam, or set a sleep timer, and can give a creator's videos For You's full long-press menu. Starts off. Pick an action in StopSlop settings > Feed screen. |
-| `Look like the store app` | Makes the patched app answer TikTok's checks as if it came from the Play Store, which can help when follows or likes undo themselves. TikTok has other checks, so it may not be enough. On once picked. Turn it off in StopSlop settings > App. |
-| `Mute feed videos` | Mutes feed videos without changing your phone's volume, so music from another app keeps playing. You can also add a mute button on videos, or keep the sound and let other apps play until a video starts and after you leave it. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Network proxy` | Sends TikTok's feed, search and comments through a proxy server you set up. Videos and LIVEs still load directly, and so do StopSlop's own saves and short-link lookups. HTTP and SOCKS5 both work, with or without a password. Other apps aren't affected. Starts off. Turn it on in StopSlop settings > Region, then restart TikTok. |
-| `Network request report` | Counts the requests TikTok sends to its servers and adds the totals to the diagnostic report. It changes nothing in TikTok, but it has no switch and most people don't need it. |
-| `Not interested button` | Adds a button on videos that tells TikTok you're not interested in one tap, so it can show you fewer like it. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Notification controls` | Lets you turn off new follower notifications and streak reminders, which TikTok has no switch for, or turn off TikTok's notifications altogether. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Open external links directly` | Opens website links from profiles and stories in your phone's own browser instead of TikTok's built-in one. On by default. Turn it off in StopSlop settings > Privacy. |
-| `Open the comments at full height` | Opens the comment sheet at the full height of the screen instead of part way up. Starts off. Turn it on in StopSlop settings > Comments. |
-| `Picture-in-picture` | Keeps the video playing in a small window when you leave TikTok, so you can keep watching while you use other apps. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Play original audio` | Plays videos and mini dramas with their original audio instead of TikTok's AI dub in your app language. Captions and translations stay as they are. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Play SDR instead of HDR` | Plays the normal version of HDR videos, so your screen doesn't suddenly jump to full brightness. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Playback quality` | Lets you choose the video quality, like highest, lowest or 720p, and set a lower quality for mobile data to use less data. Starts off. Pick a quality in StopSlop settings > Playback. |
-| `Playback speed` | Remembers the speed you picked for the next video, and lets you set a default speed, add speeds up to 3x to the menu and choose the speed for press and hold. On by default. Turn it off in StopSlop settings > Playback. |
-| `Prefer H.264 playback` | Plays videos in an older format your phone decodes more easily, which can help older phones play smoothly and run cooler. Videos without it play as before. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Profile background` | Opens TikTok's own profile background editor in Edit profile on accounts TikTok hasn't offered it to yet, and shows the backgrounds other profiles have set. TikTok's servers may still refuse to save one for such an account. Starts off. Turn it on in StopSlop settings > App. |
-| `Region spoof` | Makes TikTok's region and time zone match the country you set for SIM spoof. It changes every region check, sign-in included, and its store region switch is experimental, so it isn't picked for you. Starts off. Turn it on in StopSlop settings > Region. Its `LIVE feed countries` row asks the LIVE feed for rooms from the countries you list, with or without the switches. |
-| `Remember clear display` | Keeps clear display, TikTok's mode that hides the buttons over a video, on as you swipe to the next video (`Keep Clear display across videos` turns that part off). It can also turn on by itself after a delay you pick, which starts off in StopSlop settings > Feed screen. When clear display ends, the Following stories bubble TikTok hid comes back too. |
-| `Remove avatar rings` | Takes the story and LIVE rings off profile pictures, so tapping a picture opens the profile instead of a story or LIVE. It can also open a LIVE creator's Story from their profile picture or their chat in the Inbox. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Remove content credential and card scanner assets` | Removes TikTok's payment card scanner and content credential files, saving about 11 MB of storage. Anything in TikTok that needs them may stop working. Only patching again without it brings them back. |
-| `Remove creation tools` | Removes two effects engine libraries TikTok doesn't load for the camera, effects, Retouch or the video editor, saving about 45 MB. Those all keep working. If a creation tool ever closes TikTok, repatch without this one. |
-| `Remove LIVE extras` | Removes the script for games inside LIVEs and turns off animated gift effects. It saves very little space. The catch: LIVE games and animated gifts may stop working. Co-hosting, joining a LIVE as a guest, invitations and battle scores aren't touched. |
-| `Remove unused language packs` | Removes the app languages you don't list in this patch's options, saving up to about 26 MB of storage. English is always kept. With no list it keeps them all. Only patching again brings removed ones back. |
-| `Remove voice tools` | Removes TikTok's speech recognition files, saving about 16 MB of storage. The catch: voice search, naming a song by listening, talking to TikTok's AI assistant and TikTok's music check on videos you post all stop working. Only patching again without it brings them back. |
-| `Repost diagnostics` | With diagnostic logging on, notes when you repost a video and what TikTok answered, to help track down reposts that don't stick. Works as soon as you patch it in, with no switch. |
-| `Resource and battery governor` | Stops TikTok reading your phone's motion sensors, which it can use to identify your phone, and stops a background speed test that can use a lot of memory. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Resume videos after scrolling` | When you scroll back to a video, it picks up where you left off instead of starting over. On by default. Turn it off in StopSlop settings > Playback. |
-| `Run beside the store app` | Lets a renamed copy of TikTok, made with Morphe's Clone app patch, sign in while the regular TikTok stays installed. It's in the default selection and does nothing unless Clone app renamed the package. If Google sign-in fails in the copy, use email or phone. |
-| `Sanitize sharing links` | Removes the tracking codes from TikTok links you share, so the link carries less about you. It can also swap tiktok.com for another site. On by default. Turn it off in StopSlop settings > Privacy. |
-| `Settings` | Adds the StopSlop settings page to TikTok, at the top of Settings and privacy. Pressing and holding For You at the top of the feed opens it too. That's where you turn StopSlop's features on and off, and pick any of TikTok's own Settings and privacy rows to hide. Works as soon as you patch it in, with no switch. |
-| `Share sheet tools` | Lets you hide people, apps and buttons you don't use from the share sheet, add apps you do use, and copy a video's link with one press on Share. Starts off. Turn it on in StopSlop settings > Share sheet. |
-| `Show author region` | Shows the country a video was posted from next to the creator's name. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Show commenter handle and region` | Shows a commenter's @username in place of their display name and the country their account is set to after the comment's time. It can also give each commenter's name a color of its own. Each starts off. Turn them on in StopSlop settings > Comments. |
-| `Show engagement rate` | Shows how many people liked, commented on, shared or saved a video compared with how many watched it, next to the creator's name. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Show exact counts` | Shows likes, comments and other counts as full numbers, like 1,234,567 instead of 1.2M. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Show follow status` | Shows on a profile whether that person follows you back, and marks accounts in your follow lists that don't. On by default. Turn it off in StopSlop settings > App. Separate switches add the month an account was made and what changed on a profile since your last visit. Optional local counts and appearance controls apply to your own profile. |
-| `Show LIVE search` | Adds TikTok's search button inside the LIVE section where TikTok supports it, so you can look for LIVEs. Starts off. Turn it on in StopSlop settings > App. |
-| `Show the progress bar` | Shows the progress bar on videos where TikTok hides it, so you can see how long a video is and skip around. On by default. Turn it off in StopSlop settings > Playback, where you can also show the time beside the bar or give it a bigger handle. Seek bars for video stories and sound previews are there too. |
-| `Show the progress bar thumbnail` | Shows a small preview picture while you drag the progress bar, so you can find the part you want. On by default. Turn it off in StopSlop settings > Playback. |
-| `SIM spoof` | Makes TikTok see the SIM country and carrier you choose. It may not change your region, since TikTok also goes by your internet connection and account. Starts off. Turn it on in StopSlop settings > Region. |
-| `Skip content warnings` | Plays videos without the warning screen you'd have to tap through first, and can hide the Check sources and Check your sources banners. Starts off. Turn it on in StopSlop settings > Feed screen. |
-| `Skip first-launch setup` | Skips TikTok's setup screens on a fresh install, like the interest picker and the swipe tutorial. Sign-in and age screens still show. Its switch is on once picked, since setup runs before you can reach settings. Turn it off in StopSlop settings > App. |
-| `Skip passkey sign-in` | Lets you sign in another way, like your password or a code by email or text, when TikTok wants a passkey. Password managers won't hand a passkey to a patched app, so that step can't finish here. With the switch on, TikTok treats your phone as one without passkeys. Starts off. Turn it on in StopSlop settings > App. |
-| `Skip the splash ad` | Lets you stop the full-screen ad TikTok can show while it starts up. Starts off. Turn it on in StopSlop settings > App. |
-| `Skip update checks` | Lets you stop two background tasks TikTok uses to check for updates, one of them when your phone starts. Some in-app update prompts may stop. Play Store updates still work. Starts off. Turn it on in StopSlop settings > App. |
-| `Smaller text sizes` | Adds three stops below the smallest size on TikTok's own Text size slider, so text and everything around it can be smaller than TikTok allows. Starts off. Turn it on in StopSlop settings > App, then pick a stop in Settings and privacy > Accessibility > Text size and restart TikTok. |
-| `Split activity list` | Shows the Inbox's Activity page as two lists, your newest comments on top and likes below, each scrolling on its own, with a bar between them that swaps them or hides the lower one. Starts off. Turn it on in StopSlop settings > Inbox. |
-| `Stay on the video in full screen` | When a video ends in TikTok's full screen view, it stays on that video instead of moving to the next one. Swiping still moves on. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Stop on-device AI profiling` | Lets you stop TikTok's built-in AI engine from starting, so it doesn't get a copy of everything TikTok logs about your use. TikTok works as if the engine weren't there. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Stop recording watch history` | Stops TikTok adding the videos you watch to your Watch history. The catch: your views stop counting, and For You learns less about what you like. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Stop saving search history` | Stops TikTok saving your new searches on your phone. Older searches stay until you delete them, and TikTok's servers may keep their own record. Starts off. Turn it on in StopSlop settings > Privacy. |
-| `Stop search autoplay` | Stops videos in search results from playing by themselves. Each one shows its cover until you open it, so searching stays quiet. Starts off. Turn it on in StopSlop settings > App. |
-| `Stop video looping` | Stops a video at its end instead of playing it again. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Story controls` | Lets a story replay when it ends instead of moving on, and keeps a photo story on screen until you tap or swipe. Starts off. Turn it on in StopSlop settings > Playback. |
-| `Subtitle tools` | Lets you make captions bigger, change their background and keep them in clear display, bring back TikTok's captions switch where it's missing, and save subtitle files with downloaded videos. Starts off. Turn it on in StopSlop settings > Feed screen, and Downloads for subtitle files. |
-| `Swipe-left controls` | Lets a left swipe on a video open its comments, open the popup that saves it to one of your collections, or do nothing, instead of opening the creator's profile. Starts off. Pick an action in StopSlop settings > Feed screen. |
-| `Translate comments` | Translates comments as they load, using TikTok's own translator, so you don't have to tap Translate on each one. Starts off. Turn it on in StopSlop settings > Comments, where more rows list languages TikTok's automatic translation should leave alone, keep videos in the language they were made in, pick the language translations come out in, and add TikTok's translate button beside the comment count. |
-| `Trust user certificates` | Lets TikTok trust security certificates you install yourself, so a tool like mitmproxy can show what the app sends. The risk: anyone who gets a certificate onto your phone can read TikTok's traffic too. Use it only on a test phone. |
-| `Turn off haptics` | Stops the little vibrations TikTok makes when you tap or hold things. Your keyboard and your phone's own vibrations stay. Starts off. Turn it on in StopSlop settings > App. |
-| `Turn off screen transitions` | Opens and closes TikTok's screens without the sliding animation, so moving around feels quicker. Swipes still follow your finger. Starts off. Turn it on in StopSlop settings > App. |
-| `Turn profiles and comment pictures on tablets` | On a tablet where TikTok lets its main screen turn, a profile opened from search and a comment's picture turn with it instead of flipping the screen to portrait. Works as soon as you patch it in, with no switch. |
-| `UI scale` | Makes TikTok's whole interface smaller, text and buttons alike, so more fits on screen. Starts at 100%, which changes nothing. Pick a size in StopSlop settings > App, then restart TikTok. |
-| `Use non-personalized search` | Shows search results that aren't tailored to your account. Starts off. Turn it on in StopSlop settings > App. |
-| `Use system font` | Shows TikTok's text in your phone's own font or in a .ttf or .otf font file you import, instead of TikTok's, and can use your phone's emoji too. Starts off. Turn it on in StopSlop settings > App, then restart TikTok. |
+| `patches/` | Morphe patch source, bytecode/resource integrations, and patch build configuration. |
+| `patches/src/main/resources/` | Patch resources and settings-default metadata. |
+| `patches-list.json` | Patch declarations and metadata consumed by the patch workflow. |
+| `extensions/tiktok/` | TikTok extension-side runtime code, settings, preferences, and localization sources. |
+| `extensions/tiktok/src/main/l10n/` | Localization source tables. |
+| `assets/` | Project visual assets and documentation-related artwork. |
+| `gradle/` and Gradle wrapper files | Build tooling and dependency verification/configuration. |
+| `PROJECT_CONTEXT.md` | Short, active repository context for development tooling. |
+| `AGENTS.md` | Project-specific instructions for coding agents, if present. |
 
-Unreleased builds keep a profile grid's sort menu available after you choose Original order.
+Generated build outputs, local SDK settings, tokens, and signing material must not be committed unless a specific release process explicitly requires a public artifact.
 
-## Help
+---
 
-### Logging in fails
+## Development workflow
 
-- Turn off Private DNS, AdGuard or any other ad blocker while you log in. They can block the addresses TikTok checks a login against.
-- After several failed tries TikTok stops taking new ones for a while. Wait an hour, then try again.
-- Facebook login can't work on a patched build, because Facebook checks the app's signing key and yours isn't TikTok's. Log in with your email or phone number and a code, or with Google.
-- If a login stalls with Hide CAPTCHA popups on, turn it off and restart TikTok. None of the Feature Gate Lab presets touch a CAPTCHA.
+### One milestone at a time
 
-### Patching stalls partway
+- Keep each Codex task scoped to one milestone or one narrowly defined source change.
+- Inspect only the files needed for the task.
+- Read root `AGENTS.md` and `PROJECT_CONTEXT.md` when changing implementation.
+- Preserve all existing user changes and useful inherited features.
+- Report exact files changed and the evidence for behavior claims.
+- Do not run automated tests, Gradle, builds, ADB, or emulators unless explicitly requested. Build only when a `.mpp` artifact is needed for manual device verification or compilation was specifically requested.
+- Do not run broad repository audits repeatedly or dump whole source files into the prompt.
+- Do not use subagents unless explicitly approved.
 
-The manager has probably run short of memory. If it says the patcher ran out of memory with a 1024 MB or 1536 MB heap, patch the bundle (`.apkm`) from [step 1](#install) instead of the APK. It needs less memory, and on a 3 GB device it finished where the APK failed. In Manager 2.0, also check that **Use embedded VM** is on under **Settings > Patcher**, close other apps and start again. If it stops while Manager is in the background, allow it under **Battery optimization** on that same page. On an older Manager, set **Settings > Process runtime** to 1,024 MB instead, or 512 MB if it still stalls. If you picked `AMOLED dark theme`, turn off its `Switch in StopSlop settings` option and patch again. That switch changes TikTok's code across the whole app. It saves memory, but on a 32-bit Manager it isn't enough by itself for every StopSlop patch at once, so pick fewer patches there. Change app name, Custom launcher icon and Hide Play Store update offer decode resources too. You can leave them out if memory stays tight, except for Hide Play Store update offer when the installed copy already used it.
+### Git safety
 
-### Choosing patches
+Before work:
 
-Start with the recommended patches in Simple mode. Optional removal patches come with the feature losses listed in their descriptions. The release checks apply all compatible patches together. They don't cover every sign-in method or runtime combination.
-
-Pause can't put removed files back. To restore them, patch the original file from [step 1](#install) with those removal patches left out. Use the same signing key and the same package name as the installed copy, including the Clone app package name if you used it. Install over your existing copy without uninstalling it. If that copy used Hide Play Store update offer, keep it selected so the version code doesn't drop.
-
-### TikTok stays in English after removing language packs
-
-Remove unused language packs keeps every TikTok language until you list some in its **Languages to keep** option. `all` or a blank option keeps them all, and a list such as `en,tr` keeps just those. English always stays as the fallback. If you first picked this patch with a bundle older than v0.67.0, the option may still say `en`, so check it. StopSlop's own settings translations are separate from TikTok's language packs.
-
-Pause and a settings import can't bring back a language removed at patch time. Repatch a clean official APK with that language kept, using the same package name (Clone app included) and the same signing key, and install it over the existing app so your account stays. If you used Hide Play Store update offer, keep it selected so the version code doesn't drop.
-
-### A second TikTok beside the store app
-
-Select Morphe's Clone app patch, with its Update permissions and Update providers options left on, and keep StopSlop's Run beside the store app selected (Simple mode includes it). Clone app alone gives the copy a new package name that TikTok's servers won't issue a device ID to, so logging in fails. Change app name helps tell the two icons apart. Keep Fix Google login selected too. If Google sign-in still fails in the copy, log in with your email or phone number and a code.
-
-### Is it StopSlop? Pause it and see
-
-**StopSlop settings > Pause StopSlop** (under the StopSlop heading) turns off the runtime features from the next start. Your settings stay as they were, and turning Pause off brings them back after a restart. A diagnostic export made while paused says so at the top. If a problem stays while paused, compare with an official TikTok build before you blame any patch.
-
-Pausing turns off the screen-time budget as well, so with Wait a day to loosen the budget on, Pause is refused until the day starts over. App lock stays on, so pausing can't be used to get past it.
-
-A few patches change TikTok with no switch in front of them, and Pause can't reach those:
-
-- Settings itself, which is how you get back to the switch.
-- Accent color, Hide Play Store update offer, Change app name and Custom launcher icon.
-- Disable screen capture detection, Disable login requirement, Fix Google login and Fix Spotify login.
-- Block P2P video relay and the five patches that take files out of the app: Remove content credential and card scanner assets, Remove unused language packs, Remove creation tools, Remove LIVE extras and Remove voice tools.
-- In Downloads, the folder and file name you picked still apply, as do the fallback to a clean video address and the save button on stickers.
-
-### TikTok closes right after it opens
-
-If TikTok crashes within a minute of starting three times in a row, StopSlop pauses itself on the next start, and the top of StopSlop settings offers **Turn StopSlop back on**. TikTok may clear most of what it has saved after those crashes, so you might see its interest picker again, but your StopSlop settings survive.
-
-If you can't reach the settings at all, create an empty file named `hushfeed-safe-mode` in `Android/data/com.zhiliaoapp.musically/files/`. From a computer with adb that's `adb shell touch /sdcard/Android/data/com.zhiliaoapp.musically/files/hushfeed-safe-mode`. StopSlop stays paused while the file is there, and Turn StopSlop back on deletes it.
-
-### A save didn't finish
-
-If TikTok closes while saves are still going, the next time you open it the download recovery banner names the ones that didn't finish, or that StopSlop can't confirm, and how many of their files are missing. Files that already reached your gallery count as saved and are left alone. Nothing picks a save up again by itself, so save it again if you still want it. The note StopSlop keeps for this stays inside TikTok's own storage and holds no links or tokens. On Android 9 and older, a file that's still being written is noted by its own path, which is the name it's saved under and can include the creator and the video ID, until it's confirmed. Each save's entry goes when the save ends or once the banner has named it.
-
-In unreleased source builds, LIVE recordings keep recovery files inside the app until StopSlop verifies the saved copy. After an interruption, StopSlop tries to save the complete part. If it can't, Retry opens the retained recording's actions. You can retry saving it, export its files or delete them. Older files with an unknown save history and damaged recovery records offer export or deletion. Finish that recovery before starting another recording. Clearing the app's data or uninstalling it removes these files.
-
-For one-app recording on Android 14 or newer, unreleased builds keep TikTok in the recording prompt's recent-apps list. Choose its preview there. Each new recording opens Android's permission prompt again.
-
-### A photo post saved as a video still has TikTok's watermark
-
-A post that's one photo with a sound has no video on TikTok's servers, so TikTok's own Download builds one on your phone and adds its logo, the creator's handle and an end card. Choose Download image for a clean copy of the photo. Or turn on **Save photo posts as a video** under **StopSlop settings > Downloads**, and Download video makes the MP4 itself from the original photo and the post's sound, with no marks.
-
-### A LIVE bid or a payment fails
-
-A bid from a patched TikTok can fail with "Bidding is temporarily unavailable", and other payments may be refused the same way. TikTok's security library reads the app's signing certificate while it signs those requests, and a patched TikTok carries your manager's. Bid and buy from the official app.
-
-### Profile and Inbox are pure black, but I didn't pick AMOLED dark theme
-
-That's TikTok's own dark mode. It paints Profile and Inbox black and leaves the comment, share and search sheets dark gray. AMOLED dark theme is what turns those sheets black as well, and with a color picked in its options, Profile and Inbox take that color too. If you patched it in and want the grays back, turn off AMOLED dark mode in StopSlop settings > App and restart TikTok. That switch is only there when the patch's `Switch in StopSlop settings` option was left on.
-
-### Coming from Kveld
-
-StopSlop includes the eight Kveld TikTok optimizers it didn't already have, and its Feed filter and Disable telemetry cover Kveld's Feed Ad Blocker and Npth telemetry. Remove or turn off Kveld's TikTok patches after you switch. Kveld marks those eight shared names on by default, so keeping both sources selects them whether you wanted them or not.
-
-## Going back
-
-- **To plain TikTok.** Save your settings first if you might come back (**Backup and restore > Back up settings**). Then uninstall the patched TikTok and install TikTok from Google Play. Android won't put one over the other because they're signed with different keys, and uninstalling clears the app's data, so you'll log in again.
-- **To an older StopSlop.** Download that release's `.mpp` from the [releases page](https://github.com/SysAdminDoc/hushfeed/releases), load it in Morphe Manager as a local bundle, then patch and install as usual. With the same signing key it installs over the current build and keeps your login and settings.
-- **Keep the signing key.** Android only installs an update over the old app when both carry the same key. Don't reset the manager's key, and take it with you when you move to a new phone or reinstall the manager. A build signed with a new key means uninstalling first.
-
-## Supported target
-
-- App: TikTok, the global package `com.zhiliaoapp.musically`
-- Version: [47.8.3](https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/tiktok-47-8-3-release/), on APKMirror since 2026-11-16.
-- Build: version code 2024708030, arm64-v8a and armeabi-v7a, nodpi, minSdk 23
-- SHA-256 of the APK every patch was verified against: `30acb1301f97ae7cc51c820914ee021bc02ec80b717a126f4b01520f8c8643e0` (47.8.3)
-- Next release: TikTok 47.9.3, [on APKMirror](https://www.apkmirror.com/apk/tiktok-pte-ltd/tik-tok-including-musical-ly/tiktok-47-9-3-release/) since 2026-11-20 (version code 2024709030), SHA-256 `7321ae3537572004956e2308c7eb5b1d82e6eb536c2c2fac432f3d8a1801ff70`.
-- Next release, TikTok Lite: [47.8.2](https://www.apkmirror.com/apk/tiktok-pte-ltd/tiktok-lite-save-data/tiktok-lite-save-data-fast-47-8-2-release/), the package `com.zhiliaoapp.musically.go` (version code 470802), SHA-256 `2de4c027f0b9ff6ee9c9712d2987cd2c078a6bc30cb953cadf247bce88b8c2a3`. Lite is built from its own code, so its patches come one at a time. The first ones are Settings, Diagnostic tools, Feed filter, Change app name, Trust user certificates, Disable screen capture detection, Network request report, Block contact list access, Block installed app scanning, In-app browser privacy guard and Camera and microphone indicator. In Lite, press and hold the app's icon and pick Open StopSlop settings.
-- PineDrama, TikTok's drama app, has its own patches in [HushPine](https://github.com/SysAdminDoc/HushPine).
-
-On Windows, check your download with `Get-FileHash -Algorithm SHA256 .\tiktok.apk`. On Linux or macOS it's `sha256sum tiktok.apk`.
-
-StopSlop declares one TikTok build at a time, the newest stable one it's been checked against. When a newer build is supported, the old one is dropped in the same release. On any other build a patch can fail loudly when its anchor moves, or worse, land in the wrong place.
-
-### Why you have to fetch that APK yourself
-
-Google Play only ever serves the newest build it thinks your device can run, so the copy on your phone may not be 47.8.3, and Play can't be asked for an older one. Take the file from APKMirror (step 1 of [Install](#install) says which one) and patch that, not the installed app.
-
-Morphe Manager 2.6.0 and newer can also get the file from a download helper app you've trusted in Settings > APK download helper, and it checks that file like one you picked yourself. The package and version have to match, and on Android 11 or newer so does TikTok's signature, which StopSlop declares. When Manager can't check the signature, it says so before you continue.
-
-APKMirror lists three 47.7.3 files. The bundle and the arm64-v8a + armeabi-v7a APK carry the same build. The APK marked arm64-v8a alone, added on November 12, has the same version code but TikTok compiled it separately, and nearly every obfuscated class and method name StopSlop's patches look for is different in it. StopSlop checks for that before it patches anything and stops with a message naming the file to use, since patching it would fail some patches and hook others into the wrong code.
-
-APKMirror also offers some TikTok releases as bundles, using an `.apkm` file, and 47.8.3 has one beside the APK. Morphe Manager merges a bundle into a single APK and keeps TikTok's file paths, so everything works on it, and it needs less memory for the bundle than for the APK. The desktop CLI's merge moves the resource files around, and Accent color, AMOLED dark theme and Custom launcher icon refuse that result, so on a computer patch the plain 47.8.3 APK instead.
-
-## Verify a download
-
-The [latest release](https://github.com/SysAdminDoc/hushfeed/releases/latest) ships `SHA256SUMS.txt` beside the `.mpp`. Hash your download with `Get-FileHash -Algorithm SHA256 .\patches-<version>.mpp` (or `sha256sum` elsewhere) and compare it with the line for that file.
-
-The bundle is byte reproducible, so you can also build the release's tag yourself and compare the checksum.
-
-## Building from source
-
-You need JDK 21 or newer, an Android SDK set in `local.properties`, and `GITHUB_ACTOR` plus a `GITHUB_TOKEN` with `read:packages` for the Morphe dependencies on GitHub Packages. On Windows, run the runtime tests on JDK 25, since JDK 21 there couldn't replace a file through `File.renameTo`.
-
-```bash
-pwsh -File scripts/gen-patch-defaults.ps1
-./gradlew :patches:generatePatchesList
-./gradlew :extensions:tiktok:test
-./gradlew :patches:test
-./gradlew :patches:buildAndroid
+```powershell
+git status --short
+git branch --show-current
+git log -1 --oneline
 ```
 
-The patch tests read the stock TikTok APKs from the folder `StopSlop_FIXTURE_DIR` names, which [CONTRIBUTING.md](CONTRIBUTING.md) covers along with the release steps. The finished bundle is `patches/build/release/patches-<version>.mpp`, with `bundle.sha256` beside it. Publish that one. The copy in `patches/build/libs` gets turned back into a plain jar by later Gradle tasks, and Morphe Manager then shows zero patches. Two clean builds of the same commit give the same file and checksum.
+Before committing:
 
-For Android 17 emulator checks, use Android SDK Command-line Tools 23 and inspect the new AVD's `.ini` target before launching it. Tools 12 can misread `android-37.1` as `android-0` even when creation succeeds. Run `python scripts/verify-native-alignment.py <apk>` to check native LOAD alignment, stored ZIP offsets and RELRO ranges that overlap writable data on 16 KB pages. Safely isolated RELRO LOAD segments are accepted. A 16 KB image still needs actual TikTok launch and playback checks. A static pass doesn't prove it runs.
+```powershell
+git diff --check
+git diff --cached --check
+git status --short
+```
 
-To add a language to the settings screen, copy one of the tables under `extensions/tiktok/src/main/l10n/` (the tab separated `de.tsv` or the Weblate style `in.csv`) to your language code, translate the right column, then run `python scripts/gen-l10n.py` and `./gradlew :extensions:tiktok:test`. Use the code Android reports, so `in` rather than `id`. The tests fail on any settings text that's missing from a table.
+Use a focused branch for each milestone. Keep `main` as a known-good history. Never use destructive reset/clean commands on an unreviewed working tree. Do not force-push rewritten history unless the maintainer explicitly asks for it and the consequences are understood.
 
-The patch audit's catalog check is `pwsh -File audit/run-audit.ps1 -Validate`. To check a saved report without changing it, use `-ValidateResults -Results <report> -OutDir <evidence folder>`. A current result needs its exact definition, build receipt and APK identity, unchanged evidence files, and the same executable inputs as the build being qualified. Each check keeps its own input digest, so a partial rerun cannot qualify older checks. Documentation or release-script changes alone leave the digest unchanged. Old or mixed-build records stay historical. The [audit routine](concepts/patch-development.md#patch-audit) covers the device builder's `.audit-build.json`, shared device leases and receipt-bound screenshot verdicts.
+### Suggested commit style
 
-On Windows, device builds, probe installation, the probe tools, the injected-register check and audit runs need `-LeaseDir <shared lease folder>` and `-ChatIdentity <task identifier>`, or `StopSlop_DEVICE_LEASE_DIR` and `StopSlop_CHAT_IDENTITY`. Every device command checks the exact serial and current ownership. Existing leases are never reclaimed automatically, including expired ones. Local builds and offline audit checks don't acquire a device lease.
+Use concise conventional commit subjects, for example:
 
-Where things live:
+- `docs: establish StopSlop project overview`
+- `fix: preserve fail-open behavior for missing metadata`
+- `feat: add metadata-based topic rules`
+- `refactor: isolate StopSlop filter preferences`
 
-- `patches/`: the Kotlin patches and their fingerprints.
-- `extensions/tiktok/`: the Java code that runs inside TikTok, with its Robolectric tests. The settings translations are in `src/main/l10n/`.
-- `scripts/`: patching and checking scripts. `release/release.ps1` runs a release from one command and picks up from the step that stopped.
-- `tools/`: release text and What's new generation, plus the test-only verification probe a device check drives.
-- `audit/`: the patch audit. `catalog.json` says how to prove each patch works on a phone, `run-audit.ps1` runs those checks, and `results/` keeps what each TikTok version showed. The steps for a new version are in the [development map](concepts/patch-development.md#patch-audit).
-- `patches-list.json` is the generated patch catalog. `patches-bundle.json` is the Morphe source index for the published bundle and only changes at release time. Its description includes that release's grouped change list so Morphe Manager can show it right away.
-- [App and patch development map](concepts/patch-development.md): the target boundary, the source modules and how to add a patch. The research lives beside it in the [TikTok app audit](concepts/tiktok-app-audit.md), the [network and power measurements](concepts/runtime-observation.md) and the [measured TikTok runtime](concepts/runtime-results-2026-10-09.md).
+A commit message must not claim manual verification that has not occurred.
 
-### Add-on bundles
+---
 
-A bundle patched in beside StopSlop can hang its own settings off StopSlop's. These stay put, and `AddonContractTest` fails if one changes: `TikTokPreferenceFragment`'s `createMasterMenu(Context, PreferenceScreen)` and `onResume()`, the home page rows keyed `section_interface`, `section_feed_filter`, `section_feed_navigation`, `section_playback` and `section_screen_time` above the StopSlop heading, and the public `SettingsMenuPreference`, `SectionHeadingPreference`, `SettingsHeaderPreference`, `SettingsUi`, `L10n` and `StopSlopPause` members that test lists. Anything else in the settings code can move between releases.
+## Compatibility and release policy
 
-## Privacy
+Compatibility is tied to the exact TikTok target and patch fingerprints, not merely to an Android version or a broad app family name.
 
-StopSlop has no server of its own and collects nothing. Everything it adds runs inside TikTok on your phone.
+Before declaring a release compatible, record:
 
-It goes online by itself for one job. When you save a video, a photo, a sound, subtitles, a sticker or a profile picture, it downloads that file over HTTPS from the address TikTok's own data holds for it. It won't fetch from an address on your own network, and those downloads connect directly even when Network proxy is on. Copy the full link for short links, which is off unless you turn it on, uses the same path to see where a vt.tiktok.com, vm.tiktok.com or tiktok.com/t/ link leads. Network proxy, once you turn it on, also checks that your proxy answers when TikTok starts and when it comes back to the screen. If your proxy has a password, TikTok signs in through a small relay on the phone's own loopback address. Another app on the phone could reach that relay while TikTok is open, but it never sees the password, and the relay only connects to the domains TikTok itself uses, so nothing else can ride your proxy through it. Check for StopSlop updates (StopSlop settings > App) is off too until you turn it on. Then, at most once a day when TikTok opens, it asks api.github.com for this project's latest release and shows a card if there's a newer one. GitHub sees that request like any other visit, with your StopSlop version in it and nothing else about you. Identify the song with Shazam, a choice for long press or double tap, sends Shazam a fingerprint of 12 seconds of the video's sound when you use the gesture, and only then. The audio itself stays on your phone, and the request carries no account and the same fixed place and time zone for everyone. Anything else, like translating a comment or blocking a creator, goes through TikTok's own code to TikTok's servers.
+- TikTok package name;
+- version name and versionCode;
+- APK/BUNDLE source identity, signer, and hash where appropriate;
+- Morphe Manager version;
+- StopSlop source commit;
+- `.mpp` bundle identity/hash;
+- device and Android version used for manual verification;
+- known limitations and rollback path.
 
-The only web addresses written into StopSlop's code are github.com and api.github.com for this project, ko-fi.com for the Support StopSlop row, which opens in your browser only when you tap it, gitlab.com, gnu.org and apache.org for licence texts, git.iem.at and central.sonatype.com for the source links in the MP3 encoder's notice, tiktok.com for the share links TikTok itself uses, music.youtube.com for the Find the sound on YouTube Music gesture, amp.shazam.com for Identify the song with Shazam, and accounts.spotify.com, Spotify's sign-in page, which Fix Spotify login opens inside TikTok only when you tap Add to Spotify. There's also localhost, the phone itself. Disable telemetry points TikTok's telemetry uploads there, so they never leave the phone. A test fails the build if another one turns up.
+Do not claim support for an untested TikTok build. Do not silently update fingerprints to force a patch to apply. If a hook cannot be resolved, the affected functionality must be reported as unavailable rather than pretending it is active.
 
-The diagnostic report and a feed capture stay on your phone until you copy or save them. They leave out web addresses, login tokens and cookies, device ids, the ids of videos, comments and messages, and creator names and handles. The report does name the StopSlop settings you've changed, so a bug report shows which switches are on, but never the words, names or addresses you typed into one. If you patched TikTok with another bundle as well, the report names that bundle's code by its package name, which helps tell whose code a crash came from. Read one through before you share it anyway.
+---
 
-## Credits
+## Known limitations
 
-Hushfeed stands on a lot of other people's work, and the licence asks that this stays visible.
+- The current stage is early MVP foundation, not a feature-complete feed filtering product.
+- The exact pre-display hook and its available metadata still require evidence-based reconciliation.
+- Current filter controls need per-filter runtime verification.
+- TikTok's official AI label is distinct from general synthetic-media detection.
+- Topic similarity, in-video ad segmentation, AI-slop classification, local history, feedback, and model management are future milestones.
+- The performance budget and model feasibility on Galaxy A25/A12 are not yet established.
+- The final screenshot gallery, actual device captures, polished release visuals, and final README presentation are postponed to M11.
+- TikTok updates can change class names, method fingerprints, feed models, or hook timing and may require compatibility work.
 
-- [icysymmetra/tiktok-patches-for-morphe](https://github.com/icysymmetra/tiktok-patches-for-morphe), the Metra patches this project was forked from. Most of the original patch set, the settings framework and the Feature Gate Lab come from there, as does the release history below 0.8.0 in the changelog.
-- [kveld9/kveld-morphe-patches](https://github.com/kveld9/kveld-morphe-patches/tree/fcb1768620b8f98a6dd31e801074589ce9a63356) for the eight optional TikTok optimizer patches and the extra Npth telemetry coverage, adapted from v1.23.1 at commit `fcb1768620b8f98a6dd31e801074589ce9a63356`.
-- [ReVanced](https://gitlab.com/revanced/revanced-patches), whose TikTok patches the whole lineage continues, and [RookieEnough/De-Vanced](https://github.com/RookieEnough/De-Vanced), which upstream was built from.
-- [hxreborn/hxreborn-tiktok-patches](https://github.com/hxreborn/hxreborn-tiktok-patches) for the inbox injectors, the telemetry patch, the risk control CAPTCHA hook and several feed card filters.
-- [BlueDragon4251/tiktok-patches-for-morphe](https://github.com/BlueDragon4251/tiktok-patches-for-morphe) for the seen video filter, the gate recorder and the download quality ideas.
-- [eduardo3677-ai/tiktok-patches-for-morphe](https://github.com/eduardo3677-ai/tiktok-patches-for-morphe) for Ghost mode.
-- [na-x-ril/onlynazril-patches](https://github.com/na-x-ril/onlynazril-patches) for the rule Hide CAPTCHA popups uses to tell a browsing puzzle from a sign-in one, Show commenter handle and region, the imported font in Use system font, and Profile background.
-- [@lyyako](https://github.com/lyyako) for the sanitize sharing links hook, the seekbar patch, the anti-recording patch, `Open external links directly` and `Always show publish date`.
-- [@oscski](https://github.com/oscski) for `Disable the long press repost`.
-- [@inxomnyaa](https://github.com/inxomnyaa) for `Smaller text sizes`, `UI scale` and the home top bar hook in `Hide the Tako bubble`.
-- [marin-m/SongRec](https://github.com/marin-m/SongRec) for the Shazam fingerprint behind `Identify the song with Shazam`, ported to Java from its Rust code.
-- The [Morphe](https://github.com/MorpheApp) team for the patcher, the manager and the patches template.
+---
 
-Files that came from another project keep their original notices, and files written here say so in their header. A test holds every source file the bundle ships to having one, so a file cannot arrive without saying where it came from.
+## Contributing
 
-The notices are also in the app, under Hushfeed settings > About Hushfeed > Licenses, because Morphe asks that they reach the person using the software and not just the person reading the source.
+The project is still establishing its architecture and verification baseline. Before proposing a substantial change:
 
-## Notes
+1. Read this README and the relevant project instructions.
+2. Check the current roadmap milestone and open issues.
+3. Keep the change narrow and explain which behavior it affects.
+4. Preserve GPL/copyright/upstream notices and existing preference compatibility.
+5. Include source evidence and manual test details where applicable.
+6. Do not submit secrets, signing files, private TikTok packages, personal account data, or raw private logs.
 
-- Hushfeed is not affiliated with TikTok, ByteDance or Morphe. "For Morphe" describes compatibility, nothing more.
-- Patching a client TikTok didn't ship is your call. Some accounts see CAPTCHA checks or find that follows don't land on patched builds. Follow diagnostics says so when it happens.
-- Everything Hushfeed adds runs inside TikTok, as TikTok, with TikTok's permissions. Installing a patched build is the same trust decision as installing any app, and the source is here so you can read it first.
-- This repository and its [GitHub releases](https://github.com/SysAdminDoc/hushfeed/releases) are the only official source. Anything else offering a Hushfeed build wasn't made here.
-- Bugs and concrete feature requests go in the [issue tracker](https://github.com/SysAdminDoc/hushfeed/issues), with the TikTok version and the patch involved. Questions and general chat go in [Discussions](https://github.com/SysAdminDoc/hushfeed/discussions), where release news is posted too.
+For now, bug reports and feature proposals should use [GitHub Issues](https://github.com/marcel322gg-png/StopSlop/issues). A dedicated `CONTRIBUTING.md`, issue templates, and broader community policies can be added during repository setup if and when they are needed.
 
-## License
+### Useful bug report information
 
-GPLv3, inherited from the projects Hushfeed was built on. See [LICENSE](LICENSE) and [NOTICE](NOTICE). The same notices are reachable on a patched phone under Hushfeed settings > About Hushfeed > Licenses.
+- StopSlop commit or release;
+- TikTok package/version/versionCode;
+- Morphe Manager version;
+- device and Android version;
+- exact steps to reproduce;
+- expected vs. actual result;
+- whether the issue occurs with the relevant filter enabled or paused;
+- sanitized logs only when necessary.
+
+Never attach tokens, cookies, signing keys, private APKs, or unredacted account identifiers.
+
+---
+
+## Security reports
+
+Do not publish exploitable vulnerabilities, leaked credentials, tokens, or private user data in a public issue. Use GitHub's private vulnerability reporting if it is enabled for this repository. If private reporting is not enabled, contact the maintainer through a private channel before disclosing details publicly.
+
+A `SECURITY.md` policy should be added as part of the repository-health setup once a contact/reporting path is established.
+
+---
+
+## Licensing and attribution
+
+StopSlop is built from a source tree derived from HushFeed and uses the Morphe patching ecosystem. The project must retain the applicable upstream licenses, copyright notices, third-party notices, and required attribution.
+
+The current patch metadata identifies the patch set as **GNU General Public License v3.0, with additional GPL section 7 requirements**. Read the repository's `LICENSE` and all applicable source/asset notices before copying, modifying, redistributing, or relicensing any component. Do not assume that every image, font, icon, or external asset has the same license as the patch source.
+
+- Upstream project: [HushFeed](https://github.com/SysAdminDoc/hushfeed)
+- Product/project fork: [StopSlop](https://github.com/marcel322gg-png/StopSlop)
+
+StopSlop branding does not remove upstream authorship or legal obligations. Keep technical identifiers and compatibility names where changing them would break settings, patch behavior, or attribution.
+
+TikTok and related marks belong to their respective owners. StopSlop is an independent community project and is not affiliated with, endorsed by, or sponsored by TikTok or ByteDance.
+
+---
+
+## FAQ
+
+### Is StopSlop a separate Android application?
+
+No. The intended product is a modified TikTok client with StopSlop integrated into it.
+
+### What is an `.mpp` file?
+
+It is a Morphe patch bundle. It is an input to the patching workflow, not a standalone APK and not the final installed TikTok application.
+
+### Does every visible switch already work?
+
+No. A setting can exist before its detector is fully implemented or verified. See the [feature status](#feature-status) table and evidence labels.
+
+### Does the AI-generated switch detect every AI video?
+
+No. The current goal is to use a reliable TikTok-provided AI marker if the verified feed hook exposes one. Generic AI-generated content detection is a separate future research/implementation task.
+
+### Does StopSlop already detect VPN advertisements inside a video?
+
+No. In-video promotion detection is a roadmap item. Caption/URL/promo-code patterns and multimodal timestamp-level detection require separate feasibility and implementation work.
+
+### Will StopSlop upload videos to an AI service?
+
+The design requirement is local-first processing. Uploading watched media or user data to a cloud classifier is outside the current project scope.
+
+### Why are there no screenshots here?
+
+Real screenshots and the final visual gallery are intentionally postponed until M11, when the UI and runtime behavior are stable enough to document accurately.
+
+### Which TikTok versions are supported?
+
+Only versions explicitly confirmed by the current source compatibility declarations and manual release verification should be considered supported. The compatibility matrix is being reconciled in M0.
+
+### Where can I report an issue?
+
+Use [GitHub Issues](https://github.com/marcel322gg-png/StopSlop/issues). Include build/device details and sanitized reproduction steps; do not post secrets or private account data.
+
+---
+
+## Project maturity note
+
+This README is an intentionally detailed **development-stage project overview**, not a promise that all described roadmap capabilities exist today. Planned capabilities are labeled as planned, and current functionality is described conservatively. The final screenshots, visual gallery, polished feature walkthroughs, release-specific compatibility table, and end-user installation guide will be completed in M11 after the implementation has been verified.
