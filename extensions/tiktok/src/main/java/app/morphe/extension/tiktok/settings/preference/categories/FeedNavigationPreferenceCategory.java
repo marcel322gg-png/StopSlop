@@ -120,7 +120,7 @@ public class FeedNavigationPreferenceCategory extends ConditionalPreferenceCateg
         ));
         addPreference(new TogglePreference(
                 context,
-                "Long-press Home for Hushfeed settings",
+                "Long-press Home for StopSlop settings",
                 "Press and hold the Home tab to open these settings. A tap on Home works as before.",
                 Settings.HOME_TAB_OPENS_SETTINGS
         ));

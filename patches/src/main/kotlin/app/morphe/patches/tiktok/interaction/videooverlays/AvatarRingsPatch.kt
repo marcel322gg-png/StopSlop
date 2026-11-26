@@ -151,7 +151,7 @@ val avatarRingsPatch = bytecodePatch(
     description = "Takes the story and LIVE rings off profile pictures, so tapping a picture " +
         "opens the profile instead of a story or LIVE. It can also open a LIVE creator's Story " +
         "from their profile picture or their chat in the Inbox. Starts off. Turn it on in " +
-        "Hushfeed settings > Feed screen.",
+        "StopSlop settings > Feed screen.",
     default = true,
 ) {
     category("Feed")

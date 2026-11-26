@@ -18,7 +18,7 @@ internal const val OWN_CLASSES_ASSET = "assets/hushfeed-classes-v1.txt"
 internal val OWN_EXTENSION_DEX = listOf("extensions/shared.mpe", "extensions/tiktok.mpe")
 
 /**
- * Lists every class Hushfeed's extension adds under app/, so the diagnostic report can tell one
+ * Lists every class StopSlop's extension adds under app/, so the diagnostic report can tell one
  * of its own from a class another bundle added under the same package.
  */
 internal val ownClassesPatch = patch {

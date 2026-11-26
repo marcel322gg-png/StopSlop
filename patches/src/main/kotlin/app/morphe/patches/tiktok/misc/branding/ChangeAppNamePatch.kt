@@ -35,7 +35,7 @@ val changeAppNamePatch = patch(
     dependsOn(buildDetailsPatch)
     val appName by stringOption(
         key = "appName",
-        default = "Hushfeed",
+        default = "StopSlop",
         title = "App name",
         description = "The name shown under the app icon, up to $MAX_APP_NAME characters.",
         required = true,

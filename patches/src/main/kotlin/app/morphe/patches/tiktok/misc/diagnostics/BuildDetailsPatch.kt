@@ -156,10 +156,10 @@ internal object BuildDetails {
         facts["bundle_version"] = manifest.getValue("Version").validated(version)
         facts["patcher_bundle_compat"] = manifest.getValue("Patcher-Version").validated(version)
         facts["patcher_applying_engine"] = applyingVersion.validated(version)
-        facts["source_commit"] = manifest.getValue("Hushfeed-Source-Commit").validated(commit)
-        facts["source_start"] = manifest.getValue("Hushfeed-Source-Start").validated(hash)
-        facts["source_end"] = manifest.getValue("Hushfeed-Source-End").validated(hash)
-        val clean = manifest.getValue("Hushfeed-Source-Clean")
+        facts["source_commit"] = manifest.getValue("StopSlop-Source-Commit").validated(commit)
+        facts["source_start"] = manifest.getValue("StopSlop-Source-Start").validated(hash)
+        facts["source_end"] = manifest.getValue("StopSlop-Source-End").validated(hash)
+        val clean = manifest.getValue("StopSlop-Source-Clean")
         facts["source_clean"] = when {
             clean == "false" -> "false"
             clean == "true" && facts["source_commit"] != "unknown" && facts["source_start"] != "unknown" &&

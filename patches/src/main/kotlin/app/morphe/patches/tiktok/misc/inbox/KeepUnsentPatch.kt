@@ -93,7 +93,7 @@ val keepUnsentMessagesPatch = bytecodePatch(
     name = "Keep unsent messages",
     description = "Keeps a message in your chat when the other person unsends it, instead of " +
         "removing it, and can mark it as unsent. A button removes the kept messages. Messages you " +
-        "unsend yourself are still removed. Starts off. Turn it on in Hushfeed settings > Inbox.",
+        "unsend yourself are still removed. Starts off. Turn it on in StopSlop settings > Inbox.",
 ) {
     category("Inbox")
     dependsOn(settingsPatch, sharedExtensionPatch)

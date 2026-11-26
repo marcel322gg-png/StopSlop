@@ -189,7 +189,7 @@ internal fun MutableMethod.keepFlashBrightness(patch: String) {
 val cameraBrightnessPatch = bytecodePatch(
     name = "Keep the screen's brightness in the camera",
     description = "Stops TikTok from turning your screen brighter while you film, edit or " +
-        "post a video. Starts off. Turn it on in Hushfeed settings > App.",
+        "post a video. Starts off. Turn it on in StopSlop settings > App.",
 ) {
     category("Interface")
     dependsOn(settingsPatch, sharedExtensionPatch)

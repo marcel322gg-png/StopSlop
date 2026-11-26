@@ -97,7 +97,7 @@ val refreshRatePatch = bytecodePatch(
     name = "Keep the screen's refresh rate",
     description = "Stops TikTok slowing your screen down to the video's frame rate, so " +
         "scrolling stays smooth on 90 or 120 Hz phones. TikTok doesn't ask on every phone, " +
-        "and where it doesn't, this changes nothing. Starts off. Turn it on in Hushfeed " +
+        "and where it doesn't, this changes nothing. Starts off. Turn it on in StopSlop " +
         "settings > App.",
 ) {
     category("Playback")

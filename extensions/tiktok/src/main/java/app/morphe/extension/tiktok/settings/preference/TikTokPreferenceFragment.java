@@ -69,7 +69,7 @@ import app.morphe.extension.tiktok.wellbeing.SessionLockOverlay;
 @SuppressWarnings("deprecation")
 public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
     private static final String FEATURE_GATE_LAB_KEY = "action_feature_gate_lab";
-    private static final String PAUSE_SUMMARY = "Pause Hushfeed's switches after TikTok restarts. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.";
+    private static final String PAUSE_SUMMARY = "Pause StopSlop's switches after TikTok restarts. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.";
     /** A switch from a patch left unticked in the Manager is on no page and in no index, and
      *  nothing else on the screen says so (#29 looked for Fill without its patch). */
     private static final String NO_MATCHES_SUMMARY = "Try a different word or clear the search. "
@@ -222,7 +222,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
      * are gone, and a restart marker naming one of those opens the home page.
      */
     private enum Hub {
-        ABOUT("About Hushfeed", "Version, changes and licenses");
+        ABOUT("About StopSlop", "Version, changes and licenses");
 
         final String title;
         final String description;
@@ -320,7 +320,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
             ImportSeenVideoHistoryPreference.pickFile(activeFragment);
         } else {
             SettingsActionBanner.showNotice(Utils.getContext(), L10n.t(
-                    "Reopen Hushfeed settings, then choose the file"));
+                    "Reopen StopSlop settings, then choose the file"));
         }
     }
 
@@ -330,7 +330,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
             ImportedFontPreference.pickFile(activeFragment, emoji);
         } else {
             SettingsActionBanner.showNotice(Utils.getContext(), L10n.t(
-                    "Reopen Hushfeed settings, then choose the file"));
+                    "Reopen StopSlop settings, then choose the file"));
         }
     }
 
@@ -340,7 +340,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
             LikesExportPreference.pickFile(activeFragment);
         } else {
             SettingsActionBanner.showNotice(Utils.getContext(), L10n.t(
-                    "Reopen Hushfeed settings, then choose the file"));
+                    "Reopen StopSlop settings, then choose the file"));
         }
     }
 
@@ -367,7 +367,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
             SeenHistoryFilePreference.pickFile(activeFragment, request);
         } else {
             SettingsActionBanner.showNotice(Utils.getContext(), L10n.t(
-                    "Reopen Hushfeed settings, then choose the file"));
+                    "Reopen StopSlop settings, then choose the file"));
         }
     }
 
@@ -1438,8 +1438,8 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         // categories walked above, so each is indexed by hand. Their category line names where
         // a reader finds them, the home heading or the page; it said "Settings" for all of
         // them, which is no page.
-        String homeTitle = "Hushfeed";
-        String hushfeed = L10n.t(context, "Hushfeed");
+        String homeTitle = "StopSlop";
+        String stopSlop = L10n.t(context, "StopSlop");
         String about = L10n.t(context, Hub.ABOUT.title);
         // Without an explicit entry, the Lab's title and summary returned zero results on a
         // patched phone even though the row was visible.
@@ -1458,15 +1458,15 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         results.add(new SearchResult(
                 null,
                 BaseSettings.PAUSED.key,
-                L10n.t(context, "Pause Hushfeed"),
+                L10n.t(context, "Pause StopSlop"),
                 L10n.t(context, PAUSE_SUMMARY),
-                hushfeed
+                stopSlop
         ));
         // Its summary carries the bundle version, which is what a reporter searches for.
         results.add(new SearchResult(
                 null,
                 MorpheTikTokAboutPreference.KEY,
-                "Hushfeed",
+                stopSlop,
                 MorpheTikTokAboutPreference.currentSummary(context).toString(),
                 about
         ));
@@ -1487,7 +1487,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
                     null,
                     ReleaseNotes.KEY,
                     L10n.t(context, "What's new"),
-                    L10n.f(context, "Changes in Hushfeed %1$s", ReleaseNotes.rowVersion(context, releaseVersion)),
+                    L10n.f(context, "Changes in StopSlop %1$s", ReleaseNotes.rowVersion(context, releaseVersion)),
                     about,
                     "release notes changelog"
             ));
@@ -1770,24 +1770,30 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         });
         screen.addPreference(viewToggle);
 
+        screen.addPreference(SectionHeadingPreference.stopSlop(context, "StopSlop"));
+        StopSlopPlaceholders.addTo(context, screen);
+
         for (Section section : new Section[]{Section.FEED_FILTER, Section.FEED_NAVIGATION,
                 Section.INTERFACE, Section.PLAYBACK, Section.SCREEN_TIME, Section.COMMENTS,
                 Section.INBOX, Section.DOWNLOADS, Section.SHARE, Section.PRIVACY, Section.BEHAVIOR,
-                Section.REGION, Section.BACKUP}) {
+                Section.REGION}) {
             if (section.isAvailable()) addMenu(screen, section);
         }
-        if (FeatureGateLabRuntime.isInstalled()) addFeatureGateLab(screen);
+        StopSlopPlaceholders.addConvenienceAction(context, screen);
 
-        screen.addPreference(SectionHeadingPreference.compact(context, "Hushfeed"));
-        // Detailed state and recovery, with Turn Hushfeed back on while paused.
+        // Existing pause, appearance, and language options follow the feed controls.
+        screen.addPreference(pauseRow(context));
+        screen.addPreference(themeRow(context));
+        screen.addPreference(languageRow(context));
+
+        // Detailed state, feature-gate tools, diagnostics, and recovery stay lower priority.
         SettingsStatusPreference status = new SettingsStatusPreference(context,
                 Section.DIAGNOSTICS.isAvailable() ? () -> openSection(Section.DIAGNOSTICS) : null);
         status.setTurnBackOnAction(this::turnHushfeedBackOn);
         screen.addPreference(status);
-        screen.addPreference(pauseRow(context));
-        screen.addPreference(themeRow(context));
-        screen.addPreference(languageRow(context));
+        if (FeatureGateLabRuntime.isInstalled()) addFeatureGateLab(screen);
         if (Section.DIAGNOSTICS.isAvailable()) addMenu(screen, Section.DIAGNOSTICS);
+        if (Section.BACKUP.isAvailable()) addMenu(screen, Section.BACKUP);
         addAbout(screen);
         addReportProblem(screen);
         addSupport(screen);
@@ -1849,7 +1855,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
 
     /** The last row of the home page: the Ko-fi page, under its title alone. */
     private void addSupport(PreferenceScreen screen) {
-        SettingsMenuPreference row = new SettingsMenuPreference(getActivity(), "Support Hushfeed",
+        SettingsMenuPreference row = new SettingsMenuPreference(getActivity(), "Support StopSlop",
                 "", SettingsMenuPreference.Icon.SUPPORT, preference -> {
                     openWebPage(getActivity(), SUPPORT_URL);
                     return true;
@@ -2034,7 +2040,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         String releaseVersion = releaseVersion();
         if (!ReleaseNotes.pending(context, releaseVersion)) return;
         SettingsMenuPreference notes = new SettingsMenuPreference(context, "What's new",
-                L10n.f(context, "Changes in Hushfeed %1$s", ReleaseNotes.rowVersion(context, releaseVersion)),
+                L10n.f(context, "Changes in StopSlop %1$s", ReleaseNotes.rowVersion(context, releaseVersion)),
                 SettingsMenuPreference.Icon.NEWS, preference -> {
                     ReleaseNotes.show(context, releaseVersion, () -> screen.removePreference(preference));
                     return true;
@@ -2052,7 +2058,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
      * budget would be gone without waiting for anything.
      */
     private TogglePreference pauseRow(Context context) {
-        TogglePreference pause = new TogglePreference(context, "Pause Hushfeed", PAUSE_SUMMARY,
+        TogglePreference pause = new TogglePreference(context, "Pause StopSlop", PAUSE_SUMMARY,
                 BaseSettings.PAUSED);
         mark(pause, SettingsIcons.PAUSE);
         pause.setOnPreferenceChangeListener((preference, value) -> {
@@ -2065,7 +2071,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
             }
             if (Settings.SESSION_BUDGET_WAIT_TO_LOOSEN.savedValue()) {
                 SettingsActionBanner.showNotice(context, L10n.t(context,
-                        "Wait a day to loosen the budget is on, so Hushfeed stays on"));
+                        "Wait a day to loosen the budget is on, so StopSlop stays on"));
                 return false;
             }
             return true;
@@ -2082,7 +2088,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         ChoicePreference theme = new ChoicePreference(context, "Settings theme", Settings.SETTINGS_THEME,
                 new String[]{"Match TikTok", "Always dark", "Always light"},
                 new String[]{"tiktok", "dark", "light"})
-                .withNote("Colors these settings and Hushfeed's own pop-ups.");
+                .withNote("Colors these settings and StopSlop's own pop-ups.");
         mark(theme, SettingsIcons.MOON);
         theme.setOnPreferenceChangeListener((preference, value) -> {
             Settings.SETTINGS_THEME.save(String.valueOf(value));
@@ -2098,9 +2104,9 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
      * one picked here whatever TikTok shows. The page is built again so every row reads the pick.
      */
     private ChoicePreference languageRow(Context context) {
-        ChoicePreference language = new ChoicePreference(context, "Hushfeed language", Settings.HUSHFEED_LANGUAGE,
+        ChoicePreference language = new ChoicePreference(context, "StopSlop language", Settings.HUSHFEED_LANGUAGE,
                 L10n.PICK_LABELS, L10n.PICK_VALUES)
-                .withNote("For Hushfeed's settings and messages. TikTok keeps its own language.");
+                .withNote("For StopSlop's settings and messages. TikTok keeps its own language.");
         language.setIcon(SettingsMenuPreference.lineIconDrawable(context, SettingsMenuPreference.Icon.REGION));
         language.setOnPreferenceChangeListener((preference, value) -> {
             Settings.HUSHFEED_LANGUAGE.save(String.valueOf(value));
@@ -2138,12 +2144,12 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
         refreshStatusCard();
         if (turnedOn) {
             SettingsActionBanner.showRestart(context,
-                    L10n.t(context, "Hushfeed turns back on when TikTok restarts."));
+                    L10n.t(context, "StopSlop turns back on when TikTok restarts."));
         } else if (notSaved) {
             SettingsActionBanner.showNotice(context, L10n.t(context, "Couldn't save the change. Try again."));
         } else {
             SettingsActionBanner.showNotice(context, L10n.t(context,
-                    "The file hushfeed-safe-mode couldn't be removed. Delete it from TikTok's folder under Android/data to turn Hushfeed back on."));
+                    "The file hushfeed-safe-mode couldn't be removed. Delete it from TikTok's folder under Android/data to turn StopSlop back on."));
         }
     }
 

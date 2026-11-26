@@ -23,7 +23,7 @@ private const val STOPPED_VIDEO_SCREEN =
 val stopVideoLoopingPatch = bytecodePatch(
     name = "Stop video looping",
     description = "Stops a video at its end instead of playing it again. Starts off. Turn it " +
-        "on in Hushfeed settings > Playback.",
+        "on in StopSlop settings > Playback.",
     default = true,
 ) {
     category("Playback")

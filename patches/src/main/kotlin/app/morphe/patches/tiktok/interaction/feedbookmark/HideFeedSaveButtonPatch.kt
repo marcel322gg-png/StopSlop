@@ -45,7 +45,7 @@ private object FeedFavoriteStateFingerprint : Fingerprint(
 val hideFeedSaveButtonPatch = bytecodePatch(
     name = "Hide feed save button",
     description = "Removes the save button from the right side of the feed, for a cleaner " +
-        "screen. Starts off. Turn it on in Hushfeed settings > Feed screen.",
+        "screen. Starts off. Turn it on in StopSlop settings > Feed screen.",
     default = true,
 ) {
     category("Feed")

@@ -171,7 +171,7 @@ val fullScreenNextVideosPatch = bytecodePatch(
     name = "Keep the next videos in full screen",
     description = "From most pages, TikTok's full screen view opens with only the video you were on, " +
         "so there's nothing to swipe to and it can't move on by itself. This brings the videos after " +
-        "it along. Starts off. Turn it on in Hushfeed settings > Playback.",
+        "it along. Starts off. Turn it on in StopSlop settings > Playback.",
     default = true,
 ) {
     category("Playback")

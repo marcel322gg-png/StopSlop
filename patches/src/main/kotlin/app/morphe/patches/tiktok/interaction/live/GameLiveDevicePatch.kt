@@ -61,7 +61,7 @@ val gameLiveDevicePatch = bytecodePatch(
     name = "Report a newer phone to game LIVE",
     description = "Tells TikTok's LIVE server you have a newer phone while you set up a LIVE, so a " +
         "game LIVE can offer qualities it holds back from some phones. Starts off. Turn it on in " +
-        "Hushfeed settings > App.",
+        "StopSlop settings > App.",
 ) {
     category("Interface")
     dependsOn(settingsPatch, sharedExtensionPatch)

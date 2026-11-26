@@ -295,6 +295,10 @@
       "blocked_sound_ids",
       "blocked_sound_names",
       "hide_paid_partnership",
+      "stop_slop_ad_sponsorship",
+      "stop_slop_ai_generated",
+      "stop_slop_min_likes",
+      "stop_slop_min_likes_threshold",
       "filter_location_videos",
       "hide_ai_generated",
       "hide_verified",
@@ -4752,6 +4756,32 @@
       "key": "stop_search_history",
       "type": "boolean",
       "default": false
+    },
+    "stop_slop_ad_sponsorship": {
+      "field": "STOP_SLOP_AD_SPONSORSHIP",
+      "key": "stop_slop_ad_sponsorship",
+      "type": "boolean",
+      "default": true
+    },
+    "stop_slop_ai_generated": {
+      "field": "STOP_SLOP_AI_GENERATED",
+      "key": "stop_slop_ai_generated",
+      "type": "boolean",
+      "default": false
+    },
+    "stop_slop_min_likes": {
+      "field": "STOP_SLOP_MIN_LIKES",
+      "key": "stop_slop_min_likes",
+      "type": "boolean",
+      "default": false
+    },
+    "stop_slop_min_likes_threshold": {
+      "field": "STOP_SLOP_MIN_LIKES_THRESHOLD",
+      "key": "stop_slop_min_likes_threshold",
+      "type": "integer",
+      "default": 0,
+      "minimum": 0,
+      "maximum": 1000000
     },
     "stop_video_looping": {
       "field": "STOP_VIDEO_LOOPING",

@@ -158,6 +158,7 @@ A diagnostic report is already being saved,A diagnostic report is already being 
 A double tap on a message no longer adds a heart to it. A single tap and a long press work as before.,A double tap on a message no longer adds a heart to it. A single tap and a long press work as before.
 A few seconds,A few seconds
 A file named hushfeed-safe-mode in TikTok's folder under Android/data paused Hushfeed. Your settings stay as they are.,A file named hushfeed-safe-mode in TikTok's folder under Android/data paused Hushfeed. Your settings stay as they are.
+A file named hushfeed-safe-mode in TikTok's folder under Android/data paused StopSlop. Your settings stay as they are.,A file named hushfeed-safe-mode in TikTok's folder under Android/data paused StopSlop. Your settings stay as they are.
 A forced value applies to this copy of TikTok whichever account is signed in. It can't get past a check the server makes.,A forced value applies to this copy of TikTok whichever account is signed in. It can't get past a check the server makes.
 "A good place to stop, if you want one.","A good place to stop, if you want one."
 "A green square in the top corner while TikTok has the camera open, and an orange diamond while it records sound. They go when the access ends.","A green square in the top corner while TikTok has the camera open, and an orange diamond while it records sound. They go when the access ends."
@@ -188,15 +189,18 @@ A tap on Home or on the For You tab while For You is showing no longer reloads i
 A video you paused stays paused when you come back to the app instead of starting again. One you left playing starts as usual. It works on Android 10 and newer.,A video you paused stays paused when you come back to the app instead of starting again. One you left playing starts as usual. It works on Android 10 and newer.
 A web address someone left in a comment can be tapped instead of copied out by hand. Tapping anywhere else in the comment still does what it did.,A web address someone left in a comment can be tapped instead of copied out by hand. Tapping anywhere else in the comment still does what it did.
 "A zone name like Europe/Belgrade, used in place of the country's. Daylight saving follows by itself. Empty means the country's own zone.","A zone name like Europe/Belgrade, used in place of the country's. Daylight saving follows by itself. Empty means the country's own zone."
+AI & Slop,AI & Slop
 AI Self,AI Self
 AI Tako,AI Tako
 AI chat,AI chat
 AI theater,AI theater
+AI-generated content,AI-generated content
 AI-generated posts,AI-generated posts
 AMOLED dark mode,AMOLED dark mode
 About,About
 About %1$s of storage at this limit,About %1$s of storage at this limit
 About Hushfeed,About Hushfeed
+About StopSlop,About StopSlop
 About overrides,About overrides
 "Above moves the caption and the buttons up a little so the time fits over the right end of the bar. When something else is in the way, the time goes beside the bar.","Above moves the caption and the buttons up a little so the time fits over the right end of the bar. When something else is in the way, the time goes beside the bar."
 Above the bar,Above the bar
@@ -210,10 +214,12 @@ Account facts copied,Account facts copied
 Account facts on profiles,Account facts on profiles
 Account region,Account region
 Accounts to unfollow: %1$d. Starting in %2$d,Accounts to unfollow: %1$d. Starting in %2$d
+Actions,Actions
 Active,Active
 Activity,Activity
 Activity center,Activity center
 Activity center (PIA),Activity center (PIA)
+Ad & Sponsorship,Ad & Sponsorship
 Add,Add
 Add a button beside the block control that saves the video on screen in one tap. Drag it wherever you like.,Add a button beside the block control that saves the video on screen in one tap. Drag it wherever you like.
 Add a button beside the block control that turns the feed's sound off and on.,Add a button beside the block control that turns the feed's sound off and on.
@@ -252,9 +258,11 @@ Adds a Record button to LIVE rooms. Tap it to start or stop recording. Leaving t
 "Adds the Main, Requests, Unread and Starred tabs above your chats, the ones TikTok gives creator accounts.","Adds the Main, Requests, Unread and Starred tabs above your chats, the ones TikTok gives creator accounts."
 "Adds three stops below the smallest size on TikTok's own Text size slider, in Settings and privacy > Accessibility. Pick one there, then restart TikTok.","Adds three stops below the smallest size on TikTok's own Text size slider, in Settings and privacy > Accessibility. Pick one there, then restart TikTok."
 Ads,Ads
+Ads & sponsorships,Ads & sponsorships
 Advanced,Advanced
 Advanced JSON value,Advanced JSON value
 Advanced. Find and force the hidden switches TikTok uses to test features.,Advanced. Find and force the hidden switches TikTok uses to test features.
+Advertising,Advertising
 After 1 minute,After 1 minute
 After 15 minutes,After 15 minutes
 After 5 minutes,After 5 minutes
@@ -279,6 +287,7 @@ Already marked as not interested,Already marked as not interested
 Already saved. Open TikTok to save another copy.,Already saved. Open TikTok to save another copy.
 Also apply these filters to downloaded videos TikTok uses when the feed can't load enough new items.,Also apply these filters to downloaded videos TikTok uses when the feed can't load enough new items.
 Also change the region TikTok reports internally and set TikTok to the country's time zone. Keeps your interface language. Your IP address and your account's own rules still apply.,Also change the region TikTok reports internally and set TikTok to the country's time zone. Keeps your interface language. Your IP address and your account's own rules still apply.
+"Also checks sponsor wording and commerce signals; the Feed filter page keeps separate controls for TikTok's ad, partnership, and music markers.","Also checks sponsor wording and commerce signals; the Feed filter page keeps separate controls for TikTok's ad, partnership, and music markers."
 Also filter it,Also filter it
 Also hide videos whose text stickers match a blocked caption word. Text stickers are the words a creator types over the video in TikTok's editor. Text that's part of the picture itself can't be read.,Also hide videos whose text stickers match a blocked caption word. Text stickers are the words a creator types over the video in TikTok's editor. Text that's part of the picture itself can't be read.
 "Also listens to the LIVE's sound, so your name counts when it's said out loud in rooms without captions. Your phone's own speech recognition does the listening, with TikTok's microphone permission. It hears only the LIVE, though Android shows its microphone dot, and it uses a little more data.","Also listens to the LIVE's sound, so your name counts when it's said out loud in rooms without captions. Your phone's own speech recognition does the listening, with TikTok's microphone permission. It hears only the LIVE, though Android shows its microphone dot, and it uses a little more data."
@@ -434,8 +443,10 @@ Capture crash reports locally,Capture crash reports locally
 Capture the feed,Capture the feed
 "Capturing. Find the problem, then come back to stop.","Capturing. Find the problem, then come back to stop."
 Changes in Hushfeed %1$s,Changes in Hushfeed %1$s
+Changes in StopSlop %1$s,Changes in StopSlop %1$s
 Changes to %1$s at %2$s,Changes to %1$s at %2$s
 Check for Hushfeed updates,Check for Hushfeed updates
+Check for StopSlop updates,Check for StopSlop updates
 Check for already-saved videos,Check for already-saved videos
 Check for updates,Check for updates
 Check the brackets and quotes in this JSON,Check the brackets and quotes in this JSON
@@ -483,6 +494,7 @@ Clearing suggested accounts,Clearing suggested accounts
 Close,Close
 Close TikTok after,Close TikTok after
 Close with Back or a tap outside,Close with Back or a tap outside
+Closes and reopens TikTok's task. It does not stop the app process and may interrupt your current session.,Closes and reopens TikTok's task. It does not stop the app process and may interrupt your current session.
 Collapsed,Collapsed
 Collections aren't available for this video,Collections aren't available for this video
 Color commenter names,Color commenter names
@@ -490,6 +502,9 @@ Color commenter names,Color commenter names
 "Colors the description, the author's name and the post date on videos.","Colors the description, the author's name and the post date on videos."
 "Colors the text drawn on the card itself. Automatic picks white or black, whichever stands out from the card.","Colors the text drawn on the card itself. Automatic picks white or black, whichever stands out from the card."
 Colors these settings and Hushfeed's own pop-ups.,Colors these settings and Hushfeed's own pop-ups.
+Colors these settings and StopSlop's own pop-ups.,Colors these settings and StopSlop's own pop-ups.
+Coming soon; not available yet.,Coming soon; not available yet.
+Coming soon; unavailable until local OCR and audio support exists.,Coming soon; unavailable until local OCR and audio support exists.
 "Comma separated names exactly as the row under a profile's bio shows them, such as TikTok Studio or Your orders. Restart TikTok to apply this.","Comma separated names exactly as the row under a profile's bio shows them, such as TikTok Studio or Your orders. Restart TikTok to apply this."
 Comment export failed,Comment export failed
 Comment media filename,Comment media filename
@@ -535,6 +550,7 @@ Copy the video link,Copy the video link
 Copy user ID,Copy user ID
 Copy username,Copy username
 Copy video ID,Copy video ID
+Could not open TikTok.,Could not open TikTok.
 Couldn't add the caption. Saving without it.,Couldn't add the caption. Saving without it.
 Couldn't add the older seen videos. Try again.,Couldn't add the older seen videos. Try again.
 Couldn't change the Lab settings. Try again.,Couldn't change the Lab settings. Try again.
@@ -776,6 +792,7 @@ Feed button size,Feed button size
 Feed capture not saved. Tap the row to retry.,Feed capture not saved. Tap the row to retry.
 Feed capture saved to %1$s. Read it before you share it.,Feed capture saved to %1$s. Read it before you share it.
 Feed filter,Feed filter
+Feed quality,Feed quality
 Feed screen,Feed screen
 Feed tabs,Feed tabs
 Feed tabs to keep,Feed tabs to keep
@@ -817,6 +834,7 @@ Following list,Following list
 Follows you,Follows you
 For Hushfeed's settings and messages. TikTok keeps its own language.,For Hushfeed's settings and messages. TikTok keeps its own language.
 "For OLED screens. After 5 seconds without a touch, the buttons, caption and tabs over the video dim to a quarter, and your next touch brings them back. Shift also moves everything on the feed a few pixels every 2 minutes.","For OLED screens. After 5 seconds without a touch, the buttons, caption and tabs over the video dim to a quarter, and your next touch brings them back. Shift also moves everything on the feed a few pixels every 2 minutes."
+For StopSlop's settings and messages. TikTok keeps its own language.,For StopSlop's settings and messages. TikTok keeps its own language.
 For You,For You
 "For You, Following and the other feed tabs stay behind a calm panel and won't swipe. Messages, profiles and search work as usual, a link to one video still opens that video, and the app opens on Inbox instead of the feed.","For You, Following and the other feed tabs stay behind a calm panel and won't swipe. Messages, profiles and search work as usual, a link to one video still opens that video, and the app opens on Inbox instead of the feed."
 "For accounts TikTok took translation away from. Brings back See translation under video descriptions and in captions, and the translation rows on the Language page in Settings and privacy. Restart TikTok to see it on videos.","For accounts TikTok took translation away from. Brings back See translation under video descriptions and in captions, and the translation rows on the Language page in Settings and privacy. Restart TikTok to see it on videos."
@@ -895,6 +913,7 @@ Hidden LIVE categories,Hidden LIVE categories
 Hidden commenters,Hidden commenters
 Hidden: %1$s,Hidden: %1$s
 Hide,Hide
+Hide AI-generated posts,Hide AI-generated posts
 Hide AI-generated videos,Hide AI-generated videos
 Hide Add bio,Hide Add bio
 Hide Add friends,Hide Add friends
@@ -922,6 +941,7 @@ Hide Thoughts on profiles,Hide Thoughts on profiles
 Hide TikTok Shop,Hide TikTok Shop
 Hide TikTok Shop in search,Hide TikTok Shop in search
 "Hide TikTok Shop posts from the feed, and the shop buttons under captions.","Hide TikTok Shop posts from the feed, and the shop buttons under captions."
+Hide TikTok ads and posts marked as paid partnership or promotional content.,Hide TikTok ads and posts marked as paid partnership or promotional content.
 "Hide TikTok's ""Search: ..."" banner above the comment count. This doesn't hide the comments or Hushfeed's comment-search box.","Hide TikTok's ""Search: ..."" banner above the comment count. This doesn't hide the comments or Hushfeed's comment-search box."
 Hide TikTok's Auto scroll button,Hide TikTok's Auto scroll button
 Hide TikTok's short drama episodes and the cards that promote them.,Hide TikTok's short drama episodes and the cards that promote them.
@@ -968,9 +988,12 @@ Hide photo posts,Hide photo posts
 Hide photo posts from the feed.,Hide photo posts from the feed.
 Hide picture comments,Hide picture comments
 "Hide place badges on videos, including cards with multiple places. Videos and your location permissions stay unchanged.","Hide place badges on videos, including cards with multiple places. Videos and your location permissions stay unchanged."
+"Hide platform ads and disclosed sponsorships, including paid partnership and promotional content.","Hide platform ads and disclosed sponsorships, including paid partnership and promotional content."
 Hide playable games,Hide playable games
 Hide playlist videos,Hide playlist videos
 "Hide posts only a creator's subscribers can watch, the ones with a lock, on the feed and on profiles.","Hide posts only a creator's subscribers can watch, the ones with a lock, on the feed and on profiles."
+"Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.","Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count."
+Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.,Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.
 Hide profile pictures in comments,Hide profile pictures in comments
 Hide profile shortcuts,Hide profile shortcuts
 Hide profile shortcuts by name,Hide profile shortcuts by name
@@ -1035,6 +1058,7 @@ Hide the Report button on videos,Hide the Report button on videos
 Hide the Send to row,Hide the Send to row
 Hide the Service+ row under LIVE previews,Hide the Service+ row under LIVE previews
 Hide the Share via row.,Hide the Share via row.
+Hide the StopSlop row,Hide the StopSlop row
 "Hide the Tako AI bubble above the profile button or in the bottom corner of videos, the Ask bar under videos, the Ask Tako button on the search page, the Ask Tako tab on search results and the Tako bar above comments.","Hide the Tako AI bubble above the profile button or in the bottom corner of videos, the Ask bar under videos, the Ask Tako button on the search page, the Ask Tako tab on search results and the Tako bar above comments."
 Hide the Tako bubble,Hide the Tako bubble
 Hide the Tako chat,Hide the Tako chat
@@ -1190,6 +1214,7 @@ Importing watch history,Importing watch history
 In a chat,In a chat
 "In use: TikTok sees the identity you made here, and it stays the same on every start. Tap to make another one, which wipes TikTok's data again.","In use: TikTok sees the identity you made here, and it stays the same on every start. Tap to make another one, which wipes TikTok's data again."
 "In your own Liked videos, Favorites and Reposts, a tap takes the video off that list instead of opening it.","In your own Liked videos, Favorites and Reposts, a tap takes the video off that list instead of opening it."
+In-video Ads,In-video Ads
 Inbox,Inbox
 Inbox & Messaging,Inbox & Messaging
 Inbox tab name,Inbox tab name
@@ -1333,6 +1358,7 @@ Light gray,Light gray
 Like,Like
 Like or unlike the video,Like or unlike the video
 Like the video,Like the video
+Like threshold,Like threshold
 Liked videos,Liked videos
 Liked videos (%1$s),Liked videos (%1$s)
 Likes,Likes
@@ -1386,6 +1412,7 @@ Long press,Long press
 Long press on For You opens my watch history,Long press on For You opens my watch history
 Long press on Profile opens my watch history,Long press on Profile opens my watch history
 Long-press Home for Hushfeed settings,Long-press Home for Hushfeed settings
+Long-press Home for StopSlop settings,Long-press Home for StopSlop settings
 Long-press Inbox for read receipts,Long-press Inbox for read receipts
 Long-press Profile for Activity center,Long-press Profile for Activity center
 Long-press Profile for Watch history,Long-press Profile for Watch history
@@ -1442,6 +1469,7 @@ Message title,Message title
 Microphone in use,Microphone in use
 Mini dramas,Mini dramas
 Minimum,Minimum
+Minimum likes,Minimum likes
 Minimum video length,Minimum video length
 More hashtags per post,More hashtags per post
 More items are available.,More items are available.
@@ -1599,7 +1627,9 @@ On screen,On screen
 "On the main feed, hold a finger on the tabs and the glass lens slides under it and swells, the tab beneath it grows, and they wobble back when you let go. On Android 13 and up the tabs bend at the lens's edge and split into color, and with Blur the video behind the bar so does the video. Needs Glass lens on the current tab.","On the main feed, hold a finger on the tabs and the glass lens slides under it and swells, the tab beneath it grows, and they wobble back when you let go. On Android 13 and up the tabs bend at the lens's edge and split into color, and with Blur the video behind the bar so does the video. Needs Glass lens on the current tab."
 "On the main feed, slide a finger along the tabs and the lens follows it. Let go and that tab opens. Taps and long presses work as before. Needs Glass lens on the current tab.","On the main feed, slide a finger along the tabs and the lens follows it. Let go and that tab opens. Taps and long presses work as before. Needs Glass lens on the current tab."
 On. Hushfeed hasn't seen TikTok send any reports since it started.,On. Hushfeed hasn't seen TikTok send any reports since it started.
+On. StopSlop hasn't seen TikTok send any reports since it started.,On. StopSlop hasn't seen TikTok send any reports since it started.
 "Once a day when TikTok opens, ask GitHub if a newer Hushfeed is out and show a card when it is. The request carries your Hushfeed version and nothing else.","Once a day when TikTok opens, ask GitHub if a newer Hushfeed is out and show a card when it is. The request carries your Hushfeed version and nothing else."
+"Once a day when TikTok opens, ask GitHub if a newer StopSlop release is out and show a card when it is. The request carries your StopSlop version and nothing else.","Once a day when TikTok opens, ask GitHub if a newer StopSlop release is out and show a card when it is. The request carries your StopSlop version and nothing else."
 "Once today's budget runs out, the hold stays and can't be dismissed. The budget settings are locked until the day starts over. Turn this off any time before the budget runs out.","Once today's budget runs out, the hold stays and can't be dismissed. The budget settings are locked until the day starts over. Turn this off any time before the budget runs out."
 One area was checked and everything it needs is here.,One area was checked and everything it needs is here.
 One at a time,One at a time
@@ -1627,6 +1657,7 @@ Only the first %1$s characters of the sample were checked.,Only the first %1$s c
 Only these caption languages,Only these caption languages
 Open,Open
 Open Hushfeed settings,Open Hushfeed settings
+Open StopSlop settings,Open StopSlop settings
 Open TikTok on,Open TikTok on
 "Open a share sheet once, then return here to choose its actions.","Open a share sheet once, then return here to choose its actions."
 Open and close TikTok's screens without their slide. Swipes inside a screen still follow your finger.,Open and close TikTok's screens without their slide. Swipes inside a screen still follow your finger.
@@ -1685,6 +1716,8 @@ Pass TikTok's install checks,Pass TikTok's install checks
 Pause,Pause
 Pause Hushfeed,Pause Hushfeed
 "Pause Hushfeed's switches after TikTok restarts. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.","Pause Hushfeed's switches after TikTok restarts. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay."
+Pause StopSlop,Pause StopSlop
+"Pause StopSlop's switches after TikTok restarts. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.","Pause StopSlop's switches after TikTok restarts. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay."
 Pause before the feed,Pause before the feed
 Pause the video while comments are open,Pause the video while comments are open
 Paused,Paused
@@ -1758,6 +1791,7 @@ Post age,Post age
 Post dates in the feed,Post dates in the feed
 Post every video as if you'd turned on TikTok's own HD upload on the post page. A clip TikTok doesn't count as high quality posts as before.,Post every video as if you'd turned on TikTok's own HD upload on the post page. A clip TikTok doesn't count as high quality posts as before.
 Posting,Posting
+Posts below this number of likes are hidden while Minimum likes is on.,Posts below this number of likes are hidden while Minimum likes is on.
 Prefer H.264 video,Prefer H.264 video
 Preset applied,Preset applied
 Preset doesn't match the gates. Nothing changed.,Preset doesn't match the gates. Nothing changed.
@@ -1863,11 +1897,15 @@ Recovered recording saved to %1$s,Recovered recording saved to %1$s
 Refresh values,Refresh values
 Refreshing TikTok's current values…,Refreshing TikTok's current values…
 Region,Region
+Reload,Reload
+Reload TikTok,Reload TikTok
+Reload TikTok?,Reload TikTok?
 Remember the last speed,Remember the last speed
 "Remembers up to %1$s videos and sounds you saved here. If the file is still there, you get Open or Save again instead of a second copy.","Remembers up to %1$s videos and sounds you saved here. If the file is still there, you get Open or Save again instead of a second copy."
 Remind me every,Remind me every
 Remove,Remove
 Remove %1$s,Remove %1$s
+"Remove TikTok-identified ads, commission posts, paid partnerships, and branded content. For text and Shop signals, use StopSlop's Ads & sponsorships control.","Remove TikTok-identified ads, commission posts, paid partnerships, and branded content. For text and Shop signals, use StopSlop's Ads & sponsorships control."
 Remove all comments,Remove all comments
 Remove all likes,Remove all likes
 Remove all overrides,Remove all overrides
@@ -1898,6 +1936,7 @@ Removing all reposts in %1$d,Removing all reposts in %1$d
 Removing the kept messages,Removing the kept messages
 Removing the picked comments in %1$d,Removing the picked comments in %1$d
 "Reopen Hushfeed settings, then choose the file","Reopen Hushfeed settings, then choose the file"
+"Reopen StopSlop settings, then choose the file","Reopen StopSlop settings, then choose the file"
 Replace values when TikTok asks for them,Replace values when TikTok asks for them
 Replay a story from the start when it ends instead of moving to the next one. Tap or swipe to move on.,Replay a story from the start when it ends instead of moving to the next one. Tap or swipe to move on.
 Replay in the background,Replay in the background
@@ -2211,6 +2250,7 @@ Show only videos with this many favorites.,Show only videos with this many favor
 Show only videos with this many likes.,Show only videos with this many likes.
 Show only videos with this many shares.,Show only videos with this many shares.
 Show only videos with this many views.,Show only videos with this many views.
+Show only videos within both the minimum and maximum like counts.,Show only videos within both the minimum and maximum like counts.
 Show original,Show original
 Show poll results before voting,Show poll results before voting
 Show search in LIVE,Show search in LIVE
@@ -2388,6 +2428,14 @@ Stop the streak alerts that slide in over TikTok and the streak messages and tip
 Stop video looping,Stop video looping
 Stop videos at the end instead of replaying them.,Stop videos at the end instead of replaying them.
 Stop waiting,Stop waiting
+StopSlop,StopSlop
+StopSlop blocked TikTok's reports here. It hasn't confirmed that you stay off viewer lists.,StopSlop blocked TikTok's reports here. It hasn't confirmed that you stay off viewer lists.
+StopSlop is active,StopSlop is active
+StopSlop is paused,StopSlop is paused
+StopSlop is paused. Ghost mode isn't active.,StopSlop is paused. Ghost mode isn't active.
+StopSlop language,StopSlop language
+StopSlop turns back on when TikTok restarts.,StopSlop turns back on when TikTok restarts.
+"StopSlop's switches are paused. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.","StopSlop's switches are paused. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay."
 Stopped after dismissing %1$s suggested accounts,Stopped after dismissing %1$s suggested accounts
 Stopped after dismissing one suggested account,Stopped after dismissing one suggested account
 Stopped before anyone was read,Stopped before anyone was read
@@ -2430,6 +2478,7 @@ Subtitles,Subtitles
 Subtitles: %1$s,Subtitles: %1$s
 Support,Support
 Support Hushfeed,Support Hushfeed
+Support StopSlop,Support StopSlop
 Swap lists,Swap lists
 Swap the website in shared links,Swap the website in shared links
 Swipe for brightness and volume,Swipe for brightness and volume
@@ -2440,6 +2489,7 @@ Switch account,Switch account
 System,System
 Tag saved videos with their details,Tag saved videos with their details
 "Take Hushfeed out of TikTok's Settings and privacy. To open these settings, press and hold For You at the top of the feed, or Home if Long-press Home for Hushfeed settings is on. If neither press can open them, the row stays.","Take Hushfeed out of TikTok's Settings and privacy. To open these settings, press and hold For You at the top of the feed, or Home if Long-press Home for Hushfeed settings is on. If neither press can open them, the row stays."
+"Take StopSlop out of TikTok's Settings and privacy. To open these settings, press and hold For You at the top of the feed, or Home if Long-press Home for StopSlop settings is on. If neither press can open them, the row stays.","Take StopSlop out of TikTok's Settings and privacy. To open these settings, press and hold For You at the top of the feed, or Home if Long-press Home for StopSlop settings is on. If neither press can open them, the row stays."
 "Take the Add comment bar off videos you open from a profile, a hashtag, a sound or search, so the video fills the screen down to the bottom. The comment button on the right still opens comments.","Take the Add comment bar off videos you open from a profile, a hashtag, a sound or search, so the video fills the screen down to the bottom. The comment button on the right still opens comments."
 "Take the pulsing LIVE ring off profile pictures on the feed, in comments and on profiles. Tapping the picture of a creator who's live opens their profile instead of the LIVE.","Take the pulsing LIVE ring off profile pictures on the feed, in comments and on profiles. Tapping the picture of a creator who's live opens their profile instead of the LIVE."
 Take the rings off profile pictures in comments. Needs Remove story rings or Remove the LIVE ring.,Take the rings off profile pictures in comments. Needs Remove story rings or Remove the LIVE ring.
@@ -2556,6 +2606,7 @@ The feed stops when this video ends.,The feed stops when this video ends.
 "The file app still has the last file. Try again once it lets go, or restart TikTok.","The file app still has the last file. Try again once it lets go, or restart TikTok."
 The file couldn't be saved. Try again.,The file couldn't be saved. Try again.
 The file hushfeed-safe-mode couldn't be removed. Delete it from TikTok's folder under Android/data to turn Hushfeed back on.,The file hushfeed-safe-mode couldn't be removed. Delete it from TikTok's folder under Android/data to turn Hushfeed back on.
+The file hushfeed-safe-mode couldn't be removed. Delete it from TikTok's folder under Android/data to turn StopSlop back on.,The file hushfeed-safe-mode couldn't be removed. Delete it from TikTok's folder under Android/data to turn StopSlop back on.
 The frame couldn't be read. Try again.,The frame couldn't be read. Try again.
 The frame couldn't be saved. Try again.,The frame couldn't be saved. Try again.
 "The glass pill's edges bend the blurred feed video behind them, like the rim of real glass, and its colors come through a little richer. Needs Blur the video behind the bar and Android 13 and up.","The glass pill's edges bend the blurred feed video behind them, like the rim of real glass, and its colors come through a little richer. Needs Blur the video behind the bar and Android 13 and up."
@@ -2624,6 +2675,7 @@ This account can't make stickers,This account can't make stickers
 This account doesn't follow anyone yet,This account doesn't follow anyone yet
 This catalog entry is no longer available. Refresh the Lab and try again.,This catalog entry is no longer available. Refresh the Lab and try again.
 This change couldn't be saved. Try again.,This change couldn't be saved. Try again.
+This closes and reopens TikTok's task. It does not stop the app process and may interrupt your current session.,This closes and reopens TikTok's task. It does not stop the app process and may interrupt your current session.
 This configuration has no fields that can be copied and changed safely on this build.,This configuration has no fields that can be copied and changed safely on this build.
 This file has no loaded values in it,This file has no loaded values in it
 This file isn't a loaded-values export,This file isn't a loaded-values export
@@ -2663,6 +2715,7 @@ TikTok can't lock without a phone screen lock,TikTok can't lock without a phone 
 "TikTok checks how it was signed and installed. This answers those checks the way the Play Store version would. Try it if follows or likes undo themselves after a refresh. It may not help, since TikTok has other checks.","TikTok checks how it was signed and installed. This answers those checks the way the Play Store version would. Try it if follows or likes undo themselves after a refresh. It may not help, since TikTok has other checks."
 TikTok closed during these saves,TikTok closed during these saves
 "TikTok closed three times within a minute of starting, so Hushfeed paused itself. Your settings stay as they are.","TikTok closed three times within a minute of starting, so Hushfeed paused itself. Your settings stay as they are."
+"TikTok closed three times within a minute of starting, so StopSlop paused itself. Your settings stay as they are.","TikTok closed three times within a minute of starting, so StopSlop paused itself. Your settings stay as they are."
 TikTok closed. What was recorded is saved to %1$s,TikTok closed. What was recorded is saved to %1$s
 TikTok closes at %1$s,TikTok closes at %1$s
 TikTok colors,TikTok colors
@@ -2672,6 +2725,7 @@ TikTok default (open the creator's profile),TikTok default (open the creator's p
 TikTok didn't accept the feedback. Try again later.,TikTok didn't accept the feedback. Try again later.
 TikTok didn't block %1$s. Try again in a moment.,TikTok didn't block %1$s. Try again in a moment.
 TikTok didn't unblock %1$s. Try again in a moment.,TikTok didn't unblock %1$s. Try again in a moment.
+"TikTok feed filters for ads, AI-generated posts, and low like counts.","TikTok feed filters for ads, AI-generated posts, and low like counts."
 TikTok forgets the LIVE quality you picked when it closes. This starts rooms at that quality again after a restart. A room whose stream doesn't have it opens at TikTok's choice.,TikTok forgets the LIVE quality you picked when it closes. This starts rooms at that quality again after a restart. A room whose stream doesn't have it opens at TikTok's choice.
 "TikTok gets a blank advertising ID, like the one Android gives after you delete yours. Apps can't use it to recognize your phone.","TikTok gets a blank advertising ID, like the one Android gives after you delete yours. Apps can't use it to recognize your phone."
 TikTok gets no location from your phone. The Region settings change your country and time zone. This switch stops the exact position.,TikTok gets no location from your phone. The Region settings change your country and time zone. This switch stops the exact position.
@@ -2742,6 +2796,8 @@ Too many saves running. Try again soon.,Too many saves running. Try again soon.
 Top,Top
 Top left double tap,Top left double tap
 Top right double tap,Top right double tap
+Topic Filter,Topic Filter
+Topics,Topics
 Tracking,Tracking
 "Tracking, device access and links","Tracking, device access and links"
 Translate button in comments,Translate button in comments
@@ -2757,6 +2813,7 @@ Try a different word or clear the search. Switches from patches you didn't tick 
 "Try again, or go back to TikTok.","Try again, or go back to TikTok."
 Turn Clear display on or off,Turn Clear display on or off
 Turn Hushfeed back on,Turn Hushfeed back on
+Turn StopSlop back on,Turn StopSlop back on
 Turn off Line them up over the right column to move it,Turn off Line them up over the right column to move it
 Turn off double tap to react,Turn off double tap to react
 Turn off haptics,Turn off haptics
@@ -2891,6 +2948,7 @@ Visual search on paused videos,Visual search on paused videos
 Volume,Volume
 Wait a day to loosen the budget,Wait a day to loosen the budget
 "Wait a day to loosen the budget is on, so Hushfeed stays on","Wait a day to loosen the budget is on, so Hushfeed stays on"
+"Wait a day to loosen the budget is on, so StopSlop stays on","Wait a day to loosen the budget is on, so StopSlop stays on"
 Wait before hiding the controls.,Wait before hiding the controls.
 Wait for loading to finish,Wait for loading to finish
 Waiting for Wi-Fi,Waiting for Wi-Fi

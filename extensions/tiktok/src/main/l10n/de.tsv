@@ -702,7 +702,7 @@ Hook status	Funktionsprüfung
 How far each edge press moves the video.	Wie weit ein Druck am Rand das Video bewegt.
 Hushfeed can't read the creator pattern %1$s	Hushfeed kann Creator-Muster %1$s nicht lesen
 Hid a CAPTCHA. Stuck? Turn off Hide CAPTCHA popups.	CAPTCHA weg. Probleme? Aus: „CAPTCHA-Popups ausblenden“.
-Hushfeed is active	Hushfeed ist aktiv
+StopSlop is active	StopSlop ist aktiv
 Shows the Duet and Stitch options even when the creator turned them off. TikTok may still refuse to accept the result.	Zeigt die Optionen Duett und Stitch auch dann, wenn der Creator sie ausgeschaltet hat. TikTok kann das Ergebnis trotzdem ablehnen.
 Shows Add to Story in the share sheet and on stories even when the creator turned off content reuse. TikTok may still refuse to post it.	Zeigt Zur Story hinzufügen im Teilen-Menü und bei Storys, auch wenn der Creator die Wiederverwendung ausgeschaltet hat. TikTok kann das Posten trotzdem ablehnen.
 Import finished	Import abgeschlossen
@@ -1439,11 +1439,11 @@ this creator	dieser Creator
 TikTok refused the follow with code %1$s	TikTok hat das Folgen mit Code %1$s abgelehnt
 Follow refused, code %1$s. Maybe a hidden CAPTCHA.	Folgen abgelehnt (%1$s). Evtl. CAPTCHA ausgeblendet.
 Follow refused (%1$s). Maybe a hidden CAPTCHA.	Folgen abgelehnt (%1$s). Evtl. CAPTCHA ausgeblendet.
-Hushfeed is paused	Hushfeed ist pausiert
-Hushfeed's switches are paused. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.	Hushfeeds Schalter sind pausiert. Deine Einstellungen bleiben gespeichert. Was du beim Patchen geändert hast, etwa Name oder Symbol der App, bleibt.
-TikTok closed three times within a minute of starting, so Hushfeed paused itself. Your settings stay as they are.	TikTok wurde dreimal innerhalb einer Minute nach dem Start beendet, deshalb hat sich Hushfeed selbst pausiert. Deine Einstellungen bleiben, wie sie sind.
-A file named hushfeed-safe-mode in TikTok's folder under Android/data paused Hushfeed. Your settings stay as they are.	Eine Datei namens hushfeed-safe-mode im TikTok-Ordner unter Android/data hat Hushfeed pausiert. Deine Einstellungen bleiben, wie sie sind.
-Turn Hushfeed back on	Hushfeed wieder einschalten
+StopSlop is paused	StopSlop ist pausiert
+StopSlop's switches are paused. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.	StopSlops Schalter sind pausiert. Deine Einstellungen bleiben gespeichert. Was du beim Patchen geändert hast, etwa Name oder Symbol der App, bleibt.
+TikTok closed three times within a minute of starting, so StopSlop paused itself. Your settings stay as they are.	TikTok wurde dreimal innerhalb einer Minute nach dem Start beendet, deshalb hat sich StopSlop selbst pausiert. Deine Einstellungen bleiben, wie sie sind.
+A file named hushfeed-safe-mode in TikTok's folder under Android/data paused StopSlop. Your settings stay as they are.	Eine Datei namens hushfeed-safe-mode im TikTok-Ordner unter Android/data hat StopSlop pausiert. Deine Einstellungen bleiben, wie sie sind.
+Turn StopSlop back on	StopSlop wieder einschalten
 Pause Hushfeed	Hushfeed pausieren
 Settings theme	Design der Einstellungen
 Hushfeed language	Hushfeed-Sprache
@@ -1467,8 +1467,8 @@ Always dark	Immer dunkel
 Always light	Immer hell
 Colors these settings and Hushfeed's own pop-ups.	Färbt diese Einstellungen und Hushfeeds eigene Pop-ups.
 Pause Hushfeed's switches after TikTok restarts. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.	Pausiere Hushfeeds Schalter nach dem Neustart von TikTok. Deine Einstellungen bleiben gespeichert. Was du beim Patchen geändert hast, etwa Name oder Symbol der App, bleibt.
-Hushfeed turns back on when TikTok restarts.	Hushfeed ist wieder aktiv, sobald TikTok neu startet.
-The file hushfeed-safe-mode couldn't be removed. Delete it from TikTok's folder under Android/data to turn Hushfeed back on.	Die Datei hushfeed-safe-mode konnte nicht entfernt werden. Lösche sie im TikTok-Ordner unter Android/data, um Hushfeed wieder einzuschalten.
+StopSlop turns back on when TikTok restarts.	StopSlop ist wieder aktiv, sobald TikTok neu startet.
+The file hushfeed-safe-mode couldn't be removed. Delete it from TikTok's folder under Android/data to turn StopSlop back on.	Die Datei hushfeed-safe-mode konnte nicht entfernt werden. Lösche sie im TikTok-Ordner unter Android/data, um StopSlop wieder einzuschalten.
 Hide TikTok Shop in search	TikTok Shop in der Suche ausblenden
 Hide the Products block and product cards in search results.	Den Produkte-Block und Produktkarten in den Suchergebnissen ausblenden.
 Hide TikTok's Auto scroll button	TikToks Auto-Scroll-Schaltfläche ausblenden
@@ -1605,7 +1605,7 @@ Saving video: %1$s	Video wird gespeichert: %1$s
 Saving %1$s of %2$s: %3$s	%1$s von %2$s wird gespeichert: %3$s
 Couldn't save the change. Try again.	Änderung nicht gespeichert. Versuch es erneut.
 Off. TikTok can report views and typing.	Aus. TikTok kann Aufrufe und Tippaktivität melden.
-Hushfeed is paused. Ghost mode isn't active.	Hushfeed ist pausiert. Der Geistermodus ist nicht aktiv.
+StopSlop is paused. Ghost mode isn't active.	StopSlop ist pausiert. Der Geistermodus ist nicht aktiv.
 Problem detected. Story views may still be reported. Check Ghost mode diagnostics. The warning stays until TikTok restarts.	Problem erkannt. Story-Aufrufe werden möglicherweise weiterhin gemeldet. Öffne die Diagnose des Geistermodus. Die Warnung bleibt bis zum Neustart von TikTok.
 Hushfeed blocked TikTok's reports here. It hasn't confirmed that you stay off viewer lists.	Hushfeed hat hier TikToks Meldungen blockiert. Es hat noch nicht bestätigt, dass du auf Zuschauerlisten nicht auftauchst.
 On. Hushfeed hasn't seen TikTok send any reports since it started.	An. Hushfeed hat seit dem Start von TikTok keine Meldungen von TikTok gesehen.
@@ -3177,3 +3177,54 @@ Adds three stops below the smallest size on TikTok's own Text size slider, in Se
 # context: a number row under Appearance and its summary (#477). The number is a percent of TikTok's own size, from 50 to 100, and the row shows it as 80% and so on
 UI size	Oberflächengröße
 Makes TikTok's whole interface smaller, text and buttons alike, so more fits on screen. 100 leaves it as it is. Restart TikTok to see the change.	Macht die ganze Oberfläche von TikTok kleiner, Text und Schaltflächen gleichermaßen, damit mehr auf den Bildschirm passt. Bei 100 bleibt sie, wie sie ist. Starte TikTok neu, um die Änderung zu sehen.
+# context: StopSlop section and control labels, summaries, and reload confirmation
+StopSlop	StopSlop
+Advertising	Werbung
+Ad & Sponsorship	Werbung & Sponsoring
+Hide platform ads and disclosed sponsorships, including paid partnership and promotional content.	Plattformwerbung und gekennzeichnete Kooperationen ausblenden, einschließlich bezahlter Partnerschaften und Werbeinhalten.
+In-video Ads	Werbung im Video
+Coming soon; unavailable until local OCR and audio support exists.	Demnächst verfügbar; bis zur lokalen OCR- und Audio-Unterstützung nicht verfügbar.
+AI & Slop	KI & minderwertige Inhalte
+Hide AI-generated posts	KI-generierte Beiträge ausblenden
+Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.	Beiträge mit ausdrücklichen KI-Kennzeichnungen, Metadaten oder KI-Tags ausblenden. Sprache und geringe Interaktion allein zählen nicht.
+Feed quality	Feed-Qualität
+Minimum likes	Mindestanzahl Likes
+Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.	Beiträge mit weniger Likes als dem Grenzwert ausblenden. Beiträge ohne bekannte Like-Zahl bleiben sichtbar.
+Like threshold	Like-Grenzwert
+Posts below this number of likes are hidden while Minimum likes is on.	Beiträge mit weniger Likes als dieser Zahl werden ausgeblendet, wenn Mindestanzahl Likes aktiviert ist.
+Topics	Themen
+Topic Filter	Themenfilter
+Coming soon; not available yet.	Demnächst verfügbar; noch nicht verfügbar.
+Actions	Aktionen
+Reload TikTok	TikTok neu laden
+Closes and reopens TikTok's task. It does not stop the app process and may interrupt your current session.	Schließt die TikTok-Aufgabe und öffnet sie erneut. Der App-Prozess wird nicht beendet; deine aktuelle Sitzung kann unterbrochen werden.
+Reload TikTok?	TikTok neu laden?
+This closes and reopens TikTok's task. It does not stop the app process and may interrupt your current session.	Dadurch wird die TikTok-Aufgabe geschlossen und erneut geöffnet. Der App-Prozess wird nicht beendet; deine aktuelle Sitzung kann unterbrochen werden.
+Reload	Neu laden
+Could not open TikTok.	TikTok konnte nicht geöffnet werden.
+# context: StopSlop headings, description, and renamed settings labels
+AI-generated content	KI-generierte Inhalte
+Ads & sponsorships	Werbung & Sponsoring
+Hide TikTok ads and posts marked as paid partnership or promotional content.	TikTok-Werbung und Beiträge mit Kennzeichnung für bezahlte Partnerschaften oder Werbeinhalte ausblenden.
+TikTok feed filters for ads, AI-generated posts, and low like counts.	TikTok-Feedfilter für Werbung, KI-generierte Beiträge und Beiträge mit wenigen Likes.
+About StopSlop	Über StopSlop
+Long-press Home for StopSlop settings	Startseite lange drücken für StopSlop-Einstellungen
+Hide the StopSlop row	StopSlop-Zeile ausblenden
+Take StopSlop out of TikTok's Settings and privacy. To open these settings, press and hold For You at the top of the feed, or Home if Long-press Home for StopSlop settings is on. If neither press can open them, the row stays.	Entfernt StopSlop aus TikToks Einstellungen und Datenschutz. Um diese Einstellungen zu öffnen, halte „Für dich“ oben im Feed gedrückt oder „Startseite“, wenn „Startseite lange drücken für StopSlop-Einstellungen“ aktiviert ist. Wenn keine der beiden Gesten die Einstellungen öffnet, bleibt der Eintrag sichtbar.
+Check for StopSlop updates	Nach StopSlop-Updates suchen
+Once a day when TikTok opens, ask GitHub if a newer StopSlop release is out and show a card when it is. The request carries your StopSlop version and nothing else.	Prüft einmal täglich beim Öffnen von TikTok bei GitHub, ob eine neuere StopSlop-Version verfügbar ist, und zeigt dann eine Karte. Die Anfrage enthält nur deine StopSlop-Version.
+Open StopSlop settings	StopSlop-Einstellungen öffnen
+Also checks sponsor wording and commerce signals; the Feed filter page keeps separate controls for TikTok's ad, partnership, and music markers.	Prüft außerdem Sponsorhinweise im Text und Commerce-Signale; unter Feed-Filter bleiben separate Schalter für TikToks Werbe-, Partnerschafts- und Musikmarkierungen.
+Changes in StopSlop %1$s	Änderungen in StopSlop %1$s
+Colors these settings and StopSlop's own pop-ups.	Färbt diese Einstellungen und die eigenen Pop-ups von StopSlop.
+For StopSlop's settings and messages. TikTok keeps its own language.	Für StopSlops Einstellungen und Meldungen. TikTok behält seine eigene Sprache.
+On. StopSlop hasn't seen TikTok send any reports since it started.	An. StopSlop hat seit dem Start keine Meldungen von TikTok gesehen.
+Pause StopSlop	StopSlop pausieren
+Pause StopSlop's switches after TikTok restarts. Your settings stay saved. Changes made when you patched, like the app's name or icon, stay.	Pausiere StopSlops Schalter nach dem Neustart von TikTok. Deine Einstellungen bleiben gespeichert. Was du beim Patchen geändert hast, etwa Name oder Symbol der App, bleibt.
+Remove TikTok-identified ads, commission posts, paid partnerships, and branded content. For text and Shop signals, use StopSlop's Ads & sponsorships control.	Entfernt von TikTok erkannte Werbung, Provisionsbeiträge, bezahlte Partnerschaften und Markeninhalte. Für Text- und Shop-Signale nutze StopSlops Schalter „Ads & sponsorships“.
+Reopen StopSlop settings, then choose the file	Öffne die StopSlop-Einstellungen erneut und wähle dann die Datei
+Show only videos within both the minimum and maximum like counts.	Zeigt nur Videos innerhalb der minimalen und maximalen Like-Anzahl.
+StopSlop blocked TikTok's reports here. It hasn't confirmed that you stay off viewer lists.	StopSlop hat hier TikToks Meldungen blockiert. Es hat noch nicht bestätigt, dass du auf Zuschauerlisten nicht auftauchst.
+StopSlop language	StopSlop-Sprache
+Support StopSlop	StopSlop unterstützen
+Wait a day to loosen the budget is on, so StopSlop stays on	Lockerungen des Budgets einen Tag warten lassen ist an, daher bleibt StopSlop aktiv

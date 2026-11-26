@@ -58,7 +58,7 @@ internal object ChatRequestSendWithHeadersFingerprint : Fingerprint(
 val hideReadReceiptsPatch = bytecodePatch(
     name = "Hide read receipts",
     description = "Stops TikTok telling people you've read their messages. Your own unread badges still " +
-        "clear as usual. Starts off. Turn it on in Hushfeed settings > Inbox.",
+        "clear as usual. Starts off. Turn it on in StopSlop settings > Inbox.",
 ) {
     category("Inbox")
     dependsOn(settingsPatch, sharedExtensionPatch)

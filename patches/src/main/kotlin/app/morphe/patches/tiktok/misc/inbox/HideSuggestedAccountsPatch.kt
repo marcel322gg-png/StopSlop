@@ -38,7 +38,7 @@ val hideSuggestedAccountsPatch = bytecodePatch(
     name = "Hide suggested accounts",
     description = "Hides TikTok's People you may like suggestions in the Inbox, on profiles, " +
         "on the Friends tab and in the feed. It uses the same switch as Hide inbox items. Starts " +
-        "off. Turn it on in Hushfeed settings > Inbox.",
+        "off. Turn it on in StopSlop settings > Inbox.",
 ) {
     category("Inbox")
     dependsOn(settingsPatch, sharedExtensionPatch)

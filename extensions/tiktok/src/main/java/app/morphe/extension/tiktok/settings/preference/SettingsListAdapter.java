@@ -86,6 +86,7 @@ final class SettingsListAdapter extends BaseAdapter implements WrapperListAdapte
      * own rows run full bleed; these sit in their section's card.
      */
     private boolean isSectionRow(Object item) {
+        if (StopSlopUi.isPreference(item)) return true;
         if (sectionRowsStale) {
             sectionRows.clear();
             for (int position = 0; position < getCount(); position++) {

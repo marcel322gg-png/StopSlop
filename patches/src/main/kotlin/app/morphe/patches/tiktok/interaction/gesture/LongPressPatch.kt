@@ -216,7 +216,7 @@ val longPressPatch = bytecodePatch(
     name = "Long-press controls",
     description = "Lets a long press on a video like it, open the comments, copy the link, save " +
         "the sound or the frame on screen, name the song with Shazam, or set a sleep timer, and can " +
-        "give a creator's videos For You's full long-press menu. Starts off. Pick an action in Hushfeed settings > Feed screen.",
+        "give a creator's videos For You's full long-press menu. Starts off. Pick an action in StopSlop settings > Feed screen.",
 ) {
     category("Interaction")
     compatibleWith(*AppCompatibilities.tiktok())

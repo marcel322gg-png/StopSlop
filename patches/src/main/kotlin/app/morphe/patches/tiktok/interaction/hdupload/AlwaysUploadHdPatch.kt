@@ -83,7 +83,7 @@ val alwaysUploadHdPatch = bytecodePatch(
     name = "Always upload in HD",
     description = "Posts every video you upload in HD, as if you'd turned on TikTok's own HD " +
         "upload setting each time. Videos TikTok doesn't count as high quality post as usual. " +
-        "Starts off. Turn it on in Hushfeed settings > App.",
+        "Starts off. Turn it on in StopSlop settings > App.",
 ) {
     category("Interaction")
     dependsOn(settingsPatch, sharedExtensionPatch)

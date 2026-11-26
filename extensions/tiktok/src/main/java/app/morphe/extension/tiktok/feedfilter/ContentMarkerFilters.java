@@ -50,7 +50,7 @@ public final class ContentMarkerFilters {
     public static class AiGeneratedFilter implements IFilter {
         @Override
         public boolean getEnabled() {
-            return Settings.HIDE_AI_GENERATED.get();
+            return Settings.HIDE_AI_GENERATED.get() || Settings.STOP_SLOP_AI_GENERATED.get();
         }
 
         @Override
@@ -196,6 +196,52 @@ public final class ContentMarkerFilters {
         @Override
         public boolean getFiltered(Aweme item) {
             return hasPaidPartnershipMarker(item);
+        }
+    }
+
+    /** StopSlop's combined ad and sponsorship rule. */
+    public static class StopSlopPaidPartnershipFilter implements IFilter {
+        @Override
+        public boolean getEnabled() {
+            return Settings.STOP_SLOP_AD_SPONSORSHIP.get();
+        }
+
+        @Override
+        public boolean getFiltered(Aweme item) {
+            return AdsFilter.isStopSlopAdOrSponsorship(item);
+        }
+    }
+
+    /**
+     * Reads only fields whose names and values identify TikTok-disclosed commercial content.
+     * Numeric enum values are deliberately allow-listed: an unknown value or shape fails open.
+     */
+    static boolean hasExplicitPaidPartnershipMarker(Aweme item) {
+        if (item == null) return false;
+        try {
+            Object accounts = Reflect.property(item, "getBrandContentAccounts", "brandContentAccounts");
+            if (accounts instanceof Collection) {
+                for (Object account : (Collection<?>) accounts) {
+                    if (account != null) return true;
+                }
+            }
+
+            Object commerce = Reflect.property(item, "getCommerceVideoAuthInfo", "commerceVideoAuthInfo");
+            if (commerce != null) {
+                if (Boolean.TRUE.equals(Reflect.property(commerce, "isBrandedContent", "isBrandedContent"))
+                        || Boolean.TRUE.equals(Reflect.property(
+                        commerce, "isBrandOrganicContent", "isBrandOrganicContent"))) {
+                    return true;
+                }
+                Object label = Reflect.property(commerce, "getEcSearchBoBcLabelText", "ecSearchBoBcLabelText");
+                if (label instanceof String && !((String) label).trim().isEmpty()) return true;
+            }
+
+            // This model is used by the existing paid-partnership check and is populated as
+            // disclosure text in the checked-in 47.0.3 corpus replay tests.
+            return Reflect.string(item, "getCommercialVideoInfo", "commercialVideoInfo") != null;
+        } catch (RuntimeException | LinkageError ignored) {
+            return false;
         }
     }
 

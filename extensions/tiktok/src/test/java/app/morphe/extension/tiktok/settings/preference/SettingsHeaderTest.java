@@ -170,7 +170,7 @@ public class SettingsHeaderTest {
 
         TextView name = (TextView) column.getChildAt(1);
         assertSame(name, list.findViewWithTag(SettingsHeader.NAME));
-        assertEquals("Hushfeed", name.getText().toString());
+        assertEquals("StopSlop", name.getText().toString());
         assertEquals(TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_SP, 32,
                 name.getResources().getDisplayMetrics()), name.getTextSize(), 0.01f);
         assertEquals(Typeface.create("sans-serif-medium", Typeface.NORMAL), name.getTypeface());

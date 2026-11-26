@@ -55,6 +55,7 @@ public final class FeedItemsFilter {
         new ShopFilter(),
         new SoundFilter(),
         new ContentMarkerFilters.PaidPartnershipFilter(),
+        new ContentMarkerFilters.StopSlopPaidPartnershipFilter(),
         LOCATION_FILTER,
         new ContentMarkerFilters.AiGeneratedFilter(),
         new ContentMarkerFilters.VerifiedFilter(),
@@ -2376,6 +2377,9 @@ public final class FeedItemsFilter {
         for (IFilter filter : activeFilters) {
             if (builder.length() > 0) builder.append('|');
             builder.append(filter.getClass().getSimpleName());
+            if (filter instanceof LikeCountFilter) {
+                builder.append('[').append(((LikeCountFilter) filter).cacheToken()).append(']');
+            }
         }
     }
 
@@ -2608,6 +2612,7 @@ public final class FeedItemsFilter {
                 contentSignature = 31L * contentSignature + identity(item);
                 contentSignature = 31L * contentSignature + aid(item).hashCode();
                 contentSignature = 31L * contentSignature + AdsFilter.evidenceFingerprint(item);
+                contentSignature = 31L * contentSignature + LikeCountFilter.evidenceFingerprint(item);
                 // A cached Aweme can receive its anchors after the first delivery. The UI-only
                 // hide option must never erase the evidence used by this independent filter.
                 if (Settings.FILTER_LOCATION_VIDEOS.get())

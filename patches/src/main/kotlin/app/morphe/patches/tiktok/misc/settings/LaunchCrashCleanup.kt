@@ -33,8 +33,8 @@ private const val KEPT_LAUNCH_CRASH_PREFERENCES = "launch_crash_intercept_sp"
  * The static initialiser that builds the keep-list of TikTok's launch-crash cleanup.
  *
  * <p>On the third launch crash in a row, TikTok deletes every file in `shared_prefs` whose name
- * isn't on this list (`X.03JS` on 47.0.3, `X.0CpP` on 46.2.3). Hushfeed's settings weren't on
- * it, so a crash loop erased all of them one start before Hushfeed's safe mode could pause
+ * isn't on this list (`X.03JS` on 47.0.3, `X.0CpP` on 46.2.3). StopSlop's settings weren't on
+ * it, so a crash loop erased all of them one start before StopSlop's safe mode could pause
  * anything. TikTok's SafeMode dialog runs the same deletion when its clean button is pressed.
  */
 internal object LaunchCrashKeepListFingerprint : Fingerprint(
@@ -45,7 +45,7 @@ internal object LaunchCrashKeepListFingerprint : Fingerprint(
 )
 
 /**
- * Adds Hushfeed's preferences files to the keep-list [clinit] builds.
+ * Adds StopSlop's preferences files to the keep-list [clinit] builds.
  *
  * <p>The list is the first `String[]` stored after TikTok's own launch-crash preferences are
  * named, and it has to be the one a method of the same class reads while walking `shared_prefs`.

@@ -117,7 +117,7 @@ internal fun afterSuperAttachBaseContext(method: Method): Int = method.indexOfFi
     } == true
 } + 1
 
-// The Home tab's long press into Hushfeed's settings follows the main activity from here; it
+// The Home tab's long press into StopSlop's settings follows the main activity from here; it
 // stays inert unless Feed tab navigation is in the bundle.
 private val initHook = ExtensionHook(
     fingerprint = MainActivityOnCreateFingerprint,
@@ -147,7 +147,7 @@ private val storeRegionInitHook = ExtensionHook(
     packageNames = TIKTOK_ONLY,
 )
 
-// Lite has no Jato or store-region start-up tasks, and none of Hushfeed's saved-video cache
+// Lite has no Jato or store-region start-up tasks, and none of StopSlop's saved-video cache
 // yet, so the context is all its application and launcher hand over.
 private val liteApplicationInitHook = ExtensionHook(
     fingerprint = LiteApplicationAttachBaseContextFingerprint,

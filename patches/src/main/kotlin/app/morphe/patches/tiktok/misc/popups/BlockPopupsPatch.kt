@@ -236,7 +236,7 @@ val blockPopupsPatch = bytecodePatch(
     description = "Lets you stop TikTok's popups, like friend suggestions and offers. Each " +
         "one joins a checklist after it first appears, and once ticked it won't come back. " +
         "Sign-in, age and verification screens are never blocked. Starts off. Turn it on in " +
-        "Hushfeed settings > Feed screen.",
+        "StopSlop settings > Feed screen.",
     default = true,
 ) {
     category("Feed")

@@ -35,7 +35,7 @@ val stopSearchAutoplayPatch = bytecodePatch(
     name = "Stop search autoplay",
     description = "Stops videos in search results from playing by themselves. Each one shows " +
         "its cover until you open it, so searching stays quiet. Starts off. Turn it on in " +
-        "Hushfeed settings > App.",
+        "StopSlop settings > App.",
 ) {
     category("Search")
     dependsOn(settingsPatch, sharedExtensionPatch)

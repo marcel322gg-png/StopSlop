@@ -65,14 +65,14 @@ internal fun pickerLauncherEntry(manifest: Document): Element {
         throw PatchException(
             "Custom launcher icon: the icon picker expects TikTok's only home screen entry to be " +
                 "$TIKTOK_LAUNCHER, and this TikTok lists ${names.ifEmpty { listOf("none") }.joinToString()}. " +
-                "Nothing was changed. Patch with Pick the icon in Hushfeed off.",
+                "Nothing was changed. Patch with Pick the icon in StopSlop off.",
         )
     }
     return entries.single()
 }
 
 /**
- * Lets Hushfeed's settings switch the home screen icon (Discussion #114).
+ * Lets StopSlop's settings switch the home screen icon (Discussion #114).
  *
  * <p>Android lists an app on the home screen once for each enabled activity with the launcher
  * category, so every icon gets an alias of its own and only [enabled] starts on. TikTok's

@@ -61,7 +61,7 @@ val freezeRemoteConfigPatch = bytecodePatch(
     name = "Freeze TikTok's experiments",
     description = "Lets you keep the settings TikTok's servers sent it so far. TikTok tests new " +
         "layouts and features on people by sending new ones all the time, and with this on it " +
-        "ignores them. Starts off. Turn it on in Hushfeed settings > App.",
+        "ignores them. Starts off. Turn it on in StopSlop settings > App.",
 ) {
     category("Settings")
     dependsOn(sharedExtensionPatch, settingsPatch)

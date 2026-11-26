@@ -85,7 +85,7 @@ val originalAudioPatch = bytecodePatch(
     name = "Play original audio",
     description = "Plays videos and mini dramas with their original audio instead of TikTok's " +
         "AI dub in your app language. Captions and translations stay as they are. Starts off. " +
-        "Turn it on in Hushfeed settings > Playback.",
+        "Turn it on in StopSlop settings > Playback.",
 ) {
     category("Playback")
     dependsOn(settingsPatch, sharedExtensionPatch)

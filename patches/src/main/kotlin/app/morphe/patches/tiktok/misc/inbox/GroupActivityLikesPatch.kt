@@ -41,7 +41,7 @@ val groupActivityLikesPatch = bytecodePatch(
     name = "Group likes per comment",
     description = "Shows one row in the Inbox's Likes list for each comment or video people " +
         "liked, with everyone counted, instead of a new row every few likes. Starts off. Turn it " +
-        "on in Hushfeed settings > Inbox.",
+        "on in StopSlop settings > Inbox.",
 ) {
     category("Inbox")
     dependsOn(settingsPatch, sharedExtensionPatch)

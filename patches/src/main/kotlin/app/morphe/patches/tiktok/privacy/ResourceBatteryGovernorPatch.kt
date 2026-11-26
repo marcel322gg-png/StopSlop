@@ -23,7 +23,7 @@ val resourceBatteryGovernorPatch = bytecodePatch(
     name = "Resource and battery governor",
     description = "Stops TikTok reading your phone's motion sensors, which it can use to " +
         "identify your phone, and stops a background speed test that can use a lot of memory. " +
-        "Starts off. Turn it on in Hushfeed settings > Privacy.",
+        "Starts off. Turn it on in StopSlop settings > Privacy.",
 ) {
     category("Privacy")
     dependsOn(settingsPatch, sharedExtensionPatch)

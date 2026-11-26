@@ -100,7 +100,7 @@ final class VideoListDialog {
                 .setPositiveButton(L10n.t(context, "Close"), (target, which) -> target.dismiss())
                 .setNeutralButton(L10n.t(context, "Clear"), null);
         if (overFeed) {
-            builder.setNegativeButton(L10n.t(context, "Open Hushfeed settings"), (target, which) -> {
+            builder.setNegativeButton(L10n.t(context, "Open StopSlop settings"), (target, which) -> {
                 target.dismiss();
                 TikTokActivityHook.openSettings();
             });

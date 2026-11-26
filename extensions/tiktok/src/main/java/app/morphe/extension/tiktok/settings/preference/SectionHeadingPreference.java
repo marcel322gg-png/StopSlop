@@ -14,6 +14,8 @@ import android.widget.TextView;
 
 @SuppressWarnings("deprecation")
 public final class SectionHeadingPreference extends Preference {
+    private boolean stopSlopBrand;
+
     public SectionHeadingPreference(Context context, String title) {
         super(context);
         setTitle(L10n.t(context, title));
@@ -22,6 +24,12 @@ public final class SectionHeadingPreference extends Preference {
 
     public static SectionHeadingPreference compact(Context context, String title) {
         return new SectionHeadingPreference(context, title);
+    }
+
+    static SectionHeadingPreference stopSlop(Context context, String title) {
+        SectionHeadingPreference preference = new SectionHeadingPreference(context, title);
+        preference.stopSlopBrand = true;
+        return preference;
     }
 
     /** Retains the constructor used by existing add-ons; headings now share one compact style. */
@@ -42,6 +50,7 @@ public final class SectionHeadingPreference extends Preference {
         layout.addView(title, new LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
         ScreenColors.current().paintHeading(layout);
+        if (stopSlopBrand) StopSlopUi.paintHeading(title, "StopSlop".equals(getTitle()));
         return layout;
     }
 
@@ -52,5 +61,9 @@ public final class SectionHeadingPreference extends Preference {
         if (title != null) title.setText(getTitle());
         // Read on each bind, so a theme change shows on the next one.
         ScreenColors.current().paintHeading(view);
+        if (title != null) {
+            if (stopSlopBrand) StopSlopUi.paintHeading(title, "StopSlop".equals(getTitle()));
+            else StopSlopUi.clearHeading(title);
+        }
     }
 }

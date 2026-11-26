@@ -98,7 +98,7 @@ private object CircleSearchBlockFingerprint : Fingerprint(
 val allowScreenCapturePatch = bytecodePatch(
     name = "Allow screenshots and Circle to Search",
     description = "Lets screenshots, screen recordings and Circle to Search work on TikTok " +
-        "screens that would otherwise come out black. Starts off. Turn it on in Hushfeed settings " +
+        "screens that would otherwise come out black. Starts off. Turn it on in StopSlop settings " +
         "> App, then restart TikTok.",
 ) {
     category("Downloads")

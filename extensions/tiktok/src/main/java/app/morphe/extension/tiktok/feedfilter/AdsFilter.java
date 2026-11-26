@@ -11,9 +11,48 @@ import com.ss.android.ugc.aweme.feed.model.Aweme;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.Normalizer;
+import java.util.Collection;
+import java.util.Locale;
+import java.util.Set;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
 public class AdsFilter implements IFilter {
     private static final String DISCLOSURE_HOOK_FAMILY = "feed ad disclosures";
     private static final String PANEL_DISCLOSURE = "panel_top_disclosure_label";
+    private static final int MAX_CAPTION_LENGTH = 2048;
+    private static final int MAX_TAGS = 64;
+    private static final int MAX_STICKERS = 16;
+    private static final int MAX_TAG_LENGTH = 128;
+    private static final int MAX_STICKER_TEXT_LENGTH = 512;
+    private static final String SHOP_INFO = "placeholder_product_id";
+    private static final Pattern URL_PATTERN = Pattern.compile("(?:https?://|www\\.)[^\\s]{3,}");
+    private static final Pattern PROMO_CODE_PATTERN = Pattern.compile(
+            "(?:promo code|discount code|affiliate code|creator code|referral code|partner code|"
+                    + "use (?:my )?code|save with code|промокод|код скидки|код знижки|код автора|код блогера|"
+                    + "slevovy kod|partnersky kod)"
+                    + "\\s*[:#-]?\\s*([\\p{L}\\p{N}][\\p{L}\\p{N}_-]{2,})");
+    private static final Set<String> DISCLOSURE_TAGS = Set.of(
+            "ad", "advertisement", "sponsored", "spon", "paidpartnership", "paidpromotion", "paidpromo",
+            "commercial", "branddeal", "brandpartner", "brandedcontent", "promotionalcontent", "gifted",
+            "giftedby", "giftedcollab", "prpackage", "pressgift", "affiliate", "affiliatelink", "commission",
+            "commissionearned", "brandambassador", "ambassador", "реклама", "спонсоровано", "партнерство",
+            "платнепартнерство", "бартер", "подароване", "рекламнаінтеграція", "платноепартнерство",
+            "подарок", "рекламнаяинтеграция", "spoluprace", "placenepartnerstvi", "placenaspoluprace",
+            "darovano", "partnerstvi");
+    private static final Set<String> DISCLOSURE_PHRASES = Set.of(
+            "ad", "advertisement", "paid partnership", "promotional content", "sponsored by", "brand partnership",
+            "gifted collaboration", "placena spoluprace", "placene partnerstvi", "reklama", "реклама",
+            "платне партнерство", "спонсоровано", "платное партнерство");
+    private static final Set<String> PURCHASE_CALLS_TO_ACTION = Set.of(
+            "buy now", "shop now", "order now", "get yours", "use my link", "shop today", "buy today",
+            "купити зараз", "замовляй", "замовити", "купить сейчас", "заказывай", "kupte nyni", "objednejte");
+    private static final Set<String> PRODUCT_OR_DEMO_WORDING = Set.of(
+            "product", "unboxing", "review", "demo", "tutorial", "recommendation", "try this", "new collection",
+            "продукт", "распаковка", "обзор", "демо", "купуй", "товар", "розпаковка", "огляд", "kupte", "recenze");
+    private static final Set<String> NON_CODE_WORDS = Set.of(
+            "for", "with", "here", "below", "today", "now", "link", "save", "discount", "code", "please", "enter");
     /** The filter report's count of ads caught by a signal other than TikTok's own ad flag. */
     static final String AD_SIGNALS_SOURCE = "AdSignals";
 
@@ -32,6 +71,156 @@ public class AdsFilter implements IFilter {
                 || isLemon8PromoCard(item)
                 || hasCreatorCommissionDisclosure(item)
                 || ContentMarkerFilters.hasPaidPartnershipMarker(item);
+    }
+
+    /** StopSlop's wider rule, shared by the existing feed-filter registration and cache path. */
+    static boolean isStopSlopAdOrSponsorship(Aweme item) {
+        if (item == null) return false;
+        try {
+            // These flags apply to Aweme irrespective of whether its media is a video or photo carousel.
+            if (item.isAd() || item.isSoftAd() || item.getAwemeRawAd() != null
+                    || item.isWithPromotionalMusic() || isPseudoAd(item) || isLemon8PromoCard(item)
+                    || ShopFilter.isTikTokShopAd(item)) {
+                return true;
+            }
+            if (hasCreatorCommissionDisclosure(item)
+                    || ContentMarkerFilters.hasExplicitPaidPartnershipMarker(item)) {
+                return true;
+            }
+            return hasDisclosureTextOrCombinedCommerceEvidence(item);
+        } catch (RuntimeException | LinkageError ignored) {
+            // An unreadable candidate is left in the feed. This predicate is called on a hot path.
+            return false;
+        }
+    }
+
+    private static boolean hasDisclosureTextOrCombinedCommerceEvidence(Aweme item) {
+        DisclosureText evidence = new DisclosureText();
+        String caption = limited(Reflect.string(item, "getDesc", "desc"), MAX_CAPTION_LENGTH);
+        inspectText(caption, evidence);
+        inspectCaptionHashtags(caption, evidence);
+
+        Object extras = Reflect.property(item, "getTextExtra", "textExtra");
+        if (extras instanceof Collection) {
+            int count = 0;
+            for (Object extra : (Collection<?>) extras) {
+                if (count++ >= MAX_TAGS) break;
+                String tag = limited(Reflect.string(extra, "getHashTagName", "hashTagName"), MAX_TAG_LENGTH);
+                if (tag == null) continue;
+                String normalizedTag = normalize(tag.startsWith("#") ? tag.substring(1) : tag);
+                if (isDisclosureTag(normalizedTag)) evidence.explicitDisclosure = true;
+                inspectText(tag, evidence);
+            }
+        }
+
+        Object stickers = Reflect.property(item, "getInteractStickerStructs", "interactStickerStructs");
+        if (stickers instanceof Collection) {
+            int count = 0;
+            for (Object sticker : (Collection<?>) stickers) {
+                if (count++ >= MAX_STICKERS) break;
+                Object type = Reflect.property(sticker, "getType", "type");
+                if (!(type instanceof Number)) continue;
+                int kind = ((Number) type).intValue();
+                if (kind != AdvancedFeedRules.TEXT_STICKER_TYPE
+                        && kind != AdvancedFeedRules.CAPTIONED_TEXT_STICKER_TYPE) continue;
+                inspectText(limited(Reflect.string(sticker, "getTextStruct", "textStruct"), MAX_STICKER_TEXT_LENGTH),
+                        evidence);
+            }
+        }
+
+        if (evidence.explicitDisclosure) return true;
+
+        String shareUrl = item.getShareUrl();
+        boolean commerceAnchor = shareUrl != null && shareUrl.contains(SHOP_INFO);
+        // Weak cues need two independent signals and a specific code or TikTok Shop anchor.
+        return evidence.promoCode
+                        && (evidence.purchaseCallToAction || evidence.url || evidence.productOrDemo || commerceAnchor)
+                || commerceAnchor && (evidence.purchaseCallToAction || evidence.url || evidence.productOrDemo);
+    }
+
+    private static void inspectText(String value, DisclosureText evidence) {
+        if (value == null || value.isEmpty()) return;
+        String normalized = normalize(value);
+        if (containsAnyPhrase(normalized, DISCLOSURE_PHRASES)) evidence.explicitDisclosure = true;
+        if (containsAnyPhrase(normalized, PURCHASE_CALLS_TO_ACTION)) evidence.purchaseCallToAction = true;
+        if (containsAnyPhrase(normalized, PRODUCT_OR_DEMO_WORDING)) evidence.productOrDemo = true;
+        if (URL_PATTERN.matcher(value).find()) evidence.url = true;
+
+        Matcher code = PROMO_CODE_PATTERN.matcher(normalized);
+        while (code.find()) {
+            String token = code.group(1);
+            if (!NON_CODE_WORDS.contains(token)) {
+                evidence.promoCode = true;
+                break;
+            }
+        }
+    }
+
+    private static void inspectCaptionHashtags(String caption, DisclosureText evidence) {
+        if (caption == null) return;
+        for (int at = caption.indexOf('#'); at >= 0; at = caption.indexOf('#', at + 1)) {
+            int end = at + 1;
+            while (end < caption.length()) {
+                int codePoint = caption.codePointAt(end);
+                int type = Character.getType(codePoint);
+                if (!Character.isLetterOrDigit(codePoint) && codePoint != '_' && codePoint != '-'
+                        && type != Character.NON_SPACING_MARK && type != Character.COMBINING_SPACING_MARK) break;
+                end += Character.charCount(codePoint);
+            }
+            if (end > at + 1 && isDisclosureTag(normalize(caption.substring(at + 1, end)))) {
+                evidence.explicitDisclosure = true;
+                return;
+            }
+        }
+    }
+
+    private static boolean isDisclosureTag(String normalizedTag) {
+        return DISCLOSURE_TAGS.contains(normalizedTag) || DISCLOSURE_PHRASES.contains(normalizedTag);
+    }
+
+    private static boolean containsAnyPhrase(String normalizedText, Set<String> phrases) {
+        if (normalizedText.isEmpty()) return false;
+        String padded = " " + normalizedText + " ";
+        for (String phrase : phrases) {
+            if (padded.contains(" " + phrase + " ")) return true;
+        }
+        return false;
+    }
+
+    private static String normalize(String value) {
+        String decomposed = Normalizer.normalize(value, Normalizer.Form.NFD).toLowerCase(Locale.ROOT);
+        StringBuilder normalized = new StringBuilder(decomposed.length());
+        boolean separator = true;
+        for (int offset = 0; offset < decomposed.length();) {
+            int codePoint = decomposed.codePointAt(offset);
+            offset += Character.charCount(codePoint);
+            int type = Character.getType(codePoint);
+            if (type == Character.NON_SPACING_MARK || type == Character.COMBINING_SPACING_MARK
+                    || type == Character.ENCLOSING_MARK) continue;
+            if (Character.isLetterOrDigit(codePoint)) {
+                normalized.appendCodePoint(codePoint);
+                separator = false;
+            } else if (!separator) {
+                normalized.append(' ');
+                separator = true;
+            }
+        }
+        int length = normalized.length();
+        if (length > 0 && normalized.charAt(length - 1) == ' ') normalized.setLength(length - 1);
+        return normalized.toString();
+    }
+
+    private static String limited(String value, int maxLength) {
+        if (value == null) return null;
+        return value.length() <= maxLength ? value : value.substring(0, maxLength);
+    }
+
+    private static final class DisclosureText {
+        boolean explicitDisclosure;
+        boolean purchaseCallToAction;
+        boolean productOrDemo;
+        boolean url;
+        boolean promoCode;
     }
 
     /** The CardInsertInfo card type of the Lemon8 install promo card TikTok slots into For You. */
@@ -152,6 +341,44 @@ public class AdsFilter implements IFilter {
         result = 31 * result + (extras == null ? 0 : extras.hashCode());
         result = 31 * result + (hasLocalAllianceDisclosure(item) ? 1 : 0);
         result = 31 * result + (ContentMarkerFilters.hasPaidPartnershipMarker(item) ? 1 : 0);
+        result = 31 * result + (ContentMarkerFilters.hasExplicitPaidPartnershipMarker(item) ? 1 : 0);
+        result = 31 * result + (hasCreatorCommissionDisclosure(item) ? 1 : 0);
+        result = 31 * result + textEvidenceFingerprint(item);
+        return result;
+    }
+
+    private static int textEvidenceFingerprint(Aweme item) {
+        int result = 1;
+        try {
+            String caption = limited(Reflect.string(item, "getDesc", "desc"), MAX_CAPTION_LENGTH);
+            result = 31 * result + (caption == null ? 0 : caption.hashCode());
+            Object extras = Reflect.property(item, "getTextExtra", "textExtra");
+            if (extras instanceof Collection) {
+                int count = 0;
+                for (Object extra : (Collection<?>) extras) {
+                    if (count++ >= MAX_TAGS) break;
+                    String tag = limited(Reflect.string(extra, "getHashTagName", "hashTagName"), MAX_TAG_LENGTH);
+                    result = 31 * result + (tag == null ? 0 : tag.hashCode());
+                }
+            }
+            Object stickers = Reflect.property(item, "getInteractStickerStructs", "interactStickerStructs");
+            if (stickers instanceof Collection) {
+                int count = 0;
+                for (Object sticker : (Collection<?>) stickers) {
+                    if (count++ >= MAX_STICKERS) break;
+                    Object type = Reflect.property(sticker, "getType", "type");
+                    if (!(type instanceof Number)) continue;
+                    int kind = ((Number) type).intValue();
+                    if (kind == AdvancedFeedRules.TEXT_STICKER_TYPE
+                            || kind == AdvancedFeedRules.CAPTIONED_TEXT_STICKER_TYPE) {
+                        String text = limited(Reflect.string(sticker, "getTextStruct", "textStruct"), MAX_STICKER_TEXT_LENGTH);
+                        result = 31 * result + (text == null ? 0 : text.hashCode());
+                    }
+                }
+            }
+        } catch (RuntimeException | LinkageError ignored) {
+            // No text metadata means no change to the cache signature.
+        }
         return result;
     }
 

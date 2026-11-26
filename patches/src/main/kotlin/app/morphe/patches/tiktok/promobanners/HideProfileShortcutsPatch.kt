@@ -60,7 +60,7 @@ val hideProfileShortcutsPatch = bytecodePatch(
         "videos, with the tabs that stay in your order. It can hide the Thoughts bubble and the " +
         "Add bio prompt, plus Balance and the TikTok Minis icons in your profile's menu. It can " +
         "also turn Thoughts on for accounts " +
-        "TikTok left out. Starts off. Turn it on in Hushfeed settings > App, then restart TikTok.",
+        "TikTok left out. Starts off. Turn it on in StopSlop settings > App, then restart TikTok.",
     default = true,
 ) {
     category("Feed")

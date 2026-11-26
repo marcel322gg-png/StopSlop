@@ -407,7 +407,7 @@ private val pictureInPictureManifestPatch = patch {
 val pictureInPicturePatch = bytecodePatch(
     name = "Picture-in-picture",
     description = "Keeps the video playing in a small window when you leave TikTok, so you " +
-        "can keep watching while you use other apps. Starts off. Turn it on in Hushfeed settings " +
+        "can keep watching while you use other apps. Starts off. Turn it on in StopSlop settings " +
         "> Playback.",
 ) {
     category("Playback")

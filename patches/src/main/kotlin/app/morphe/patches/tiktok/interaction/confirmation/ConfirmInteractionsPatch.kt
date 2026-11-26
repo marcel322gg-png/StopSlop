@@ -181,7 +181,7 @@ internal fun MutableMethod.hookStoryLike() {
 val confirmInteractionsPatch = bytecodePatch(
     name = "Confirm feed interactions",
     description = "Asks for a second tap before Follow, a like, or a quick repost goes " +
-        "through, so a stray tap doesn't count. Starts off. Turn it on in Hushfeed settings > " +
+        "through, so a stray tap doesn't count. Starts off. Turn it on in StopSlop settings > " +
         "Feed screen.",
 ) {
     category("Interaction")

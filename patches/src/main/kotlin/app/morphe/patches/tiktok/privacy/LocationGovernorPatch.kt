@@ -26,7 +26,7 @@ private const val LISTENER = "Landroid/location/LocationListener;"
 val locationGovernorPatch = bytecodePatch(
     name = "Location access governor",
     description = "Gives TikTok no location when it asks, so it can't see where you are from " +
-        "your phone's location services. Starts off. Turn it on in Hushfeed settings > Privacy.",
+        "your phone's location services. Starts off. Turn it on in StopSlop settings > Privacy.",
 ) {
     category("Privacy")
     dependsOn(settingsPatch, sharedExtensionPatch)

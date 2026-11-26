@@ -71,7 +71,7 @@ internal fun notifyThroughFilter(instruction: Instruction): String {
     }
 }
 
-/** Every TikTok method that posts a notification. Hushfeed's own code is left out, the filter included. */
+/** Every TikTok method that posts a notification. StopSlop's own code is left out, the filter included. */
 internal fun notifyingMethods(classes: Iterable<ClassDef>): List<Pair<ClassDef, Method>> =
     classes.filterNot { it.type.startsWith("Lapp/morphe/") }.flatMap { classDef ->
         classDef.methods.filter { method -> method.implementation?.instructions?.any(::isNotifyCall) == true }
@@ -123,7 +123,7 @@ val suggestedVideoPushBlockPatch = bytecodePatch(
     name = "Block suggested video notifications",
     description = "Stops TikTok's \"Videos you might like\" notifications about popular videos " +
         "it picked for you. Messages, comments, likes and posts from people you follow still come " +
-        "through. On by default. Turn it off in Hushfeed settings > Inbox.",
+        "through. On by default. Turn it off in StopSlop settings > Inbox.",
     default = true,
 ) {
     category("Inbox")

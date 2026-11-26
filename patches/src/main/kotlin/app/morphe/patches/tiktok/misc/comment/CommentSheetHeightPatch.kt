@@ -151,7 +151,7 @@ internal fun sheetModeCall(height: Method): MethodReference =
 val commentSheetHeightPatch = bytecodePatch(
     name = "Open the comments at full height",
     description = "Opens the comment sheet at the full height of the screen instead of part " +
-        "way up. Starts off. Turn it on in Hushfeed settings > Comments.",
+        "way up. Starts off. Turn it on in StopSlop settings > Comments.",
 ) {
     category("Comments")
     dependsOn(settingsPatch, sharedExtensionPatch)

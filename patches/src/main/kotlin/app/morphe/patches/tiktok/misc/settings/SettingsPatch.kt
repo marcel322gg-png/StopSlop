@@ -69,7 +69,7 @@ private data class OpenDebugTargets(
  *
  * TikTok 47.0.3 can already include that singleton in the support group. Removing it first avoids
  * duplicate Compose keys, which otherwise leave the later, natively sorted row on screen. With
- * Hide the Hushfeed row on (#264) the extension leaves it out, so it shows nowhere in the list.
+ * Hide the StopSlop row on (#264) the extension leaves it out, so it shows nowhere in the list.
  * The insert stays branch-free: an if-eqz here crashed ART's JIT compiling this method.
  */
 internal fun settingsRowMoveToFrontInstructions(
@@ -352,9 +352,9 @@ private fun settingsIconResourceId(): Int {
 @Suppress("unused")
 val settingsPatch = bytecodePatch(
     name = "Settings",
-    description = "Adds the Hushfeed settings page to TikTok, at the top of Settings and " +
+    description = "Adds the StopSlop settings page to TikTok, at the top of Settings and " +
         "privacy. Pressing and holding For You at the top of the feed opens it too. That's where " +
-        "you turn Hushfeed's features on and off, and pick any of TikTok's own Settings and " +
+        "you turn StopSlop's features on and off, and pick any of TikTok's own Settings and " +
         "privacy rows to hide. Works as soon as you patch it in, with no switch.",
     default = true,
 ) {
@@ -426,12 +426,12 @@ val settingsPatch = bytecodePatch(
             // too. A build where it can't be found keeps everything else and leaves For You alone.
             hookForYouLongPress()
 
-            // addHushfeedRowAtOpenDebug puts the Hushfeed row into TikTok's settings list by taking over the
+            // addHushfeedRowAtOpenDebug puts the StopSlop row into TikTok's settings list by taking over the
             // Open Debug row. The page doesn't depend on it, since holding Home opens it too, so an
             // APK or patch mix without that row (#460) still gets the page and every other patch.
             if (OpenDebugCellVmDefaultStateFingerprint.methodOrNull == null) {
                 println(
-                    "[Settings] Left out the Hushfeed row in TikTok's settings on " +
+                    "[Settings] Left out the StopSlop row in TikTok's settings on " +
                         "${packageMetadata.versionName}: the Open Debug row wasn't found. " +
                         "Holding Home still opens the page.",
                 )
@@ -444,7 +444,7 @@ val settingsPatch = bytecodePatch(
 }
 
 /**
- * Puts the Hushfeed row into TikTok's settings list by taking over the Open Debug row. Its own
+ * Puts the StopSlop row into TikTok's settings list by taking over the Open Debug row. Its own
  * function so the Settings registration stays execute's last statement: a row that's missing
  * skips this, and one that fails here fails the whole patch before it's registered.
  */
@@ -648,7 +648,7 @@ private fun addHushfeedRowAtOpenDebug() {
     val moveResultIndex = getStringInvokeIndex + 1
     val titleStringRegister = compose.getInstruction<OneRegisterInstruction>(moveResultIndex).registerA
 
-    composeMutable.addInstruction(moveResultIndex + 1, "const-string v$titleStringRegister, \"Hushfeed\"")
+    composeMutable.addInstruction(moveResultIndex + 1, "const-string v$titleStringRegister, \"StopSlop\"")
 
     OpenDebugCellVmDefaultStateFingerprint.methodOrNull?.let { defaultState ->
         defaultState.implementationOrPatchException("Settings")

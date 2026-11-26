@@ -46,7 +46,7 @@ val browserPrivacyGuardPatch = bytecodePatch(
     name = "In-app browser privacy guard",
     description = "Stops websites you open in TikTok's built-in browser from reaching into " +
         "the TikTok app. TikTok's own pages, like Watch history and checkout, keep working. " +
-        "Starts off. Turn it on in Hushfeed settings > Privacy.",
+        "Starts off. Turn it on in StopSlop settings > Privacy.",
 ) {
     category("Privacy")
     dependsOn(settingsPatch, sharedExtensionPatch)

@@ -108,7 +108,7 @@ private fun resolveSearchEnabledBoundary(): MutableMethod {
 val hideFeedSearchButtonPatch = bytecodePatch(
     name = "Hide feed search button",
     description = "Removes the search button from the top right of the feed and the one over " +
-        "the video while comments are open. Starts off. Turn it on in Hushfeed settings > Feed screen.",
+        "the video while comments are open. Starts off. Turn it on in StopSlop settings > Feed screen.",
     default = true,
 ) {
     category("Feed")

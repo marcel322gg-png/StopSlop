@@ -69,7 +69,7 @@ val inboxFilterPatch = bytecodePatch(
         "switch. Also offers search in loaded Activity notifications and TikTok's Main, Requests, " +
         "Unread and Starred tabs on any account, a way to rebuild message search, room to pin " +
         "more than 5 chats and the time under each chat message. Starts off. " +
-        "Turn it on in Hushfeed settings > Inbox.",
+        "Turn it on in StopSlop settings > Inbox.",
 ) {
     category("Inbox")
     dependsOn(settingsPatch, sharedExtensionPatch)

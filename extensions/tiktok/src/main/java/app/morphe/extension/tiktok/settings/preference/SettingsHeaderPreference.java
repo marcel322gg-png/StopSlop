@@ -25,7 +25,7 @@ import app.morphe.extension.shared.settings.preference.AbstractPreferenceFragmen
 @SuppressWarnings("deprecation")
 public final class SettingsHeaderPreference extends Preference {
     /** The product name, which reads the same in every language and is not translated. */
-    private static final String BRAND_MARK = "Hushfeed";
+    private static final String BRAND_MARK = "StopSlop";
 
     private enum Kind {
         MASTER,
@@ -209,11 +209,14 @@ public final class SettingsHeaderPreference extends Preference {
         toolbar.addView(back, new LinearLayout.LayoutParams(SettingsUi.dp(context, 48), SettingsUi.dp(context, 48)));
         TextView heading = SettingsUi.text(context, title, headingSizeSp(context, title),
                 SettingsUi.textPrimary(), 1);
+        if (BRAND_MARK.equals(title)) {
+            heading.setTextColor(StopSlopUi.primary(ScreenColors.current().light));
+        }
         heading.setTag("hushfeed_page_title");
         heading.setGravity(Gravity.START | Gravity.CENTER_VERTICAL);
         heading.setHyphenationFrequency(android.text.Layout.HYPHENATION_FREQUENCY_NONE);
         SettingsUi.markHeading(heading);
-        ShimmerTitle.wear(heading);
+        if (!BRAND_MARK.equals(title)) ShimmerTitle.wear(heading);
         boolean stacked = !compact && context.getResources().getConfiguration().fontScale >= 1.3f;
         if (!stacked) {
             LinearLayout.LayoutParams titleParams = new LinearLayout.LayoutParams(0, -2, 1);

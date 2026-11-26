@@ -124,13 +124,7 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
                 "Hide photo posts", "Hide photo posts from the feed.",
                 Settings.HIDE_IMAGE
         ));
-        addPreference(new TogglePreference(
-                context,
-                "Hide AI-generated videos",
-                "Hide videos with TikTok's AI-generated label, AI content credentials, a TikTok AI effect "
-                        + "such as AI Alive, or a tag like #ai or #aigenerated.",
-                Settings.HIDE_AI_GENERATED
-        ));
+        // The StopSlop page exposes the single AI control and synchronizes both stored keys.
         addPreference(new TogglePreference(
                 context,
                 "Hide verified accounts",
@@ -178,7 +172,7 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
         addPreference(new TogglePreference(
                 context,
                 "Remove feed ads",
-                "Remove feed ads, creator commission posts, paid partnerships, and branded content.",
+                "Remove TikTok-identified ads, commission posts, paid partnerships, and branded content. For text and Shop signals, use StopSlop's Ads & sponsorships control.",
                 Settings.REMOVE_ADS
         ));
         addPreference(new TogglePreference(
@@ -207,7 +201,7 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
         ));
         addPreference(new RangeValuePreference(
                 context,
-                "Likes range", "Show only videos with this many likes.",
+                "Likes range", "Show only videos within both the minimum and maximum like counts.",
                 Settings.MIN_MAX_LIKES
         ));
         addPreference(new RangeValuePreference(

@@ -92,7 +92,7 @@ public class SettingsHeaderGeometryTest {
                     View.MeasureSpec.makeMeasureSpec(SettingsUi.dp(activity, 800), View.MeasureSpec.EXACTLY));
             root.layout(0, 0, root.getMeasuredWidth(), root.getMeasuredHeight());
 
-            TextView brand = textViewWithText(header, "Hushfeed");
+            TextView brand = textViewWithText(header, "StopSlop");
             TextView status = header.findViewWithTag("hushfeed_compact_status");
             assertNotNull(brand);
             assertNotNull(status);
@@ -162,7 +162,7 @@ public class SettingsHeaderGeometryTest {
             root.layout(0, 0, root.getMeasuredWidth(), root.getMeasuredHeight());
 
             TextView title = header.findViewWithTag("hushfeed_page_title");
-            assertEquals("Hushfeed", title.getText().toString());
+            assertEquals("StopSlop", title.getText().toString());
             assertEquals("the compact title wraps on a standard phone", 1, title.getLineCount());
             float expectedSp = activity.getResources().getConfiguration().fontScale > 1.3f ? 20f : 22f;
             assertEquals("the home title lost its display size or large-text cap",

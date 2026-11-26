@@ -90,7 +90,7 @@ val blockAuthorPatch = bytecodePatch(
     name = "Block author button",
     description = "Adds buttons on videos to block the creator, hide them only on your phone, " +
         "or block the sound, so you can get rid of what you don't want in one tap. Starts off. " +
-        "Turn it on in Hushfeed settings > Feed screen.",
+        "Turn it on in StopSlop settings > Feed screen.",
 ) {
     category("Interaction")
     dependsOn(settingsPatch, sharedExtensionPatch, sessionPlaybackBridgePatch)

@@ -80,7 +80,7 @@ internal fun hapticsInstallIndex(method: Method): Int {
 val turnOffHapticsPatch = bytecodePatch(
     name = "Turn off haptics",
     description = "Stops the little vibrations TikTok makes when you tap or hold things. Your " +
-        "keyboard and your phone's own vibrations stay. Starts off. Turn it on in Hushfeed " +
+        "keyboard and your phone's own vibrations stay. Starts off. Turn it on in StopSlop " +
         "settings > App.",
 ) {
     category("Interaction")

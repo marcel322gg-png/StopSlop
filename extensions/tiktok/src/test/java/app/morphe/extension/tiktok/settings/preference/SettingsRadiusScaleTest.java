@@ -105,7 +105,7 @@ public class SettingsRadiusScaleTest {
                 RadiusScale.assertOnScale(box, look + " search box");
                 RadiusScale.assertOnScale(new RecentSearchPreference(activity, "cats", query -> {}, query -> {})
                         .getView(null, parent), look + " recent search");
-                RadiusScale.assertOnScale(SettingsHeaderPreference.createHeader(activity, "Hushfeed", () -> {}),
+                RadiusScale.assertOnScale(SettingsHeaderPreference.createHeader(activity, "StopSlop", () -> {}),
                         look + " page header");
             }
         }

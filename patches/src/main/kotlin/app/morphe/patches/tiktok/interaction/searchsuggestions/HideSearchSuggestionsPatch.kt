@@ -310,7 +310,7 @@ internal fun MutableMethod.hookDiscoverPage() {
 val hideSearchSuggestionsPatch = bytecodePatch(
     name = "Hide search suggestions",
     description = "Hides the searches TikTok suggests before you type, and can hide the " +
-        "search rewards banner. Your own search history stays. Starts off. Turn it on in Hushfeed " +
+        "search rewards banner. Your own search history stays. Starts off. Turn it on in StopSlop " +
         "settings > App.",
 ) {
     category("Search")

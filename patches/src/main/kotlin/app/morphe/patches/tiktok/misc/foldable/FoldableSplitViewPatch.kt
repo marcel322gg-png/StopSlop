@@ -146,7 +146,7 @@ internal fun MutableMethod.handConfigurationChangesToSplitView() = addInstructio
 val foldableSplitViewPatch = bytecodePatch(
     name = "Foldable split comment view",
     description = "On a folding phone or tablet, shows comments beside the video instead of " +
-        "over it when the screen is wide enough. Starts off. Turn it on in Hushfeed settings > " +
+        "over it when the screen is wide enough. Starts off. Turn it on in StopSlop settings > " +
         "App.",
 ) {
     category("Comments")

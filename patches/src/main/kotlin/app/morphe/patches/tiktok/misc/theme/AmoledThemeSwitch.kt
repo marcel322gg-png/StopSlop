@@ -217,7 +217,7 @@ internal fun dialogSites(): List<DialogSite> {
 }
 
 /**
- * The hooks that put TikTok's own dark grays back while AMOLED dark mode is off in Hushfeed
+ * The hooks that put TikTok's own dark grays back while AMOLED dark mode is off in StopSlop
  * settings (#372). The resource side keeps TikTok's value of every surface it repaints beside it,
  * under a theme attribute of its own, and adds styles that point each surface back at that value.
  * The extension applies those styles to a theme right after TikTok builds it, and does nothing
@@ -275,9 +275,9 @@ internal fun hookAmoledThemeSwitch(): AmoledThemeSwitchSites {
 }
 
 /**
- * The switch for AMOLED dark theme in Hushfeed settings, and the hooks it drives (#372), while
+ * The switch for AMOLED dark theme in StopSlop settings, and the hooks it drives (#372), while
  * [active] (the patch's inAppSwitch option). Left out, it changes nothing: its hooks rebuild
- * about 700 of TikTok's classes, the most of any Hushfeed patch, and a 32-bit Morphe Manager
+ * about 700 of TikTok's classes, the most of any StopSlop patch, and a 32-bit Morphe Manager
  * runs out of memory with them and every other patch (47.9.2, 2026-11-19).
  */
 internal fun amoledThemeSwitchPatch(active: () -> Boolean) = bytecodePatch {

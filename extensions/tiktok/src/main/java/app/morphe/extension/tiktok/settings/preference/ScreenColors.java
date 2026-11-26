@@ -233,6 +233,17 @@ public final class ScreenColors {
      */
     void paintSurface(View row, Preference preference, boolean overview, boolean first, boolean last) {
         boolean selectable = preference.isSelectable();
+        if (StopSlopUi.isPreference(preference)) {
+            row.setBackground(StopSlopUi.cardBackground(row, selectable,
+                    preference.isEnabled(), first, last));
+            // This cache only describes the inherited surface below. Invalidate it so a recycled
+            // row cannot mistake this StopSlop card for an inherited surface with the same shape.
+            row.setTag(TAG_SURFACE, null);
+            row.setPaddingRelative(dp(row, 30), dp(row, 10 + (first ? 4 : 0)),
+                    dp(row, 30), dp(row, 10 + (last ? 4 : 0)));
+            row.setMinimumHeight(dp(row, 64));
+            return;
+        }
         // A list recycles its rows on every frame of a scroll. One that comes back with the same
         // shape in the same theme keeps the card it has.
         Integer look = (light ? 1 : 0) | (overview ? 2 : 0) | (first ? 4 : 0) | (last ? 8 : 0)

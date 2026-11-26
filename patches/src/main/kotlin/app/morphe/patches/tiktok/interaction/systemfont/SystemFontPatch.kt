@@ -86,7 +86,7 @@ val systemFontPatch = bytecodePatch(
     name = "Use system font",
     description = "Shows TikTok's text in your phone's own font or in a .ttf or .otf font file " +
         "you import, instead of TikTok's, and can use your phone's emoji too. Starts off. Turn " +
-        "it on in Hushfeed settings > App, then restart TikTok.",
+        "it on in StopSlop settings > App, then restart TikTok.",
 ) {
     category("Interface")
     dependsOn(settingsPatch, sharedExtensionPatch)

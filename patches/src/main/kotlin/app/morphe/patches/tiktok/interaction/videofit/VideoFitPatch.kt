@@ -91,7 +91,7 @@ val videoFitPatch = bytecodePatch(
         "squarer screens and split screen, and fits photo slideshows whole on squarer screens. " +
         "Four more switches cover the whole screen instead. One crops the video, one stretches it, " +
         "one does a little of each and one keeps the middle at its own shape and stretches only " +
-        "the top and bottom. Starts off. Turn it on in Hushfeed settings > Playback.",
+        "the top and bottom. Starts off. Turn it on in StopSlop settings > Playback.",
 ) {
     category("Playback")
     dependsOn(settingsPatch, sharedExtensionPatch)

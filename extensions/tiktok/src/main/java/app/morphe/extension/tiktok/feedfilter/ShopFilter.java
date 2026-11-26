@@ -25,10 +25,15 @@ public class ShopFilter implements IFilter {
 
     @Override
     public boolean getFiltered(Aweme item) {
-        String shareUrl = item.getShareUrl();
-        // Null-safety: only filter when we actually have a URL.
-        if (shareUrl != null && shareUrl.contains(SHOP_INFO)) return true;
+        if (isTikTokShopAd(item)) return true;
         return LiveFilter.isLive(item) && sellsInLive(item);
+    }
+
+    /** TikTok's internal Shop-ad placeholder, distinct from an ordinary caption URL. */
+    static boolean isTikTokShopAd(Aweme item) {
+        if (item == null) return false;
+        String shareUrl = item.getShareUrl();
+        return shareUrl != null && shareUrl.contains(SHOP_INFO);
     }
 
     /**

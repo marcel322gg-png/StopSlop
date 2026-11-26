@@ -477,7 +477,7 @@ val ghostModePatch = bytecodePatch(
         "you're typing. What TikTok already recorded stays. Each of the three has its own switch " +
         "under it, and separate ones hide your online status, let you watch LIVEs unseen and " +
         "keep your likes on the phone. " +
-        "Starts off. Turn it on in Hushfeed settings > Privacy.",
+        "Starts off. Turn it on in StopSlop settings > Privacy.",
 ) {
     category("Privacy")
     dependsOn(settingsPatch, sharedExtensionPatch)

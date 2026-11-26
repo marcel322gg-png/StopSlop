@@ -291,7 +291,7 @@ val feedTabNavigationPatch = bytecodePatch(
         "bottom bar and Friends in the top tabs, rename the bottom tabs, pick the bottom bar's icons and height, " +
         "choose the tab TikTok opens on, stop For You reloading when you tap Home and hold " +
         "Profile to open your Watch history. Starts off, " +
-        "except holding Home to open Hushfeed settings. Find it in Hushfeed settings > Feed tabs.",
+        "except holding Home to open StopSlop settings. Find it in StopSlop settings > Feed tabs.",
     default = true,
 ) {
     category("Settings")

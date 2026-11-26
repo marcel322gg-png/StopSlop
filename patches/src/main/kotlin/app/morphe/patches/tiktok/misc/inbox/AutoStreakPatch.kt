@@ -160,7 +160,7 @@ val autoStreakPatch = bytecodePatch(
     name = "Keep a streak going",
     description = "Sends a daily message you choose to people you pick, at a time you set, so " +
         "your message streaks keep going on days you don't open TikTok. Starts off. Turn it on in " +
-        "Hushfeed settings > Inbox.",
+        "StopSlop settings > Inbox.",
 ) {
     category("Inbox")
     dependsOn(settingsPatch, sharedExtensionPatch, autoStreakManifestPatch)

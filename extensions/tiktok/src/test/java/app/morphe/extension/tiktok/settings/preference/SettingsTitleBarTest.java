@@ -136,7 +136,7 @@ public class SettingsTitleBarTest {
     private int namesShown() {
         int count = 0;
         TextView title = barTitle();
-        if (title.isShown() && "Hushfeed".contentEquals(title.getText())) count++;
+        if (title.isShown() && "StopSlop".contentEquals(title.getText())) count++;
         View name = list().findViewWithTag(SettingsHeader.NAME);
         if (name != null && name.isShown() && name.getLocalVisibleRect(new Rect())) count++;
         return count;
@@ -158,7 +158,7 @@ public class SettingsTitleBarTest {
         assertNotNull("the header's name is on the page", name);
         assertTrue(name.isShown());
         assertEquals("the bar leaves the name to the header", View.INVISIBLE, barTitle().getVisibility());
-        assertEquals("the bar keeps the page's name for when it shows", "Hushfeed", barTitle().getText().toString());
+        assertEquals("the bar keeps the page's name for when it shows", "StopSlop", barTitle().getText().toString());
         assertEquals(1, namesShown());
         LinearLayout toolbar = page.getView().findViewWithTag("hushfeed_toolbar");
         assertTrue("Back stays in the bar", toolbar.getChildAt(0).isShown());
@@ -195,7 +195,7 @@ public class SettingsTitleBarTest {
         scrollBy(list().getHeight());
         assertTrue("the header row has scrolled off", list().getFirstVisiblePosition() > 0);
         assertEquals(View.VISIBLE, barTitle().getVisibility());
-        assertEquals("Hushfeed", barTitle().getText().toString());
+        assertEquals("StopSlop", barTitle().getText().toString());
         assertEquals(1, namesShown());
         scrollToTop();
         assertEquals(View.INVISIBLE, barTitle().getVisibility());
@@ -220,7 +220,7 @@ public class SettingsTitleBarTest {
         assertEquals("the page is named once after a search", 1, namesShown());
         scrollToTop();
         assertEquals("back at the top the header has the name", View.INVISIBLE, barTitle().getVisibility());
-        assertEquals("Hushfeed", barTitle().getText().toString());
+        assertEquals("StopSlop", barTitle().getText().toString());
         assertEquals(1, namesShown());
         assertEquals(height, bar().getHeight());
     }

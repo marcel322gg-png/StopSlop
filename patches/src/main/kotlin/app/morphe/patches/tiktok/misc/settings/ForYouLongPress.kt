@@ -151,7 +151,7 @@ internal fun MutableMethod.handTopTabOver(site: TopTabBindSite) {
 }
 
 /**
- * Hands every top tab TikTok binds to [TOP_TAB_HOOK], so a long press on For You opens Hushfeed
+ * Hands every top tab TikTok binds to [TOP_TAB_HOOK], so a long press on For You opens StopSlop
  * settings. Answers false and changes nothing when this build doesn't bind its top tabs that way
  * exactly once: For You then stays as it is, and the settings row and the Home tab still open the
  * page.

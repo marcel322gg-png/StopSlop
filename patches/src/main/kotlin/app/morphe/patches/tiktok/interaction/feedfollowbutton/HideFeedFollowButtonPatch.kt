@@ -55,7 +55,7 @@ private object FeedFollowVisibilityFingerprint : Fingerprint(
 val hideFeedFollowButtonPatch = bytecodePatch(
     name = "Hide feed follow button",
     description = "Removes the + follow button under creators' pictures on the feed, so you " +
-        "don't follow someone by accident. Starts off. Turn it on in Hushfeed settings > Feed " +
+        "don't follow someone by accident. Starts off. Turn it on in StopSlop settings > Feed " +
         "screen.",
     default = true,
 ) {

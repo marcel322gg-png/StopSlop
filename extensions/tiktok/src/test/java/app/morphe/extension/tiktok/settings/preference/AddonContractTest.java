@@ -142,7 +142,7 @@ public class AddonContractTest {
                 Preference row = screen.getPreference(index);
                 keys.add(row.getKey());
                 if (row instanceof SectionHeadingPreference && row.getTitle() != null
-                        && L10n.t(activity, "Hushfeed").contentEquals(row.getTitle())) {
+                        && L10n.t(activity, "StopSlop").contentEquals(row.getTitle())) {
                     hushfeedHeading = index;
                 }
             }

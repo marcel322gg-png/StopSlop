@@ -31,7 +31,7 @@ import app.morphe.util.addInstruction
 val smallerTextSizesPatch = bytecodePatch(
     name = "Smaller text sizes",
     description = "Adds three stops below the smallest size on TikTok's own Text size slider, " +
-        "for smaller text and more on screen. Starts off. Turn it on in Hushfeed settings > App, " +
+        "for smaller text and more on screen. Starts off. Turn it on in StopSlop settings > App, " +
         "then pick a stop in Settings and privacy > Accessibility > Text size and restart TikTok.",
 ) {
     category("Interface")

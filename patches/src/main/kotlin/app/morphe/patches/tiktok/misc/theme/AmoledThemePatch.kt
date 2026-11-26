@@ -32,7 +32,7 @@ val amoledThemePatch = resourcePatch(
     name = "AMOLED dark theme",
     description = "Makes TikTok's dark mode backgrounds pure black, or a dark color you pick " +
         "in this patch's options. Black lets OLED screens switch those pixels off. Light mode " +
-        "doesn't change. The AMOLED dark mode switch in Hushfeed settings > App starts on, and " +
+        "doesn't change. The AMOLED dark mode switch in StopSlop settings > App starts on, and " +
         "turning it off brings TikTok's own dark grays back.",
     default = false,
 ) {
@@ -42,13 +42,13 @@ val amoledThemePatch = resourcePatch(
     val inAppSwitch by booleanOption(
         key = "inAppSwitch",
         default = true,
-        title = "Switch in Hushfeed settings",
-        description = "Adds AMOLED dark mode to Hushfeed settings > App, so you can go back to " +
+        title = "Switch in StopSlop settings",
+        description = "Adds AMOLED dark mode to StopSlop settings > App, so you can go back to " +
             "TikTok's own dark grays without patching again. Turn this off if a 32-bit Morphe " +
             "Manager runs out of memory: AMOLED then stays on, and the switch is left out.",
         required = false,
     )
-    // The switch in Hushfeed settings: the hooks that put TikTok's own grays back while it's off (#372).
+    // The switch in StopSlop settings: the hooks that put TikTok's own grays back while it's off (#372).
     dependsOn(amoledThemeSwitchPatch { inAppSwitch != false })
     val background by colorOption(
         key = "backgroundColor",
@@ -72,7 +72,7 @@ val amoledThemePatch = resourcePatch(
 
 /**
  * The resource half of AMOLED dark theme: the dark palette's grays and the dark surface literals
- * become [background], and TikTok's own values are kept beside them for the switch in Hushfeed
+ * become [background], and TikTok's own values are kept beside them for the switch in StopSlop
  * settings (#372). Answers the theme attributes whose stock value was kept, by index.
  */
 internal fun paintAmoledResources(background: String?): List<String> {

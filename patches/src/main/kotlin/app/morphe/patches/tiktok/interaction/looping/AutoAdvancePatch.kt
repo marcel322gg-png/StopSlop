@@ -377,7 +377,7 @@ val autoAdvancePatch = bytecodePatch(
     name = "Automatic video advance",
     description = "Moves on to the next video by itself when one ends, so you can watch " +
         "hands-free. It can also turn on TikTok's auto scroll in search results. Starts off. Turn " +
-        "it on in Hushfeed settings > Playback.",
+        "it on in StopSlop settings > Playback.",
 ) {
     category("Playback")
     dependsOn(settingsPatch, sharedExtensionPatch)

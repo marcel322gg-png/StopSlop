@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="520" viewBox="0 0 1800 520">
+  <title>StopSlop wordmark</title>
+  <rect width="1800" height="520" fill="#090B13"/>
+  <g transform="translate(34 6) scale(.49)">
+    <circle cx="512" cy="512" r="382" fill="none" stroke="#8B5CF6" stroke-width="48"/>
+    <rect x="324" y="374" width="376" height="276" rx="66" fill="none" stroke="#F7F7FB" stroke-width="38"/>
+    <path d="M466 438 L466 586 L594 512 Z" fill="#F7F7FB"/>
+    <path d="M236 788 L788 236" fill="none" stroke="#8B5CF6" stroke-width="64" stroke-linecap="round"/>
+  </g>
+  <text x="560" y="325" font-family="Inter, Arial, sans-serif" font-size="210" font-weight="800" letter-spacing="-8" fill="#F7F7FB">Stop<tspan fill="#8B5CF6">Slop</tspan></text>
+</svg>

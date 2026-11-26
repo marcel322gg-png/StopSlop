@@ -35,7 +35,7 @@ import com.android.tools.smali.dexlib2.iface.ClassDef
 val uiScalePatch = bytecodePatch(
     name = "UI scale",
     description = "Makes TikTok's whole interface smaller, text and buttons alike, so more fits " +
-        "on screen. Starts at 100%, which changes nothing. Pick a size in Hushfeed settings > " +
+        "on screen. Starts at 100%, which changes nothing. Pick a size in StopSlop settings > " +
         "App, then restart TikTok.",
 ) {
     category("Interface")

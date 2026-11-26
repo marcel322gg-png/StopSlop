@@ -561,10 +561,10 @@ public class ExtensionPreferenceCategory extends ConditionalPreferenceCategory {
         }
         addPreference(new TogglePreference(
                 context,
-                "Hide the Hushfeed row",
-                "Take Hushfeed out of TikTok's Settings and privacy. To open these settings, press "
+                "Hide the StopSlop row",
+                "Take StopSlop out of TikTok's Settings and privacy. To open these settings, press "
                         + "and hold For You at the top of the feed, or Home if Long-press Home for "
-                        + "Hushfeed settings is on. If neither press can open them, the row stays.",
+                        + "StopSlop settings is on. If neither press can open them, the row stays.",
                 Settings.HIDE_SETTINGS_ROW
         ));
         addPreference(new SettingsRowChecklistPreference(context));
@@ -588,9 +588,9 @@ public class ExtensionPreferenceCategory extends ConditionalPreferenceCategory {
         // Asked from the same opening of TikTok as the startup message (#377).
         addPreference(new TogglePreference(
                 context,
-                "Check for Hushfeed updates",
-                "Once a day when TikTok opens, ask GitHub if a newer Hushfeed is out and show a "
-                        + "card when it is. The request carries your Hushfeed version and nothing else.",
+                "Check for StopSlop updates",
+                "Once a day when TikTok opens, ask GitHub if a newer StopSlop release is out and show a "
+                        + "card when it is. The request carries your StopSlop version and nothing else.",
                 Settings.CHECK_FOR_UPDATES
         ));
         if (SettingsStatus.firstLaunchSetupEnabled) {

@@ -111,19 +111,32 @@ internal const val STATUS_ICON = "status_icon_l"
 /** What the status bar shows for TikTok's notifications (Discussion #114). */
 internal enum class NotificationIcon(val key: String, val label: String) {
     TIKTOK("tiktok", "TikTok's note"),
-    HUSHFEED("hushfeed", "Hushfeed's H"),
+    HUSHFEED("hushfeed", "StopSlop's mark"),
 }
 
-/**
- * Hushfeed's H as a status bar icon, white on clear inside the 20dp middle a status bar icon
- * keeps to. Android draws only the shape, in the status bar's own color, so it's one path.
- */
-internal const val HUSHFEED_STATUS_ICON =
+/** StopSlop's monochrome notification mark inside the status bar's centered 20dp safe area. */
+internal const val STOP_SLOP_STATUS_ICON =
     "<vector xmlns:android=\"http://schemas.android.com/apk/res/android\"\n" +
-        "    android:width=\"24dp\" android:height=\"24dp\"\n" +
-        "    android:viewportWidth=\"24\" android:viewportHeight=\"24\">\n" +
-        "    <path android:fillColor=\"#ffffffff\"\n" +
-        "        android:pathData=\"M5,4h4.3v6.6h5.4V4H19v16h-4.3v-6.1H9.3V20H5z\" />\n" +
+        "    android:width=\"24dp\"\n" +
+        "    android:height=\"24dp\"\n" +
+        "    android:viewportWidth=\"24\"\n" +
+        "    android:viewportHeight=\"24\">\n" +
+        "    <path\n" +
+        "        android:fillColor=\"@android:color/transparent\"\n" +
+        "        android:strokeColor=\"#FFFFFFFF\"\n" +
+        "        android:strokeWidth=\"1.9\"\n" +
+        "        android:strokeLineCap=\"round\"\n" +
+        "        android:strokeLineJoin=\"round\"\n" +
+        "        android:pathData=\"M12,2.6a9.4,9.4 0,1 0,0 18.8a9.4,9.4 0,1 0,0 -18.8 M7.1,8.3h9.8a1.5,1.5 0,0 1,1.5 1.5v4.4a1.5,1.5 0,0 1,-1.5 1.5H7.1a1.5,1.5 0,0 1,-1.5 -1.5V9.8a1.5,1.5 0,0 1,1.5 -1.5\" />\n" +
+        "    <path\n" +
+        "        android:fillColor=\"#FFFFFFFF\"\n" +
+        "        android:pathData=\"M10.2,9.9L10.2,14.1L13.9,12Z\" />\n" +
+        "    <path\n" +
+        "        android:fillColor=\"@android:color/transparent\"\n" +
+        "        android:strokeColor=\"#FFFFFFFF\"\n" +
+        "        android:strokeWidth=\"2.3\"\n" +
+        "        android:strokeLineCap=\"round\"\n" +
+        "        android:pathData=\"M5.4,18.6L18.6,5.4\" />\n" +
         "</vector>\n"
 
 @Suppress("unused")
@@ -131,7 +144,7 @@ val customLauncherIconPatch = patch(
     name = "Custom launcher icon",
     description = "Gives TikTok's home screen icon a themed version that takes your " +
         "wallpaper's color on Android 13 and up. The options can also make it black, plain, " +
-        "Material You, any background color or your own picture, and put Hushfeed's H in the " +
+        "Material You, any background color or your own picture, and put StopSlop's mark in the " +
         "status bar. Only patching again without it puts the old icons back.",
     default = false,
 ) {
@@ -176,14 +189,14 @@ val customLauncherIconPatch = patch(
         values = NotificationIcon.entries.associate { it.label to it.key },
         title = "Notification icon",
         description = "The small icon TikTok's notifications show in the status bar. TikTok's " +
-            "note keeps it as it is. Hushfeed's H swaps it for a sharp H on every screen.",
+            "note keeps it as it is. StopSlop's mark replaces it with a clear monochrome symbol.",
         required = false,
     )
     val iconPicker by booleanOption(
         key = "iconPicker",
         default = false,
-        title = "Pick the icon in Hushfeed",
-        description = "Puts every icon style in Hushfeed's settings under Appearance, so you can " +
+        title = "Pick the icon in StopSlop",
+        description = "Puts every icon style in StopSlop's settings under Appearance, so you can " +
             "switch the home screen icon without patching again. A picture or background color " +
             "you set here shows up there as Your icon and starts as the one in use. Android 8 " +
             "and up. Some home screens drop the icon when it changes, so add it back from the app list.",
@@ -276,7 +289,7 @@ val customLauncherIconPatch = patch(
             // An anydpi file wins over TikTok's xhdpi picture on every screen, and the picture
             // itself stays byte for byte, so only a configuration is added.
             res.resolve("drawable-anydpi/$STATUS_ICON.xml").apply { parentFile.mkdirs() }
-                .writeText(HUSHFEED_STATUS_ICON, Charsets.UTF_8)
+                .writeText(STOP_SLOP_STATUS_ICON, Charsets.UTF_8)
         }
         BuildDetails.applied(resourceFile(BUILD_DETAILS_ASSET), "customLauncherIcon")
     }

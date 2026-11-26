@@ -127,7 +127,7 @@ public class ShimmerTitleTest {
 
     @Test
     public void aTitleInDarkInkTakesTheLightThemesColours() {
-        TextView title = title("Hushfeed", SettingsUi.LIGHT_TEXT_PRIMARY);
+        TextView title = title("StopSlop", SettingsUi.LIGHT_TEXT_PRIMARY);
         ShimmerTitle.wear(title);
         Bitmap still = draw(title, ShimmerTitle.DRIFT_MS);
         assertTrue("red letters", anyPixel(still, true));
@@ -144,7 +144,7 @@ public class ShimmerTitleTest {
     @Test
     public void thePageBarAndDialogsWearIt() {
         Activity activity = Robolectric.buildActivity(Activity.class).setup().get();
-        LinearLayout header = SettingsHeaderPreference.createHeader(activity, "Hushfeed", () -> { });
+        LinearLayout header = SettingsHeaderPreference.createHeader(activity, "StopSlop", () -> { });
         assertTrue(ShimmerTitle.wears(header.findViewWithTag("hushfeed_page_title")));
         assertTrue(ShimmerTitle.wears(SettingsUi.dialogTitle(activity, "Download folder")));
 
@@ -167,7 +167,7 @@ public class ShimmerTitleTest {
         scale.invoke(null, 0f);
         try (ActivityController<Activity> controller = Robolectric.buildActivity(Activity.class).setup().visible()) {
             assertFalse(ValueAnimator.areAnimatorsEnabled());
-            TextView title = title("Hushfeed", SettingsUi.DARK_TEXT_PRIMARY);
+            TextView title = title("StopSlop", SettingsUi.DARK_TEXT_PRIMARY);
             FrameLayout root = new FrameLayout(controller.get());
             root.addView(title);
             controller.get().setContentView(root);
@@ -208,7 +208,7 @@ public class ShimmerTitleTest {
     }
 
     private static WeakReference<TextView> wornAndDropped() {
-        TextView title = title("Hushfeed", Color.WHITE);
+        TextView title = title("StopSlop", Color.WHITE);
         ShimmerTitle.wear(title);
         assertTrue(ShimmerTitle.wears(title));
         return new WeakReference<>(title);

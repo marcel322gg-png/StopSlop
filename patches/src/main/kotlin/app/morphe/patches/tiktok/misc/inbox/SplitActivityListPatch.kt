@@ -94,7 +94,7 @@ val splitActivityListPatch = bytecodePatch(
     description = "Shows the Inbox's Activity page as two lists, your newest comments on top and " +
         "likes below, each scrolling on its own, with a bar between them that swaps them or " +
         "hides the lower one. " +
-        "Starts off. Turn it on in Hushfeed settings > Inbox.",
+        "Starts off. Turn it on in StopSlop settings > Inbox.",
 ) {
     category("Inbox")
     dependsOn(settingsPatch, sharedExtensionPatch)

@@ -99,7 +99,7 @@ val skipFirstLaunchSetupPatch = bytecodePatch(
     name = "Skip first-launch setup",
     description = "Skips TikTok's setup screens on a fresh install, like the interest picker " +
         "and the swipe tutorial. Sign-in and age screens still show. Its switch is on once " +
-        "picked, since setup runs before you can reach settings. Turn it off in Hushfeed settings " +
+        "picked, since setup runs before you can reach settings. Turn it off in StopSlop settings " +
         "> App.",
     default = false,
 ) {

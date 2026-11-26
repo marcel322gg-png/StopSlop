@@ -142,14 +142,14 @@ Translations live in extensions/tiktok/src/main/l10n/. The generator scripts/gen
 
 The October 12 refresh keeps Quiet Index’s navigation and gives every native page the same rounded panels, compact heading and pink controls. The boards below cover the home page, the five hubs it had then, all fourteen detailed pages, search, Feature Gate Lab and its details, plus the creator editor. They are design targets, not screenshots of the running app. On October 13 the four group hubs came out and their pages moved onto the home page under headings (see [Home page coverage](#home-page-coverage)), so the hub boards now only show the panel style.
 
-| Pages | Design target | Native captures |
-| --- | --- | --- |
-| Home, Feed & layout, Feed screen, Backup and restore | [Open board](assets/settings-design-2026-10-12/01-home-feed-backup.png) | [Home](../assets/settings/settings.png), [Home, scrolled to the end](../assets/settings/settings-end.png), [Feed screen](../assets/settings/interface.png), [Backup](../assets/settings/backup.png) |
-| Comments & inbox, Downloads & sharing, App & advanced, About | [Open board](assets/settings-design-2026-10-12/02-hubs.png) | [About](../assets/settings/hub-about.png). The other three hubs' pages sit under headings on the home page now. |
-| Feed filter, Feed tabs, Playback, Screen time | [Open board](assets/settings-design-2026-10-12/03-feed-playback-time.png) | [Feed filter](../assets/settings/feed_filter.png), [Feed tabs](../assets/settings/feed_navigation.png), [Playback](../assets/settings/playback.png), [Screen time](../assets/settings/screen_time.png) |
-| Comments, Inbox, Downloads, Share sheet | [Open board](assets/settings-design-2026-10-12/04-conversations-sharing.png) | [Comments](../assets/settings/comments.png), [Inbox](../assets/settings/inbox.png), [Downloads](../assets/settings/downloads.png), [Share sheet](../assets/settings/share.png) |
-| Privacy, App, Region, Diagnostics | [Open board](assets/settings-design-2026-10-12/05-privacy-app-region-diagnostics.png) | [Privacy](../assets/settings/privacy.png), [App](../assets/settings/behavior.png), [Region](../assets/settings/region.png), [Diagnostics](../assets/settings/diagnostics.png) |
-| Feature Gate Lab, Gate details, Search, Creator editor | [Open board](assets/settings-design-2026-10-12/06-lab-search-editor.png) | [Lab](../assets/settings/lab.png), [Gate details](../assets/settings/gate_details.png), [Search](../assets/settings/search.png), [Creator editor](../assets/settings/creator-list.png) |
+| Pages | Design target |
+| --- | --- |
+| Home, Feed & layout, Feed screen, Backup and restore | [Open board](assets/settings-design-2026-10-12/01-home-feed-backup.png) |
+| Comments & inbox, Downloads & sharing, App & advanced, About | [Open board](assets/settings-design-2026-10-12/02-hubs.png) |
+| Feed filter, Feed tabs, Playback, Screen time | [Open board](assets/settings-design-2026-10-12/03-feed-playback-time.png) |
+| Comments, Inbox, Downloads, Share sheet | [Open board](assets/settings-design-2026-10-12/04-conversations-sharing.png) |
+| Privacy, App, Region, Diagnostics | [Open board](assets/settings-design-2026-10-12/05-privacy-app-region-diagnostics.png) |
+| Feature Gate Lab, Gate details, Search, Creator editor | [Open board](assets/settings-design-2026-10-12/06-lab-search-editor.png) |
 
 The earlier navigation studies remain below as background.
 

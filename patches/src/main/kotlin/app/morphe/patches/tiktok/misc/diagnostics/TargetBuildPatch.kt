@@ -55,7 +55,7 @@ internal fun checkTargetBuild(version: String?, anchors: List<String>, lookup: (
     if (missingTargetAnchors(anchors, lookup).isEmpty()) return
     val release = version?.let { " $it" }.orEmpty()
     throw PatchException(
-        "This TikTok$release file is a different build from the one Hushfeed was made for, and its patches " +
+        "This TikTok$release file is a different build from the one StopSlop was made for, and its patches " +
             "would land in the wrong places. APKMirror can list more than one file per release. " +
             "Patch $TARGET_BUILD_FILES instead."
     )

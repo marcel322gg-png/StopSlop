@@ -1,0 +1,9 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1024" height="1024" viewBox="0 0 1024 1024">
+  <title>StopSlop mark</title>
+  <g fill="none" stroke="#8B5CF6" stroke-width="48" stroke-linecap="round" stroke-linejoin="round">
+    <circle cx="512" cy="512" r="382"/>
+    <rect x="324" y="374" width="376" height="276" rx="66" stroke="#F7F7FB" stroke-width="38"/>
+    <path d="M466 438 L466 586 L594 512 Z" fill="#F7F7FB" stroke="none"/>
+    <path d="M236 788 L788 236" stroke="#8B5CF6" stroke-width="64"/>
+  </g>
+</svg>

@@ -123,7 +123,7 @@ private fun FieldReference.smali() = "$definingClass->$name:$type"
 
 /**
  * Copy the link with one press on Share. The press asks the extension first, with the cell's own
- * item, before TikTok's method-id push, so a press Hushfeed takes leaves TikTok's bookkeeping as
+ * item, before TikTok's method-id push, so a press StopSlop takes leaves TikTok's bookkeeping as
  * it was. Each view the assem listens to also gets the screen reader label, and so does a view
  * TikTok hands its own screen reader delegate afterwards (the bind wraps whatever is there).
  */

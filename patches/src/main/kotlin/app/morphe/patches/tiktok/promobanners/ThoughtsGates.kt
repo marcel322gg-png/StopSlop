@@ -55,7 +55,7 @@ internal fun resolveThoughtsGates(): ThoughtsGates {
 }
 
 /**
- * With the switch on both gates answer yes, and with it off, or while Hushfeed is paused, TikTok
+ * With the switch on both gates answer yes, and with it off, or while StopSlop is paused, TikTok
  * reads its own values. Whether a Thought written this way posts is still up to TikTok's servers.
  */
 internal fun ThoughtsGates.installThoughtsSwitch() {

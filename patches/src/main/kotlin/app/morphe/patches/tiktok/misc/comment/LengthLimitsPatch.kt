@@ -117,7 +117,7 @@ val liftLengthLimitsPatch = bytecodePatch(
     name = "Lift text length limits",
     description = "Lets you write longer comments, repost notes and bios than the app " +
         "normally allows. TikTok can still refuse one that's too long. Starts off. Turn it on in " +
-        "Hushfeed settings > Comments.",
+        "StopSlop settings > Comments.",
     default = true,
 ) {
     category("Comments")

@@ -46,7 +46,7 @@ val subtitleToolsPatch = bytecodePatch(
     description = "Lets you make captions bigger, change their background and keep them in " +
         "clear display, bring back TikTok's captions switch where it's missing, and save subtitle " +
         "files with downloaded videos. Starts off. Turn it on in " +
-        "Hushfeed settings > Feed screen, and Downloads for subtitle files.",
+        "StopSlop settings > Feed screen, and Downloads for subtitle files.",
 ) {
     category("Playback")
     compatibleWith(*AppCompatibilities.tiktok())

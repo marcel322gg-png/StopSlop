@@ -38,7 +38,7 @@ val hideSeenVideosPatch = bytecodePatch(
     name = "Hide already seen videos",
     description = "Remembers the videos you've watched and hides them when the feed sends " +
         "them again, so you only see new ones. It can also keep a watch history you can search " +
-        "and reopen videos from. Both stay on your phone. Starts off. Turn them on in Hushfeed " +
+        "and reopen videos from. Both stay on your phone. Starts off. Turn them on in StopSlop " +
         "settings > Feed filter.",
 ) {
     category("Feed")

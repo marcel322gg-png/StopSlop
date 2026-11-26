@@ -82,7 +82,7 @@ val swipeLeftPatch = bytecodePatch(
     name = "Swipe-left controls",
     description = "Lets a left swipe on a video open its comments, open the popup that saves it " +
         "to one of your collections, or do nothing, instead of opening the creator's profile. " +
-        "Starts off. Pick an action in Hushfeed settings > Feed screen.",
+        "Starts off. Pick an action in StopSlop settings > Feed screen.",
 ) {
     category("Interaction")
     compatibleWith(*AppCompatibilities.tiktok())
