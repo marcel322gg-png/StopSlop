@@ -58,6 +58,7 @@ public final class FeedItemsFilter {
         new ContentMarkerFilters.StopSlopPaidPartnershipFilter(),
         LOCATION_FILTER,
         new ContentMarkerFilters.AiGeneratedFilter(),
+        new TopicFilter(),
         new ContentMarkerFilters.VerifiedFilter(),
         new ContentMarkerFilters.SeriesFilter(),
         new ContentMarkerFilters.DramaFilter(),
@@ -2379,6 +2380,8 @@ public final class FeedItemsFilter {
             builder.append(filter.getClass().getSimpleName());
             if (filter instanceof LikeCountFilter) {
                 builder.append('[').append(((LikeCountFilter) filter).cacheToken()).append(']');
+            } else if (filter instanceof TopicFilter) {
+                builder.append('[').append(((TopicFilter) filter).cacheToken()).append(']');
             }
         }
     }

@@ -299,6 +299,8 @@
       "stop_slop_ai_generated",
       "stop_slop_min_likes",
       "stop_slop_min_likes_threshold",
+      "stop_slop_topic_filter",
+      "stop_slop_topic_rules",
       "filter_location_videos",
       "hide_ai_generated",
       "hide_verified",
@@ -4782,6 +4784,18 @@
       "default": 0,
       "minimum": 0,
       "maximum": 1000000
+    },
+    "stop_slop_topic_filter": {
+      "field": "STOP_SLOP_TOPIC_FILTER",
+      "key": "stop_slop_topic_filter",
+      "type": "boolean",
+      "default": false
+    },
+    "stop_slop_topic_rules": {
+      "field": "STOP_SLOP_TOPIC_RULES",
+      "key": "stop_slop_topic_rules",
+      "type": "string",
+      "default": ""
     },
     "stop_video_looping": {
       "field": "STOP_VIDEO_LOOPING",

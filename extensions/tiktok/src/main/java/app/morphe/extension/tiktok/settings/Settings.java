@@ -1562,6 +1562,10 @@ public class Settings extends BaseSettings {
             new BooleanSetting("stop_slop_min_likes", FALSE);
     public static final IntegerSetting STOP_SLOP_MIN_LIKES_THRESHOLD =
             new IntegerSetting("stop_slop_min_likes_threshold", 0).withRange(0, 1_000_000);
+    public static final BooleanSetting STOP_SLOP_TOPIC_FILTER =
+            new BooleanSetting("stop_slop_topic_filter", FALSE);
+    public static final StringSetting STOP_SLOP_TOPIC_RULES =
+            new StringSetting("stop_slop_topic_rules", "");
     public static final BooleanSetting FILTER_LOCATION_VIDEOS = new BooleanSetting("filter_location_videos", FALSE, true);
     public static final BooleanSetting HIDE_AI_GENERATED = new BooleanSetting("hide_ai_generated", FALSE, true);
     public static final BooleanSetting HIDE_VERIFIED = new BooleanSetting("hide_verified", FALSE, true);

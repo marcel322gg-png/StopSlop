@@ -3194,7 +3194,6 @@ Like threshold	Like-Grenzwert
 Posts below this number of likes are hidden while Minimum likes is on.	Beiträge mit weniger Likes als dieser Zahl werden ausgeblendet, wenn Mindestanzahl Likes aktiviert ist.
 Topics	Themen
 Topic Filter	Themenfilter
-Coming soon; not available yet.	Demnächst verfügbar; noch nicht verfügbar.
 Actions	Aktionen
 Reload TikTok	TikTok neu laden
 Closes and reopens TikTok's task. It does not stop the app process and may interrupt your current session.	Schließt die TikTok-Aufgabe und öffnet sie erneut. Der App-Prozess wird nicht beendet; deine aktuelle Sitzung kann unterbrochen werden.
@@ -3214,6 +3213,10 @@ Take StopSlop out of TikTok's Settings and privacy. To open these settings, pres
 Check for StopSlop updates	Nach StopSlop-Updates suchen
 Once a day when TikTok opens, ask GitHub if a newer StopSlop release is out and show a card when it is. The request carries your StopSlop version and nothing else.	Prüft einmal täglich beim Öffnen von TikTok bei GitHub, ob eine neuere StopSlop-Version verfügbar ist, und zeigt dann eine Karte. Die Anfrage enthält nur deine StopSlop-Version.
 Open StopSlop settings	StopSlop-Einstellungen öffnen
+Topic filtering	Themenfilter
+Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.	Beiträge ausblenden, deren Beschreibung zu einer Phrase oder einem Hashtag passt. Ausnahmen und freigegebene Ersteller haben Vorrang.
+Topic rules	Themenregeln
+One rule per line: phrase, #hashtag, !phrase, !#hashtag, or @username. Matching is case-insensitive.	Eine Regel pro Zeile: Phrase, #Hashtag, !Phrase, !#Hashtag oder @Benutzername. Groß- und Kleinschreibung wird ignoriert.
 Also checks sponsor wording and commerce signals; the Feed filter page keeps separate controls for TikTok's ad, partnership, and music markers.	Prüft außerdem Sponsorhinweise im Text und Commerce-Signale; unter Feed-Filter bleiben separate Schalter für TikToks Werbe-, Partnerschafts- und Musikmarkierungen.
 Changes in StopSlop %1$s	Änderungen in StopSlop %1$s
 Colors these settings and StopSlop's own pop-ups.	Färbt diese Einstellungen und die eigenen Pop-ups von StopSlop.

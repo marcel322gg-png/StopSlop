@@ -503,7 +503,6 @@ Color commenter names,Color commenter names
 "Colors the text drawn on the card itself. Automatic picks white or black, whichever stands out from the card.","Colors the text drawn on the card itself. Automatic picks white or black, whichever stands out from the card."
 Colors these settings and Hushfeed's own pop-ups.,Colors these settings and Hushfeed's own pop-ups.
 Colors these settings and StopSlop's own pop-ups.,Colors these settings and StopSlop's own pop-ups.
-Coming soon; not available yet.,Coming soon; not available yet.
 Coming soon; unavailable until local OCR and audio support exists.,Coming soon; unavailable until local OCR and audio support exists.
 "Comma separated names exactly as the row under a profile's bio shows them, such as TikTok Studio or Your orders. Restart TikTok to apply this.","Comma separated names exactly as the row under a profile's bio shows them, such as TikTok Studio or Your orders. Restart TikTok to apply this."
 Comment export failed,Comment export failed
@@ -992,6 +991,7 @@ Hide picture comments,Hide picture comments
 Hide playable games,Hide playable games
 Hide playlist videos,Hide playlist videos
 "Hide posts only a creator's subscribers can watch, the ones with a lock, on the feed and on profiles.","Hide posts only a creator's subscribers can watch, the ones with a lock, on the feed and on profiles."
+Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.,Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.
 "Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.","Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count."
 Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.,Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.
 Hide profile pictures in comments,Hide profile pictures in comments
@@ -1640,6 +1640,7 @@ One more save waiting,One more save waiting
 "One of the quote marks in that list has nothing to close it, so the rest of the line reads as one phrase. Add the missing quote or take the stray one out.","One of the quote marks in that list has nothing to close it, so the rest of the line reads as one phrase. Add the missing quote or take the stray one out."
 One per post,One per post
 One picked,One picked
+"One rule per line: phrase, #hashtag, !phrase, !#hashtag, or @username. Matching is case-insensitive.","One rule per line: phrase, #hashtag, !phrase, !#hashtag, or @username. Matching is case-insensitive."
 "One speed from %1$s to %2$s, like 1.8, for the hold and its pull-down lock. It takes the place of the speed above. Leave empty to use that one.","One speed from %1$s to %2$s, like 1.8, for the hold and its pull-down lock. It takes the place of the speed above. Leave empty to use that one."
 One value per line,One value per line
 One video,One video
@@ -2797,6 +2798,8 @@ Top,Top
 Top left double tap,Top left double tap
 Top right double tap,Top right double tap
 Topic Filter,Topic Filter
+Topic filtering,Topic filtering
+Topic rules,Topic rules
 Topics,Topics
 Tracking,Tracking
 "Tracking, device access and links","Tracking, device access and links"

@@ -12,7 +12,11 @@ import android.content.Context;
 import android.content.Intent;
 import android.preference.Preference;
 import android.preference.PreferenceScreen;
+import android.text.InputType;
+import android.view.Gravity;
+import android.widget.EditText;
 
+import app.morphe.extension.tiktok.feedfilter.FeedRuleLimits;
 import app.morphe.extension.tiktok.settings.L10n;
 import app.morphe.extension.tiktok.settings.Settings;
 
@@ -51,6 +55,24 @@ final class StopSlopPlaceholders {
         // Resolve the dependency after both preferences are attached to the same hierarchy.
         threshold.setDependency(Settings.STOP_SLOP_MIN_LIKES.key);
 
+        screen.addPreference(SectionHeadingPreference.stopSlop(context, "Topic filtering"));
+        TogglePreference topicFilter = new TogglePreference(context, "Topic Filter",
+                "Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.",
+                Settings.STOP_SLOP_TOPIC_FILTER);
+        screen.addPreference(topicFilter);
+
+        InputTextPreference topicRules = new InputTextPreference(context, "Topic rules",
+                "One rule per line: phrase, #hashtag, !phrase, !#hashtag, or @username. Matching is case-insensitive.",
+                Settings.STOP_SLOP_TOPIC_RULES)
+                .withCheck(FeedRuleLimits::captionProblem);
+        EditText editor = topicRules.getEditText();
+        editor.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_MULTI_LINE);
+        editor.setSingleLine(false);
+        editor.setMinLines(5);
+        editor.setMaxLines(10);
+        editor.setGravity(Gravity.TOP | Gravity.START);
+        screen.addPreference(topicRules);
+        topicRules.setDependency(Settings.STOP_SLOP_TOPIC_FILTER.key);
     }
 
     static void addConvenienceAction(Context context, PreferenceScreen screen) {

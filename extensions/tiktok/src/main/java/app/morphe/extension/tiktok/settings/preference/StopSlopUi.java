@@ -34,6 +34,8 @@ final class StopSlopUi {
                 || Settings.STOP_SLOP_AI_GENERATED.key.equals(key)
                 || Settings.STOP_SLOP_MIN_LIKES.key.equals(key)
                 || Settings.STOP_SLOP_MIN_LIKES_THRESHOLD.key.equals(key)
+                || Settings.STOP_SLOP_TOPIC_FILTER.key.equals(key)
+                || Settings.STOP_SLOP_TOPIC_RULES.key.equals(key)
                 || "stop_slop_reload_tiktok".equals(key);
     }
 
