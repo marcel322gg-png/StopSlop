@@ -21,7 +21,12 @@ import android.preference.PreferenceScreen;
 import android.text.InputType;
 import android.os.Handler;
 import android.os.Looper;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.ListView;
+import android.widget.TextView;
 
 import app.morphe.extension.tiktok.feedfilter.FeedRuleLimits;
 import app.morphe.extension.tiktok.settings.L10n;
@@ -249,9 +254,27 @@ final class StopSlopPlaceholders {
             String note = fromCache
                     ? L10n.f(getContext(), "Offline: showing cached catalog. Refresh failed: %1$s", warning == null ? "network unavailable" : warning)
                     : L10n.t(getContext(), "Official catalog · metadata and downloads use HTTPS");
-            new AlertDialog.Builder(getContext()).setTitle(L10n.t(getContext(), "Available models"))
-                    .setMessage(note)
-                    .setItems(labels, (dialog, index) -> showCatalogEntry(entries.get(index)))
+            Context context = getContext();
+            float density = context.getResources().getDisplayMetrics().density;
+            int padding = Math.round(16 * density);
+            LinearLayout content = new LinearLayout(context);
+            content.setOrientation(LinearLayout.VERTICAL);
+            TextView status = new TextView(context);
+            status.setText(note);
+            status.setPadding(padding, padding, padding, Math.round(8 * density));
+            content.addView(status, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT));
+            ListView modelList = new ListView(context);
+            modelList.setAdapter(new ArrayAdapter<>(context,
+                    android.R.layout.simple_list_item_1, labels));
+            modelList.setOnItemClickListener((parent, view, index, rowId) ->
+                    showCatalogEntry(entries.get(index)));
+            int listHeight = Math.min(Math.round(320 * density),
+                    Math.round(context.getResources().getDisplayMetrics().heightPixels * 0.42f));
+            content.addView(modelList, new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT, Math.max(1, listHeight)));
+            new AlertDialog.Builder(context).setTitle(L10n.t(context, "Available models"))
+                    .setView(content)
                     .setPositiveButton(L10n.t(getContext(), "Refresh catalog"), (dialog, which) -> showCatalog())
                     .setNegativeButton(L10n.t(getContext(), "Manual HTTPS URL"), (dialog, which) -> promptDownloadUrl())
                     .setNeutralButton(L10n.t(getContext(), "Import .ssmodel"), (dialog, which) -> confirmImport())

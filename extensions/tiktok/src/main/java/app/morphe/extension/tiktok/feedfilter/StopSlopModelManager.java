@@ -9,6 +9,7 @@ package app.morphe.extension.tiktok.feedfilter;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -55,6 +56,7 @@ public final class StopSlopModelManager {
     private static final String CATALOG_CACHE = "official_catalog_v1";
     private static final String ACTIVE = "active_model";
     private static final String ROOT = "stopSlop/models";
+    private static final String CATALOG_LOG_TAG = "StopSlopCatalog";
     private static final String[] REQUIRED_FILES = {
             "manifest.json", "model/model.onnx", "tokenizer/tokenizer.onnx",
             "LICENSE.txt", "NOTICE.txt"
@@ -364,18 +366,31 @@ public final class StopSlopModelManager {
                     String json = new String(response, StandardCharsets.UTF_8);
                     entries = parseCatalog(json);
                     preferences(owner).edit().putString(CATALOG_CACHE, json).apply();
+                    int compatibleCount = 0;
+                    for (CatalogEntry entry : entries) {
+                        if (entry.compatible) compatibleCount++;
+                        else Log.w(CATALOG_LOG_TAG, "Catalog entry " + entry.id
+                                + " is unavailable: " + entry.incompatibility);
+                    }
+                    Log.i(CATALOG_LOG_TAG, "Catalog loaded: http=" + responseCode
+                            + " bytes=" + response.length + " schema=1 entries=" + entries.size()
+                            + " compatible=" + compatibleCount);
                 } finally {
                     connection.disconnect();
                 }
             } catch (Exception networkFailure) {
                 warning = networkFailure.getMessage() == null ? "Catalog refresh failed" : networkFailure.getMessage();
+                Log.w(CATALOG_LOG_TAG, "Catalog fetch or validation failed: "
+                        + diagnostic(networkFailure));
                 String cached = preferences(owner).getString(CATALOG_CACHE, "");
                 if (cached != null && !cached.isEmpty()) {
                     try {
                         entries = parseCatalog(cached);
                         fromCache = true;
                     } catch (IOException invalidCache) {
-                        warning = "Cached model catalog is invalid";
+                        warning = "Cached model catalog is invalid: " + diagnostic(invalidCache);
+                        Log.w(CATALOG_LOG_TAG, "Cached catalog validation failed: "
+                                + diagnostic(invalidCache));
                     }
                 }
             } finally {
@@ -401,7 +416,13 @@ public final class StopSlopModelManager {
             List<CatalogEntry> entries = new ArrayList<>();
             Set<String> ids = new HashSet<>();
             for (int i = 0; i < models.length(); i++) {
-                CatalogEntry entry = new CatalogEntry(models.getJSONObject(i));
+                CatalogEntry entry;
+                try {
+                    entry = new CatalogEntry(models.getJSONObject(i));
+                } catch (IOException | JSONException invalidEntry) {
+                    throw new IOException("Catalog model entry " + (i + 1)
+                            + " failed validation: " + diagnostic(invalidEntry), invalidEntry);
+                }
                 if (!ids.add(entry.id + "/" + entry.packageVersion)) throw new IOException("Duplicate model catalog entry");
                 entries.add(entry);
             }
@@ -756,6 +777,13 @@ public final class StopSlopModelManager {
         StringBuilder output = new StringBuilder(bytes.length * 2);
         for (byte value : bytes) output.append(String.format(Locale.ROOT, "%02x", value & 0xff));
         return output.toString();
+    }
+
+    private static String diagnostic(Exception failure) {
+        String message = failure.getMessage();
+        if (message == null || message.trim().isEmpty()) return failure.getClass().getSimpleName();
+        String safe = message.replace('\r', ' ').replace('\n', ' ').trim();
+        return safe.length() <= 180 ? safe : safe.substring(0, 180);
     }
 
     private static URL checkedUrl(String text) throws IOException {
