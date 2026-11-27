@@ -1,12 +1,12 @@
 # StopSlop - Master Technical Roadmap
 
-**Revision:** 7.1<br>
-**Date:** 26 November 2026<br>
+**Revision:** 8.2
+**Date:** 27 November 2026<br>
 **Product:** StopSlop - local-first moderation integrated into a modified TikTok client<br>
 **Primary validation device:** Samsung Galaxy A25 5G<br>
 **Secondary compatibility target:** Samsung Galaxy A12, after A25 is stable
 
-> This roadmap supersedes revision 7.0. It records the M5B.1 catalogue research pass while preserving the previous M5B result (`BLOCKED_BY_FEASIBILITY`). The research inventory is broad enough for discovery but still lacks immutable package pins for every candidate. No model was downloaded or executed; current host JNI, model storage and inference remain unverified. Do not advance to the consumer Model Manager until the runtime and data-delivery gates pass.
+> This roadmap supersedes revision 8.1. It preserves the reported research registry of 65 candidate IDs and 52 explicit language tags, records the optional-model manager source implementation and a model-free verified `.mpp`. No model is verified runnable inside the Morphe host or on a device. Build/device statements remain separate from source review.
 
 ---
 
@@ -41,29 +41,32 @@ This is a snapshot from the user's Codex reports on 26 November 2026. It is not 
 | Area | Latest reported state | Still required |
 |---|---|---|
 | Morphe patch source | Existing HushFeed-derived repository remains active | Reconcile current branch and working tree before the next source change |
-| `.mpp` output | `patches/build/release/patches-0.84.0.mpp`; verifier reported 155 patches and three non-empty DEX payloads | Manual application/verification on the target phone; versioning is intentionally deferred |
+| `.mpp` output | Rebuilt `patches/build/release/patches-0.84.0.mpp`; `verifyBundle` confirmed 156 patches and three non-empty DEX payloads. Size 26,132,162 bytes (24.922 MiB); SHA-256 `88c6893551528d0a7cae81bc97e4b11301844f47f78a983be76daa8e5dea82b2`; unsigned. The archive is model-free; MPP target gates are missed due mainly to native runtime size. The dirty source tree caused the release-receipt gate to refuse a receipt. | Produce/inspect a patched APK only with a supported base APK/workflow; clean-source signed release and manual A25 verification remain separate |
 | Ads & Sponsorships | One visible StopSlop master control; migration preserves an explicit canonical value and derives the master for legacy installs; individual legacy signal preferences are preserved; feed, insertion and card paths are gated | Manual A25 verification of fresh-install and upgrade combinations |
 | Ads automated checks | `AdsFilterTest` and `DeepFeedFilterBoundaryTest` reported passing; MPP build succeeded | Device verification remains separate |
 | Topic Filter - mechanical | Single-line semicolon editor; phrases with spaces; exclusions, hashtags, creator allowlist; Enter/IME action no longer saves/closes; parser still accepts legacy newline-separated values | Manual check of save/reopen and actual matching on A25 |
-| Preferred Content | `PreferredContentFilter` implemented; separate enable switch and semicolon topic list; unique literal caption-match scoring; stable in-batch ordering of eligible ordinary videos; non-matches remain visible | Focused tests and MPP bundle verification passed in Codex report; manual Galaxy A25 ordering/slot/persistence checks remain outstanding |
+| Preferred Content | `SOURCE_REVIEWED`: separate enable switch and semicolon topic list; unique literal caption-match scoring; stable in-batch ordering of eligible ordinary videos in fixed structural slots; non-matches remain visible | Prior test/bundle claims are inherited reports, not repeated in this run; Galaxy A25 ordering, pagination and persistence checks remain outstanding |
 | Topic Filter tests | Focused parser tests reported passing | Device verification and false-positive evaluation |
 | Settings search | Search indexes registered StopSlop controls; old ad names such as `Remove feed ads`, `Hide paid partnerships`, and `Hide promotional music` resolve to the canonical StopSlop control | Manual search checks in supported languages |
 | Empty ad category | Orphaned inherited `ADS` header removed | Verify on device |
 | Global settings appearance | Shared StopSlop styling exists in the touched settings components; complete visual consistency across every inherited screen has not been demonstrated | Inspect real screens; do not claim repository-wide visual unification without evidence |
-| Official TikTok AI-generated marker | Existing deterministic marker filter is controlled by `stop_slop_ai_generated` | Verify exact marker coverage and device behavior; this is not AI inference |
-| Minimum Likes | StopSlop enable key and threshold preference exist in source | Confirm threshold boundaries and actual feed behavior on A25 |
-| AI runtime/model | M5B result is `BLOCKED_BY_FEASIBILITY`: no verified JNI/native-library path or model/tokenizer asset delivery path exists in the current MPP; no model was downloaded or executed | Prove runtime + data-file loading in a disposable host-process harness before adding production AI controls |
-| AI model catalogue | Research inventory contains 65 distinct model IDs and an explicit 52-tag language list; all entries remain research-only and exact immutable package pins are incomplete | Complete pinned artifact/licence/runtime metadata, then prove host device profile, private-storage canary, JNI path and offline inference before production selector/installer UI |
-| Model candidates | Small language-specific and multilingual embedding candidates identified from public model cards; none validated inside StopSlop | Verify exact converted package size, language quality, runtime, licence, ABI, RAM and A25 latency |
+| Official TikTok AI-generated marker | `SOURCE_REVIEWED`: deterministic marker filter controlled by `stop_slop_ai_generated`; separate from ML | Verify exact marker coverage and device behavior; this is not AI inference |
+| Minimum Likes | `SOURCE_REVIEWED`: threshold 0–1,000,000; unknown/negative statistics fail open; filter cache token includes current threshold and enabled state | Confirm threshold boundaries and actual feed behavior on A25 |
+| AI runtime/model | `SOURCE_IMPLEMENTED; EXTENSION_COMPILED; MPP_PAYLOAD_VERIFIED; APK/DEVICE_UNVERIFIED`: ONNX Runtime Android 1.20.0 / Extensions 0.13.0 declare API 21; eight ARM64/ARM32 native libraries are in the MPP. The model and tokenizer are absent from the rebuilt archive. The real E5 CPU provider loads selected app-private files and connects to semantic Topic Filter; AI defaults off and fails open. `verifyBundle` passed; runtime/session success on a phone remains unverified. | Verify host loading/private-file install and offline inference on API 23+ ARM devices; measure memory, latency and language quality; calibrate threshold |
+| AI Model Manager | `SOURCE_IMPLEMENTED; BUNDLE_VERIFIED; DEVICE_UNVERIFIED`: Settings exposes the pinned E5 profile, direct HTTPS `.ssmodel` download from a user-supplied URL, SAF import, install verification, selection/switching and removal. Data is private to TikTok; downloads are explicit, bounded, cancellable and hash-checked. No signed catalog or project-hosted package URL exists, so catalog discovery/download still requires a host URL or local package. | Manual phone verification; add a maintained signed catalog/hosting only when release infrastructure exists; verify session startup, switching, deletion and offline inference |
+| Model candidates | One data-only E5 package was generated and audited locally: Xenova multilingual E5 Small INT8 at immutable revision `761b726dd34fb83930e26aab4e9ac3899aa1fa78`, 86,306,396 bytes, SHA-256 `7a631638566759f87960f1e90eb913bcb50052148ae7a06730886069692235ee`; MIT license. It is not hosted by this repository, not committed, and Android inference is unverified. | Verify installation/session behavior and per-language quality, runtime, ABI, RAM and A25 latency |
 | Optional generator model | No compact multilingual generator has been proven in the target runtime | Keep separate from embedding models; do not claim embeddings generate aliases |
 | TikTok Native Recommendation Bridge | Localized informational rows for native Manage topics and Filter keywords are source-implemented; tapping shows guidance rather than deep-linking. No stable in-app route was verified for TikTok 47.9.3 (versionCode 2024709030). Existing user-triggered Not interested control is unchanged; no automatic feedback is sent. | Manually confirm dialogs and guided navigation on Galaxy A25. Do not claim direct navigation or backend API access. M5 has the documented safe fallback; device check remains pending. |
-| Semantic topic expansion | Not implemented | First planned user-facing AI feature |
-| Semantic content understanding | Not implemented | Requires a proven model, supported metadata and feed-time budget |
+| Semantic topic expansion | `NOT_IMPLEMENTED` | Requires a real local generation/embedding provider and reviewed profile persistence |
+| Semantic content understanding | Caption-based semantic Topic Filter is source-implemented with asynchronous inference and cached `KEEP/BLOCK`; first evaluation fails open and same-item re-evaluation is not established. This is embedding similarity, not generation or broad video understanding. | Verify host execution/feed re-evaluation, assess false positives and calibrate UA/RU/EN; other content modalities remain unimplemented |
 | OCR / ASR / subtitle analysis | No complete, verified pre-display pipeline is established | Separate feasibility gate; do not assume availability |
+| AI research catalogue | `SOURCE_REVIEWED`: existing 65 candidate IDs and 52 explicit language tags remain research-only; zero verified installable models | No production picker/installer or model-ready claim until runtime and offline inference are proven |
+| M4 Blocked Videos History | `SOURCE_REVIEWED`: bounded local JSON history, separate exact-ID restore list, final-exclusion capture, restore check before filtering, review/delete/restore/clear UI | Verify persistence races and all actions on Galaxy A25; no runtime check performed in this run |
+| Documentation publication | Codex reports docs-only commit `f110e57be` containing `docs/ROADMAP.md` and `docs/research/AI_MODEL_CATALOG.md`, pushed to `origin/main` | Confirm the active local branch is on that commit or a descendant; this does not prove source cleanliness or device/runtime behaviour |
 
 ### Build and release notes
 
-- The last supplied MPP build succeeded and passed bundle verification.
+- Release rebuild in this run succeeded and passed bundle verification; the model-free MPP size/hash and payload breakdown are recorded in the 27 November 2026 implementation update below.
 - The artifact remained named `patches-0.84.0.mpp`. The Morphe/base version is not the StopSlop feature revision; custom versioning is deferred to the release milestone.
 - The bundle was unsigned because no signing key was configured.
 - A release receipt was refused because the source tree was dirty.
@@ -84,6 +87,39 @@ Use these labels consistently:
 - `BLOCKED_BY_FEASIBILITY` - required data, hook, runtime, packaging or timing is not proven.
 
 A preference key, settings row, model file, successful compilation, or non-empty DEX payload is not proof of correct runtime moderation.
+
+### Runtime compatibility and packaging pass - 27 November 2026
+
+This is a source-level assessment of the Android runtime options against this repository's API 23
+floor and Morphe extension packaging. The TikTok extension is registered as a DEX `.mpe`; Morphe's
+`extendWith` merges those classes into the patched APK. The registered StopSlop raw-resource patch
+adds only eight pinned ARM native runtime libraries under standard APK `lib/<abi>/` paths. Optional
+model and tokenizer data are imported/downloaded separately and staged into TikTok's app-private
+files after profile, size and hash checks. The rebuilt `.mpp` is model-free and bundle-verified;
+patched APK entries and Morphe host loading remain unverified.
+
+| Candidate | Android / ABI evidence | Format and packaging | Assessment |
+|---|---|---|---|
+| LiteRT bundled (current 2.4.0) | Current Android package floor is API 24. The previous 2.2.0 line documented API 23 for its CPU Interpreter; ABI/package details must be pinned to the selected AAR. | TFLite/LiteRT models; tokenizer/model metadata remain model-specific. Runtime ships native `.so` files in Maven AARs. | Current API excludes API 23; older 2.2 CPU Interpreter is an API 23 candidate but is legacy and native libraries have no proven MPP delivery route. |
+| LiteRT via Google Play services (17.0.0) | API 24+ with Google Play Store/services; not present on all compatible hosts. | Java API delegates execution to Play services; model still needs a supported local file/data path. | Cannot be mandatory. API 23 needs another runtime, and access from the injected extension process plus model storage has not been proven. |
+| MediaPipe Tasks Text | Current Android setup requires API 28. Text Classifier/Text Embedder run on 32-bit ARM CPU per platform notes; ARM64 also supported. | `.task`/`.tflite`; task API handles tokenizer/preprocessing only for compatible model packages. Android Maven dependencies include native runtime libraries. | Does not meet API 23 and shares the unproven native packaging boundary. Not selected. |
+| ONNX Runtime Android 1.20.0 + Extensions 0.13.0 | The pinned AAR manifests declare API 21 and contain ARM64, ARM32, x86 and x86_64 libraries. API 23 behavior and Morphe loading remain unverified. | Real quantized E5 ONNX model with an XLM-R tokenizer graph using ORT Extensions. Patch resources ship ARM64 and ARM32 only. | Selected for the source vertical slice because its inspected AAR floor covers API 23; source selection is not an Android compatibility claim. |
+
+Primary references: [LiteRT Android version/API table](https://developers.google.com/edge/litert/android), [LiteRT 2.3 Android API change](https://developers.google.com/edge/litert/releases/litert_oct), [Google Play services LiteRT setup](https://developers.google.com/edge/litert/android/play_services), [MediaPipe Android setup](https://developers.google.com/edge/mediapipe/solutions/setup_android), [MediaPipe Text Classifier](https://developers.google.com/edge/mediapipe/solutions/text/text_classifier/android), [ONNX Runtime Mobile](https://onnxruntime.ai/docs/get-started/with-mobile.html), [ONNX Runtime Android compatibility](https://onnxruntime.ai/docs/reference/compatibility.html), and [TensorFlow Lite Android API/ABI requirements](https://github.com/tensorflow/tensorflow/blob/master/tensorflow/lite/g3doc/android/development.md).
+
+**Model decision:** multilingual E5 Small is selected for this caption-semantic embedding slice,
+not as a generator, AI-generated-text detector or generic slop classifier. Its ONNX model,
+tokenizer graph, immutable source revisions, sizes, SHA-256 values and MIT provenance are recorded
+in `docs/AI_SEMANTIC_TOPIC_FILTER.md`. A local desktop CPU artifact check ran inference; no
+Android-host or language-quality result is claimed.
+
+**Source status:** the registered patch, real provider, async cached feed decision, off-by-default
+settings and asset installer are source-implemented. First evaluation returns KEEP; a later feed
+hook invocation can consume a completed cache result, but TikTok's natural same-item re-evaluation
+has not been demonstrated. Android-host inference and patched-APK/device behavior remain
+unverified, and mechanical
+Topic Filter, marker-based TikTok AI labels, Ads & Sponsorships, Minimum Likes, Preferred Content,
+and M4 remain independent of provider availability. No tests/builds or device operations were run.
 
 ---
 
@@ -234,6 +270,40 @@ Rules:
 
 ---
 
+### 3.7 Pre-display, preload and media-input boundary
+
+The existing feed-list metadata hook is not proof of a general TikTok media-prefetch or subtitle hook. Distinguish post caption/hashtags exposed on the feed object from actual subtitle tracks, ASR text, burned-in text and decoded video frames. Only source-proven in-process inputs may be considered.
+
+- Never run model inference in a synchronous feed getter or block the UI/player thread.
+- A future analyser may inspect an already-preloaded upcoming item only after the source, timing and permission boundary are proven. Use a bounded, low-priority cancellable queue and a result cache keyed by stable video ID plus ruleset/model revision.
+- No TikTok private cache/storage/process-memory reads, root, Shizuku, VPN, hidden APIs, Accessibility scraping, MediaProjection or screen capture.
+- Measure the lead time before display and the effect on queueing, memory, CPU, heat and playback. Do not promise zero lag without measured pre-display margin.
+- Segment skipping requires both reliable media timestamps and a verified player seek/skip action. Otherwise support only whole-video decisions based on available evidence.
+
+### 3.8 Hybrid cloud-signature and on-device analysis
+
+Use a compact, versioned, signed advertising-signature database for known public campaign patterns, with optional local AI for context and semantic understanding. The network distributes public rule data; it does not classify a user's current video.
+
+A signature may contain campaign/advertiser aliases, official domains, CTA/promo-code patterns, language/region, validity dates, confidence, provenance and optional legally verified creative/audio fingerprints. A brand or product mention alone must never be sufficient to block a video. Combine multiple contextual signals and preserve user exceptions.
+
+Use a fixed project-controlled HTTPS origin. A small manifest/index and JSON shards may be served from GitHub Pages; larger static data packages may use GitHub Releases or an approved CDN. Use ETag/If-None-Match, detached signature verification with a pinned public key, SHA-256, exact sizes, schema/version/expiry validation and rollback protection. Update only in background or on explicit user action, never on the feed path. Keep a last-known-good local snapshot for offline use. Download data only; no scripts, DEX, JAR, `.so` or executable rules.
+
+Official references: [GitHub Releases](https://docs.github.com/en/repositories/releasing-projects-on-github/about-releases), [Android app-specific files](https://developer.android.com/training/data-storage/app-specific), [WorkManager constraints](https://developer.android.com/develop/background-work/background-tasks/persistent/getting-started/define-work).
+
+### 3.9 Blocked Videos History and local correction
+
+Add a `Blocked Videos` page to StopSlop settings. The page title is `Blocked Videos`; the prompt is `Were these videos blocked correctly?`. The list is vertical, newest first, and contains only videos actually excluded by the final decision pipeline.
+
+- User-selectable retention: 5, 10, 20, 50 or 100 entries; default 20. The maximum is 100. Lowering the limit prunes oldest records immediately.
+- Every row shows available bounded display metadata, creator if available, blocked time, concise reason and a real `Open` action backed by a verified TikTok in-process route.
+- Green thumbs-up `Correct` records that the user confirms the block. Red thumbs-down `Restore` creates a local exception for that exact stable video ID only. It must not allow the creator, topic, hashtag, sound or similar videos.
+- A Restore decision is not proof that the video was reinserted into the current feed. State exactly what happens; do not claim immediate reinsertion unless a safe operation is verified.
+- Deduplicate by stable video ID. Store a small reason code, timestamp, source and optional bounded display excerpt. Never persist the full Aweme object or video/audio/frame/transcript content.
+- User corrections remain local. They do not send TikTok likes/dislikes, network feedback, telemetry or automatic model training.
+- Clear History must not silently remove per-video Restore exceptions; make the effect explicit or expose separate controls.
+- If a stable ID or open route cannot be verified, report the blocker rather than presenting a fake clickable row.
+
+
 ## 4. Topic Filter: three levels
 
 ### Level 1 - Literal Matching (implemented mechanical foundation)
@@ -312,6 +382,7 @@ Rules:
 **Honest product wording:** the first version can promise to prioritize matching videos already present in a fetched batch. It cannot promise that TikTok's remote recommender will deliver more matching videos in future requests. If safe in-batch ranking is not supported by the actual list semantics, report the blocker rather than shipping a nonfunctional switch.
 
 ---
+
 
 ## 5. Global AI Model Catalogue and Model Manager
 
@@ -561,6 +632,20 @@ The catalogue is expected to expand over time. No claim that every language has 
 
 ---
 
+### 5.12 Shared semantic model versus separate models
+
+On the first attempt to enable a real AI feature, ask whether the user prefers `One shared model` or `Separate models`.
+
+- `One shared model` is the recommended default when one compatible semantic model supports the required task. Reuse its text representations across eligible ad/topic/preference features instead of downloading duplicate weights.
+- `Separate models` permits dedicated ad and topic/preference models where benchmarks demonstrate a meaningful quality or performance benefit. Higher storage cost must be shown; load models on demand rather than requiring all of them in RAM simultaneously.
+- This setting concerns semantic models only. OCR, ASR and video-frame analysers may still be specialist modules. A text embedding model is not automatically a video/audio understanding model.
+- Let users change the selection later and show the actual download/installed-size and compatibility consequences. Never show an unavailable configuration as selectable.
+- Do not expose the choice until at least one compatible model can actually install and run offline in the verified host process or a faithful harness.
+
+### 5.13 Third-party model disclosure and licence acceptance
+
+Before installing/enabling each third-party model, show the model author, upstream model card, exact licence/terms, version/revision, intended tasks, language evidence, full package size, runtime and local-processing statement. Make the upstream model-card and licence links clickable. Store the accepted model ID, revision and licence version locally. A single generic StopSlop agreement is not acceptance of every future model's separate licence. Review redistribution and commercial-use terms before listing a package as Stable/installable. Do not expose model controls before runtime feasibility passes.
+
 ## 6. Privacy, reliability and performance invariants
 
 - Keep moderation and inference on-device. Only model catalogue metadata and explicitly selected model artifact downloads may use the network.
@@ -580,114 +665,160 @@ The catalogue is expected to expand over time. No claim that every language has 
 
 ---
 
-## 7. Development roadmap - one vertical slice at a time
+- Blocked Videos History is local-only and bounded to the selected 5-100 records; user correction labels and per-video exceptions are never uploaded.
+- Cloud ad-signature updates contain only project-published static rules. No video/audio/frame/caption/transcript/topic/embedding/creator/history data is sent upstream.
+- Initial optional AI package budget: target 150-200 MB; absolute target cap 300 MB including runtime, tokenizer and selected modules. Report exact full size and do not force an unsuitable package to fit the budget.
+- A shared semantic model may serve multiple text features only when its actual model task and benchmark evidence support them; OCR/ASR/video inputs require separate verified modules or capabilities.
+
+## 7. Development roadmap - reordered by dependencies and user value
+
+Execute one narrow vertical slice at a time. A later milestone must not be marked complete merely because its UI exists. Keep manual device validation distinct from source/build evidence.
 
 ### M0 - baseline and working-tree reconciliation
 
-Brief read-only preflight. Inspect Git status/branch/remotes and only relevant packaging, model, storage, settings and feed paths. Preserve all staged, unstaged and untracked data. No broad repository dump or cleanup.
+Read-only preflight. Confirm branch, origin, current commit (including documentation commit `f110e57be` if present), `git status --short`, staged/unstaged/untracked changes and prompt ignore rules. Preserve every existing change. Do not reset, clean, stash, overwrite, or publish unrelated work.
 
-### M1 - close mechanical baseline on Galaxy A25
+### M1 - close the existing mechanical baseline on Galaxy A25
 
-Manually validate Ads & Sponsorships, Topic Filter, Minimum Likes, official AI label, Preferred Content, settings search, Native Bridge guidance and reload action. Record exact TikTok package/build and scenarios. No versioning changes.
+Manually validate Ads & Sponsorships, Topic Filter, Minimum Likes, official TikTok AI label, Preferred Content, settings search, Native Recommendation Bridge guidance and reload action. Record exact TikTok package/build, device/build, scenarios and outcomes. This is a manual owner/device gate; Codex must not claim `DEVICE_VERIFIED` from source inspection.
 
-### M2 - close remaining settings/UI consistency
+### M2 - close reproducible settings and Native Bridge issues
 
-Fix only reproducible issues in touched StopSlop UI. Preserve unique inherited settings and working functionality.
+Fix only confirmed StopSlop settings defects. Verify the current English base strings, search aliases, screen navigation and Native Bridge guidance. Do not redesign unrelated inherited HushFeed screens or introduce placeholder AI switches. Retain user settings and legacy migrations.
 
-### M3 - verify feed decision/ranking boundary
+### M3 - canonical feed decision event and stable identity
 
-Verify metadata, feed routes, threads, timing and safe in-batch ranking. No ML inference.
+Trace the existing feed hook and final filtering point. Define or adapt one small immutable event containing only: stable video/Aweme ID, decision (`BLOCK`), reason code, detector/source, timestamp, and optional bounded display metadata needed by the history UI. Preserve `KEEP/BLOCK/UNKNOWN`, allowlist precedence and `UNKNOWN -> KEEP`.
 
-### M4 - formalize hybrid moderation contract
+- Emit an event only when a video is actually excluded by the final pipeline, not for candidates, duplicate detector hits or temporary failures.
+- Deduplicate by stable video ID; do not fabricate an ID from mutable caption/creator text.
+- Do not persist the full Aweme object, video/audio bytes, frame images, transcript or raw diagnostics.
+- If there is no stable ID on a route, report the gap; do not save a history row that cannot be identified or opened.
+- Keep the event emission out of UI/player-critical work and ensure it cannot throw into the feed path.
 
-Preserve `KEEP/BLOCK/UNKNOWN`, explicit exception precedence, positive-score separation, reasons and model/profile versioning. No fake AI control.
+### M4 - Blocked Videos History and local feedback
 
-### M5 - TikTok Native Recommendation Bridge
+Implement the new user-facing history page using the existing StopSlop settings/navigation and local persistence conventions. Detailed acceptance criteria are in `prompts/active/M4_Blocked_Videos_History.md`.
 
-**Reported:** `SOURCE_IMPLEMENTED`, device check pending. Guidance rows for Manage topics and Filter keywords exist; stable deep link not found for TikTok 47.9.3. Verify on A25. Never fake likes, watch time, views, follows or Not interested; no undocumented network endpoints or arbitrary server weights.
+- Add a `Blocked Videos` entry and page with the English-first heading `Were these videos blocked correctly?`.
+- Show the latest blocked items vertically, one per row/card, with a supported action to open the original video.
+- Let users select 5, 10, 20, 50 or 100 retained records; default 20. Prune oldest entries deterministically when the limit is lowered.
+- Provide a green thumbs-up `Correct` action and a red thumbs-down `Restore` action. `Restore` creates a local per-video allow exception; it must not silently allow the creator, topic or all similar posts.
+- Keep user feedback local. Do not send events to TikTok or any server. Do not train or update a model automatically from a single tap.
+- Deduplicate repeated blocks by ID and retain a bounded status (`PENDING`, `CONFIRMED_CORRECT`, `RESTORED`).
+- Do not save the videos themselves. Keep only the minimum metadata required to identify and explain the decision.
+- Do not claim `Open` or immediate reinsertion works until the exact internal route has been verified for the supported TikTok build. If it is unavailable, report the blocker rather than inventing a deep link.
 
-### M5B.1 - broad global model research registry
+Source-review update (26 November 2026): the current implementation records only final exclusions with a stable ID, reason and exclusion timestamp; persistence uses a bounded single-writer queue, and Restore exceptions are read from an asynchronously hydrated memory snapshot so feed filtering does not parse preferences. Queue saturation drops a history capture without changing feed behavior. No reliable username is currently captured, so the UI uses Copy ID instead of constructing an unverified URL. Device behavior remains unverified.
 
-- Expand the candidate seed into a broad registry of multilingual and language-specialist models.
-- Target 40+ credible candidates/families and 50+ language tags where real candidates exist; never fabricate a candidate to meet a quota.
-- Record immutable source revision, task, BCP-47 languages/evidence, licence, package artifacts and total size, runtime/format, ABI and mobile readiness.
-- Create `docs/research/AI_MODEL_CATALOG.md` plus a machine-readable research index if useful.
-- No model download, runtime/UI install control or claim that candidate equals installable.
+### M5 - preload, cache, subtitle and pre-display input feasibility POC
 
-**Current result (26 November 2026): partial research pass.** The catalogue now covers 65 distinct model IDs across multilingual and regional candidates, and preserves a 52-tag explicitly enumerated language set from IBM Granite enhanced-retrieval evidence. Additional declared tags are not counted where the source card conflicts internally. The candidate expansion cites model cards and licences, but exact immutable commits and full weight/tokenizer/config byte manifests are still missing for many entries. Therefore M5B.1 is **not complete**, the Stable installable count remains zero, and every entry remains non-installable.
+Trace the exact supported TikTok target's in-process media-prefetch, player, caption/subtitle and metadata flow. This is a feasibility POC, not a general AI implementation.
 
-### M5B.2 - device profile and hardware compatibility scoring
+- Distinguish post caption/hashtags already present in the Aweme metadata from actual subtitle tracks, ASR text and burned-in video text. Do not conflate them.
+- Establish whether upcoming video metadata, subtitle text or decoded frames are exposed through a verified in-process hook before the video is displayed.
+- Never inspect TikTok private cache/storage/process memory through unsupported mechanisms; no root, Shizuku, VPN, hidden APIs, Accessibility scraping, MediaProjection or screen capture.
+- Never add OCR/ASR/inference to a synchronous feed getter such as `getItems()` or block the UI/player thread.
+- Only if an early input route is proven, propose a bounded low-priority background queue, cache keyed by stable video ID plus detector/model/ruleset version, cancellation and memory-pressure behaviour.
+- Measure lead time from input availability to display, queue delay, processing latency, dropped work, memory and playback impact. No zero-lag or pre-display claim without measurements.
+- `SKIP_SEGMENT(start,end)` is not supported until a real timestamp source and safe player seek/skip action are both proven. Otherwise the supported result remains whole-video `BLOCK` or `KEEP/UNKNOWN`.
+- If no early input is exposed, mark the relevant multimodal detector `BLOCKED_BY_FEASIBILITY` and leave it disabled.
 
-- Verify host context, Android API, ABI, CPU/SoC where exposed, RAM class/free memory and storage.
-- Define hard gates for API, ABI, runtime, model format, RAM and storage.
-- Implement device-preference tiers 1-3 and a transparent 0-100 Hardware Fit index based on measured/calibrated data.
-- A hard-incompatible model has no percentage; a model without measurements shows `Not measured`.
-- Hardware Fit must never be confused with language quality/accuracy.
+### M6 - signed static advertising-signature database and updater
 
-### M5B.3 - app-private data delivery and runtime canary
+Design and implement the data-only signature update path independently of AI inference.
 
-- Verify TikTok host `Context`, private `filesDir`/`cacheDir`, persistence and lifecycle.
-- Test staged file download/hash/size/promotion/reopen/delete using harmless canary data.
-- Prove a static runtime/JNI build-time path or verified platform runtime. Never download `.so` or DEX.
-- Do not add broad storage permissions or use shared Downloads/SAF.
-- No large model until the canary succeeds.
+- Use a small fixed HTTPS project-controlled manifest and versioned JSON rule shards. GitHub Pages can host the small index/manifests; GitHub Releases or a controlled CDN can host larger static data packages. Verify current hosting limits before release.
+- Use ETag/If-None-Match, version/expiry checks, pinned public key, signature verification, SHA-256, exact byte lengths, bounded schema and rollback protection.
+- Update on an appropriate background schedule or explicit user action, never synchronously in the feed path. Respect user network/battery constraints; verify WorkManager support in the host extension before depending on it.
+- The rule schema may include campaign/advertiser aliases, domains, CTA/promo patterns, language/region, validity window, confidence, provenance and optional legally verified fingerprints.
+- Brand/product mentions alone are never an ad verdict. Combine contextual signals and support local exceptions/allowlists. Avoid unbounded user-supplied regex and catastrophic backtracking.
+- No video, audio, caption, transcript, embeddings, user topics, creator identity or moderation history is uploaded. The server only distributes public/static rule data.
+- Keep the previous last-known-good database for offline fallback and failed updates. Never download executable code or model runtime from this channel.
 
-### M5B.4 - first ARM64 model comparison
+### M7 - verify host-private storage and runtime/JNI canary
 
-- Test the smallest suitable specialist model and one broad multilingual embedding candidate.
-- Re-export/quantize for ARM64 where required; an AVX2/AVX512 model is not Android mobile proof.
-- Test Russian, Ukrainian, English and other declared languages on a fixed StopSlop dataset.
-- Record full file/tokenizer/config size, RAM, cold start, latency, heat, battery and quality metrics.
-- Embeddings and generators remain different model tasks.
-- Only report `MODEL_INFERENCE_VERIFIED` after real offline inference in the patched host/faithful harness.
+Continue from the reported `BLOCKED_BY_FEASIBILITY` M5B result. The source now contains an optional model manager and pinned ORT/ORTX packaging path, but neither proves the extension host Context/package name, app-private `filesDir`/`cacheDir`, persistence/lifecycle nor that native libraries load in Morphe. Verify those canaries under the actual host classloader/ABI/API constraints.
 
-### M5B.5 - optional generator model comparison
+- The current MPP contains runtime code/libraries only; model weights and tokenizer data are external `.ssmodel` package data. Do not mark M7 complete until the host-private storage and runtime canaries pass.
+- Import uses SAF and private storage; no broad storage permission, shared Downloads, root or Shizuku is used.
+- Never download DEX/JAR/`.so` or executable code at runtime.
+- Preserve the API 23 compatibility constraint unless an explicit product decision and full dependency analysis authorize changing it.
+- If the path fails in a host build or device, report the exact failing gate and keep semantic inference fail-open/unavailable.
 
-Test compact multilingual generators only if reviewed alias generation remains a requirement. Measure valid structured output, hallucinations, per-language quality, package size, licence, runtime, RAM and latency. Require user review. Never run generation per feed item.
+Build/artifact update (27 November 2026, optional-model rebuild): Gradle Wrapper 9.9.1 compiled the release extension; `:patches:buildAndroid` and `:patches:verifyBundle` succeeded for 156 patches and all three non-empty DEX payloads. `patches/build/release/patches-0.84.0.mpp` is 26,132,162 bytes (24.922 MiB), SHA-256 `88c6893551528d0a7cae81bc97e4b11301844f47f78a983be76daa8e5dea82b2`; ZIP integrity passed with 1,656 entries and no duplicate paths. No model weights, tokenizer graph or `.ssmodel` are present (one empty `stop_slop/models/` directory entry remains). Payload breakdown: extension MPEs 8,985,544 raw / 3,783,326 compressed bytes; eight native `.so` files 41,853,012 / 16,896,457; other payloads and metadata 13,053,682 / 5,070,811; ZIP directory/header overhead 381,568 bytes. Native compressed size alone exceeds both 10 MiB and 15 MiB gates. ARM64 native is 24,622,576 / 8,843,504 bytes; ARM32 native is 17,230,436 / 8,052,953 bytes. API 23+, Morphe host loading, private storage and device inference remain unverified; no APK was produced. M7 and M9 remain open.
 
-### M6 - signed Stable catalogue and optional Model Manager
+Final APK integration gate (27 November 2026): the existing patches/build/release/patches-0.84.0.mpp remains 109,819,836 bytes and its SHA-256 matches bundle.sha256 (f53e229176456d50c6c5fd2844adb399773f636815c875b463d20a2dc70e6964). No base APK was found in repository files, selected build output directories, or the checked Downloads location; no Morphe Desktop CLI/app was discoverable through PATH, registered apps, or the checked install/workspace locations. Therefore no final APK was generated or inspected; APK destinations, signature, ABI selection, Morphe host loading, and device inference remain unverified. Patch metadata identifies the supported TikTok target as com.zhiliaoapp.musically 47.9.3 (versionCode 2024709030). Manual next step: in Morphe Manager use Sources > + > Local to add this MPP, select that supported TikTok target, enable the Settings patch (which depends on StopSlop local semantic model assets), then apply/export and retain Morphe's persistent signing key. This follows documented Manager terminology, not a UI session observed here. The local-source workflow is documented at https://github.com/MorpheApp/morphe-manager/blob/main/docs/patch-sources.md.
 
-Only after at least one real model/runtime path is proven. Ship broad searchable catalogue metadata, signed Stable manifests, dynamic languages, pinned exclusive Any language, quality 1-3, device preference 1-3, Hardware Fit %, model cards, Available/Installed/Updates, one-tap install, activation, switching, Stable update, rollback and deletion. Research-only candidates are visible only as `Not installable`; no fake Install buttons.
+Runtime decision (27 November 2026): source uses ONNX Runtime Android 1.20.0 and ORT Extensions Android 0.13.0 because their inspected AAR manifests declare API 21 and provide ARM64/ARM32 libraries. The MPP contains runtime code/libraries only; the pinned model/tokenizer are in a separate local `.ssmodel` artifact. Desktop artifact execution does not verify Android compatibility or host execution. Play-services LiteRT remains an alternative; its documented API 24 floor does not cover API 23. No custom operator-pruned runtime was built or validated, and the current model-free MPP misses the size gates.
 
-### M7 - global AI switch and per-feature AI options
+The MPP hash/size above supersedes the earlier 109,819,836-byte model-bearing bundle reported in the Final APK integration gate. That earlier APK-gate search found no compatible TikTok base APK or Morphe CLI, so no final APK was produced; this rebuild did not repeat that search or claim APK inspection.
 
-Global AI defaults OFF. OFF guarantees zero model inference and preserves all mechanical filters. ON enables only implemented per-feature AI modules with an available compatible model. Keep TikTok's official AI label filter separate.
+### M8 - device profile and global research registry maintenance
 
-### M8 - Topic Filter semantic expansion/matching
+The latest supplied Codex report records 65 candidate IDs and 52 explicit language tags; all remain research-only. Preserve that inventory and extend it only with traceable evidence.
 
-Use a verified model to generate/review `BLOCK` topic profiles and/or semantically compare supported metadata. Direct aliases are separated from broad concepts. Generate only when the user adds/edits/refreshes a topic. Test all advertised languages.
+- Keep research candidates separate from installable Stable packages.
+- Record immutable revisions, exact model/tokenizer/config files and total package sizes, SPDX/licence terms, language evidence, task type, runtime, minimum API, ARM64 status and known limitations.
+- Dynamic BCP-47 language selection must be generated from actual catalogue evidence. `Any language` means broadest verified coverage, not every human language.
+- Distinguish model-card-declared languages, independent benchmark support and StopSlop-tested quality.
+- Device preference tiers are `Saver`, `Balanced`, `Performance`; a transparent Hardware Fit score is shown only when the hard gates and actual measurements support it. Otherwise show `Not measured` or the exact incompatibility.
+- Keep the initial optional AI package target at 150-200 MB and a 300 MB absolute target cap including runtime/tokenizer/selected modules. This is a product budget, not permission to falsify sizes or force an unsuitable model. If no compatible package fits, say so.
 
-### M9 - Preferred Content AI
+### M9 - first ARM64 model comparison and offline inference
 
-Reuse model services with separate `PREFER` profiles. Accepted aliases/matches add only local in-batch score. They never hide nonmatches, override BLOCK, reorder protected slots or alter server requests.
+Only after M7 succeeds. The first multilingual embedding package and CPU provider now exist in source, and a local desktop artifact check confirmed model execution; M9 is not passed. Verify offline inference in the patched host or a demonstrably faithful harness, then measure Russian, Ukrainian, English and every other advertised language separately. Record full package size, cold start, peak RAM, latency, thermal behaviour, battery and task-specific quality. `MODEL_INFERENCE_VERIFIED` requires these runtime checks; desktop artifact execution alone is insufficient.
 
-### M10 - semantic content understanding
+### M10 - signed Stable catalogue and secure Model Manager
 
-Add optional caption/description/hashtag semantic matching with measured feed-time budget, cache and off-UI inference. UNKNOWN means no block/no boost.
+Only after at least one candidate passes M9. Provide dynamic language selection, model task/size/licence cards, exact download and installed size, `Installed/Available/Updates/Research only/Not compatible` states, explicit install/activate/switch/update/delete, atomic promotion, rollback and offline inference. Research-only candidates never receive active Install buttons.
 
-### M11 - in-video promotion detection
+### M11 - first-AI-use wizard, model-sharing mode and third-party disclosures
 
-Mechanical caption/URL/promo-code/affiliate/CTA checks first. Add semantic classification only when model/runtime/input are proven. No segment skipping without timestamp/seek proof.
+On the first attempt to enable a real AI feature, ask:
 
-### M12 - official AI label, synthetic content and AI-slop
+- `One shared model` - recommended default. One compatible semantic model is reused across supported text-semantic features when its embedding/classification task actually fits.
+- `Separate models` - dedicated compatible models for ad and topic/preference tasks where evidence shows a benefit. Higher storage and possibly memory cost; models may be loaded on demand rather than simultaneously.
 
-Keep platform label, probable synthetic detection and repetitive/low-quality AI-slop separate. Require evaluation, conservative thresholds, reason codes and overrides.
+This choice concerns the semantic model architecture only. OCR, ASR and video-frame components may still be separate specialist modules; a text embedding model is not automatically a video/audio model. Let the user change this choice later, with a clear impact summary. Do not expose the wizard until at least one real model is installable and runnable.
 
-### M13 - multimodal feasibility
+Before installing/enabling each third-party model, show its author, model card, exact licence/terms, source, package size, supported languages/tasks and local-processing statement. Make model-card and licence links clickable. Record the accepted model ID, revision and licence version locally. Do not treat one blanket StopSlop agreement as acceptance of every future third-party licence. Use only models with reviewed redistribution/use terms.
 
-Subtitles/transcript/OCR/ASR require individual proof of allowed source, timing, privacy and performance.
+### M12 - global AI switch and implemented per-feature controls
 
-### M14 - local history and feedback
+Global AI defaults OFF. OFF guarantees zero model inference while preserving every mechanical filter. Only add per-feature AI controls for features backed by an installed compatible model. Missing model, invalid package, timeout, unsupported language or runtime failure disables that AI path and falls back to mechanics.
 
-Add bounded local decisions/reasons and feedback. Do not archive full videos by default.
+### M13 - Topic Filter semantic expansion
 
-### M15 - performance and device compatibility
+Use a verified model for reviewed, bounded `BLOCK` topic expansion and/or semantic text matching. The user explicitly reviews and accepts aliases. Generate only when a topic is added, edited or refreshed; never generate on every feed item.
 
-Measure A25 then A12. Validate Hardware Fit against real device classes, memory, latency, thermal, battery and storage.
+### M14 - Preferred Content semantic expansion
 
-### M16 - final branding, documentation and release/versioning
+Reuse the same shared semantic service when selected, but maintain a separate `PREFER` intent profile. Semantic matches may add only a bounded local in-batch score. They never hide nonmatches, override a valid BLOCK, move structural slots or alter server requests.
 
-After UI/runtime stabilizes, finish screenshots, README/privacy/feature matrix and independent StopSlop release numbering. Preserve Morphe compatibility metadata and rollback artifacts.
+### M15 - semantic content and promotion understanding
+
+Add compact, measured inference over verified metadata/text inputs only. Brand mention alone is not advertising. Combine official sponsorship evidence, CTA, promo code, destination URL and corroborating text conservatively. Keep `UNKNOWN -> KEEP` and user exceptions.
+
+### M16 - OCR, ASR and subtitle analysis
+
+Only proceed when M5 proves a supported input source and enough pre-display lead time. Add OCR/ASR specialist modules only when their languages, complete package size and A25 cost are independently measured. Do not read TikTok private cache or capture the rendered screen.
+
+### M17 - in-video ad segments and safe skip
+
+Use segment classification only if M5/M16 provide reliable timestamps and the actual player has a supported, tested seek/skip action. Otherwise retain whole-video classification only. Never stall playback waiting for AI.
+
+### M18 - synthetic content and AI-slop
+
+Keep TikTok's official AI-generated label separate from synthetic-content estimation and repetitive/low-quality content classification. Require independent datasets, conservative thresholds, explainable reasons and local correction controls.
+
+### M19 - performance and device compatibility
+
+Benchmark on Galaxy A25 before Galaxy A12. Measure p50/p95 queue and inference latency, UI/player jank, cold start, peak RAM, storage, thermal throttling, battery and queue cancellation. Remove any path that causes playback regression. Validate offline operation and fail-open behaviour.
+
+### M20 - final branding, documentation and release/versioning
+
+After functionality and UI stabilise, finish English-first strings, translations, screenshots captured from the actual device, privacy/feature matrix, independent StopSlop versioning and release notes. Preserve Morphe compatibility metadata, GPLv3 notices, upstream attribution and rollback artefacts.
 
 ---
 
@@ -707,19 +838,13 @@ After UI/runtime stabilizes, finish screenshots, README/privacy/feature matrix a
 
 ## 9. Current next step
 
-**Next: finish M5B.1 artifact pinning, then proceed to M5B.2.** Continue from the previous `BLOCKED_BY_FEASIBILITY` result without repeating the same general runtime audit.
+**Immediate next gate: manual phone verification of the model-free release and model manager.** In Morphe Manager apply the MPP to the supported TikTok target, then verify deterministic filters without a model, SAF import and direct HTTPS package download, integrity rejection, model selection/session startup, switching/removal, offline inference and API 23+ compatibility. First feed evaluation remains fail-open; do not claim same-item re-evaluation without observing the actual route. A signed curated catalog and hosted package are still absent.
 
-1. Pin immutable revisions and complete file manifests (sizes, hashes, tokenizer/config companions and licences) for the research candidates selected for the first comparison.
-2. Keep embeddings, classifiers, rerankers, translation models and generators distinct; include multilingual and regional specialists without implying equal quality.
-3. Flag x86-only exports as not ARM-ready and keep all current candidates research-only.
-4. Verify the device profile and host-private data canary, then prove a static native/runtime path and one ARM64 model offline.
-5. Only after offline inference passes may the project begin M6's signed Stable catalogue and user-facing selector/installer.
+Keep the manual M1 Galaxy A25 verification as a separate owner/device gate. The Codex report for documentation commit `f110e57be` does not prove device behaviour, model runtime, model installation or a clean source worktree.
 
-Do not add a production model-install screen until the actual host package, runtime and data-file lifecycle work. Do not fetch executable code. The base TikTok/MPP stays small; model data are downloaded only after explicit selection and are never merged into the APK/MPP.
+After the M7/M9 gates pass, continue model delivery and broader AI roadmap work; do not expose production Model Manager or additional models before the host/runtime path is verified.
 
-The final user flow is: choose languages (dynamic searchable list, pinned exclusive `🌍 Any language`), choose quality 1-3, choose device resource preference 1-3, browse the broad catalogue with hardware-fit score/evidence, install a selected Stable model, and later switch/update/delete it. `Not measured` and `Not installable` are valid honest catalogue states.
-
-Mechanical Topic Filter, Preferred Content, Ads & Sponsorships and all non-AI features must remain functional without any model installed or when AI is disabled/unavailable.
+Latest reported global research catalogue status: 65 candidate IDs and 52 explicit language tags; all remain research-only. No model is currently verified installable or runnable offline inside the Morphe extension. Preserve this honest state until real host/runtime inference is demonstrated.
 
 ## 10. Definition of done for AI moderation and Model Manager
 
@@ -736,5 +861,9 @@ Mechanical Topic Filter, Preferred Content, Ads & Sponsorships and all non-AI fe
 - Russian, Ukrainian and other advertised languages are measured per task.
 - No raw post/media/account content is uploaded.
 - Focused tests, MPP verification and manual A25 validation are recorded; A12 fallback is documented before broad claims.
+
+- Blocked Videos History stores only actual final BLOCK events, uses stable IDs and a verified open route, keeps at most the selected 5-100 records, and applies Correct/Restore locally with per-video-only exceptions.
+- Shared/separate semantic model choice appears only after a model/runtime path is truly installable; each third-party model has a clickable model-card/licence disclosure and recorded version-specific acceptance.
+- Static ad-signature updates are signed, versioned, size-bounded and offline-safe; no user media or moderation data is uploaded.
 
 An embedding model is not a generator. A text model is not video/audio understanding. Broad pretrained language coverage is not the same as per-language StopSlop benchmark proof. Parameter count is not exact download size, and Hardware Fit percentage is not model accuracy.
