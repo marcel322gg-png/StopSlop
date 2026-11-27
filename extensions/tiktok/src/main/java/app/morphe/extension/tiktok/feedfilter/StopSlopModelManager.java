@@ -350,11 +350,12 @@ public final class StopSlopModelManager {
             Operation operation = new Operation();
             try {
                 URL url = checkedUrl(OFFICIAL_CATALOG_URL);
-                HttpURLConnection connection = openFollowingHttps(url, operation, CATALOG_HOSTS);
+                HttpURLConnection connection = openFollowingHttps(
+                        url, operation, CATALOG_HOSTS, "application/json");
                 try {
-                    connection.setRequestProperty("Accept", "application/json");
-                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
-                        throw new IOException("Official catalog returned HTTP " + connection.getResponseCode());
+                    int responseCode = connection.getResponseCode();
+                    if (responseCode != HttpURLConnection.HTTP_OK) {
+                        throw new IOException("Official catalog returned HTTP " + responseCode);
                     }
                     byte[] response;
                     try (InputStream input = connection.getInputStream()) {
@@ -429,7 +430,8 @@ public final class StopSlopModelManager {
             File archive = new File(context.getCacheDir(), "stop_slop_model_download_" + System.nanoTime() + ".ssmodel.part");
             try {
                 URL url = checkedUrl(sourceUrl);
-                HttpURLConnection connection = openFollowingHttps(url, operation, allowedHosts);
+                HttpURLConnection connection = openFollowingHttps(url, operation, allowedHosts,
+                        "application/zip, application/octet-stream;q=0.9");
                 operation.connection = connection;
                 int response = connection.getResponseCode();
                 if (response < 200 || response >= 300) throw new IOException("Model source returned HTTP " + response);
@@ -774,22 +776,20 @@ public final class StopSlopModelManager {
         return url.toString();
     }
 
-    private static HttpURLConnection openFollowingHttps(URL initial, Operation operation) throws IOException {
-        return openFollowingHttps(initial, operation, null);
-    }
-
-    private static HttpURLConnection openFollowingHttps(URL initial, Operation operation, Set<String> allowedHosts) throws IOException {
+    private static HttpURLConnection openFollowingHttps(URL initial, Operation operation,
+            Set<String> allowedHosts, String acceptHeader) throws IOException {
         URL next = initial;
         for (int redirects = 0; redirects <= 5; redirects++) {
             if (allowedHosts != null && !allowedHosts.contains(next.getHost().toLowerCase(Locale.ROOT))) {
                 throw new IOException("Catalog or official release redirected to an unapproved HTTPS host");
             }
             HttpURLConnection connection = (HttpURLConnection) next.openConnection();
+            operation.connection = connection;
             connection.setInstanceFollowRedirects(false);
+            connection.setUseCaches(false);
             connection.setConnectTimeout(20_000);
             connection.setReadTimeout(30_000);
-            connection.setRequestProperty("Accept", "application/zip, application/octet-stream;q=0.9");
-            operation.connection = connection;
+            connection.setRequestProperty("Accept", acceptHeader);
             int code = connection.getResponseCode();
             if (code == HttpURLConnection.HTTP_MOVED_PERM || code == HttpURLConnection.HTTP_MOVED_TEMP
                     || code == HttpURLConnection.HTTP_SEE_OTHER || code == 307 || code == 308) {
