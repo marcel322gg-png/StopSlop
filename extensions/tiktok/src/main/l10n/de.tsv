@@ -3312,3 +3312,31 @@ Package hashes are checked before activation. SHA-256 is not a publisher signatu
 Download verified package	Geprüftes Paket herunterladen
 The official catalog lists compatible E5 packages from StopSlop GitHub Releases. Downloads are explicit and verified against the catalog; model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled.	Der offizielle Katalog listet kompatible E5-Pakete aus den StopSlop-GitHub-Releases. Downloads werden ausdrücklich gestartet und mit dem Katalog abgeglichen; Modelldateien bleiben im privaten TikTok-Speicher. Die Auswertung erfolgt lokal und KI bleibt deaktiviert, bis sie eingeschaltet wird.
 Installed	Installiert
+A selected model is missing or incompatible. Choose another installed model.	Ein ausgewähltes Modell fehlt oder ist inkompatibel. Wähle ein anderes installiertes Modell.
+Content matches app-pinned E5 hashes.	Der Inhalt stimmt mit den in der App hinterlegten E5-Prüfsummen überein.
+Could not clear the selected model; it was kept.	Das ausgewählte Modell konnte nicht abgewählt werden und bleibt erhalten.
+Could not switch to the fallback model; the selected model was kept.	Der Wechsel zum Ersatzmodell ist fehlgeschlagen. Das ausgewählte Modell bleibt erhalten.
+Installed but not selected. Storage used: %1$d MiB	Installiert, aber nicht ausgewählt. Speicherbedarf: %1$d MiB
+Installed, not selected	Installiert, nicht ausgewählt
+Languages: %1$s	Sprachen: %1$s
+Model details	Modelldetails
+Model files exist but are invalid or incomplete. Re-import a compatible E5 package.	Modelldateien sind ungültig oder unvollständig. Importiere ein kompatibles E5-Paket erneut.
+Model files are removed if TikTok is uninstalled or app data is cleared.	Modelldateien werden entfernt, wenn TikTok deinstalliert oder die App-Daten gelöscht werden.
+Package version: %1$s	Paketversion: %1$s
+Publisher: %1$s	Anbieter: %1$s
+Publisher is not verified.	Der Anbieter ist nicht verifiziert.
+Selected · initialization failed	Ausgewählt · Initialisierung fehlgeschlagen
+Selected · initializing	Ausgewählt · wird initialisiert
+Selected · ready	Ausgewählt · bereit
+Selected · semantic filter off	Ausgewählt · semantischer Filter aus
+Selected model is initializing: %1$s. Semantic filtering stays fail-open.	Das ausgewählte Modell wird initialisiert: %1$s. Der semantische Filter lässt Inhalte weiterhin durch.
+Selected model is ready: %1$s. Semantic filtering stays off until enabled.	Das ausgewählte Modell ist bereit: %1$s. Der semantische Filter bleibt aus, bis du ihn aktivierst.
+Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB	Ausgewähltes Modell: %1$s. Semantischer Filter aus, Laufzeit inaktiv. Speicherbedarf: %2$d MiB
+Selected. Semantic filtering remains off until you enable it.	Ausgewählt. Der semantische Filter bleibt aus, bis du ihn aktivierst.
+Select a compatible model in AI / Models first.	Wähle zuerst unter „KI / Modelle“ ein kompatibles Modell aus.
+Semantic filtering is ready with %1$s. Storage used: %2$d MiB	Semantischer Filter mit %1$s bereit. Speicherbedarf: %2$d MiB
+Semantic model initialization failed: %1$s. Filtering stays fail-open.	Initialisierung des semantischen Modells fehlgeschlagen: %1$s. Inhalte bleiben sichtbar.
+Source revision: %1$s	Quellrevision: %1$s
+Storage: %1$d MiB	Speicher: %1$d MiB
+The selected model is initializing. Try again when it is ready.	Das ausgewählte Modell wird initialisiert. Versuche es erneut, sobald es bereit ist.
+Selected. Semantic filtering stays fail-open while the new model initializes.	Ausgewählt. Der semantische Filter lässt Inhalte durch, während das neue Modell initialisiert wird.

@@ -271,23 +271,48 @@ public final class StopSlopModelManager {
         catch (IOException unavailable) { return null; }
     }
 
+    /** Returns the persisted selection after validating its manifest, profile, sizes, and required files. */
+    public static Model selectedModel(Context context) {
+        String key = activeKey(context);
+        if (!key.matches("[A-Za-z0-9._-]{1,64}/[A-Za-z0-9._-]{1,64}")) return null;
+        String[] parts = key.split("/", 2);
+        try {
+            Model model = readModel(new File(new File(modelRoot(context), parts[0]), parts[1]), false);
+            return key.equals(model.key()) ? model : null;
+        } catch (IOException unavailable) {
+            return null;
+        }
+    }
+
+    /** True for package data on disk even when its manifest is corrupt and installed() rejects it. */
+    public static boolean hasModelFiles(Context context) {
+        if (context == null) return false;
+        File root = modelRoot(context);
+        File[] ids = root.listFiles();
+        if (ids == null) return false;
+        for (File id : ids) {
+            if (!id.isDirectory() || !id.getName().matches("[A-Za-z0-9._-]{1,64}")) continue;
+            File[] versions = id.listFiles();
+            if (versions == null) continue;
+            for (File version : versions) {
+                if (!version.isDirectory()) continue;
+                if (new File(version, "manifest.json").exists()
+                        || new File(version, "model/model.onnx").exists()
+                        || new File(version, "tokenizer/tokenizer.onnx").exists()) return true;
+            }
+        }
+        return false;
+    }
+
     public static String activeKey(Context context) {
         if (context == null) return "";
         String key = preferences(context).getString(ACTIVE, "");
         return key == null ? "" : key;
     }
 
-    /** A cheap feed-path availability check; the full SHA-256 audit runs on the model worker. */
+    /** Validates selected model metadata and file sizes; full SHA-256 verification remains on the model worker. */
     public static boolean hasActiveModel(Context context) {
-        if (context == null) return false;
-        String key = preferences(context).getString(ACTIVE, "");
-        if (key == null || !key.matches("[A-Za-z0-9._-]{1,64}/[A-Za-z0-9._-]{1,64}")) return false;
-        String[] parts = key.split("/", 2);
-        File root = modelRoot(context);
-        File folder = new File(new File(root, parts[0]), parts[1]);
-        return new File(folder, "manifest.json").isFile()
-                && new File(folder, "model/model.onnx").isFile()
-                && new File(folder, "tokenizer/tokenizer.onnx").isFile();
+        return selectedModel(context) != null;
     }
 
     public static boolean select(Context context, String key) {

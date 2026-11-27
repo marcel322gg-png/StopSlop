@@ -184,6 +184,7 @@ A press on Share under a video copies its link instead of opening the share shee
 "A profile's share sheet gets an Account facts button. It shows what TikTok already sent about the account: when it joined, its region and language, its gifter level and SecUID, when its username and display name last changed, whether it's private and whether its liked videos are public. Nothing extra is fetched.","A profile's share sheet gets an Account facts button. It shows what TikTok already sent about the account: when it joined, its region and language, its gifter level and SecUID, when its username and display name last changed, whether it's private and whether its liked videos are public. Nothing extra is fetched."
 A removal is already running,A removal is already running
 "A screen's layout is recorded. Export the diagnostic report to send it, or tap to record another.","A screen's layout is recorded. Export the diagnostic report to send it, or tap to record another."
+A selected model is missing or incompatible. Choose another installed model.,A selected model is missing or incompatible. Choose another installed model.
 "A small eye button at the top left of the main feed. Tap it and the buttons, caption and tabs go invisible but still take taps, which helps against burn-in on OLED screens. Tap it again to bring them back. They stay the way you left them across videos and restarts. Videos you open from a profile or search keep their controls.","A small eye button at the top left of the main feed. Tap it and the buttons, caption and tabs go invisible but still take taps, which helps against burn-in on OLED screens. Tap it again to bring them back. They stay the way you left them across videos and restarts. Videos you open from a profile or search keep their controls."
 "A small label on the feed shows the minutes or videos left of today's budget, whichever is closer to running out.","A small label on the feed shows the minutes or videos left of today's budget, whichever is closer to running out."
 "A soft dark fade behind the clock and status icons, so they stay easy to read over a bright video. Needs See-through status bar.","A soft dark fade behind the clock and status icons, so they stay easy to read over a bright video. Needs See-through status bar."
@@ -543,6 +544,7 @@ Confirm before liking,Confirm before liking
 Confirm before liking a comment,Confirm before liking a comment
 Confirm before liking a story,Confirm before liking a story
 Contacts and location,Contacts and location
+Content matches app-pinned E5 hashes.,Content matches app-pinned E5 hashes.
 Content preferences,Content preferences
 Continue,Continue
 Continue supported videos from where you stopped when you scroll back to them.,Continue supported videos from where you stopped when you scroll back to them.
@@ -565,8 +567,10 @@ Copy the video link,Copy the video link
 Copy user ID,Copy user ID
 Copy username,Copy username
 Copy video ID,Copy video ID
+Could not clear the selected model; it was kept.,Could not clear the selected model; it was kept.
 Could not open TikTok.,Could not open TikTok.
 Could not remove this model.,Could not remove this model.
+Could not switch to the fallback model; the selected model was kept.,Could not switch to the fallback model; the selected model was kept.
 Couldn't add the caption. Saving without it.,Couldn't add the caption. Saving without it.
 Couldn't add the older seen videos. Try again.,Couldn't add the older seen videos. Try again.
 Couldn't change the Lab settings. Try again.,Couldn't change the Lab settings. Try again.
@@ -1255,7 +1259,9 @@ Inserted cards,Inserted cards
 Install and select a compatible model before enabling semantic filtering.,Install and select a compatible model before enabling semantic filtering.
 "Install one, then come back here.","Install one, then come back here."
 Installed,Installed
+Installed but not selected. Storage used: %1$d MiB,Installed but not selected. Storage used: %1$d MiB
 Installed models,Installed models
+"Installed, not selected","Installed, not selected"
 Installing local model,Installing local model
 "Instead of TikTok's Watch history. A tap on Profile works as before. If holding Profile switches accounts for you, this takes that press.","Instead of TikTok's Watch history. A tap on Profile works as before. If holding Profile switches accounts for you, this takes that press."
 Instead of these settings. The list has a button that brings you back here.,Instead of these settings. The list has a button that brings you back here.
@@ -1343,6 +1349,7 @@ Lab data reset with no undo,Lab data reset with no undo
 Lab overrides reset,Lab overrides reset
 Lab settings put back,Lab settings put back
 Language,Language
+Languages: %1$s,Languages: %1$s
 Large,Large
 Larger (1.25x),Larger (1.25x)
 Last change put back. Restart TikTok to apply all changes.,Last change put back. Restart TikTok to apply all changes.
@@ -1511,6 +1518,9 @@ Minimum,Minimum
 Minimum likes,Minimum likes
 Minimum video length,Minimum video length
 Model catalog unavailable,Model catalog unavailable
+Model details,Model details
+Model files are removed if TikTok is uninstalled or app data is cleared.,Model files are removed if TikTok is uninstalled or app data is cleared.
+Model files exist but are invalid or incomplete. Re-import a compatible E5 package.,Model files exist but are invalid or incomplete. Re-import a compatible E5 package.
 Model installed and verified. Select it in Installed models to use it.,Model installed and verified. Select it in Installed models to use it.
 Model package was not installed: %1$s,Model package was not installed: %1$s
 Model removal was queued after inference stops.,Model removal was queued after inference stops.
@@ -1764,6 +1774,7 @@ Overrides disabled. Restart TikTok to apply.,Overrides disabled. Restart TikTok 
 Overrides enabled. Restart TikTok to apply.,Overrides enabled. Restart TikTok to apply.
 Own profile counts,Own profile counts
 Package hashes are checked before activation. SHA-256 is not a publisher signature.,Package hashes are checked before activation. SHA-256 is not a publisher signature.
+Package version: %1$s,Package version: %1$s
 Paid partnerships,Paid partnerships
 Pass TikTok's install checks,Pass TikTok's install checks
 Pause,Pause
@@ -1901,6 +1912,8 @@ Proxy port,Proxy port
 Proxy type,Proxy type
 Proxy user name,Proxy user name
 Public,Public
+Publisher is not verified.,Publisher is not verified.
+Publisher: %1$s,Publisher: %1$s
 Pull down on the grid to load them,Pull down on the grid to load them
 Pulling down at the top of For You no longer reloads it.,Pulling down at the top of For You no longer reloads it.
 Put %1$s in %2$s first.,Put %1$s in %2$s first.
@@ -2209,13 +2222,25 @@ Seen videos cleared. You can undo until TikTok closes.,Seen videos cleared. You 
 Seen videos put back,Seen videos put back
 Seen videos put back: %1$s of %2$s,Seen videos put back: %1$s of %2$s
 Select,Select
+Select a compatible model in AI / Models first.,Select a compatible model in AI / Models first.
 Select at least one field,Select at least one field
 Select every tab,Select every tab
 Select model,Select model
 Selected,Selected
+Selected model is initializing: %1$s. Semantic filtering stays fail-open.,Selected model is initializing: %1$s. Semantic filtering stays fail-open.
+Selected model is ready: %1$s. Semantic filtering stays off until enabled.,Selected model is ready: %1$s. Semantic filtering stays off until enabled.
+Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB,Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB
+Selected · initialization failed,Selected · initialization failed
+Selected · initializing,Selected · initializing
+Selected · ready,Selected · ready
+Selected · semantic filter off,Selected · semantic filter off
+Selected. Semantic filtering remains off until you enable it.,Selected. Semantic filtering remains off until you enable it.
+Selected. Semantic filtering stays fail-open while the new model initializes.,Selected. Semantic filtering stays fail-open while the new model initializes.
 Selected. The local runtime is verifying and loading this model.,Selected. The local runtime is verifying and loading this model.
 Semantic Topic Filter,Semantic Topic Filter
+Semantic filtering is ready with %1$s. Storage used: %2$d MiB,Semantic filtering is ready with %1$s. Storage used: %2$d MiB
 Semantic match threshold,Semantic match threshold
+Semantic model initialization failed: %1$s. Filtering stays fail-open.,Semantic model initialization failed: %1$s. Filtering stays fail-open.
 Semi-bold,Semi-bold
 Send TikTok through a proxy,Send TikTok through a proxy
 Send it now,Send it now
@@ -2432,6 +2457,7 @@ Sound saved to %1$s,Sound saved to %1$s
 Sound: %1$s,Sound: %1$s
 Sounds,Sounds
 Source,Source
+Source revision: %1$s,Source revision: %1$s
 Source revision: %1$s @ %2$s,Source revision: %1$s @ %2$s
 "Speech recognition has no model for your phone's language. Download one in Android's speech settings, then open the LIVE again.","Speech recognition has no model for your phone's language. Download one in Android's speech settings, then open the LIVE again."
 Speech recognition kept failing in the last LIVE. Open the LIVE again to retry.,Speech recognition kept failing in the last LIVE. Open the LIVE again to retry.
@@ -2530,6 +2556,7 @@ Stops TikTok telling people you've read their messages. Your own unread badges s
 "Stops the bedtime wind-down, the breathing exercise and the daily limit screen TikTok puts over the feed. Works only on accounts TikTok knows belong to adults. Teen accounts, and ones a parent links with Family Pairing, keep them. With Leave when TikTok says time is up on, the daily limit screen still shows so that switch can work.","Stops the bedtime wind-down, the breathing exercise and the daily limit screen TikTok puts over the feed. Works only on accounts TikTok knows belong to adults. Teen accounts, and ones a parent links with Family Pairing, keep them. With Leave when TikTok says time is up on, the daily limit screen still shows so that switch can work."
 "Stops websites you open from inside TikTok from reaching back into the app. TikTok's own pages, such as Activity center, Watch history, shop checkout and CAPTCHA, keep working.","Stops websites you open from inside TikTok from reaching back into the app. TikTok's own pages, such as Activity center, Watch history, shop checkout and CAPTCHA, keep working."
 Storage almost full. Recording saved to %1$s,Storage almost full. Recording saved to %1$s
+Storage: %1$d MiB,Storage: %1$d MiB
 Store TikTok thinks it came from,Store TikTok thinks it came from
 "Stores the caption, creator, post date and link inside the video file, where media players can read them. Applies to saves made by Hushfeed.","Stores the caption, creator, post date and link inside the video file, where media players can read them. Applies to saves made by Hushfeed."
 Stories,Stories
@@ -2718,6 +2745,7 @@ The row of story avatars across the top of the Inbox goes. Stories still play fr
 The saved-video choice couldn't open. Try again.,The saved-video choice couldn't open. Try again.
 The saved-video choice is still open,The saved-video choice is still open
 The screen recording did not finish. Its files can be exported but may not play.,The screen recording did not finish. Its files can be exported but may not play.
+The selected model is initializing. Try again when it is ready.,The selected model is initializing. Try again when it is ready.
 The server asked us to wait. Try again later.,The server asked us to wait. Try again later.
 The setting couldn't finish updating. Its saved value is shown.,The setting couldn't finish updating. Its saved value is shown.
 The settings backup was rejected. Nothing was altered.,The settings backup was rejected. Nothing was altered.

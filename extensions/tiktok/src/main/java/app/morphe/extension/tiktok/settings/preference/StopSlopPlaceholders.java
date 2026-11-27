@@ -94,25 +94,36 @@ final class StopSlopPlaceholders {
                 "Compare caption and hashtag text with your first 16 topic rules using the selected local model. Install a compatible model first.",
                 Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED);
         screen.addPreference(semanticTopicFilter);
-        boolean semanticModelAvailable = StopSlopModelManager.hasActiveModel(app.morphe.extension.shared.Utils.getContext());
-        semanticTopicFilter.setEnabled(semanticModelAvailable);
-        if (!semanticModelAvailable) {
+        Context modelContext = app.morphe.extension.shared.Utils.getContext();
+        boolean semanticModelSelected = StopSlopModelManager.selectedModel(modelContext) != null;
+        semanticTopicFilter.setEnabled(semanticModelSelected);
+        if (!semanticModelSelected) {
             Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.save(false);
             semanticTopicFilter.setChecked(false);
-            semanticTopicFilter.setSummary(L10n.t(context,
-                    "AI model: Not installed. Browse or import a compatible E5 package to enable semantic filtering."));
         }
+        semanticTopicFilter.setSummary(modelStatusSummary(context, modelContext));
         LocalContentInference.setEnabled(Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
-                && semanticModelAvailable);
+                && semanticModelSelected);
         semanticTopicFilter.setOnPreferenceChangeListener((preference, value) -> {
             boolean enable = Boolean.TRUE.equals(value);
-            if (enable && !StopSlopModelManager.hasActiveModel(app.morphe.extension.shared.Utils.getContext())) {
-                app.morphe.extension.shared.Utils.showToastLong(
-                        L10n.t(context, "Install and select a compatible model before enabling semantic filtering."));
-                return false;
+            if (enable) {
+                Context current = app.morphe.extension.shared.Utils.getContext();
+                if (StopSlopModelManager.selectedModel(current) == null) {
+                    app.morphe.extension.shared.Utils.showToastLong(
+                            L10n.t(context, "Select a compatible model in AI / Models first."));
+                    return false;
+                }
+                if (!LocalContentInference.isReady()) {
+                    LocalContentInference.prepareSelectedModel();
+                    app.morphe.extension.shared.Utils.showToastLong(
+                            L10n.t(context, "The selected model is initializing. Try again when it is ready."));
+                    return false;
+                }
             }
             if (!Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.save(enable)) return false;
             LocalContentInference.setEnabled(enable);
+            semanticTopicFilter.setSummary(modelStatusSummary(context,
+                    app.morphe.extension.shared.Utils.getContext()));
             return true;
         });
 
@@ -172,14 +183,91 @@ final class StopSlopPlaceholders {
                 "In TikTok, go to Profile → Menu (☰) → Settings and privacy → Content preferences → Filter keywords. TikTok's filter can remove posts with matching words, variations, and hashtags in supported feeds. Where TikTok offers its AI similar-keyword option, it can also match synonyms and variations. This is TikTok's own negative filter; StopSlop does not read or change its saved keywords."));
     }
 
+    private static String modelStatusSummary(Context displayContext, Context modelContext) {
+        if (modelContext == null) modelContext = displayContext;
+        String key = StopSlopModelManager.activeKey(modelContext);
+        List<StopSlopModelManager.Model> models = StopSlopModelManager.installed(modelContext);
+        long storage = StopSlopModelManager.installedBytes(modelContext) / (1024 * 1024);
+        if (key.isEmpty()) {
+            if (!models.isEmpty()) {
+                return L10n.f(displayContext, "Installed but not selected. Storage used: %1$d MiB", storage);
+            }
+            return StopSlopModelManager.hasModelFiles(modelContext)
+                    ? L10n.t(displayContext, "Model files exist but are invalid or incomplete. Re-import a compatible E5 package.")
+                    : L10n.t(displayContext, "AI model: Not installed. Browse or import a compatible E5 package.");
+        }
+
+        StopSlopModelManager.Model selected = StopSlopModelManager.selectedModel(modelContext);
+        if (selected == null) {
+            return L10n.t(displayContext,
+                    "A selected model is missing or incompatible. Choose another installed model.");
+        }
+        switch (LocalContentInference.getStatus()) {
+            case LOADING:
+                return L10n.f(displayContext,
+                        "Selected model is initializing: %1$s. Semantic filtering stays fail-open.", selected.name);
+            case READY:
+                if (LocalContentInference.isReady()) {
+                    return Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
+                            ? L10n.f(displayContext,
+                                    "Semantic filtering is ready with %1$s. Storage used: %2$d MiB", selected.name, storage)
+                            : L10n.f(displayContext,
+                                    "Selected model is ready: %1$s. Semantic filtering stays off until enabled.", selected.name);
+                }
+                return L10n.f(displayContext,
+                        "Selected model is initializing: %1$s. Semantic filtering stays fail-open.", selected.name);
+            case UNAVAILABLE:
+                return L10n.f(displayContext,
+                        "Semantic model initialization failed: %1$s. Filtering stays fail-open.", selected.name);
+            case NOT_INSTALLED:
+                return L10n.f(displayContext,
+                        "Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB",
+                        selected.name, storage);
+            case OFF:
+            default:
+                return L10n.f(displayContext,
+                        "Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB",
+                        selected.name, storage);
+        }
+    }
+
+    private static String modelRowStateLabel(Context context,
+            boolean selected) {
+        if (!selected) return L10n.t(context, "Installed, not selected");
+        switch (LocalContentInference.getStatus()) {
+            case LOADING:
+                return L10n.t(context, "Selected · initializing");
+            case READY:
+                return LocalContentInference.isReady()
+                        ? L10n.t(context, "Selected · ready")
+                        : L10n.t(context, "Selected · initializing");
+            case UNAVAILABLE:
+                return L10n.t(context, "Selected · initialization failed");
+            case OFF:
+            case NOT_INSTALLED:
+            default:
+                return L10n.t(context, "Selected · semantic filter off");
+        }
+    }
+
     private static final class ModelManagerPreference extends Preference {
         private static final int REQUEST_MODEL_PACKAGE = 7357;
         private final Handler mainHandler = new Handler(Looper.getMainLooper());
+        private final LocalContentInference.StatusListener statusListener;
 
         ModelManagerPreference(Context context) {
             super(context);
             setTitle(L10n.t(context, "AI / Models"));
             setSummary(modelSummary(context));
+            WeakReference<ModelManagerPreference> target = new WeakReference<>(this);
+            statusListener = status -> mainHandler.post(() -> {
+                ModelManagerPreference current = target.get();
+                if (current != null) {
+                    current.setSummary(current.modelSummary(current.getContext()));
+                    current.refreshTopicControl();
+                }
+            });
+            LocalContentInference.addStatusListener(statusListener);
             setOnPreferenceClickListener(preference -> {
                 showActions();
                 return true;
@@ -187,14 +275,7 @@ final class StopSlopPlaceholders {
         }
 
         private String modelSummary(Context context) {
-            String key = StopSlopModelManager.activeKey(context);
-            long storage = StopSlopModelManager.installedBytes(context) / (1024 * 1024);
-            if (!StopSlopModelManager.hasActiveModel(context)) {
-                return StopSlopModelManager.installed(context).isEmpty()
-                        ? "AI model: Not installed. Browse or import a compatible E5 package."
-                        : L10n.f(context, "No model selected. Storage used: %1$d MiB", storage);
-            }
-            return L10n.f(context, "Active model: %1$s · storage used: %2$d MiB", key, storage);
+            return modelStatusSummary(context, app.morphe.extension.shared.Utils.getContext());
         }
 
         private void showActions() {
@@ -243,7 +324,7 @@ final class StopSlopPlaceholders {
                 for (StopSlopModelManager.Model model : installed) {
                     if (entry.id.equals(model.id) && entry.sourceRevision.equals(model.revision)) isInstalled = true;
                 }
-                boolean isActive = (entry.id + "/" + entry.sourceRevision).equals(activeKey);
+                boolean isActive = (entry.id + "/" + entry.packageVersion).equals(activeKey);
                 labels[i] = entry.name + " · " + entry.packageVersion + " · "
                         + (entry.packageBytes / (1024 * 1024)) + " MiB · "
                         + (isActive ? L10n.t(getContext(), "Active model")
@@ -269,8 +350,10 @@ final class StopSlopPlaceholders {
                     android.R.layout.simple_list_item_1, labels));
             modelList.setOnItemClickListener((parent, view, index, rowId) ->
                     showCatalogEntry(entries.get(index)));
-            int listHeight = Math.min(Math.round(320 * density),
+            int maxListHeight = Math.min(Math.round(320 * density),
                     Math.round(context.getResources().getDisplayMetrics().heightPixels * 0.42f));
+            int contentListHeight = Math.round(Math.max(1, labels.length) * 48 * density);
+            int listHeight = Math.min(contentListHeight, maxListHeight);
             content.addView(modelList, new LinearLayout.LayoutParams(
                     ViewGroup.LayoutParams.MATCH_PARENT, Math.max(1, listHeight)));
             new AlertDialog.Builder(context).setTitle(L10n.t(context, "Available models"))
@@ -413,8 +496,13 @@ final class StopSlopPlaceholders {
             CharSequence[] labels = new CharSequence[models.size()];
             for (int i = 0; i < models.size(); i++) {
                 StopSlopModelManager.Model model = models.get(i);
-                labels[i] = model.name + " · " + model.version + (model.key().equals(activeKey) ? " · Active" : "")
-                        + " · " + (model.installedBytes / (1024 * 1024)) + " MiB";
+                String revision = model.revision.length() > 8
+                        ? model.revision.substring(0, 8) : model.revision;
+                String state = model.key().equals(activeKey)
+                        ? modelRowStateLabel(getContext(), true)
+                        : L10n.t(getContext(), "Installed, not selected");
+                labels[i] = model.name + " · " + model.version + " · " + revision
+                        + " · " + (model.installedBytes / (1024 * 1024)) + " MiB · " + state;
             }
             new AlertDialog.Builder(getContext()).setTitle(L10n.t(getContext(), "Installed models"))
                     .setItems(labels, (dialog, index) -> showModelActions(models.get(index)))
@@ -423,23 +511,43 @@ final class StopSlopPlaceholders {
 
         private void showModelActions(StopSlopModelManager.Model model) {
             String activeKey = StopSlopModelManager.activeKey(getContext());
-            boolean active = model.key().equals(activeKey);
-            String details = model.name + " · " + model.version + "\n" + model.publisher
-                    + "\n" + model.languages + "\n" + model.license + " · " + model.installedBytes + " bytes"
-                    + "\n" + (model.builtInVerified ? "Content matches app-pinned E5 hashes." : "Publisher is not verified.")
-                    + "\nModel files are removed if TikTok is uninstalled or app data is cleared.";
-            AlertDialog.Builder builder = new AlertDialog.Builder(getContext())
+            boolean selected = model.key().equals(activeKey);
+            String details = L10n.f(getContext(), "Package version: %1$s", model.version)
+                    + "\n" + modelRowStateLabel(getContext(), selected)
+                    + "\n" + L10n.f(getContext(), "Storage: %1$d MiB", model.installedBytes / (1024 * 1024));
+            new AlertDialog.Builder(getContext())
                     .setTitle(model.name).setMessage(details)
-                    .setNegativeButton(L10n.t(getContext(), active ? "Active model" : "Delete model"),
-                            active ? null : (dialog, which) -> confirmRemove(model, active));
-            if (!active) builder.setPositiveButton(L10n.t(getContext(), "Select model"), (dialog, which) -> {
+                    .setPositiveButton(L10n.t(getContext(), selected ? "Selected" : "Select model"),
+                            selected ? null : (dialog, which) -> {
                 if (StopSlopModelManager.select(getContext(), model.key())) {
-                    app.morphe.extension.shared.Utils.showToastLong(L10n.t(getContext(), "Selected. The local runtime is verifying and loading this model."));
+                    String selectionMessage = Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
+                            ? "Selected. Semantic filtering stays fail-open while the new model initializes."
+                            : "Selected. Semantic filtering remains off until you enable it.";
+                    app.morphe.extension.shared.Utils.showToastLong(L10n.t(getContext(), selectionMessage));
                     setSummary(modelSummary(getContext()));
                     refreshTopicControl();
                 }
-            });
-            builder.setNeutralButton(L10n.t(getContext(), "Close"), null).show();
+            })
+                    .setNeutralButton(L10n.t(getContext(), "Details"), (dialog, which) -> showModelDetails(model))
+                    .setNegativeButton(L10n.t(getContext(), "Delete model"),
+                            (dialog, which) -> confirmRemove(model, selected))
+                    .show();
+        }
+
+        private void showModelDetails(StopSlopModelManager.Model model) {
+            String details = L10n.f(getContext(), "Package version: %1$s", model.version)
+                    + "\n" + L10n.f(getContext(), "Source revision: %1$s", model.revision)
+                    + "\n" + L10n.f(getContext(), "Publisher: %1$s", model.publisher)
+                    + "\n" + L10n.f(getContext(), "Languages: %1$s", model.languages)
+                    + "\n" + L10n.f(getContext(), "License: %1$s", model.license)
+                    + "\n" + L10n.f(getContext(), "Storage: %1$d MiB", model.installedBytes / (1024 * 1024))
+                    + "\n" + L10n.t(getContext(), model.builtInVerified
+                            ? "Content matches app-pinned E5 hashes." : "Publisher is not verified.")
+                    + "\n" + L10n.t(getContext(),
+                            "Model files are removed if TikTok is uninstalled or app data is cleared.");
+            new AlertDialog.Builder(getContext()).setTitle(L10n.t(getContext(), "Model details"))
+                    .setMessage(details)
+                    .setPositiveButton(L10n.t(getContext(), "Close"), null).show();
         }
 
         private void confirmRemove(StopSlopModelManager.Model model, boolean active) {
@@ -447,9 +555,28 @@ final class StopSlopPlaceholders {
                     .setMessage(L10n.t(getContext(), "Delete this model package from TikTok's private storage?"))
                     .setPositiveButton(L10n.t(getContext(), "Delete"), (dialog, which) -> {
                         if (active) {
-                            Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.save(false);
-                            LocalContentInference.setEnabled(false);
-                            StopSlopModelManager.clearActive(getContext());
+                            StopSlopModelManager.Model fallback = null;
+                            for (StopSlopModelManager.Model candidate : StopSlopModelManager.installed(getContext())) {
+                                if (!candidate.key().equals(model.key())) {
+                                    fallback = candidate;
+                                    break;
+                                }
+                            }
+                            if (fallback != null) {
+                                if (!StopSlopModelManager.select(getContext(), fallback.key())) {
+                                    app.morphe.extension.shared.Utils.showToastLong(L10n.t(getContext(),
+                                            "Could not switch to the fallback model; the selected model was kept."));
+                                    return;
+                                }
+                            } else {
+                                Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.save(false);
+                                LocalContentInference.setEnabled(false);
+                                if (!StopSlopModelManager.clearActive(getContext())) {
+                                    app.morphe.extension.shared.Utils.showToastLong(L10n.t(getContext(),
+                                            "Could not clear the selected model; it was kept."));
+                                    return;
+                                }
+                            }
                         }
                         boolean queued = StopSlopModelManager.remove(getContext(), model.key());
                         app.morphe.extension.shared.Utils.showToastLong(L10n.t(getContext(), queued
@@ -484,8 +611,11 @@ final class StopSlopPlaceholders {
             PreferenceGroup group = getParent();
             if (group == null) return;
             Preference semantic = group.findPreference(Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.key);
-            if (semantic != null) semantic.setEnabled(StopSlopModelManager.hasActiveModel(
-                    app.morphe.extension.shared.Utils.getContext()));
+            if (semantic != null) {
+                Context modelContext = app.morphe.extension.shared.Utils.getContext();
+                semantic.setEnabled(StopSlopModelManager.selectedModel(modelContext) != null);
+                semantic.setSummary(modelStatusSummary(semantic.getContext(), modelContext));
+            }
         }
 
         private interface OperationStarter {
@@ -515,26 +645,7 @@ final class StopSlopPlaceholders {
         }
 
         private void refreshStatus(LocalContentInference.Status status) {
-            String summary;
-            switch (status) {
-                case NOT_INSTALLED:
-                    summary = "AI model: Not installed. Browse models or import an E5 package; deterministic filters stay available.";
-                    break;
-                case LOADING:
-                    summary = "Loading the local model. Items stay visible while it runs.";
-                    break;
-                case READY:
-                    summary = "Ready. Only caption and hashtag text is analyzed; the first feed evaluation stays visible while it loads.";
-                    break;
-                case UNAVAILABLE:
-                    summary = "Unavailable. Semantic filtering fails open; mechanical rules remain active.";
-                    break;
-                case OFF:
-                default:
-                    summary = "Off. Mechanical topic rules are unchanged.";
-                    break;
-            }
-            setSummary(L10n.t(getContext(), summary));
+            setSummary(modelStatusSummary(getContext(), app.morphe.extension.shared.Utils.getContext()));
         }
 
         @Override

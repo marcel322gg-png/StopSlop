@@ -40,6 +40,7 @@ public final class LocalContentInference {
     private static final int MAX_QUEUE = 32;
     private static volatile ProviderBinding provider;
     private static volatile boolean enabled;
+    private static volatile boolean prepareSelectedModel;
     private static volatile Status status = Status.OFF;
     private static final Object PROVIDER_LOCK = new Object();
     private static boolean initializationQueued;
@@ -89,17 +90,20 @@ public final class LocalContentInference {
         CURRENT_REQUESTS.clear();
         PENDING.clear();
         if (value) {
+            prepareSelectedModel = false;
             Context context = Utils.getContext();
             if (!StopSlopModelManager.hasActiveModel(context)) {
-                setStatus(Status.NOT_INSTALLED);
+                setStatus(StopSlopModelManager.activeKey(context).isEmpty()
+                        ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
                 return;
             }
-            if (provider != null) setStatus(Status.READY);
+            if (isReady()) setStatus(Status.READY);
             else {
                 setStatus(Status.LOADING);
                 startProviderInitialization();
             }
         } else {
+            prepareSelectedModel = false;
             ProviderBinding previous = provider;
             provider = null;
             setStatus(Status.OFF);
@@ -117,11 +121,20 @@ public final class LocalContentInference {
         provider = null;
         if (previous != null) closeOnWorker(previous);
         if (!enabled) {
-            setStatus(Status.OFF);
+            if (StopSlopModelManager.hasActiveModel(Utils.getContext())) {
+                prepareSelectedModel = true;
+                setStatus(Status.LOADING);
+                startProviderInitialization();
+            } else {
+                prepareSelectedModel = false;
+                setStatus(StopSlopModelManager.activeKey(Utils.getContext()).isEmpty()
+                        ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
+            }
             return;
         }
         if (!StopSlopModelManager.hasActiveModel(Utils.getContext())) {
-            setStatus(Status.NOT_INSTALLED);
+            setStatus(StopSlopModelManager.activeKey(Utils.getContext()).isEmpty()
+                    ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
             return;
         }
         setStatus(Status.LOADING);
@@ -129,7 +142,27 @@ public final class LocalContentInference {
     }
 
     public static boolean isReady() {
-        return enabled && provider != null;
+        ProviderBinding current = provider;
+        return current != null && current.provider.isReady();
+    }
+
+    /** Initializes an explicitly selected model without enabling semantic filtering. */
+    public static void prepareSelectedModel() {
+        if (enabled) return;
+        Context context = Utils.getContext();
+        if (!StopSlopModelManager.hasActiveModel(context)) {
+            setStatus(StopSlopModelManager.activeKey(context).isEmpty()
+                    ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
+            return;
+        }
+        prepareSelectedModel = true;
+        if (isReady()) {
+            setStatus(Status.READY);
+            return;
+        }
+        CONFIGURATION_GENERATION.incrementAndGet();
+        setStatus(Status.LOADING);
+        startProviderInitialization();
     }
 
     public static Status getStatus() { return status; }
@@ -155,7 +188,7 @@ public final class LocalContentInference {
 
     private static void startProviderInitialization() {
         synchronized (PROVIDER_LOCK) {
-            if (!enabled || provider != null || initializationQueued || status == Status.UNAVAILABLE
+            if ((!enabled && !prepareSelectedModel) || provider != null || initializationQueued
                     || status == Status.NOT_INSTALLED) return;
             initializationQueued = true;
         }
@@ -168,14 +201,20 @@ public final class LocalContentInference {
                     StopSlopModelManager.Model model = context == null
                             ? null : StopSlopModelManager.active(context);
                     if (model == null) {
-                        if (enabled && generation == CONFIGURATION_GENERATION.get()) setStatus(Status.NOT_INSTALLED);
+                        if ((enabled || prepareSelectedModel)
+                                && generation == CONFIGURATION_GENERATION.get()) {
+                            setStatus(StopSlopModelManager.activeKey(context).isEmpty()
+                                    ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
+                        }
                         return;
                     }
                     candidate = new OnnxE5SemanticProvider(model);
                     candidate.initialize();
+                    if (!candidate.isReady()) throw new IOException("The ONNX sessions are not ready");
                     ProviderBinding binding = new ProviderBinding(candidate,
                             candidate.modelVersion());
-                    if (enabled && generation == CONFIGURATION_GENERATION.get()) {
+                    if ((enabled || prepareSelectedModel)
+                            && generation == CONFIGURATION_GENERATION.get()) {
                         provider = binding;
                         setStatus(Status.READY);
                     } else {
@@ -183,13 +222,15 @@ public final class LocalContentInference {
                     }
                 } catch (Exception | LinkageError unavailable) {
                     if (candidate != null) try { candidate.close(); } catch (Exception ignored) { }
-                    if (enabled && generation == CONFIGURATION_GENERATION.get()) {
+                    if ((enabled || prepareSelectedModel)
+                            && generation == CONFIGURATION_GENERATION.get()) {
                         setStatus(Status.UNAVAILABLE);
                     }
                 } finally {
                     synchronized (PROVIDER_LOCK) { initializationQueued = false; }
                     closeIfDisabled();
-                    if (enabled && provider == null && generation != CONFIGURATION_GENERATION.get()) {
+                    if ((enabled || prepareSelectedModel) && provider == null
+                            && generation != CONFIGURATION_GENERATION.get()) {
                         setStatus(StopSlopModelManager.hasActiveModel(Utils.getContext())
                                 ? Status.LOADING : Status.NOT_INSTALLED);
                         startProviderInitialization();
