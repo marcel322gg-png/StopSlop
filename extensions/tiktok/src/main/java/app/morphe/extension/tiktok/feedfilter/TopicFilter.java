@@ -8,11 +8,14 @@ package app.morphe.extension.tiktok.feedfilter;
 
 import app.morphe.extension.tiktok.blockauthor.Reflect;
 import app.morphe.extension.tiktok.settings.Settings;
+import app.morphe.extension.shared.Utils;
 
 import com.ss.android.ugc.aweme.feed.model.Aweme;
 
 import java.util.Collections;
+import java.util.ArrayList;
 import java.util.LinkedHashSet;
+import java.util.List;
 import java.util.Locale;
 import java.util.Set;
 
@@ -23,21 +26,32 @@ final class TopicFilter implements IFilter {
 
     @Override
     public boolean getEnabled() {
-        if (!Settings.STOP_SLOP_TOPIC_FILTER.get()) return false;
         try {
-            return !compiled(Settings.STOP_SLOP_TOPIC_RULES.get()).blocksNothing();
+            CompiledRules rules = compiled(Settings.STOP_SLOP_TOPIC_RULES.get());
+            boolean semanticEnabled = Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.get()
+                    && !rules.semanticTopics().isEmpty()
+                    && StopSlopModelManager.hasActiveModel(Utils.getContext());
+            LocalContentInference.setEnabled(semanticEnabled);
+            if (semanticEnabled) {
+                LocalContentInference.updateTopicConfiguration(Long.toString(rules.version), semanticThreshold());
+            }
+            return (Settings.STOP_SLOP_TOPIC_FILTER.get() && !rules.blocksNothing())
+                    || semanticEnabled;
         } catch (Throwable unavailableRules) {
+            LocalContentInference.setEnabled(false);
             return false;
         }
     }
 
     @Override
     public boolean getFiltered(Aweme item) {
-        if (!Settings.STOP_SLOP_TOPIC_FILTER.get()) return false;
-
         try {
             CompiledRules rules = compiled(Settings.STOP_SLOP_TOPIC_RULES.get());
-            if (rules.blocksNothing()) return false;
+            boolean mechanicalEnabled = Settings.STOP_SLOP_TOPIC_FILTER.get();
+            boolean semanticEnabled = Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.get()
+                    && StopSlopModelManager.hasActiveModel(Utils.getContext());
+            if ((!mechanicalEnabled || rules.blocksNothing())
+                    && (!semanticEnabled || rules.semanticTopics().isEmpty())) return false;
             String caption = Reflect.string(item, "getDesc", "desc");
             if (caption == null) return false;
             String foldedCaption = caption.toLowerCase(Locale.ROOT);
@@ -48,18 +62,44 @@ final class TopicFilter implements IFilter {
 
             boolean topicMatch = matchesPhrase(foldedCaption, rules.blockedPhrases)
                     || matchesHashtag(caption, rules.blockedHashtags);
-            if (!topicMatch) return false;
-
-            if (!rules.allowedCreators.isEmpty()) {
+            if (mechanicalEnabled && topicMatch) {
+                if (rules.allowedCreators.isEmpty()) return true;
                 CreatorIdentity creator = CreatorIdentity.of(item);
                 // A missing handle makes the allowlist decision unknown, so keep the post.
                 if (creator.normalizedHandle.isEmpty()
                         || rules.allowedCreators.contains(creator.normalizedHandle)) return false;
+                return true;
             }
-            return true;
+
+            if (!semanticEnabled) return false;
+            if (!rules.allowedCreators.isEmpty()) {
+                CreatorIdentity creator = CreatorIdentity.of(item);
+                if (creator.normalizedHandle.isEmpty()
+                        || rules.allowedCreators.contains(creator.normalizedHandle)) return false;
+            }
+            List<String> semanticTopics = rules.semanticTopics();
+            if (semanticTopics.isEmpty()) return false;
+            LocalContentInference.setEnabled(true);
+            float threshold = semanticThreshold();
+            LocalContentInference.updateTopicConfiguration(Long.toString(rules.version), threshold);
+            LocalContentInference.Features features = LocalContentInference.extract(item);
+            if (features == null) return false;
+            LocalContentInference.FilterDecision decision = LocalContentInference.request(
+                    features, semanticTopics, Long.toString(rules.version),
+                    threshold, ignored -> { });
+            return decision.outcome == LocalContentInference.Outcome.BLOCK;
         } catch (Throwable unavailableMetadata) {
             // Missing, unreadable or changed TikTok metadata must never hide a post.
             return false;
+        }
+    }
+
+    private static float semanticThreshold() {
+        try {
+            float value = Float.parseFloat(Settings.STOP_SLOP_TOPIC_SEMANTIC_THRESHOLD.get());
+            return value >= 0.50f && value <= 0.98f ? value : 0.84f;
+        } catch (RuntimeException invalidSetting) {
+            return 0.84f;
         }
     }
 
@@ -86,7 +126,7 @@ final class TopicFilter implements IFilter {
         }
     }
 
-    private static CompiledRules parse(String source, long version) {
+    static CompiledRules parse(String source, long version) {
         Set<String> blockedPhrases = new LinkedHashSet<>();
         Set<String> blockedHashtags = new LinkedHashSet<>();
         Set<String> allowedPhrases = new LinkedHashSet<>();
@@ -99,7 +139,7 @@ final class TopicFilter implements IFilter {
                     allowedPhrases, allowedHashtags, allowedCreators);
         }
 
-        for (String raw : source.split("\\r\\n|\\n|\\r", -1)) {
+        for (String raw : source.split("[;\\r\\n]", -1)) {
             String rule = raw.trim();
             if (rule.isEmpty()) continue;
             if (rule.charAt(0) == '@') {
@@ -173,7 +213,7 @@ final class TopicFilter implements IFilter {
                 || type == Character.NON_SPACING_MARK || type == Character.COMBINING_SPACING_MARK;
     }
 
-    private static final class CompiledRules {
+    static final class CompiledRules {
         final String source;
         final long version;
         final Set<String> blockedPhrases;
@@ -195,6 +235,28 @@ final class TopicFilter implements IFilter {
 
         boolean blocksNothing() {
             return blockedPhrases.isEmpty() && blockedHashtags.isEmpty();
+        }
+
+        /** Bounded positive terms for semantic matching; exclusions and creator rules never become topics. */
+        List<String> semanticTopics() {
+            List<String> result = new ArrayList<>(16);
+            Set<String> seen = new LinkedHashSet<>();
+            for (String raw : source.split("[;\\r\\n]", -1)) {
+                String rule = raw.trim();
+                if (rule.isEmpty() || rule.charAt(0) == '@' || rule.charAt(0) == '!') continue;
+                String topic = rule.charAt(0) == '#' ? rule.substring(1).trim() : rule;
+                String canonical = topic.toLowerCase(Locale.ROOT);
+                if (topic.isEmpty() || seen.contains(canonical)) continue;
+                if (rule.charAt(0) == '#') {
+                    if (!blockedHashtags.contains(canonical)) continue;
+                } else if (!blockedPhrases.contains(canonical)) {
+                    continue;
+                }
+                seen.add(canonical);
+                result.add(topic);
+                if (result.size() == 16) break;
+            }
+            return Collections.unmodifiableList(result);
         }
     }
 }

@@ -1566,6 +1566,14 @@ public class Settings extends BaseSettings {
             new BooleanSetting("stop_slop_topic_filter", FALSE);
     public static final StringSetting STOP_SLOP_TOPIC_RULES =
             new StringSetting("stop_slop_topic_rules", "");
+    public static final BooleanSetting STOP_SLOP_TOPIC_SEMANTIC_ENABLED =
+            new BooleanSetting("stop_slop_topic_semantic_enabled", FALSE);
+    public static final StringSetting STOP_SLOP_TOPIC_SEMANTIC_THRESHOLD =
+            new StringSetting("stop_slop_topic_semantic_threshold", "0.84");
+    public static final BooleanSetting STOP_SLOP_PREFERRED_CONTENT =
+            new BooleanSetting("stop_slop_preferred_content_enabled", FALSE);
+    public static final StringSetting STOP_SLOP_PREFERRED_CONTENT_RULES =
+            new StringSetting("stop_slop_preferred_content_rules", "");
     public static final BooleanSetting FILTER_LOCATION_VIDEOS = new BooleanSetting("filter_location_videos", FALSE, true);
     public static final BooleanSetting HIDE_AI_GENERATED = new BooleanSetting("hide_ai_generated", FALSE, true);
     public static final BooleanSetting HIDE_VERIFIED = new BooleanSetting("hide_verified", FALSE, true);

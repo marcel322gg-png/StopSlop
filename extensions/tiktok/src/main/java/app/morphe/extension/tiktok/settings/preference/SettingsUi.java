@@ -1871,6 +1871,18 @@ public final class SettingsUi {
         });
     }
 
+    /** Topic rules are committed only by the dialog buttons; the keyboard action is inert. */
+    public static void keepDialogOpenOnImeAction(EditText field) {
+        field.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        field.setOnEditorActionListener((view, actionId, event) -> {
+            boolean done = actionId == EditorInfo.IME_ACTION_DONE
+                    || (actionId == EditorInfo.IME_NULL && event != null
+                        && event.getKeyCode() == android.view.KeyEvent.KEYCODE_ENTER
+                        && event.getAction() == android.view.KeyEvent.ACTION_DOWN);
+            return done;
+        });
+    }
+
     // Keyed View tags require the application resource namespace. This private value is not a
     // real resource and never crosses a process boundary; the uncommon suffix keeps it clear of
     // TikTok's generated ids while satisfying View's namespace check.

@@ -47,6 +47,7 @@ public final class FeedItemsFilter {
     private static final SeenVideoFilter SEEN_FILTER = new SeenVideoFilter();
     private static final ContentMarkerFilters.SubscriberOnlyFilter SUBSCRIBER_ONLY_FILTER =
         new ContentMarkerFilters.SubscriberOnlyFilter();
+    private static final PreferredContentFilter PREFERRED_CONTENT_FILTER = new PreferredContentFilter();
     private static final List<IFilter> CONTENT_FILTERS = List.of(
         ADS_FILTER,
         LIVE_FILTER,
@@ -171,6 +172,7 @@ public final class FeedItemsFilter {
     private static List<IFilter> forYouFilters() {
         List<IFilter> filters = new ArrayList<>(CONTENT_FILTERS);
         filters.add(UNPERSONALIZED_FILTER);
+        filters.add(PREFERRED_CONTENT_FILTER);
         return Collections.unmodifiableList(filters);
     }
 
@@ -1220,7 +1222,9 @@ public final class FeedItemsFilter {
                 nameNotVideo(source, container);
                 if (capture != null) capture.notVideo();
             }
-            String matched = item == null ? null : getFilterReason(active, item);
+            String itemId = item == null ? null : item.getAid();
+            boolean restored = itemId != null && BlockedVideosHistory.isRestored(itemId);
+            String matched = item == null || restored ? null : getFilterReason(active, item);
             String spared = matched == null ? null
                     : own.owns(item) ? OWN_POST
                     : gridRoute && isLikedOrSaved(item) ? LIKED_OR_SAVED
@@ -1243,6 +1247,9 @@ public final class FeedItemsFilter {
             }
             removed++;
             lastReason = reason;
+            if (itemId != null && !itemId.isEmpty()) {
+                BlockedVideosHistory.record(itemId, null, reason);
+            }
             logItem(item, reason, verbose);
             if (capture != null) capture.hidden(item, reason);
         }
@@ -1746,8 +1753,20 @@ public final class FeedItemsFilter {
             }
             rangeKept.add(qualityFallback);
         }
+        if (forYou && PREFERRED_CONTENT_FILTER.getEnabled()) {
+            rangeKept = PREFERRED_CONTENT_FILTER.prioritize(rangeKept, extractor);
+        }
         List kept = rangeKept;
         int removed = initialSize - kept.size();
+        boolean reordered = false;
+        if (kept.size() == list.size()) {
+            for (int index = 0; index < kept.size(); index++) {
+                if (kept.get(index) != list.get(index)) {
+                    reordered = true;
+                    break;
+                }
+            }
+        }
 
         // A batch filtered down to nothing is legitimate. Hide livestreams over a LIVE-only
         // page really does leave zero videos, and putting one back would be the switch not
@@ -1762,10 +1781,16 @@ public final class FeedItemsFilter {
         }
 
         List resultList = list;
-        if (removed > 0) {
+        if (removed > 0 || reordered) {
             try {
-                list.clear();
-                list.addAll(kept);
+                if (removed > 0) {
+                    list.clear();
+                    list.addAll(kept);
+                } else {
+                    for (int slot = 0; slot < kept.size(); slot++) {
+                        if (list.get(slot) != kept.get(slot)) list.set(slot, kept.get(slot));
+                    }
+                }
             } catch (RuntimeException exception) {
                 resultList = replaceOwnerList(owner, kept);
                 if (listReplacementLogCount.getAndIncrement() < 3) {
@@ -2382,6 +2407,8 @@ public final class FeedItemsFilter {
                 builder.append('[').append(((LikeCountFilter) filter).cacheToken()).append(']');
             } else if (filter instanceof TopicFilter) {
                 builder.append('[').append(((TopicFilter) filter).cacheToken()).append(']');
+            } else if (filter instanceof PreferredContentFilter) {
+                builder.append('[').append(((PreferredContentFilter) filter).cacheToken()).append(']');
             }
         }
     }

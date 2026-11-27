@@ -1434,6 +1434,12 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
             indexRows(results, category, section, categoryTitle);
             scratch.removePreference(category);
         }
+        // The StopSlop controls live on the home screen rather than in an inherited section.
+        // Build their index rows from the same preference registrations so titles, summaries,
+        // keys and search aliases stay aligned with the controls users can actually open.
+        PreferenceScreen stopSlopRows = getPreferenceManager().createPreferenceScreen(context);
+        StopSlopPlaceholders.addTo(context, stopSlopRows);
+        indexRows(results, stopSlopRows, null, L10n.t(context, "StopSlop"));
         // The rows below sit on the home page and the About Hushfeed page, outside the section
         // categories walked above, so each is indexed by hand. Their category line names where
         // a reader finds them, the home heading or the page; it said "Settings" for all of
@@ -1585,7 +1591,10 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
             // The save button's switch sits with the other buttons on videos, on Feed screen, and
             // people who call it the download button looked for it there in vain (#299).
             Settings.DOWNLOAD_BUTTON.key, "download button",
-            Settings.STARTUP_MESSAGE.key, "dialog popup greeting");
+            Settings.STARTUP_MESSAGE.key, "dialog popup greeting",
+            Settings.STOP_SLOP_AD_SPONSORSHIP.key,
+                    "Remove feed ads Hide paid partnerships Hide promotional music "
+                            + "Werbung entfernen bezahlte Partnerschaften Werbemusik");
 
     private static String searchKeywords(Context context, String key) {
         String aliases = SEARCH_ALIASES.get(key);
@@ -2513,6 +2522,7 @@ public class TikTokPreferenceFragment extends AbstractPreferenceFragment {
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        if (StopSlopPlaceholders.onModelImportResult(getActivity(), requestCode, resultCode, data)) return;
         if (ImportSeenVideoHistoryPreference.onResult(this, requestCode, resultCode, data)) return;
         if (SeenHistoryFilePreference.onResult(this, requestCode, resultCode, data)) return;
         if (SettingsBackupPreference.onResult(this, requestCode, resultCode, data)) return;

@@ -3216,8 +3216,8 @@ Open StopSlop settings	StopSlop-Einstellungen öffnen
 Topic filtering	Themenfilter
 Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.	Beiträge ausblenden, deren Beschreibung zu einer Phrase oder einem Hashtag passt. Ausnahmen und freigegebene Ersteller haben Vorrang.
 Topic rules	Themenregeln
-One rule per line: phrase, #hashtag, !phrase, !#hashtag, or @username. Matching is case-insensitive.	Eine Regel pro Zeile: Phrase, #Hashtag, !Phrase, !#Hashtag oder @Benutzername. Groß- und Kleinschreibung wird ignoriert.
-Also checks sponsor wording and commerce signals; the Feed filter page keeps separate controls for TikTok's ad, partnership, and music markers.	Prüft außerdem Sponsorhinweise im Text und Commerce-Signale; unter Feed-Filter bleiben separate Schalter für TikToks Werbe-, Partnerschafts- und Musikmarkierungen.
+Separate rules with semicolons: phrase; #hashtag; !phrase; !#hashtag; or @username.	Trenne Regeln mit Semikolons: Phrase; #Hashtag; !Phrase; !#Hashtag oder @Benutzername.
+Hides TikTok ads, paid partnerships, promotional music, and detected sponsorship signals.	Blendet von TikTok erkannte Werbung, bezahlte Partnerschaften, Werbemusik und Sponsorhinweise aus.
 Changes in StopSlop %1$s	Änderungen in StopSlop %1$s
 Colors these settings and StopSlop's own pop-ups.	Färbt diese Einstellungen und die eigenen Pop-ups von StopSlop.
 For StopSlop's settings and messages. TikTok keeps its own language.	Für StopSlops Einstellungen und Meldungen. TikTok behält seine eigene Sprache.
@@ -3229,5 +3229,68 @@ Reopen StopSlop settings, then choose the file	Öffne die StopSlop-Einstellungen
 Show only videos within both the minimum and maximum like counts.	Zeigt nur Videos innerhalb der minimalen und maximalen Like-Anzahl.
 StopSlop blocked TikTok's reports here. It hasn't confirmed that you stay off viewer lists.	StopSlop hat hier TikToks Meldungen blockiert. Es hat noch nicht bestätigt, dass du auf Zuschauerlisten nicht auftauchst.
 StopSlop language	StopSlop-Sprache
+Preferred Content	Bevorzugte Inhalte
+TikTok's native recommendation settings	TikToks native Empfehlungseinstellungen
+Manage TikTok topics	TikTok-Themen verwalten
+Shows TikTok's own settings path. StopSlop does not read or change TikTok preferences.	Zeigt den Pfad zu TikToks eigenen Einstellungen. StopSlop liest oder ändert keine TikTok-Einstellungen.
+In TikTok, go to Profile → Menu (☰) → Settings and privacy → Content preferences → Manage topics. Adjust the sliders for TikTok's predefined categories and tap Save. These controls affect the For You feed and may take time to influence recommendations. They do not set custom weights for terms such as Dota 2. StopSlop Preferred Content remains a separate local feature.	Öffne TikTok und gehe zu Profil → Menü (☰) → Einstellungen und Datenschutz → Inhaltspräferenzen → Themen verwalten. Passe die Regler der voreingestellten Kategorien an und tippe auf Speichern. Diese Einstellungen gelten für den „Für dich“-Feed; bis sie Empfehlungen beeinflussen, kann es etwas dauern. Sie gewichten keine eigenen Begriffe wie Dota 2. StopSlop „Bevorzugte Inhalte“ bleibt davon getrennt und funktioniert lokal.
+TikTok Filter keywords	TikToks Stichwortfilter
+In TikTok, go to Profile → Menu (☰) → Settings and privacy → Content preferences → Filter keywords. TikTok's filter can remove posts with matching words, variations, and hashtags in supported feeds. Where TikTok offers its AI similar-keyword option, it can also match synonyms and variations. This is TikTok's own negative filter; StopSlop does not read or change its saved keywords.	Öffne TikTok und gehe zu Profil → Menü (☰) → Einstellungen und Datenschutz → Inhaltspräferenzen → Stichwörter filtern. TikToks Filter kann Beiträge mit passenden Wörtern, Varianten und Hashtags aus unterstützten Feeds entfernen. Falls TikTok die KI-Option für ähnliche Stichwörter anbietet, kann sie auch Synonyme und Varianten erfassen. Das ist TikToks eigener negativer Filter; StopSlop liest oder ändert die gespeicherten Stichwörter nicht.
+Prioritize preferred topics	Bevorzugte Themen priorisieren
+Move matching eligible videos ahead within the current fetched batch. Other videos stay visible; this does not change TikTok's recommendations.	Passende Videos innerhalb des aktuell geladenen Stapels nach vorn verschieben. Andere Videos bleiben sichtbar; TikToks Empfehlungen ändern sich dadurch nicht.
+Preferred topics	Bevorzugte Themen
+Enter positive topics separated by semicolons, such as: Dota 2; science; wildlife; programming;	Gib positive Themen mit Semikolons getrennt ein, zum Beispiel: Dota 2; Wissenschaft; Wildtiere; Programmieren;
 Support StopSlop	StopSlop unterstützen
 Wait a day to loosen the budget is on, so StopSlop stays on	Lockerungen des Budgets einen Tag warten lassen ist an, daher bleibt StopSlop aktiv
+Semantic Topic Filter	Semantischer Themenfilter
+Compare caption and hashtag text with your first 16 topic rules using the local model. The first feed evaluation stays visible while it loads.	Vergleicht Beschriftung und Hashtags mit den ersten 16 Themenregeln mithilfe des lokalen Modells. Beim ersten Feed-Durchlauf bleiben Videos sichtbar, während das Modell lädt.
+Semantic match threshold	Schwelle für semantische Übereinstimmung
+0.80 similarity	0,80 Ähnlichkeit
+0.84 similarity	0,84 Ähnlichkeit
+0.88 similarity	0,88 Ähnlichkeit
+0.92 similarity	0,92 Ähnlichkeit
+Higher values require closer meaning. This is cosine similarity, not a probability.	Höhere Werte erfordern eine größere inhaltliche Nähe. Dies ist Kosinusähnlichkeit, keine Wahrscheinlichkeit.
+Separate rules with semicolons: phrase; #hashtag; !phrase; !#hashtag; or @username. Semantic matching uses at most the first 16 blocked phrases and hashtags.	Trenne Regeln mit Semikolons: Ausdruck; #Hashtag; !Ausdruck; !#Hashtag oder @Benutzername. Die semantische Suche verwendet höchstens die ersten 16 gesperrten Ausdrücke und Hashtags.
+Local model status	Status des lokalen Modells
+Loading the local model. Items stay visible while it runs.	Das lokale Modell wird geladen. Videos bleiben währenddessen sichtbar.
+Ready. Only caption and hashtag text is analyzed.	Bereit. Analysiert werden nur Beschriftungen und Hashtags.
+Unavailable. Semantic filtering fails open; mechanical rules remain active.	Nicht verfügbar. Der semantische Filter lässt Videos durch; mechanische Regeln bleiben aktiv.
+Off. Mechanical topic rules are unchanged.	Aus. Mechanische Themenregeln bleiben unverändert.
+
+AI / Models	KI / Modelle
+Active model	Aktives Modell
+Browse models	Modelle durchsuchen
+Choose file	Datei auswählen
+Delete model	Modell löschen
+Delete local model?	Lokales Modell löschen?
+Download from HTTPS source	Von HTTPS-Quelle herunterladen
+Import .ssmodel	.ssmodel importieren
+Installed models	Installierte Modelle
+Installing local model	Lokales Modell wird installiert
+Model installed and verified. Select it in Installed models to use it.	Modell installiert und überprüft. Wähle es unter „Installierte Modelle“ zur Verwendung aus.
+Model package was not installed: %1$s	Modellpaket wurde nicht installiert: %1$s
+Model removal was queued after inference stops.	Das Löschen des Modells wird nach Ende der Inferenz ausgeführt.
+No compatible model is installed.	Kein kompatibles Modell installiert.
+Preparing package…	Paket wird vorbereitet …
+Received %1$d MiB	%1$d MiB empfangen
+Received %1$d of %2$d MiB	%1$d von %2$d MiB empfangen
+Select model	Modell auswählen
+Selected. The local runtime is verifying and loading this model.	Ausgewählt. Die lokale Laufzeit überprüft und lädt dieses Modell.
+The system file picker is unavailable.	Die Systemdateiauswahl ist nicht verfügbar.
+AI model: Not installed. Browse or import a compatible E5 package.	KI-Modell: Nicht installiert. Durchsuche Modelle oder importiere ein kompatibles E5-Paket.
+AI model: Not installed. Browse or import a compatible E5 package to enable semantic filtering.	KI-Modell: Nicht installiert. Durchsuche Modelle oder importiere ein kompatibles E5-Paket, um die semantische Filterung zu aktivieren.
+Install and select a compatible model before enabling semantic filtering.	Installiere und wähle ein kompatibles Modell aus, bevor du die semantische Filterung aktivierst.
+Delete this model package from TikTok's private storage?	Dieses Modellpaket aus TikToks privatem Speicher löschen?
+Could not remove this model.	Dieses Modell konnte nicht entfernt werden.
+Enter a direct HTTPS URL for a data-only .ssmodel package. The host is not publisher-verified; package structure and hashes are checked before install.	Gib eine direkte HTTPS-Adresse für ein reines .ssmodel-Datenpaket ein. Der Anbieter ist nicht verifiziert; Struktur und Prüfsummen werden vor der Installation geprüft.
+Only the supported E5 model profile is accepted. The package publisher is not authenticated; continue only if you trust this HTTPS host. StopSlop never uploads feed content.	Es werden nur Pakete des unterstützten E5-Profils akzeptiert. Der Anbieter ist nicht authentifiziert; fahre nur fort, wenn du dieser HTTPS-Quelle vertraust. StopSlop lädt niemals Feed-Inhalte hoch.
+Choose a data-only .ssmodel package. Unverified publishers require your confirmation; unsupported model formats and files are rejected.	Wähle ein reines .ssmodel-Datenpaket aus. Bei nicht verifizierten Anbietern ist deine Bestätigung erforderlich; nicht unterstützte Modelle und Dateien werden abgelehnt.
+AI model: Not installed. Browse models or import an E5 package; deterministic filters stay available.	KI-Modell: Nicht installiert. Durchsuche Modelle oder importiere ein E5-Paket. Die deterministischen Filter bleiben verfügbar.
+Ready. Only caption and hashtag text is analyzed; the first feed evaluation stays visible while it loads.	Bereit. Analysiert werden nur Beschreibung und Hashtags; beim ersten Feed-Durchlauf bleibt der Beitrag sichtbar.
+
+Active model: %1$s	Aktives Modell: %1$s
+The supported profile is multilingual E5 text embeddings for captions and hashtags. Model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled. No verified package host is configured.	Das unterstützte Profil nutzt mehrsprachige E5-Texteinbettungen für Beschreibungen und Hashtags. Modelldateien bleiben im privaten TikTok-Speicher. Die Auswertung erfolgt lokal. KI bleibt aus, bis sie aktiviert wird. Es ist keine verifizierte Paketquelle konfiguriert.
+Multilingual E5 Small by Xenova. Text embeddings for semantic topic matching. INT8 ONNX with an XLM-R tokenizer graph. The model card claims 100+ languages; StopSlop language quality is not measured. Revision 761b726dd34fb83930e26aab4e9ac3899aa1fa78. Model 118308185 bytes and tokenizer 5069559 bytes. MIT license. Model data is not in the patch; a compatible .ssmodel can be downloaded from a trusted HTTPS source or imported. Package profile and file hashes are checked. No official package URL is configured.	Multilingual E5 Small von Xenova. Texteinbettungen für semantischen Themenabgleich. INT8-ONNX mit XLM-R-Tokenizergraph. Die Modellkarte nennt über 100 Sprachen; die Sprachqualität in StopSlop wurde nicht gemessen. Revision 761b726dd34fb83930e26aab4e9ac3899aa1fa78. Modell 118308185 Byte und Tokenizer 5069559 Byte. MIT-Lizenz. Modelldaten sind nicht im Patch enthalten. Ein kompatibles .ssmodel kann aus einer vertrauenswürdigen HTTPS-Quelle heruntergeladen oder importiert werden. Profil und Prüfsummen werden geprüft. Es ist keine offizielle Paketadresse konfiguriert.
+
+No model selected. Storage used: %1$d MiB	Kein Modell ausgewählt. Speicherbedarf: %1$d MiB
+Active model: %1$s · storage used: %2$d MiB	Aktives Modell: %1$s · Speicherbedarf: %2$d MiB

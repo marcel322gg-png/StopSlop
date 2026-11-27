@@ -190,7 +190,8 @@ public final class ContentMarkerFilters {
     public static class PaidPartnershipFilter implements IFilter {
         @Override
         public boolean getEnabled() {
-            return Settings.HIDE_PAID_PARTNERSHIP.get();
+            return Settings.HIDE_PAID_PARTNERSHIP.get() && Settings.STOP_SLOP_AD_SPONSORSHIP.get()
+                    && !Settings.REMOVE_ADS.get();
         }
 
         @Override
@@ -208,7 +209,7 @@ public final class ContentMarkerFilters {
 
         @Override
         public boolean getFiltered(Aweme item) {
-            return AdsFilter.isStopSlopAdOrSponsorship(item);
+            return AdsFilter.hasStopSlopDisclosure(item);
         }
     }
 

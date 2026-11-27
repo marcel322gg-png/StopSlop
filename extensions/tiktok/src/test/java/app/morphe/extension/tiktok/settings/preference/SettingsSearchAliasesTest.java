@@ -80,6 +80,18 @@ public class SettingsSearchAliasesTest {
         assertFinds(search, "save photos", "Download original photos");
     }
 
+    @Test public void legacyAdLabelsFindOnlyTheCanonicalStopSlopControl() throws Exception {
+        TikTokPreferenceFragment search = attachSearch();
+        for (String alias : List.of("Remove feed ads", "Hide paid partnerships",
+                "Hide promotional music", "Werbung entfernen", "Werbemusik")) {
+            List<String> titles = search(search, alias);
+            assertTrue(alias + " did not find Ads & sponsorships: " + titles,
+                    titles.contains("Ads & sponsorships"));
+            assertEquals(alias + " created duplicate canonical results: " + titles, 1,
+                    Collections.frequency(titles, "Ads & sponsorships"));
+        }
+    }
+
     /** The preset row had no key, and search skips keyless rows, so its own title found nothing. */
     @Test public void theSimPresetRowIsFoundByItsTitle() throws Exception {
         TikTokPreferenceFragment search = attachSearch();

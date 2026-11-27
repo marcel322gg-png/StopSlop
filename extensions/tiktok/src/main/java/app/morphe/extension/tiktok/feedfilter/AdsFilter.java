@@ -58,11 +58,12 @@ public class AdsFilter implements IFilter {
 
     @Override
     public boolean getEnabled() {
-        return Settings.REMOVE_ADS.get();
+        return Settings.STOP_SLOP_AD_SPONSORSHIP.get() && Settings.REMOVE_ADS.get();
     }
 
     @Override
     public boolean getFiltered(Aweme item) {
+        if (!Settings.STOP_SLOP_AD_SPONSORSHIP.get()) return false;
         return item.isAd()
                 || item.isSoftAd()
                 || item.getAwemeRawAd() != null
@@ -90,6 +91,16 @@ public class AdsFilter implements IFilter {
             return hasDisclosureTextOrCombinedCommerceEvidence(item);
         } catch (RuntimeException | LinkageError ignored) {
             // An unreadable candidate is left in the feed. This predicate is called on a hot path.
+            return false;
+        }
+    }
+
+    /** StopSlop-only text and structured commerce evidence, separate from legacy flag detectors. */
+    static boolean hasStopSlopDisclosure(Aweme item) {
+        if (item == null) return false;
+        try {
+            return hasDisclosureTextOrCombinedCommerceEvidence(item);
+        } catch (RuntimeException | LinkageError ignored) {
             return false;
         }
     }

@@ -241,6 +241,8 @@ dependencies {
     compileOnly(project(":extensions:tiktok:stub"))
     compileOnly(libs.annotation)
     implementation(libs.jump3r)
+    implementation(libs.onnxruntime.android)
+    implementation(libs.onnxruntime.extensions.android)
     testImplementation(project(":extensions:shared:library"))
     testImplementation(project(":extensions:tiktok:stub"))
     testImplementation("junit:junit:4.13.2")

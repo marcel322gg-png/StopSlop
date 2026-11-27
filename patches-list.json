@@ -4110,6 +4110,96 @@
           "values": null
         },
         {
+          "key": "stop_slop_ad_sponsorship",
+          "title": "Default: stop slop ad sponsorship",
+          "description": null,
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": true,
+          "values": null
+        },
+        {
+          "key": "stop_slop_ai_generated",
+          "title": "Default: stop slop ai generated",
+          "description": null,
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        },
+        {
+          "key": "stop_slop_min_likes",
+          "title": "Default: stop slop min likes",
+          "description": null,
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        },
+        {
+          "key": "stop_slop_min_likes_threshold",
+          "title": "Default: stop slop min likes threshold",
+          "description": null,
+          "required": false,
+          "type": "kotlin.Int",
+          "default": 0,
+          "values": null
+        },
+        {
+          "key": "stop_slop_topic_filter",
+          "title": "Default: stop slop topic filter",
+          "description": null,
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        },
+        {
+          "key": "stop_slop_topic_rules",
+          "title": "Default: stop slop topic rules",
+          "description": null,
+          "required": false,
+          "type": "kotlin.String",
+          "default": "",
+          "values": null
+        },
+        {
+          "key": "stop_slop_topic_semantic_enabled",
+          "title": "Default: stop slop topic semantic enabled",
+          "description": null,
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        },
+        {
+          "key": "stop_slop_topic_semantic_threshold",
+          "title": "Default: stop slop topic semantic threshold",
+          "description": null,
+          "required": false,
+          "type": "kotlin.String",
+          "default": "0.84",
+          "values": null
+        },
+        {
+          "key": "stop_slop_preferred_content_enabled",
+          "title": "Default: stop slop preferred content enabled",
+          "description": null,
+          "required": false,
+          "type": "kotlin.Boolean",
+          "default": false,
+          "values": null
+        },
+        {
+          "key": "stop_slop_preferred_content_rules",
+          "title": "Default: stop slop preferred content rules",
+          "description": null,
+          "required": false,
+          "type": "kotlin.String",
+          "default": "",
+          "values": null
+        },
+        {
           "key": "filter_location_videos",
           "title": "Default: filter location videos",
           "description": null,
@@ -10387,7 +10477,8 @@
       "category": "Settings",
       "use": true,
       "dependencies": [
-        "Patch"
+        "Patch",
+        "StopSlop local semantic model assets"
       ],
       "compatiblePackages": {
         "com.zhiliaoapp.musically": [
@@ -11974,6 +12065,16 @@
           "values": null
         }
       ]
+    },
+    {
+      "name": "StopSlop local semantic model assets",
+      "description": "Packages only the ONNX CPU runtime for optional, privately installed E5 models.",
+      "category": null,
+      "use": false,
+      "dependencies": [],
+      "compatiblePackages": null,
+      "compatibility": [],
+      "options": []
     },
     {
       "name": "Story controls",

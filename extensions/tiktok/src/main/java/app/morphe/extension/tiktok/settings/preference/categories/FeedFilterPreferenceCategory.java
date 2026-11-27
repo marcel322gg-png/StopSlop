@@ -21,6 +21,7 @@ import app.morphe.extension.tiktok.settings.preference.AdoptSeenVideoHistoryPref
 import app.morphe.extension.tiktok.settings.preference.ClearSeenVideoHistoryPreference;
 import app.morphe.extension.tiktok.settings.preference.ImportSeenVideoHistoryPreference;
 import app.morphe.extension.tiktok.settings.preference.LocalWatchHistoryPreference;
+import app.morphe.extension.tiktok.settings.preference.BlockedVideosPreference;
 import app.morphe.extension.tiktok.settings.preference.SeenHistoryFilePreference;
 import app.morphe.extension.tiktok.settings.preference.NumberInputPreference;
 import app.morphe.extension.tiktok.settings.preference.CreatorListPreference;
@@ -56,10 +57,10 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
 
     @Override
     public void addPreferences(Context context) {
+        addPreference(new BlockedVideosPreference(context));
         // Each patch's rows go behind its own flag. The page is reachable when any of them
         // is in the bundle, and a page reachable because of one of them must not offer the
         // others' settings, which would sit there doing nothing.
-        if (SettingsStatus.feedFilterEnabled) addAds(context);
         if (SettingsStatus.feedFilterEnabled) addKindsOfPost(context);
         if (SettingsStatus.feedFilterEnabled) addLimits(context);
         if (SettingsStatus.feedFilterEnabled) addCreatorsAndSounds(context);
@@ -165,24 +166,6 @@ public class FeedFilterPreferenceCategory extends ConditionalPreferenceCategory 
         addPreference(new TogglePreference(context, "Filter location-tagged videos",
                 "Hide feed videos with place badges, even when they aren't paid ads. To keep the video and hide only its badge, use Hide location labels in Feed screen.",
                 Settings.FILTER_LOCATION_VIDEOS));
-    }
-
-    private void addAds(Context context) {
-        addPreference(new SectionHeadingPreference(context, "Ads"));
-        addPreference(new TogglePreference(
-                context,
-                "Remove feed ads",
-                "Remove TikTok-identified ads, commission posts, paid partnerships, and branded content. For text and Shop signals, use StopSlop's Ads & sponsorships control.",
-                Settings.REMOVE_ADS
-        ));
-        addPreference(new TogglePreference(
-                context,
-                "Hide paid partnerships",
-                "Hide videos marked as paid partnership or branded content.",
-                Settings.HIDE_PAID_PARTNERSHIP
-        ));
-        addPreference(new TogglePreference(context, "Hide promotional music",
-                "Hide videos marked as using promotional music.", Settings.HIDE_PROMOTIONAL_MUSIC));
     }
 
     private void addLimits(Context context) {

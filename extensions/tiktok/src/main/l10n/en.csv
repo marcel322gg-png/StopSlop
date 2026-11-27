@@ -129,6 +129,10 @@ source,target
 %1$s: one of %3$s files might not have finished,%1$s: one of %3$s files might not have finished
 "%2$s rules, but the limit is %1$s. Nothing changed.","%2$s rules, but the limit is %1$s. Nothing changed."
 (unsent),(unsent)
+0.80 similarity,0.80 similarity
+0.84 similarity,0.84 similarity
+0.88 similarity,0.88 similarity
+0.92 similarity,0.92 similarity
 1 comment or reply loaded,1 comment or reply loaded
 1 field overridden,1 field overridden
 1 field will be overridden when requested,1 field will be overridden when requested
@@ -190,9 +194,13 @@ A video you paused stays paused when you come back to the app instead of startin
 A web address someone left in a comment can be tapped instead of copied out by hand. Tapping anywhere else in the comment still does what it did.,A web address someone left in a comment can be tapped instead of copied out by hand. Tapping anywhere else in the comment still does what it did.
 "A zone name like Europe/Belgrade, used in place of the country's. Daylight saving follows by itself. Empty means the country's own zone.","A zone name like Europe/Belgrade, used in place of the country's. Daylight saving follows by itself. Empty means the country's own zone."
 AI & Slop,AI & Slop
+AI / Models,AI / Models
 AI Self,AI Self
 AI Tako,AI Tako
 AI chat,AI chat
+AI model: Not installed. Browse models or import an E5 package; deterministic filters stay available.,AI model: Not installed. Browse models or import an E5 package; deterministic filters stay available.
+AI model: Not installed. Browse or import a compatible E5 package to enable semantic filtering.,AI model: Not installed. Browse or import a compatible E5 package to enable semantic filtering.
+AI model: Not installed. Browse or import a compatible E5 package.,AI model: Not installed. Browse or import a compatible E5 package.
 AI theater,AI theater
 AI-generated content,AI-generated content
 AI-generated posts,AI-generated posts
@@ -216,6 +224,9 @@ Account region,Account region
 Accounts to unfollow: %1$d. Starting in %2$d,Accounts to unfollow: %1$d. Starting in %2$d
 Actions,Actions
 Active,Active
+Active model,Active model
+Active model: %1$s,Active model: %1$s
+Active model: %1$s · storage used: %2$d MiB,Active model: %1$s · storage used: %2$d MiB
 Activity,Activity
 Activity center,Activity center
 Activity center (PIA),Activity center (PIA)
@@ -287,7 +298,6 @@ Already marked as not interested,Already marked as not interested
 Already saved. Open TikTok to save another copy.,Already saved. Open TikTok to save another copy.
 Also apply these filters to downloaded videos TikTok uses when the feed can't load enough new items.,Also apply these filters to downloaded videos TikTok uses when the feed can't load enough new items.
 Also change the region TikTok reports internally and set TikTok to the country's time zone. Keeps your interface language. Your IP address and your account's own rules still apply.,Also change the region TikTok reports internally and set TikTok to the country's time zone. Keeps your interface language. Your IP address and your account's own rules still apply.
-"Also checks sponsor wording and commerce signals; the Feed filter page keeps separate controls for TikTok's ad, partnership, and music markers.","Also checks sponsor wording and commerce signals; the Feed filter page keeps separate controls for TikTok's ad, partnership, and music markers."
 Also filter it,Also filter it
 Also hide videos whose text stickers match a blocked caption word. Text stickers are the words a creator types over the video in TikTok's editor. Text that's part of the picture itself can't be read.,Also hide videos whose text stickers match a blocked caption word. Text stickers are the words a creator types over the video in TikTok's editor. Text that's part of the picture itself can't be read.
 "Also listens to the LIVE's sound, so your name counts when it's said out loud in rooms without captions. Your phone's own speech recognition does the listening, with TikTok's microphone permission. It hears only the LIVE, though Android shows its microphone dot, and it uses a little more data.","Also listens to the LIVE's sound, so your name counts when it's said out loud in rooms without captions. Your phone's own speech recognition does the listening, with TikTok's microphone permission. It hears only the LIVE, though Android shows its microphone dot, and it uses a little more data."
@@ -414,6 +424,7 @@ Brightness,Brightness
 Bring back TikTok's translation,Bring back TikTok's translation
 "Brings back the translation rows on TikTok's Language page, under Settings and privacy, for accounts that only see App language there.","Brings back the translation rows on TikTok's Language page, under Settings and privacy, for accounts that only see App language there."
 Browse,Browse
+Browse models,Browse models
 Budgets and reminders,Budgets and reminders
 Build details,Build details
 Build details copied to the clipboard,Build details copied to the clipboard
@@ -455,9 +466,11 @@ Checking your followers: %1$d,Checking your followers: %1$d
 "Checks your followers first and says how many it found, then unfollows them one after another. Accounts that follow you back stay.","Checks your followers first and says how many it found, then unfollows them one after another. Accounts that follow you back stay."
 Choose %1$d to %2$d videos. Values outside this range use the nearest valid limit. Restart TikTok to apply this.,Choose %1$d to %2$d videos. Values outside this range use the nearest valid limit. Restart TikTok to apply this.
 Choose a backup file. Your current settings are kept for Undo.,Choose a backup file. Your current settings are kept for Undo.
+Choose a data-only .ssmodel package. Unverified publishers require your confirmation; unsupported model formats and files are rejected.,Choose a data-only .ssmodel package. Unverified publishers require your confirmation; unsupported model formats and files are rejected.
 Choose a preset to fill the SIM details.,Choose a preset to fill the SIM details.
 Choose a subfolder under %1$s.,Choose a subfolder under %1$s.
 Choose counts for this signed-in account. Leave a field empty to use TikTok's count. Zero shows zero. Choices stay on this phone.,Choose counts for this signed-in account. Leave a field empty to use TikTok's count. Zero shows zero. Choices stay on this phone.
+Choose file,Choose file
 Choose the file again after this run to save the other %1$s,Choose the file again after this run to save the other %1$s
 Choose what reaches your feed,Choose what reaches your feed
 Choose which bottom tabs stay visible.,Choose which bottom tabs stay visible.
@@ -518,6 +531,7 @@ Commercial content library,Commercial content library
 Compact,Compact
 Compact comment header,Compact comment header
 Compact long-press menu everywhere,Compact long-press menu everywhere
+Compare caption and hashtag text with your first 16 topic rules using the local model. The first feed evaluation stays visible while it loads.,Compare caption and hashtag text with your first 16 topic rules using the local model. The first feed evaluation stays visible while it loads.
 Compare gate reads with their previous values.,Compare gate reads with their previous values.
 Config,Config
 Config (Settings Manager),Config (Settings Manager)
@@ -550,6 +564,7 @@ Copy user ID,Copy user ID
 Copy username,Copy username
 Copy video ID,Copy video ID
 Could not open TikTok.,Could not open TikTok.
+Could not remove this model.,Could not remove this model.
 Couldn't add the caption. Saving without it.,Couldn't add the caption. Saving without it.
 Couldn't add the older seen videos. Try again.,Couldn't add the older seen videos. Try again.
 Couldn't change the Lab settings. Try again.,Couldn't change the Lab settings. Try again.
@@ -664,8 +679,11 @@ Days to remember a video. Zero removes the age limit. History keeps at most %1$s
 Deactivate or delete account,Deactivate or delete account
 Default,Default
 Default playback speed,Default playback speed
+Delete local model?,Delete local model?
+Delete model,Delete model
 Delete recording files,Delete recording files
 Delete search,Delete search
+Delete this model package from TikTok's private storage?,Delete this model package from TikTok's private storage?
 Delete watched offline videos,Delete watched offline videos
 Deletes %1$s from TikTok's storage.,Deletes %1$s from TikTok's storage.
 Deletes every comment you've posted one after another.,Deletes every comment you've posted one after another.
@@ -712,6 +730,7 @@ Done. %1$d removed.,Done. %1$d removed.
 Done. %1$d unfollowed.,Done. %1$d unfollowed.
 Double tap,Double tap
 Double tap by corner,Double tap by corner
+Download from HTTPS source,Download from HTTPS source
 "Download lists the qualities this video comes in, with the size TikTok gives for each, and saves the one you pick. The quality above stays as it is for the next save.","Download lists the qualities this video comes in, with the size TikTok gives for each, and saves the one you pick. The quality above stays as it is for the next save."
 Download original photos,Download original photos
 Downloads,Downloads
@@ -737,6 +756,7 @@ End,End
 English,English
 Enter a JSON object or array,Enter a JSON object or array
 Enter a creator handle or id,Enter a creator handle or id
+Enter a direct HTTPS URL for a data-only .ssmodel package. The host is not publisher-verified; package structure and hashes are checked before install.,Enter a direct HTTPS URL for a data-only .ssmodel package. The host is not publisher-verified; package structure and hashes are checked before install.
 Enter a finite number,Enter a finite number
 Enter a number,Enter a number
 "Enter a server name or IP address, without http:// or a port number","Enter a server name or IP address, without http:// or a port number"
@@ -747,6 +767,7 @@ Enter a whole number,Enter a whole number
 Enter a zone like Asia/Tokyo,Enter a zone like Asia/Tokyo
 "Enter an hour, like 6 or 06:00","Enter an hour, like 6 or 06:00"
 Enter one speed from %1$s to %2$s,Enter one speed from %1$s to %2$s
+"Enter positive topics separated by semicolons, such as: Dota 2; science; wildlife; programming;","Enter positive topics separated by semicolons, such as: Dota 2; science; wildlife; programming;"
 Enter true or false,Enter true or false
 Enter up to %1$d comma-separated speeds from %2$s to %3$s,Enter up to %1$d comma-separated speeds from %2$s to %3$s
 Enter who to message below to start.,Enter who to message below to start.
@@ -1150,6 +1171,7 @@ Hide view counts on profile grids,Hide view counts on profile grids
 Hide voice comments,Hide voice comments
 "Hide voting cards and poll results above the comments, including polls that have ended.","Hide voting cards and poll results above the comments, including polls that have ended."
 Hide your account warning,Hide your account warning
+"Hides TikTok ads, paid partnerships, promotional music, and detected sponsorship signals.","Hides TikTok ads, paid partnerships, promotional music, and detected sponsorship signals."
 "Hides TikTok's message when you pick a speed from the menu, or lock or unlock one with a hold.","Hides TikTok's message when you pick a speed from the menu, or lock or unlock one with a hold."
 "Hides rooms in the LIVE feed you swipe through, using the rules below. Blocked creators, Creators hidden on this phone and Creator exceptions apply here too, and Blocked caption words are checked against each LIVE's title. The first room the LIVE button opens isn't filtered. If every room would be hidden, one gets through so the feed keeps loading.","Hides rooms in the LIVE feed you swipe through, using the rules below. Blocked creators, Creators hidden on this phone and Creator exceptions apply here too, and Blocked caption words are checked against each LIVE's title. The first room the LIVE button opens isn't filtered. If every room would be hidden, one gets through so the feed keeps loading."
 "Hides the X at the top of the comments, and the buttons next to it move over to fill the gap. Use Back or swipe down to close comments.","Hides the X at the top of the comments, and the buttons next to it move over to fill the gap. Use Back or swipe down to close comments."
@@ -1157,6 +1179,7 @@ Hides the button that stretches the comments over the whole screen. Turn on Open
 Hides the button that turns the people you picked into a new group chat. Send separately stays.,Hides the button that turns the people you picked into a new group chat. Send separately stays.
 "Hides the comment count, the sort, translate and close buttons and the suggestions above them. Use Back or swipe down to close comments.","Hides the comment count, the sort, translate and close buttons and the suggestions above them. Use Back or swipe down to close comments."
 Hiding,Hiding
+"Higher values require closer meaning. This is cosine similarity, not a probability.","Higher values require closer meaning. This is cosine similarity, not a probability."
 Highest,Highest
 Historical,Historical
 Historical values,Historical values
@@ -1201,6 +1224,7 @@ Identify the song with Shazam,Identify the song with Shazam
 "If that name is taken, Android adds a number to the new file.","If that name is taken, Android adds a number to the new file."
 "If that name is taken, Hushfeed adds a number to the new file.","If that name is taken, Hushfeed adds a number to the new file."
 "If the feed's video blinks as you swipe with See-through bottom bar on, this draws it inside TikTok instead of on a layer of its own. It can use a little more battery. Needs See-through bottom bar.","If the feed's video blinks as you swipe with See-through bottom bar on, this draws it inside TikTok instead of on a layer of its own. It can use a little more battery. Needs See-through bottom bar."
+Import .ssmodel,Import .ssmodel
 Import a font file,Import a font file
 Import an emoji font file,Import an emoji font file
 Import finished,Import finished
@@ -1211,6 +1235,8 @@ Imported %1$d values. The menu can undo it.,Imported %1$d values. The menu can u
 Imported: %1$s. Pick another file to replace it.,Imported: %1$s. Pick another file to replace it.
 Importing new history ended Undo for the earlier clear. You can clear the imported history.,Importing new history ended Undo for the earlier clear. You can clear the imported history.
 Importing watch history,Importing watch history
+"In TikTok, go to Profile → Menu (☰) → Settings and privacy → Content preferences → Filter keywords. TikTok's filter can remove posts with matching words, variations, and hashtags in supported feeds. Where TikTok offers its AI similar-keyword option, it can also match synonyms and variations. This is TikTok's own negative filter; StopSlop does not read or change its saved keywords.","In TikTok, go to Profile → Menu (☰) → Settings and privacy → Content preferences → Filter keywords. TikTok's filter can remove posts with matching words, variations, and hashtags in supported feeds. Where TikTok offers its AI similar-keyword option, it can also match synonyms and variations. This is TikTok's own negative filter; StopSlop does not read or change its saved keywords."
+"In TikTok, go to Profile → Menu (☰) → Settings and privacy → Content preferences → Manage topics. Adjust the sliders for TikTok's predefined categories and tap Save. These controls affect the For You feed and may take time to influence recommendations. They do not set custom weights for terms such as Dota 2. StopSlop Preferred Content remains a separate local feature.","In TikTok, go to Profile → Menu (☰) → Settings and privacy → Content preferences → Manage topics. Adjust the sliders for TikTok's predefined categories and tap Save. These controls affect the For You feed and may take time to influence recommendations. They do not set custom weights for terms such as Dota 2. StopSlop Preferred Content remains a separate local feature."
 In a chat,In a chat
 "In use: TikTok sees the identity you made here, and it stays the same on every start. Tap to make another one, which wipes TikTok's data again.","In use: TikTok sees the identity you made here, and it stays the same on every start. Tap to make another one, which wipes TikTok's data again."
 "In your own Liked videos, Favorites and Reposts, a tap takes the video off that list instead of opening it.","In your own Liked videos, Favorites and Reposts, a tap takes the video off that list instead of opening it."
@@ -1223,7 +1249,10 @@ Included diagnostics,Included diagnostics
 Includes all diagnostic events.,Includes all diagnostic events.
 Includes these events: %1$s,Includes these events: %1$s
 Inserted cards,Inserted cards
+Install and select a compatible model before enabling semantic filtering.,Install and select a compatible model before enabling semantic filtering.
 "Install one, then come back here.","Install one, then come back here."
+Installed models,Installed models
+Installing local model,Installing local model
 "Instead of TikTok's Watch history. A tap on Profile works as before. If holding Profile switches accounts for you, this takes that press.","Instead of TikTok's Watch history. A tap on Profile works as before. If holding Profile switches accounts for you, this takes that press."
 Instead of these settings. The list has a button that brings you back here.,Instead of these settings. The list has a button that brings you back here.
 Invisible controls button,Invisible controls button
@@ -1389,7 +1418,9 @@ Loading gates…,Loading gates…
 Loading page %1$s…,Loading page %1$s…
 "Loading replies, %1$d of %2$d","Loading replies, %1$d of %2$d"
 Loading the gate list and TikTok's current values…,Loading the gate list and TikTok's current values…
+Loading the local model. Items stay visible while it runs.,Loading the local model. Items stay visible while it runs.
 Loading your comments,Loading your comments
+Local model status,Local model status
 Local profile counts,Local profile counts
 Local verified badge,Local verified badge
 Location-tagged videos,Location-tagged videos
@@ -1438,6 +1469,7 @@ Make the controls invisible,Make the controls invisible
 "Makes the heart easier to tap by using the empty space around it. The icon and spacing look the same, and Reply and other buttons keep their own space.","Makes the heart easier to tap by using the empty space around it. The icon and spacing look the same, and Reply and other buttons keep their own space."
 Making a video of the photos,Making a video of the photos
 Making your sticker,Making your sticker
+Manage TikTok topics,Manage TikTok topics
 Manage posts,Manage posts
 Manage topics,Manage topics
 Manager,Manager
@@ -1471,6 +1503,9 @@ Mini dramas,Mini dramas
 Minimum,Minimum
 Minimum likes,Minimum likes
 Minimum video length,Minimum video length
+Model installed and verified. Select it in Installed models to use it.,Model installed and verified. Select it in Installed models to use it.
+Model package was not installed: %1$s,Model package was not installed: %1$s
+Model removal was queued after inference stops.,Model removal was queued after inference stops.
 More hashtags per post,More hashtags per post
 More items are available.,More items are available.
 More opens the comments,More opens the comments
@@ -1482,10 +1517,12 @@ Most see-through,Most see-through
 Most viewed first,Most viewed first
 Move down,Move down
 Move left,Move left
+Move matching eligible videos ahead within the current fetched batch. Other videos stay visible; this does not change TikTok's recommendations.,Move matching eligible videos ahead within the current fetched batch. Other videos stay visible; this does not change TikTok's recommendations.
 Move right,Move right
 "Move to the next video when the current one ends. Pauses, open dialogs and screen-time holds stop it. Restart TikTok to apply this.","Move to the next video when the current one ends. Pauses, open dialogs and screen-time holds stop it. Restart TikTok to apply this."
 Move up,Move up
 Moves the country and the post date off the creator's row onto a line of their own below the caption.,Moves the country and the post date off the creator's row onto a line of their own below the caption.
+Multilingual E5 Small by Xenova. Text embeddings for semantic topic matching. INT8 ONNX with an XLM-R tokenizer graph. The model card claims 100+ languages; StopSlop language quality is not measured. Revision 761b726dd34fb83930e26aab4e9ac3899aa1fa78. Model 118308185 bytes and tokenizer 5069559 bytes. MIT license. Model data is not in the patch; a compatible .ssmodel can be downloaded from a trusted HTTPS source or imported. Package profile and file hashes are checked. No official package URL is configured.,Multilingual E5 Small by Xenova. Text embeddings for semantic topic matching. INT8 ONNX with an XLM-R tokenizer graph. The model card claims 100+ languages; StopSlop language quality is not measured. Revision 761b726dd34fb83930e26aab4e9ac3899aa1fa78. Model 118308185 bytes and tokenizer 5069559 bytes. MIT license. Model data is not in the patch; a compatible .ssmodel can be downloaded from a trusted HTTPS source or imported. Package profile and file hashes are checked. No official package URL is configured.
 Music,Music
 Music disc,Music disc
 Mute feed videos,Mute feed videos
@@ -1523,6 +1560,7 @@ No clean copy yet. Saved the watermarked one to %1$s,No clean copy yet. Saved th
 No cleared videos fit the current history limits,No cleared videos fit the current history limits
 No comments are loaded to export yet.,No comments are loaded to export yet.
 No comments to show,No comments to show
+No compatible model is installed.,No compatible model is installed.
 No creator to block on this video,No creator to block on this video
 No creator to hide on this video,No creator to hide on this video
 "No creators are hidden yet. Hide one from a video, or add a handle above.","No creators are hidden yet. Hide one from a video, or add a handle above."
@@ -1546,6 +1584,7 @@ No limit,No limit
 No matching countries. Try a country name or a two-letter code.,No matching countries. Try a country name or a two-letter code.
 No matching diagnostics found,No matching diagnostics found
 No matching settings,No matching settings
+No model selected. Storage used: %1$d MiB,No model selected. Storage used: %1$d MiB
 "No original photos, so TikTok saves it instead","No original photos, so TikTok saves it instead"
 No other app takes shared text,No other app takes shared text
 No popups have been seen yet,No popups have been seen yet
@@ -1606,6 +1645,7 @@ Off,Off
 "Off forces the value to false, on forces it to true. Reset lets TikTok decide again.","Off forces the value to false, on forces it to true. Reset lets TikTok decide again."
 "Off until you tap it. Wipes TikTok's data once, on the next start, and gives it a new Android ID and advertising ID, so it sees a phone it hasn't met. You'll be signed out and lose your drafts. Hushfeed's settings stay.","Off until you tap it. Wipes TikTok's data once, on the next start, and gives it a new Android ID and advertising ID, so it sees a phone it hasn't met. You'll be signed out and lose your drafts. Hushfeed's settings stay."
 "Off, only its button closes it.","Off, only its button closes it."
+Off. Mechanical topic rules are unchanged.,Off. Mechanical topic rules are unchanged.
 Off. TikTok can report views and typing.,Off. TikTok can report views and typing.
 Off: this phone's speech recognition only hears the microphone. Turn this off and on to try again.,Off: this phone's speech recognition only hears the microphone. Turn this off and on to try again.
 Offer Audio only in LIVE quality,Offer Audio only in LIVE quality
@@ -1640,7 +1680,6 @@ One more save waiting,One more save waiting
 "One of the quote marks in that list has nothing to close it, so the rest of the line reads as one phrase. Add the missing quote or take the stray one out.","One of the quote marks in that list has nothing to close it, so the rest of the line reads as one phrase. Add the missing quote or take the stray one out."
 One per post,One per post
 One picked,One picked
-"One rule per line: phrase, #hashtag, !phrase, !#hashtag, or @username. Matching is case-insensitive.","One rule per line: phrase, #hashtag, !phrase, !#hashtag, or @username. Matching is case-insensitive."
 "One speed from %1$s to %2$s, like 1.8, for the hold and its pull-down lock. It takes the place of the speed above. Leave empty to use that one.","One speed from %1$s to %2$s, like 1.8, for the hold and its pull-down lock. It takes the place of the speed above. Leave empty to use that one."
 One value per line,One value per line
 One video,One video
@@ -1655,6 +1694,7 @@ Only on the sides of the video,Only on the sides of the video
 Only tabs TikTok has loaded on this device are shown here. This doesn't force unavailable tabs to appear.,Only tabs TikTok has loaded on this device are shown here. This doesn't force unavailable tabs to appear.
 Only the first %1$s are in the file.,Only the first %1$s are in the file.
 Only the first %1$s characters of the sample were checked.,Only the first %1$s characters of the sample were checked.
+Only the supported E5 model profile is accepted. The package publisher is not authenticated; continue only if you trust this HTTPS host. StopSlop never uploads feed content.,Only the supported E5 model profile is accepted. The package publisher is not authenticated; continue only if you trust this HTTPS host. StopSlop never uploads feed content.
 Only these caption languages,Only these caption languages
 Open,Open
 Open Hushfeed settings,Open Hushfeed settings
@@ -1794,6 +1834,9 @@ Post every video as if you'd turned on TikTok's own HD upload on the post page. 
 Posting,Posting
 Posts below this number of likes are hidden while Minimum likes is on.,Posts below this number of likes are hidden while Minimum likes is on.
 Prefer H.264 video,Prefer H.264 video
+Preferred Content,Preferred Content
+Preferred topics,Preferred topics
+Preparing package…,Preparing package…
 Preset applied,Preset applied
 Preset doesn't match the gates. Nothing changed.,Preset doesn't match the gates. Nothing changed.
 Preset saved. Turn on overrides to use it.,Preset saved. Turn on overrides to use it.
@@ -1816,6 +1859,7 @@ Preview translation,Preview translation
 Preview with a made-up post:,Preview with a made-up post:
 Previous LIVE,Previous LIVE
 Previous video,Previous video
+Prioritize preferred topics,Prioritize preferred topics
 Privacy,Privacy
 Privacy Center,Privacy Center
 Privacy and app,Privacy and app
@@ -1875,8 +1919,12 @@ Reading the seen-history file,Reading the seen-history file
 Reading watch history,Reading watch history
 Reading who you follow (%1$s),Reading who you follow (%1$s)
 Reading your followers (%1$s),Reading your followers (%1$s)
+Ready. Only caption and hashtag text is analyzed.,Ready. Only caption and hashtag text is analyzed.
+Ready. Only caption and hashtag text is analyzed; the first feed evaluation stays visible while it loads.,Ready. Only caption and hashtag text is analyzed; the first feed evaluation stays visible while it loads.
 Rebuild message search,Rebuild message search
 Rebuilding message search,Rebuilding message search
+Received %1$d MiB,Received %1$d MiB
+Received %1$d of %2$d MiB,Received %1$d of %2$d MiB
 Received message translation,Received message translation
 Recent searches,Recent searches
 Recently used,Recently used
@@ -2148,7 +2196,11 @@ Seen videos put back: %1$s of %2$s,Seen videos put back: %1$s of %2$s
 Select,Select
 Select at least one field,Select at least one field
 Select every tab,Select every tab
+Select model,Select model
 Selected,Selected
+Selected. The local runtime is verifying and loading this model.,Selected. The local runtime is verifying and loading this model.
+Semantic Topic Filter,Semantic Topic Filter
+Semantic match threshold,Semantic match threshold
 Semi-bold,Semi-bold
 Send TikTok through a proxy,Send TikTok through a proxy
 Send it now,Send it now
@@ -2168,6 +2220,8 @@ Sent to %1$d/%2$d chats. They won't get another message today.,Sent to %1$d/%2$d
 "Separate language codes with commas, like en, es. A video whose original caption is in another language is hidden. Videos with no caption, or only translated ones, always stay.","Separate language codes with commas, like en, es. A video whose original caption is in another language is hidden. Videos with no caption, or only translated ones, always stay."
 "Separate language codes with commas, like es, de. When TikTok translates for you, captions and comments in these languages stay as they were written. See translation still works when you tap it. TikTok's own Don't translate list stays the way it is.","Separate language codes with commas, like es, de. When TikTok translates for you, captions and comments in these languages stay as they were written. See translation still works when you tap it. TikTok's own Don't translate list stays the way it is."
 "Separate names with commas, exactly as the share sheet shows them. These can be friends in the Send to row, apps such as Facebook, or actions such as Create group or Repost. The words copy, save and dislike also work before the sheet has opened.","Separate names with commas, exactly as the share sheet shows them. These can be friends in the Send to row, apps such as Facebook, or actions such as Create group or Repost. The words copy, save and dislike also work before the sheet has opened."
+Separate rules with semicolons: phrase; #hashtag; !phrase; !#hashtag; or @username.,Separate rules with semicolons: phrase; #hashtag; !phrase; !#hashtag; or @username.
+Separate rules with semicolons: phrase; #hashtag; !phrase; !#hashtag; or @username. Semantic matching uses at most the first 16 blocked phrases and hashtags.,Separate rules with semicolons: phrase; #hashtag; !phrase; !#hashtag; or @username. Semantic matching uses at most the first 16 blocked phrases and hashtags.
 "Separate the titles of any other Inbox rows you want to hide with commas, spelled exactly. Use this for anything not listed above.","Separate the titles of any other Inbox rows you want to hide with commas, spelled exactly. Use this for anything not listed above."
 Separate usernames or display names with commas. Their comments are hidden.,Separate usernames or display names with commas. Their comments are hidden.
 "Separate words or phrases with commas. Videos whose caption matches are hidden. Capital letters don't matter. Write ""a"" & ""b"" to need both phrases, or ""a"" !& ""b"" to need the first without the second.","Separate words or phrases with commas. Videos whose caption matches are hidden. Capital letters don't matter. Write ""a"" & ""b"" to need both phrases, or ""a"" !& ""b"" to need the first without the second."
@@ -2296,6 +2350,7 @@ Show where commenters are from,Show where commenters are from
 Showing %1$s again,Showing %1$s again
 Shows Add to Story in the share sheet and on stories even when the creator turned off content reuse. TikTok may still refuse to post it.,Shows Add to Story in the share sheet and on stories even when the creator turned off content reuse. TikTok may still refuse to post it.
 "Shows TikTok's full sort menu on every post, with hot, newest, media and creator options, instead of the shorter one your account got. Restart TikTok to see the change.","Shows TikTok's full sort menu on every post, with hot, newest, media and creator options, instead of the shorter one your account got. Restart TikTok to see the change."
+Shows TikTok's own settings path. StopSlop does not read or change TikTok preferences.,Shows TikTok's own settings path. StopSlop does not read or change TikTok preferences.
 "Shows TikTok's play, pause, previous and next buttons on the feed. TikTok normally shows them only to people who use a screen reader. TikTok can see when you use them.","Shows TikTok's play, pause, previous and next buttons on the feed. TikTok normally shows them only to people who use a screen reader. TikTok can see when you use them."
 "Shows TikTok's text in the font file you import below. While both are on, this one wins over Use system font. If the file is removed or can't be read, the text goes back to what Use system font shows.","Shows TikTok's text in the font file you import below. While both are on, this one wins over Use system font. If the file is removed or can't be read, the text goes back to what Use system font shows."
 Shows TikTok's text in your phone's font instead of TikTok Sans. Icons and gift animations keep their own fonts. Restart TikTok to see the change.,Shows TikTok's text in your phone's font instead of TikTok Sans. Icons and gift animations keep their own fonts. Restart TikTok to see the change.
@@ -2654,6 +2709,8 @@ The sound couldn't be saved. Try again.,The sound couldn't be saved. Try again.
 The sticker couldn't be saved. Try again.,The sticker couldn't be saved. Try again.
 The sticker suggestion banner stops showing in a chat. Your own stickers are still in the sticker picker.,The sticker suggestion banner stops showing in a chat. Your own stickers are still in the sticker picker.
 The story couldn't be saved. Try again.,The story couldn't be saved. Try again.
+The supported profile is multilingual E5 text embeddings for captions and hashtags. Model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled. No verified package host is configured.,The supported profile is multilingual E5 text embeddings for captions and hashtags. Model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled. No verified package host is configured.
+The system file picker is unavailable.,The system file picker is unavailable.
 The thumbs down on each comment blocks the commenter instead of disliking. Their comments leave the list right away and an undo banner follows.,The thumbs down on each comment blocks the commenter instead of disliking. Their comments leave the list right away and an undo banner follows.
 The tick on the main feed's tabs. Short pulse is one quick tap of the motor. Phone's click is the click your phone makes elsewhere. Soft tick rings a little longer. Full tick is the phone's strongest tick.,The tick on the main feed's tabs. Short pulse is one quick tap of the motor. Phone's click is the click your phone makes elsewhere. Soft tick rings a little longer. Full tick is the phone's strongest tick.
 The time of day the message goes out.,The time of day the message goes out.
@@ -2710,6 +2767,7 @@ This video's sound has no title to look for,This video's sound has no title to l
 Three at once,Three at once
 Thumbs down blocks the commenter,Thumbs down blocks the commenter
 TikTok Beta,TikTok Beta
+TikTok Filter keywords,TikTok Filter keywords
 TikTok Plus,TikTok Plus
 TikTok account facts,TikTok account facts
 TikTok can't lock without a phone screen lock,TikTok can't lock without a phone screen lock
@@ -2767,6 +2825,7 @@ TikTok's color,TikTok's color
 TikTok's downloader: %1$s,TikTok's downloader: %1$s
 TikTok's hold to speed up,TikTok's hold to speed up
 TikTok's messages didn't start in time. It tries again at %1$s.,TikTok's messages didn't start in time. It tries again at %1$s.
+TikTok's native recommendation settings,TikTok's native recommendation settings
 "TikTok's own daily screen-time reminder sends the app to the background instead of waiting to be dismissed. Coming straight back leaves the reminder on screen, so the limit stays reachable. Needs a daily limit set under TikTok's Settings and privacy, under Time and well-being.","TikTok's own daily screen-time reminder sends the app to the background instead of waiting to be dismissed. Coming straight back leaves the reminder on screen, so the limit stays reachable. Needs a daily limit set under TikTok's Settings and privacy, under Time and well-being."
 TikTok's own name,TikTok's own name
 TikTok's own value,TikTok's own value
@@ -2849,6 +2908,7 @@ Type some sample text to see whether these rules match it.,Type some sample text
 Türkçe,Türkçe
 UI size,UI size
 Unavailable,Unavailable
+Unavailable. Semantic filtering fails open; mechanical rules remain active.,Unavailable. Semantic filtering fails open; mechanical rules remain active.
 Unblock,Unblock
 Unblock this commenter,Unblock this commenter
 Unblocked %1$s,Unblocked %1$s

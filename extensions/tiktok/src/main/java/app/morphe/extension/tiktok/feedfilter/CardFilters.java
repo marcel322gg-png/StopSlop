@@ -82,7 +82,7 @@ public final class CardFilters {
 
     /** The friend recommendation card and the other cards inserted between videos. */
     public static boolean shouldHideInsertedCards() {
-        return Settings.HIDE_INSERTED_CARDS.get();
+        return Settings.STOP_SLOP_AD_SPONSORSHIP.get() && Settings.HIDE_INSERTED_CARDS.get();
     }
 
     /** The export's line for the full-screen people you may know card (#478). */
@@ -115,7 +115,7 @@ public final class CardFilters {
      * It rides Remove feed ads, like the same card's list filter in AdsFilter.
      */
     public static boolean shouldSkipLemon8PromoRequest() {
-        return Settings.REMOVE_ADS.get();
+        return Settings.STOP_SLOP_AD_SPONSORSHIP.get() && Settings.REMOVE_ADS.get();
     }
 
     /**
@@ -133,7 +133,7 @@ public final class CardFilters {
      * the item is a blocking advert; answering no releases the scroll.
      */
     public static boolean shouldBlockForDramaAd(boolean isBlockingAd) {
-        if (isBlockingAd && Settings.REMOVE_ADS.get()) {
+        if (isBlockingAd && Settings.STOP_SLOP_AD_SPONSORSHIP.get() && Settings.REMOVE_ADS.get()) {
             Logger.printInfo(() -> "Released the countdown lock on a short drama advert");
             return false;
         }
@@ -147,7 +147,7 @@ public final class CardFilters {
      * has nothing, and the player goes on to the next episode.
      */
     public static boolean shouldRefuseSeriesRealtimeAd() {
-        return Settings.REMOVE_ADS.get();
+        return Settings.STOP_SLOP_AD_SPONSORSHIP.get() && Settings.REMOVE_ADS.get();
     }
     /** The list side of {@link #shouldHideInsertedCards()}. */
     public static final class InsertedCardFilter implements IFilter {

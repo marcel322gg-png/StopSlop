@@ -301,6 +301,10 @@
       "stop_slop_min_likes_threshold",
       "stop_slop_topic_filter",
       "stop_slop_topic_rules",
+      "stop_slop_topic_semantic_enabled",
+      "stop_slop_topic_semantic_threshold",
+      "stop_slop_preferred_content_enabled",
+      "stop_slop_preferred_content_rules",
       "filter_location_videos",
       "hide_ai_generated",
       "hide_verified",
@@ -4785,6 +4789,18 @@
       "minimum": 0,
       "maximum": 1000000
     },
+    "stop_slop_preferred_content_enabled": {
+      "field": "STOP_SLOP_PREFERRED_CONTENT",
+      "key": "stop_slop_preferred_content_enabled",
+      "type": "boolean",
+      "default": false
+    },
+    "stop_slop_preferred_content_rules": {
+      "field": "STOP_SLOP_PREFERRED_CONTENT_RULES",
+      "key": "stop_slop_preferred_content_rules",
+      "type": "string",
+      "default": ""
+    },
     "stop_slop_topic_filter": {
       "field": "STOP_SLOP_TOPIC_FILTER",
       "key": "stop_slop_topic_filter",
@@ -4796,6 +4812,18 @@
       "key": "stop_slop_topic_rules",
       "type": "string",
       "default": ""
+    },
+    "stop_slop_topic_semantic_enabled": {
+      "field": "STOP_SLOP_TOPIC_SEMANTIC_ENABLED",
+      "key": "stop_slop_topic_semantic_enabled",
+      "type": "boolean",
+      "default": false
+    },
+    "stop_slop_topic_semantic_threshold": {
+      "field": "STOP_SLOP_TOPIC_SEMANTIC_THRESHOLD",
+      "key": "stop_slop_topic_semantic_threshold",
+      "type": "string",
+      "default": "0.84"
     },
     "stop_video_looping": {
       "field": "STOP_VIDEO_LOOPING",

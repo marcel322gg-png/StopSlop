@@ -108,6 +108,7 @@ public class InputTextPreference extends EditTextPreference {
 
     /** Whether the value is a password, shown as dots on the row and while it's typed. */
     private boolean secret;
+    private boolean keepOpenOnImeAction;
 
     /** Ready values the row lists before the editor, with what each reads as; null opens the editor. */
     @Nullable
@@ -230,6 +231,12 @@ public class InputTextPreference extends EditTextPreference {
     public InputTextPreference withNameKeyboard() {
         getEditText().setRawInputType(InputType.TYPE_CLASS_TEXT
                 | InputType.TYPE_TEXT_VARIATION_URI | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        return this;
+    }
+
+    /** Keeps Save/Cancel as the only ways to close this editor from the keyboard. */
+    public InputTextPreference keepOpenOnImeAction() {
+        keepOpenOnImeAction = true;
         return this;
     }
 
@@ -476,7 +483,8 @@ public class InputTextPreference extends EditTextPreference {
     protected void showDialog(Bundle state) {
         super.showDialog(state);
         SettingsUi.styleFramedDialog(getDialog());
-        SettingsUi.submitOnDone(getEditText(), getDialog());
+        if (keepOpenOnImeAction) SettingsUi.keepDialogOpenOnImeAction(getEditText());
+        else SettingsUi.submitOnDone(getEditText(), getDialog());
         SettingsUi.keepOpenOnInvalidInput(getDialog(), new SettingsUi.DialogCheck() {
             @Override public String problem() {
                 return check == null

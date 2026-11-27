@@ -12,6 +12,9 @@
 # unless the app runs them from the APK, and every APK it writes is signed with v2 alone. 2.3.0
 # replaced the typed patch builders with patch().
 morphe-patcher = "2.5.0"
+# Pinned to the AARs whose manifests and ARM ABI contents were inspected for the API 23 target.
+onnxruntime-android = "1.20.0"
+onnxruntime-extensions-android = "0.13.0"
 # First stable Manager release that bundled the patcher above. Nothing reads it since the release
 # fact check went (9f6217088), so the README's install step and the bug form have to match by hand.
 manager-floor = "2.7.0"
@@ -74,6 +77,8 @@ bouncycastle = "1.86"
 morphe-patcher = { module = "app.morphe:morphe-patcher", version.ref = "morphe-patcher" }
 annotation = { module = "androidx.annotation:annotation", version.ref = "annotation" }
 gson = { module = "com.google.code.gson:gson", version.ref = "gson" }
+onnxruntime-android = { module = "com.microsoft.onnxruntime:onnxruntime-android", version.ref = "onnxruntime-android" }
+onnxruntime-extensions-android = { module = "com.microsoft.onnxruntime:onnxruntime-extensions-android", version.ref = "onnxruntime-extensions-android" }
 jump3r = { module = "de.sciss:jump3r", version.ref = "jump3r" }
 guava = { module = "com.google.guava:guava", version.ref = "guava" }
 
