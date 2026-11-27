@@ -1,0 +1,24 @@
+StopSlop local semantic topic filter assets
+
+Embedding weights: multilingual-e5-small, intfloat model at revision
+614241f622f53c4eeff9890bdc4f31cfecc418b3, exported as ONNX by Xenova at revision
+761b726dd34fb83930e26aab4e9ac3899aa1fa78. The intfloat model card declares MIT.
+The export repository identifies intfloat/multilingual-e5-small as its base model.
+
+Tokenizer: XLM-RoBERTa tokenizer.json and SentencePiece data from those immutable
+revisions, converted to tokenizer.onnx with Microsoft ONNX Runtime Extensions
+0.13.0. The packaged graph uses the SentencepieceTokenizer operator and includes
+the pinned SentencePiece model bytes.
+
+Runtime: Microsoft ONNX Runtime Android 1.20.0 and ONNX Runtime Extensions Android
+0.13.0, both distributed under MIT. The APK receives only ARM64 and ARM32 native
+libraries under its standard lib/<abi>/ paths.
+
+This feature analyzes only TikTok caption and hashtag text. It does not inspect
+video frames, audio, transcripts, or AI-generation signals.
+
+Model source: https://huggingface.co/intfloat/multilingual-e5-small
+ONNX export: https://huggingface.co/Xenova/multilingual-e5-small
+Runtime: https://github.com/microsoft/onnxruntime
+Tokenizer operator: https://github.com/microsoft/onnxruntime-extensions
+The accompanying LICENSE-MIT.txt contains the MIT license terms.

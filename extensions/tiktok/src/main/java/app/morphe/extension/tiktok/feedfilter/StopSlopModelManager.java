@@ -16,6 +16,7 @@ import org.json.JSONObject;
 
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -24,6 +25,7 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.security.MessageDigest;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -47,13 +49,19 @@ public final class StopSlopModelManager {
     public static final long MAX_TOKENIZER_BYTES = 12L * 1024L * 1024L;
     public static final long DEFAULT_QUOTA_BYTES = 512L * 1024L * 1024L;
     public static final int MAX_INSTALLED_MODELS = 2;
+    public static final String OFFICIAL_CATALOG_URL =
+            "https://marcel322gg-png.github.io/StopSlop/catalog/v1/catalog.json";
     private static final String PREFS = "stop_slop_models_v1";
+    private static final String CATALOG_CACHE = "official_catalog_v1";
     private static final String ACTIVE = "active_model";
     private static final String ROOT = "stopSlop/models";
     private static final String[] REQUIRED_FILES = {
             "manifest.json", "model/model.onnx", "tokenizer/tokenizer.onnx",
             "LICENSE.txt", "NOTICE.txt"
     };
+    private static final Set<String> CATALOG_HOSTS = Collections.singleton("marcel322gg-png.github.io");
+    private static final Set<String> RELEASE_HOSTS = Collections.unmodifiableSet(new HashSet<>(java.util.Arrays.asList(
+            "github.com", "release-assets.githubusercontent.com", "objects.githubusercontent.com")));
     private static final ExecutorService IO = Executors.newSingleThreadExecutor(task -> {
         Thread thread = new Thread(task, "StopSlop-model-manager");
         thread.setDaemon(true);
@@ -129,6 +137,96 @@ public final class StopSlopModelManager {
     public interface Callback {
         void onProgress(long currentBytes, long totalBytes);
         void onComplete(Model model, Exception failure);
+    }
+
+    public interface CatalogCallback {
+        void onComplete(List<CatalogEntry> entries, boolean fromCache, String warning);
+    }
+
+    public static final class CatalogEntry {
+        public final String id;
+        public final String name;
+        public final String description;
+        public final String packageVersion;
+        public final String runtimeProfile;
+        public final String publisher;
+        public final String languages;
+        public final String quantization;
+        public final String format;
+        public final String runtimeVersion;
+        public final String memoryEstimateLabel;
+        public final long memoryEstimateBytes;
+        public final String license;
+        public final String licenseUrl;
+        public final String sourceRepository;
+        public final String sourceRevision;
+        public final String downloadUrl;
+        public final String sha256;
+        public final String minimumAppVersion;
+        public final long packageBytes;
+        public final int minimumAndroidApi;
+        public final boolean compatible;
+        public final String incompatibility;
+
+        private CatalogEntry(JSONObject json) throws IOException {
+            try {
+                id = safeId(json.getString("id"));
+                name = required(json, "name");
+                description = required(json, "description");
+                packageVersion = required(json, "packageVersion");
+                if (!packageVersion.matches("[0-9]+\\.[0-9]+\\.[0-9]+")) throw new IOException("Invalid catalog package version");
+                runtimeProfile = required(json, "runtimeProfile");
+                publisher = required(json, "publisher");
+                languages = joinStrings(json.getJSONArray("languages"));
+                quantization = required(json, "quantization");
+                format = required(json, "format");
+                runtimeVersion = required(json, "runtimeVersion");
+                memoryEstimateBytes = json.getLong("memoryEstimateBytes");
+                memoryEstimateLabel = required(json, "memoryEstimateLabel");
+                license = required(json, "licenseSpdx");
+                licenseUrl = requireHttps(json.getString("licenseUrl"));
+                sourceRepository = required(json, "upstreamRepository");
+                sourceRevision = required(json, "upstreamRevision");
+                sha256 = json.getString("sha256");
+                if (!safeDigest(sha256)) throw new IOException("Invalid catalog package checksum");
+                packageBytes = json.getLong("packageSizeBytes");
+                if (packageBytes <= 0L || packageBytes > MAX_PACKAGE_BYTES) throw new IOException("Catalog package size is outside the supported limit");
+                minimumAppVersion = required(json, "minimumAppVersion");
+                minimumAndroidApi = json.getInt("minimumAndroidApi");
+                String assetName = required(json, "assetName");
+                if (!assetName.matches("[A-Za-z0-9._-]{1,100}\\.ssmodel")) throw new IOException("Invalid catalog asset name");
+                if (!"text-embedding".equals(json.getString("task"))
+                        || !("model-v" + packageVersion).equals(json.getString("releaseTag"))) {
+                    throw new IOException("Catalog model task or release tag is unsupported");
+                }
+                String expectedUrl = "https://github.com/marcel322gg-png/StopSlop/releases/download/model-v"
+                        + packageVersion + "/" + assetName;
+                downloadUrl = json.getString("downloadUrl");
+                if (!expectedUrl.equals(downloadUrl)) throw new IOException("Catalog release URL is not the canonical project asset URL");
+
+                JSONArray abis = json.getJSONArray("compatibleAbis");
+                Set<String> abiSet = new HashSet<>();
+                for (int i = 0; i < abis.length(); i++) abiSet.add(abis.getString(i));
+                boolean e5 = "multilingual-e5-small".equals(id)
+                        && PROFILE_E5.equals(runtimeProfile)
+                        && PACKAGE_SCHEMA == json.getInt("packageSchemaVersion")
+                        && "Xenova/multilingual-e5-small".equals(sourceRepository)
+                        && "761b726dd34fb83930e26aab4e9ac3899aa1fa78".equals(sourceRevision)
+                        && "INT8".equals(quantization) && "ONNX".equals(format)
+                        && "ONNX Runtime Android 1.20.0; ORT Extensions 0.13.0".equals(runtimeVersion)
+                        && "MIT".equals(license)
+                        && memoryEstimateBytes > 0L
+                        && minimumAndroidApi <= 23
+                        && abiSet.contains("arm64-v8a") && abiSet.contains("armeabi-v7a")
+                        && versionAtMost(minimumAppVersion, "0.84.0");
+                compatible = e5;
+                incompatibility = e5 ? "" : "This model profile is not supported by this StopSlop runtime.";
+            } catch (JSONException | IllegalArgumentException malformed) {
+                throw new IOException("Official model catalog entry is malformed", malformed);
+            }
+        }
+
+        public String releaseTag() { return "model-v" + packageVersion; }
     }
 
     public static final class Operation {
@@ -241,8 +339,89 @@ public final class StopSlopModelManager {
         return operation;
     }
 
+    /** Loads the fixed public catalog, falling back to the last validated response while offline. */
+    public static void fetchCatalog(Context context, CatalogCallback callback) {
+        Context app = context.getApplicationContext();
+        Context owner = app == null ? context : app;
+        IO.execute(() -> {
+            List<CatalogEntry> entries = null;
+            String warning = null;
+            boolean fromCache = false;
+            Operation operation = new Operation();
+            try {
+                URL url = checkedUrl(OFFICIAL_CATALOG_URL);
+                HttpURLConnection connection = openFollowingHttps(url, operation, CATALOG_HOSTS);
+                try {
+                    connection.setRequestProperty("Accept", "application/json");
+                    if (connection.getResponseCode() != HttpURLConnection.HTTP_OK) {
+                        throw new IOException("Official catalog returned HTTP " + connection.getResponseCode());
+                    }
+                    byte[] response;
+                    try (InputStream input = connection.getInputStream()) {
+                        response = readBounded(input, 64 * 1024);
+                    }
+                    String json = new String(response, StandardCharsets.UTF_8);
+                    entries = parseCatalog(json);
+                    preferences(owner).edit().putString(CATALOG_CACHE, json).apply();
+                } finally {
+                    connection.disconnect();
+                }
+            } catch (Exception networkFailure) {
+                warning = networkFailure.getMessage() == null ? "Catalog refresh failed" : networkFailure.getMessage();
+                String cached = preferences(owner).getString(CATALOG_CACHE, "");
+                if (cached != null && !cached.isEmpty()) {
+                    try {
+                        entries = parseCatalog(cached);
+                        fromCache = true;
+                    } catch (IOException invalidCache) {
+                        warning = "Cached model catalog is invalid";
+                    }
+                }
+            } finally {
+                HttpURLConnection connection = operation.connection;
+                if (connection != null) connection.disconnect();
+            }
+            callback.onComplete(entries == null ? Collections.emptyList() : entries, fromCache, warning);
+        });
+    }
+
+    private static List<CatalogEntry> parseCatalog(String json) throws IOException {
+        if (json == null || json.getBytes(StandardCharsets.UTF_8).length > 64 * 1024) {
+            throw new IOException("Model catalog exceeds its size limit");
+        }
+        try {
+            JSONObject catalog = new JSONObject(json);
+            String catalogVersion = catalog.optString("catalogVersion", "");
+            if (catalog.getInt("schemaVersion") != 1 || !catalogVersion.matches("[0-9]+\\.[0-9]+\\.[0-9]+")) {
+                throw new IOException("Unsupported model catalog schema");
+            }
+            JSONArray models = catalog.getJSONArray("models");
+            if (models.length() > 16) throw new IOException("Model catalog contains too many entries");
+            List<CatalogEntry> entries = new ArrayList<>();
+            Set<String> ids = new HashSet<>();
+            for (int i = 0; i < models.length(); i++) {
+                CatalogEntry entry = new CatalogEntry(models.getJSONObject(i));
+                if (!ids.add(entry.id + "/" + entry.packageVersion)) throw new IOException("Duplicate model catalog entry");
+                entries.add(entry);
+            }
+            return Collections.unmodifiableList(entries);
+        } catch (JSONException malformed) {
+            throw new IOException("Official model catalog is not valid JSON", malformed);
+        }
+    }
+
     /** Explicitly initiated HTTPS download of a data-only .ssmodel package. */
     public static Operation downloadPackage(Context context, String sourceUrl, Callback callback) {
+        return downloadPackage(context, sourceUrl, -1L, null, null, callback);
+    }
+
+    public static Operation downloadCatalogModel(Context context, CatalogEntry entry, Callback callback) {
+        if (entry == null || !entry.compatible) throw new IllegalArgumentException("Catalog model is not compatible");
+        return downloadPackage(context, entry.downloadUrl, entry.packageBytes, entry.sha256, RELEASE_HOSTS, callback);
+    }
+
+    private static Operation downloadPackage(Context context, String sourceUrl, long expectedBytes,
+            String expectedSha256, Set<String> allowedHosts, Callback callback) {
         Operation operation = new Operation();
         IO.execute(() -> {
             Model model = null;
@@ -250,7 +429,7 @@ public final class StopSlopModelManager {
             File archive = new File(context.getCacheDir(), "stop_slop_model_download_" + System.nanoTime() + ".ssmodel.part");
             try {
                 URL url = checkedUrl(sourceUrl);
-                HttpURLConnection connection = openFollowingHttps(url, operation);
+                HttpURLConnection connection = openFollowingHttps(url, operation, allowedHosts);
                 operation.connection = connection;
                 int response = connection.getResponseCode();
                 if (response < 200 || response >= 300) throw new IOException("Model source returned HTTP " + response);
@@ -260,6 +439,7 @@ public final class StopSlopModelManager {
                 if (declared <= 0L || declared > MAX_PACKAGE_BYTES) {
                     throw new IOException("The model package size is missing or exceeds the download limit");
                 }
+                if (expectedBytes > 0L && declared != expectedBytes) throw new IOException("Catalog package size does not match the release asset");
                 if (context.getFilesDir().getUsableSpace() < declared + MAX_MODEL_BYTES + MAX_TOKENIZER_BYTES) {
                     throw new IOException("There is not enough free space to stage and install this model");
                 }
@@ -270,6 +450,9 @@ public final class StopSlopModelManager {
                     operation.connection = null;
                 }
                 if (archive.length() != declared) throw new IOException("Downloaded package size does not match the server declaration");
+                if (expectedSha256 != null && !expectedSha256.equals(sha256(archive))) {
+                    throw new IOException("Downloaded model package failed the catalog SHA-256 check");
+                }
                 model = installArchive(context, archive, operation, callback, declared);
             } catch (Exception error) {
                 failure = error;
@@ -586,9 +769,21 @@ public final class StopSlopModelManager {
         }
     }
 
+    private static String requireHttps(String text) throws IOException {
+        URL url = checkedUrl(text);
+        return url.toString();
+    }
+
     private static HttpURLConnection openFollowingHttps(URL initial, Operation operation) throws IOException {
+        return openFollowingHttps(initial, operation, null);
+    }
+
+    private static HttpURLConnection openFollowingHttps(URL initial, Operation operation, Set<String> allowedHosts) throws IOException {
         URL next = initial;
         for (int redirects = 0; redirects <= 5; redirects++) {
+            if (allowedHosts != null && !allowedHosts.contains(next.getHost().toLowerCase(Locale.ROOT))) {
+                throw new IOException("Catalog or official release redirected to an unapproved HTTPS host");
+            }
             HttpURLConnection connection = (HttpURLConnection) next.openConnection();
             connection.setInstanceFollowRedirects(false);
             connection.setConnectTimeout(20_000);
@@ -607,6 +802,40 @@ public final class StopSlopModelManager {
             return connection;
         }
         throw new IOException("Model source redirected too many times");
+    }
+
+    private static byte[] readBounded(InputStream input, int maxBytes) throws IOException {
+        ByteArrayOutputStream output = new ByteArrayOutputStream();
+        byte[] buffer = new byte[4096];
+        int count;
+        while ((count = input.read(buffer)) != -1) {
+            if (output.size() + count > maxBytes) throw new IOException("Catalog response exceeds its size limit");
+            output.write(buffer, 0, count);
+        }
+        return output.toByteArray();
+    }
+
+    private static String joinStrings(JSONArray values) throws JSONException, IOException {
+        if (values.length() == 0 || values.length() > 32) throw new IOException("Catalog language metadata is invalid");
+        StringBuilder joined = new StringBuilder();
+        for (int i = 0; i < values.length(); i++) {
+            String value = values.getString(i).trim();
+            if (value.isEmpty() || value.length() > 80) throw new IOException("Catalog language entry is invalid");
+            if (joined.length() > 0) joined.append(", ");
+            joined.append(value);
+        }
+        return joined.toString();
+    }
+
+    private static boolean versionAtMost(String candidate, String supported) {
+        if (!candidate.matches("[0-9]+\\.[0-9]+\\.[0-9]+")) return false;
+        String[] left = candidate.split("\\.");
+        String[] right = supported.split("\\.");
+        for (int i = 0; i < 3; i++) {
+            int comparison = Integer.compare(Integer.parseInt(left[i]), Integer.parseInt(right[i]));
+            if (comparison != 0) return comparison < 0;
+        }
+        return true;
     }
 
     private static void copyBounded(InputStream input, File destination, long maxBytes,

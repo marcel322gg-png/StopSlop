@@ -73,5 +73,7 @@ morphe-signing.key
 .ssmodel
 /model-packages/source/
 /artifacts/model-packages/
+/artifacts/model-release/
+/artifacts/catalog-validation/
 
 /.morphe-local-repo/

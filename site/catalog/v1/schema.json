@@ -1,0 +1,50 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://marcel322gg-png.github.io/StopSlop/catalog/v1/schema.json",
+  "title": "StopSlop public model catalog v1",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "catalogVersion", "models"],
+  "properties": {
+    "schemaVersion": {"const": 1},
+    "catalogVersion": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+    "models": {
+      "type": "array",
+      "maxItems": 16,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["id", "name", "description", "packageVersion", "packageSchemaVersion", "runtimeProfile", "task", "languages", "quantization", "format", "publisher", "licenseSpdx", "licenseUrl", "upstreamRepository", "upstreamRevision", "packageSizeBytes", "sha256", "assetName", "releaseTag", "downloadUrl", "minimumAppVersion", "minimumAndroidApi", "compatibleAbis", "runtimeVersion", "memoryEstimateBytes", "memoryEstimateLabel", "publisherSignature"],
+        "properties": {
+          "id": {"type": "string", "pattern": "^[A-Za-z0-9._-]{1,64}$"},
+          "name": {"type": "string", "minLength": 1, "maxLength": 120},
+          "description": {"type": "string", "minLength": 1, "maxLength": 512},
+          "packageVersion": {"type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"},
+          "packageSchemaVersion": {"const": 1},
+          "runtimeProfile": {"type": "string", "maxLength": 80},
+          "task": {"type": "string", "maxLength": 40},
+          "languages": {"type": "array", "minItems": 1, "maxItems": 32, "items": {"type": "string", "maxLength": 80}},
+          "quantization": {"type": "string", "maxLength": 32},
+          "format": {"type": "string", "maxLength": 32},
+          "publisher": {"type": "string", "maxLength": 120},
+          "licenseSpdx": {"type": "string", "maxLength": 40},
+          "licenseUrl": {"type": "string", "format": "uri", "pattern": "^https://"},
+          "upstreamRepository": {"type": "string", "maxLength": 160},
+          "upstreamRevision": {"type": "string", "pattern": "^[0-9a-f]{40}$"},
+          "packageSizeBytes": {"type": "integer", "minimum": 1, "maximum": 167772160},
+          "sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "assetName": {"type": "string", "pattern": "^[A-Za-z0-9._-]+\\.ssmodel$"},
+          "releaseTag": {"type": "string", "pattern": "^model-v[0-9]+\\.[0-9]+\\.[0-9]+$"},
+          "downloadUrl": {"type": "string", "format": "uri", "pattern": "^https://github\\.com/marcel322gg-png/StopSlop/releases/download/model-v"},
+          "minimumAppVersion": {"type": "string", "maxLength": 32},
+          "minimumAndroidApi": {"type": "integer", "minimum": 21, "maximum": 100},
+          "compatibleAbis": {"type": "array", "minItems": 1, "maxItems": 8, "items": {"type": "string", "maxLength": 32}},
+          "runtimeVersion": {"type": "string", "maxLength": 120},
+          "memoryEstimateBytes": {"type": "integer", "minimum": 1},
+          "memoryEstimateLabel": {"type": "string", "maxLength": 120},
+          "publisherSignature": {"const": false}
+        }
+      }
+    }
+  }
+}

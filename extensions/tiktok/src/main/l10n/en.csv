@@ -363,6 +363,8 @@ Automatic,Automatic
 Automatic (TikTok's file),Automatic (TikTok's file)
 Automatic Clear display,Automatic Clear display
 Automatically record LIVEs you enter,Automatically record LIVEs you enter
+Available,Available
+Available models,Available models
 Avatar and follow button,Avatar and follow button
 Azərbaycan dili,Azərbaycan dili
 Back,Back
@@ -733,6 +735,7 @@ Double tap by corner,Double tap by corner
 Download from HTTPS source,Download from HTTPS source
 "Download lists the qualities this video comes in, with the size TikTok gives for each, and saves the one you pick. The quality above stays as it is for the next save.","Download lists the qualities this video comes in, with the size TikTok gives for each, and saves the one you pick. The quality above stays as it is for the next save."
 Download original photos,Download original photos
+Download verified package,Download verified package
 Downloads,Downloads
 Drag handle and jump buttons on grids,Drag handle and jump buttons on grids
 "Drag to move, release to place","Drag to move, release to place"
@@ -1251,6 +1254,7 @@ Includes these events: %1$s,Includes these events: %1$s
 Inserted cards,Inserted cards
 Install and select a compatible model before enabling semantic filtering.,Install and select a compatible model before enabling semantic filtering.
 "Install one, then come back here.","Install one, then come back here."
+Installed,Installed
 Installed models,Installed models
 Installing local model,Installing local model
 "Instead of TikTok's Watch history. A tap on Profile works as before. If holding Profile switches accounts for you, this takes that press.","Instead of TikTok's Watch history. A tap on Profile works as before. If holding Profile switches accounts for you, this takes that press."
@@ -1376,6 +1380,7 @@ Let the last video finish,Let the last video finish
 Let the video reach the bottom of the screen on the main feed and show the tabs over it with no bar behind them.,Let the video reach the bottom of the screen on the main feed and show the tabs over it with no bar behind them.
 "Let the video reach the top of the screen, with the clock and status icons over it. Works on the main feed and on videos you open from search, a profile or your Liked and Favorites. The tabs at the top stay where they are.","Let the video reach the top of the screen, with the clock and status icons over it. Works on the main feed and on videos you open from search, a profile or your Liked and Favorites. The tabs at the top stay where they are."
 Letting the host see you,Letting the host see you
+License: %1$s,License: %1$s
 Licenses,Licenses
 Lift text length limits,Lift text length limits
 "Lifts spoken captions above TikTok's spot while the phone is sideways. Use 0 for TikTok's spot, or up to %1$d.","Lifts spoken captions above TikTok's spot while the phone is sideways. Use 0 for TikTok's spot, or up to %1$d."
@@ -1415,6 +1420,7 @@ Loaded-value file export failed,Loaded-value file export failed
 Loading cancelled. The list is incomplete.,Loading cancelled. The list is incomplete.
 Loading episodes,Loading episodes
 Loading gates…,Loading gates…
+Loading official model catalog…,Loading official model catalog…
 Loading page %1$s…,Loading page %1$s…
 "Loading replies, %1$d of %2$d","Loading replies, %1$d of %2$d"
 Loading the gate list and TikTok's current values…,Loading the gate list and TikTok's current values…
@@ -1473,6 +1479,7 @@ Manage TikTok topics,Manage TikTok topics
 Manage posts,Manage posts
 Manage topics,Manage topics
 Manager,Manager
+Manual HTTPS URL,Manual HTTPS URL
 Mark kept messages,Mark kept messages
 Mark saved videos,Mark saved videos
 Marked as not interested,Marked as not interested
@@ -1503,6 +1510,7 @@ Mini dramas,Mini dramas
 Minimum,Minimum
 Minimum likes,Minimum likes
 Minimum video length,Minimum video length
+Model catalog unavailable,Model catalog unavailable
 Model installed and verified. Select it in Installed models to use it.,Model installed and verified. Select it in Installed models to use it.
 Model package was not installed: %1$s,Model package was not installed: %1$s
 Model removal was queued after inference stops.,Model removal was queued after inference stops.
@@ -1618,6 +1626,7 @@ Normal,Normal
 "Not a part Hushfeed fills in, so it's kept as typed: %1$s","Not a part Hushfeed fills in, so it's kept as typed: %1$s"
 Not available on this TikTok version,Not available on this TikTok version
 Not blocked,Not blocked
+Not compatible,Not compatible
 Not interested in this video,Not interested in this video
 Not read yet,Not read yet
 Not requested in this process yet,Not requested in this process yet
@@ -1652,8 +1661,10 @@ Offer Audio only in LIVE quality,Offer Audio only in LIVE quality
 Offer LIVE quality in more rooms,Offer LIVE quality in more rooms
 Offer clear screen in every LIVE room,Offer clear screen in every LIVE room
 Offer full screen in more LIVEs,Offer full screen in more LIVEs
+Official catalog · metadata and downloads use HTTPS,Official catalog · metadata and downloads use HTTPS
 Offline videos,Offline videos
 Offline videos limit,Offline videos limit
+Offline: showing cached catalog. Refresh failed: %1$s,Offline: showing cached catalog. Refresh failed: %1$s
 Oldest first,Oldest first
 "On a one-photo post, Download video makes an MP4 with the post's sound and no TikTok logo or end card. On a post with several photos, Download asks if you want the originals or one video. A photo story saves as a video too.","On a one-photo post, Download video makes an MP4 with the post's sound and no TikTok logo or end card. On a post with several photos, Download asks if you want the originals or one video. A photo story saves as a video too."
 "On long profile, Liked and sound grids, scrolling brings up a handle you can drag through what's loaded, plus Top, Back and End buttons. Back returns to where you were.","On long profile, Liked and sound grids, scrolling brings up a handle you can drag through what's loaded, plus Top, Back and End buttons. Back returns to where you were."
@@ -1752,6 +1763,7 @@ Overrides are disabled in the Feature Gate Lab.,Overrides are disabled in the Fe
 Overrides disabled. Restart TikTok to apply.,Overrides disabled. Restart TikTok to apply.
 Overrides enabled. Restart TikTok to apply.,Overrides enabled. Restart TikTok to apply.
 Own profile counts,Own profile counts
+Package hashes are checked before activation. SHA-256 is not a publisher signature.,Package hashes are checked before activation. SHA-256 is not a publisher signature.
 Paid partnerships,Paid partnerships
 Pass TikTok's install checks,Pass TikTok's install checks
 Pause,Pause
@@ -1943,6 +1955,7 @@ Recording this LIVE's screen from now,Recording this LIVE's screen from now
 Recording what the feed filters keep and hide. Tap to stop and save it in %1$s.,Recording what the feed filters keep and hide. Tap to stop and save it in %1$s.
 "Recording. Use a feature, then come back to stop.","Recording. Use a feature, then come back to stop."
 Recovered recording saved to %1$s,Recovered recording saved to %1$s
+Refresh catalog,Refresh catalog
 Refresh values,Refresh values
 Refreshing TikTok's current values…,Refreshing TikTok's current values…
 Region,Region
@@ -2039,6 +2052,8 @@ Round the corners on profile grids,Round the corners on profile grids
 Rounder,Rounder
 Rows,Rows
 "Run the progress bar from one screen edge to the other, without the gap TikTok leaves at each end.","Run the progress bar from one screen edge to the other, without the gap TikTok leaves at each end."
+Runtime profile: %1$s · Android API %2$d+,Runtime profile: %1$s · Android API %2$d+
+SHA-256: %1$s,SHA-256: %1$s
 SIM country preset,SIM country preset
 SOCKS5,SOCKS5
 STEM,STEM
@@ -2417,6 +2432,7 @@ Sound saved to %1$s,Sound saved to %1$s
 Sound: %1$s,Sound: %1$s
 Sounds,Sounds
 Source,Source
+Source revision: %1$s @ %2$s,Source revision: %1$s @ %2$s
 "Speech recognition has no model for your phone's language. Download one in Android's speech settings, then open the LIVE again.","Speech recognition has no model for your phone's language. Download one in Android's speech settings, then open the LIVE again."
 Speech recognition kept failing in the last LIVE. Open the LIVE again to retry.,Speech recognition kept failing in the last LIVE. Open the LIVE again to retry.
 Speed,Speed
@@ -2681,6 +2697,8 @@ The list reached its limit. More items may remain.,The list reached its limit. M
 The list stopped making progress. Results are incomplete.,The list stopped making progress. Results are incomplete.
 The message didn't go through. It tries again at %1$s.,The message didn't go through. It tries again at %1$s.
 The network proxy from that file is off. Check its address before you turn it on,The network proxy from that file is off. Check its address before you turn it on
+The official catalog lists compatible E5 packages from StopSlop GitHub Releases. Downloads are explicit and verified against the catalog; model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled.,The official catalog lists compatible E5 packages from StopSlop GitHub Releases. Downloads are explicit and verified against the catalog; model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled.
+The official model catalog could not be loaded: %1$s,The official model catalog could not be loaded: %1$s
 "The override changes no fields. Edit the field values, or reset the override.","The override changes no fields. Edit the field values, or reset the override."
 "The override couldn't be applied: %1$s. Edit the field values, or reset the override.","The override couldn't be applied: %1$s. Edit the field values, or reset the override."
 "The override doesn't say what list to return. Edit the field values, or reset the override.","The override doesn't say what list to return. Edit the field values, or reset the override."

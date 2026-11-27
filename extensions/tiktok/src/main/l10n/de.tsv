@@ -3294,3 +3294,21 @@ Multilingual E5 Small by Xenova. Text embeddings for semantic topic matching. IN
 
 No model selected. Storage used: %1$d MiB	Kein Modell ausgewählt. Speicherbedarf: %1$d MiB
 Active model: %1$s · storage used: %2$d MiB	Aktives Modell: %1$s · Speicherbedarf: %2$d MiB
+Available models	Verfügbare Modelle
+Loading official model catalog…	Offizieller Modellkatalog wird geladen …
+Model catalog unavailable	Modellkatalog nicht verfügbar
+The official model catalog could not be loaded: %1$s	Der offizielle Modellkatalog konnte nicht geladen werden: %1$s
+Refresh catalog	Katalog aktualisieren
+Manual HTTPS URL	Manuelle HTTPS-Adresse
+Offline: showing cached catalog. Refresh failed: %1$s	Offline: Zwischengespeicherter Katalog. Aktualisierung fehlgeschlagen: %1$s
+Official catalog · metadata and downloads use HTTPS	Offizieller Katalog · Metadaten und Downloads verwenden HTTPS
+Available	Verfügbar
+Not compatible	Nicht kompatibel
+Runtime profile: %1$s · Android API %2$d+	Laufzeitprofil: %1$s · Android-API %2$d+
+License: %1$s	Lizenz: %1$s
+Source revision: %1$s @ %2$s	Quellrevision: %1$s @ %2$s
+SHA-256: %1$s	SHA-256: %1$s
+Package hashes are checked before activation. SHA-256 is not a publisher signature.	Paketprüfsummen werden vor der Aktivierung geprüft. SHA-256 ist keine digitale Anbietersignatur.
+Download verified package	Geprüftes Paket herunterladen
+The official catalog lists compatible E5 packages from StopSlop GitHub Releases. Downloads are explicit and verified against the catalog; model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled.	Der offizielle Katalog listet kompatible E5-Pakete aus den StopSlop-GitHub-Releases. Downloads werden ausdrücklich gestartet und mit dem Katalog abgeglichen; Modelldateien bleiben im privaten TikTok-Speicher. Die Auswertung erfolgt lokal und KI bleibt deaktiviert, bis sie eingeschaltet wird.
+Installed	Installiert

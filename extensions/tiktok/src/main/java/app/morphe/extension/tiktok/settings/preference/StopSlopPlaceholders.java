@@ -193,7 +193,7 @@ final class StopSlopPlaceholders {
         }
 
         private void showActions() {
-            String message = L10n.t(getContext(), "The supported profile is multilingual E5 text embeddings for captions and hashtags. Model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled. No verified package host is configured.")
+            String message = L10n.t(getContext(), "The official catalog lists compatible E5 packages from StopSlop GitHub Releases. Downloads are explicit and verified against the catalog; model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled.")
                     + "\n\n" + modelSummary(getContext());
             new AlertDialog.Builder(getContext())
                     .setTitle("AI / Models")
@@ -205,13 +205,92 @@ final class StopSlopPlaceholders {
         }
 
         private void showCatalog() {
-            String details = L10n.t(getContext(), "Multilingual E5 Small by Xenova. Text embeddings for semantic topic matching. INT8 ONNX with an XLM-R tokenizer graph. The model card claims 100+ languages; StopSlop language quality is not measured. Revision 761b726dd34fb83930e26aab4e9ac3899aa1fa78. Model 118308185 bytes and tokenizer 5069559 bytes. MIT license. Model data is not in the patch; a compatible .ssmodel can be downloaded from a trusted HTTPS source or imported. Package profile and file hashes are checked. No official package URL is configured.");
-            new AlertDialog.Builder(getContext()).setTitle("Supported model profile")
-                    .setMessage(details)
-                    .setPositiveButton(L10n.t(getContext(), "Download from HTTPS source"),
-                            (dialog, which) -> promptDownloadUrl())
-                    .setNegativeButton(L10n.t(getContext(), "Close"), null)
+            ProgressDialog loading = new ProgressDialog(getContext());
+            loading.setTitle(L10n.t(getContext(), "Available models"));
+            loading.setMessage(L10n.t(getContext(), "Loading official model catalog…"));
+            loading.setIndeterminate(true);
+            loading.setCancelable(false);
+            loading.show();
+            StopSlopModelManager.fetchCatalog(getContext(), (entries, fromCache, warning) -> mainHandler.post(() -> {
+                if (loading.isShowing()) loading.dismiss();
+                if (entries.isEmpty()) {
+                    String message = warning == null ? "No compatible models are currently listed." : warning;
+                    new AlertDialog.Builder(getContext()).setTitle(L10n.t(getContext(), "Model catalog unavailable"))
+                            .setMessage(L10n.f(getContext(), "The official model catalog could not be loaded: %1$s", message))
+                            .setPositiveButton(L10n.t(getContext(), "Refresh catalog"), (dialog, which) -> showCatalog())
+                            .setNegativeButton(L10n.t(getContext(), "Manual HTTPS URL"), (dialog, which) -> promptDownloadUrl())
+                            .setNeutralButton(L10n.t(getContext(), "Import .ssmodel"), (dialog, which) -> confirmImport())
+                            .show();
+                    return;
+                }
+                showCatalogEntries(entries, fromCache, warning);
+            }));
+        }
+
+        private void showCatalogEntries(List<StopSlopModelManager.CatalogEntry> entries,
+                boolean fromCache, String warning) {
+            List<StopSlopModelManager.Model> installed = StopSlopModelManager.installed(getContext());
+            String activeKey = StopSlopModelManager.activeKey(getContext());
+            String[] labels = new String[entries.size()];
+            for (int i = 0; i < entries.size(); i++) {
+                StopSlopModelManager.CatalogEntry entry = entries.get(i);
+                boolean isInstalled = false;
+                for (StopSlopModelManager.Model model : installed) {
+                    if (entry.id.equals(model.id) && entry.sourceRevision.equals(model.revision)) isInstalled = true;
+                }
+                boolean isActive = (entry.id + "/" + entry.sourceRevision).equals(activeKey);
+                labels[i] = entry.name + " · " + entry.packageVersion + " · "
+                        + (entry.packageBytes / (1024 * 1024)) + " MiB · "
+                        + (isActive ? L10n.t(getContext(), "Active model")
+                                : isInstalled ? L10n.t(getContext(), "Installed")
+                                : entry.compatible ? L10n.t(getContext(), "Available")
+                                : L10n.t(getContext(), "Not compatible"));
+            }
+            String note = fromCache
+                    ? L10n.f(getContext(), "Offline: showing cached catalog. Refresh failed: %1$s", warning == null ? "network unavailable" : warning)
+                    : L10n.t(getContext(), "Official catalog · metadata and downloads use HTTPS");
+            new AlertDialog.Builder(getContext()).setTitle(L10n.t(getContext(), "Available models"))
+                    .setMessage(note)
+                    .setItems(labels, (dialog, index) -> showCatalogEntry(entries.get(index)))
+                    .setPositiveButton(L10n.t(getContext(), "Refresh catalog"), (dialog, which) -> showCatalog())
+                    .setNegativeButton(L10n.t(getContext(), "Manual HTTPS URL"), (dialog, which) -> promptDownloadUrl())
+                    .setNeutralButton(L10n.t(getContext(), "Import .ssmodel"), (dialog, which) -> confirmImport())
                     .show();
+        }
+
+        private void showCatalogEntry(StopSlopModelManager.CatalogEntry entry) {
+            StopSlopModelManager.Model installedModel = null;
+            for (StopSlopModelManager.Model model : StopSlopModelManager.installed(getContext())) {
+                if (entry.id.equals(model.id) && entry.sourceRevision.equals(model.revision)) installedModel = model;
+            }
+            String details = entry.description + "\n\n" + entry.publisher + "\n" + entry.languages + "\n"
+                    + entry.quantization + " " + entry.format + " · " + entry.packageBytes + " bytes · " + entry.packageVersion + "\n"
+                    + L10n.f(getContext(), "Runtime profile: %1$s · Android API %2$d+", entry.runtimeProfile, entry.minimumAndroidApi) + "\n"
+                    + entry.runtimeVersion + "\n"
+                    + entry.memoryEstimateLabel + " · " + (entry.memoryEstimateBytes / (1024 * 1024)) + " MiB\n"
+                    + L10n.f(getContext(), "License: %1$s", entry.license) + "\n" + entry.licenseUrl + "\n"
+                    + L10n.f(getContext(), "Source revision: %1$s @ %2$s", entry.sourceRepository, entry.sourceRevision) + "\n"
+                    + L10n.f(getContext(), "SHA-256: %1$s", entry.sha256) + "\n"
+                    + (entry.compatible ? L10n.t(getContext(), "Package hashes are checked before activation. SHA-256 is not a publisher signature.")
+                            : entry.incompatibility);
+            AlertDialog.Builder dialog = new AlertDialog.Builder(getContext()).setTitle(entry.name).setMessage(details)
+                    .setNegativeButton(L10n.t(getContext(), "Close"), null);
+            if (installedModel != null) {
+                StopSlopModelManager.Model model = installedModel;
+                dialog.setPositiveButton(L10n.t(getContext(), StopSlopModelManager.activeKey(getContext()).equals(model.key())
+                        ? "Active model" : "Select model"), (popup, which) -> {
+                    if (!StopSlopModelManager.activeKey(getContext()).equals(model.key())
+                            && StopSlopModelManager.select(getContext(), model.key())) {
+                        setSummary(modelSummary(getContext()));
+                        refreshTopicControl();
+                    }
+                });
+            } else if (entry.compatible) {
+                dialog.setPositiveButton(L10n.t(getContext(), "Download verified package"),
+                        (popup, which) -> runPackageOperation(callback ->
+                                StopSlopModelManager.downloadCatalogModel(getContext(), entry, callback)));
+            }
+            dialog.show();
         }
 
         private void promptDownloadUrl() {
