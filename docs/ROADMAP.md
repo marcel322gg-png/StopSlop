@@ -60,7 +60,7 @@ This is a snapshot from the user's Codex reports on 26 November 2026. It is not 
 | Semantic topic expansion | `NOT_IMPLEMENTED` | Requires a real local generation/embedding provider and reviewed profile persistence |
 | Semantic content understanding | Caption-based semantic Topic Filter is source-implemented with asynchronous inference and cached `KEEP/BLOCK`; first evaluation fails open and same-item re-evaluation is not established. This is embedding similarity, not generation or broad video understanding. | Verify host execution/feed re-evaluation, assess false positives and calibrate UA/RU/EN; other content modalities remain unimplemented |
 | OCR / ASR / subtitle analysis | No complete, verified pre-display pipeline is established | Separate feasibility gate; do not assume availability |
-| AI research catalogue | `SOURCE_REVIEWED`: existing 65 candidate IDs and 52 explicit language tags remain research-only; zero verified installable models | No production picker/installer or model-ready claim until runtime and offline inference are proven |
+| AI research catalogue | `SOURCE_REVIEWED`: existing 65 candidate IDs and 52 explicit language tags remain research-only; the optional manager currently supports only the pinned E5 profile, and no model is verified runnable in the Morphe host | Add signed/hosted Stable-catalogue entries only after runtime and offline inference are proven |
 | M4 Blocked Videos History | `SOURCE_REVIEWED`: bounded local JSON history, separate exact-ID restore list, final-exclusion capture, restore check before filtering, review/delete/restore/clear UI | Verify persistence races and all actions on Galaxy A25; no runtime check performed in this run |
 | Documentation publication | Codex reports docs-only commit `f110e57be` containing `docs/ROADMAP.md` and `docs/research/AI_MODEL_CATALOG.md`, pushed to `origin/main` | Confirm the active local branch is on that commit or a descendant; this does not prove source cleanliness or device/runtime behaviour |
 
@@ -842,7 +842,7 @@ After functionality and UI stabilise, finish English-first strings, translations
 
 Keep the manual M1 Galaxy A25 verification as a separate owner/device gate. The Codex report for documentation commit `f110e57be` does not prove device behaviour, model runtime, model installation or a clean source worktree.
 
-After the M7/M9 gates pass, continue model delivery and broader AI roadmap work; do not expose production Model Manager or additional models before the host/runtime path is verified.
+After the M7/M9 gates pass, add hosted/signed catalog delivery and broader AI roadmap work; do not mark the current import/direct-package manager or any model device-verified before the host/runtime path is verified.
 
 Latest reported global research catalogue status: 65 candidate IDs and 52 explicit language tags; all remain research-only. No model is currently verified installable or runnable offline inside the Morphe extension. Preserve this honest state until real host/runtime inference is demonstrated.
 
