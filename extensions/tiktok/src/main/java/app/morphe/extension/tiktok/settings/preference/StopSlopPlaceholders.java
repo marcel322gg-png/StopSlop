@@ -62,7 +62,7 @@ final class StopSlopPlaceholders {
 
         screen.addPreference(SectionHeadingPreference.stopSlop(context, "AI-generated content"));
         TogglePreference aiGenerated = new TogglePreference(context, "Hide AI-generated posts",
-                "Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.",
+                "Off by default. Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.",
                 Settings.STOP_SLOP_AI_GENERATED);
         aiGenerated.setChecked(Settings.STOP_SLOP_AI_GENERATED.savedValue()
                 || Settings.HIDE_AI_GENERATED.savedValue());

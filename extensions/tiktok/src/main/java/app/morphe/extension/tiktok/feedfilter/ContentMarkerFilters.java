@@ -190,8 +190,7 @@ public final class ContentMarkerFilters {
     public static class PaidPartnershipFilter implements IFilter {
         @Override
         public boolean getEnabled() {
-            return Settings.HIDE_PAID_PARTNERSHIP.get() && Settings.STOP_SLOP_AD_SPONSORSHIP.get()
-                    && !Settings.REMOVE_ADS.get();
+            return Settings.HIDE_PAID_PARTNERSHIP.get();
         }
 
         @Override

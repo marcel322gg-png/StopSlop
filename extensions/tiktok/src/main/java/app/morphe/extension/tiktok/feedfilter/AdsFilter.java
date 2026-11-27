@@ -58,12 +58,13 @@ public class AdsFilter implements IFilter {
 
     @Override
     public boolean getEnabled() {
-        return Settings.STOP_SLOP_AD_SPONSORSHIP.get() && Settings.REMOVE_ADS.get();
+        // Keep the inherited Remove feed ads control working while letting StopSlop's switch
+        // independently enable these same metadata signals.
+        return Settings.REMOVE_ADS.get() || Settings.STOP_SLOP_AD_SPONSORSHIP.get();
     }
 
     @Override
     public boolean getFiltered(Aweme item) {
-        if (!Settings.STOP_SLOP_AD_SPONSORSHIP.get()) return false;
         return item.isAd()
                 || item.isSoftAd()
                 || item.getAwemeRawAd() != null

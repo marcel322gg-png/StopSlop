@@ -1888,8 +1888,10 @@ public final class FeedItemsFilter {
     private static List<IFilter> getActiveFilters(List<IFilter> filters) {
         List<IFilter> activeFilters = new ArrayList<>(filters.size());
         for (IFilter filter : filters) {
-            if (filter.getEnabled()) {
-                activeFilters.add(filter);
+            try {
+                if (filter.getEnabled()) activeFilters.add(filter);
+            } catch (RuntimeException | LinkageError failure) {
+                logFilterFailure(filter, "enabled state", failure);
             }
         }
         return activeFilters;
@@ -1931,18 +1933,23 @@ public final class FeedItemsFilter {
                     }
                     return filter.getClass().getSimpleName();
                 }
-            } catch (RuntimeException exception) {
-                int count = filterExceptionLogCount.getAndIncrement();
-                if (count < 3) {
-                    Logger.printException(
-                        () -> "[Morphe TikTok FeedFilter] " + filter.getClass().getSimpleName()
-                            + " failed for aid=" + item.getAid() + "; keeping the item",
-                        exception
-                    );
-                }
+            } catch (RuntimeException | LinkageError failure) {
+                logFilterFailure(filter, "item decision", failure);
             }
         }
         return null;
+    }
+
+    /** Logs bounded detector diagnostics without feed text, item IDs, or account identifiers. */
+    private static void logFilterFailure(IFilter filter, String stage, Throwable failure) {
+        int count = filterExceptionLogCount.getAndIncrement();
+        if (count < 3) {
+            Logger.printException(
+                () -> "[Morphe TikTok FeedFilter] " + filter.getClass().getSimpleName()
+                    + " failed while checking " + stage + "; skipping this detector",
+                failure
+            );
+        }
     }
 
     private static void logNullItems(String source, AtomicInteger counter) {

@@ -83,7 +83,7 @@ final class FeedFilterFeedback {
         MARKER_SWITCHES.put("LocationBadgeFilter",
                 new MarkerSwitch(feedFilter, Settings.FILTER_LOCATION_VIDEOS.key, "Filter location-tagged videos"));
         MARKER_SWITCHES.put("AiGeneratedFilter",
-                new MarkerSwitch(feedFilter, Settings.HIDE_AI_GENERATED.key, "Hide AI-generated videos"));
+                new MarkerSwitch(feedFilter, Settings.STOP_SLOP_AI_GENERATED.key, "Hide AI-generated posts"));
         MARKER_SWITCHES.put("VerifiedFilter",
                 new MarkerSwitch(feedFilter, Settings.HIDE_VERIFIED.key, "Hide verified accounts"));
         MARKER_SWITCHES.put("SeriesFilter",

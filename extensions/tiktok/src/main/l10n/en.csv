@@ -1020,7 +1020,6 @@ Hide playable games,Hide playable games
 Hide playlist videos,Hide playlist videos
 "Hide posts only a creator's subscribers can watch, the ones with a lock, on the feed and on profiles.","Hide posts only a creator's subscribers can watch, the ones with a lock, on the feed and on profiles."
 Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.,Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.
-"Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.","Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count."
 Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.,Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.
 Hide profile pictures in comments,Hide profile pictures in comments
 Hide profile shortcuts,Hide profile shortcuts
@@ -1661,6 +1660,7 @@ Notices from this project and the ones it's built on,Notices from this project a
 Notifications,Notifications
 OK,OK
 Off,Off
+"Off by default. Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.","Off by default. Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count."
 "Off forces the value to false, on forces it to true. Reset lets TikTok decide again.","Off forces the value to false, on forces it to true. Reset lets TikTok decide again."
 "Off until you tap it. Wipes TikTok's data once, on the next start, and gives it a new Android ID and advertising ID, so it sees a phone it hasn't met. You'll be signed out and lose your drafts. Hushfeed's settings stay.","Off until you tap it. Wipes TikTok's data once, on the next start, and gives it a new Android ID and advertising ID, so it sees a phone it hasn't met. You'll be signed out and lose your drafts. Hushfeed's settings stay."
 "Off, only its button closes it.","Off, only its button closes it."

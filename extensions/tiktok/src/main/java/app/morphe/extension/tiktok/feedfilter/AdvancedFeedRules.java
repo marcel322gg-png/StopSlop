@@ -633,10 +633,7 @@ public final class AdvancedFeedRules {
     }
 
     public static final class PromotionalMusicFilter implements IFilter {
-        public boolean getEnabled() {
-            return Settings.HIDE_PROMOTIONAL_MUSIC.get() && Settings.STOP_SLOP_AD_SPONSORSHIP.get()
-                    && !Settings.REMOVE_ADS.get();
-        }
+        public boolean getEnabled() { return Settings.HIDE_PROMOTIONAL_MUSIC.get(); }
         public boolean getFiltered(Aweme item) { return item.isWithPromotionalMusic(); }
     }
 

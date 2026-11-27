@@ -3186,7 +3186,7 @@ In-video Ads	Werbung im Video
 Coming soon; unavailable until local OCR and audio support exists.	Demnächst verfügbar; bis zur lokalen OCR- und Audio-Unterstützung nicht verfügbar.
 AI & Slop	KI & minderwertige Inhalte
 Hide AI-generated posts	KI-generierte Beiträge ausblenden
-Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.	Beiträge mit ausdrücklichen KI-Kennzeichnungen, Metadaten oder KI-Tags ausblenden. Sprache und geringe Interaktion allein zählen nicht.
+Off by default. Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.	Standardmäßig aus. Beiträge mit ausdrücklichen KI-Kennzeichnungen, Metadaten oder KI-Tags ausblenden. Sprache und geringe Interaktion allein zählen nicht.
 Feed quality	Feed-Qualität
 Minimum likes	Mindestanzahl Likes
 Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.	Beiträge mit weniger Likes als dem Grenzwert ausblenden. Beiträge ohne bekannte Like-Zahl bleiben sichtbar.
