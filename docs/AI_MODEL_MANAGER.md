@@ -6,8 +6,11 @@ StopSlop's deterministic filters work without a model. AI defaults off, and the 
 
 The existing Settings page now has an **AI / Models** area with:
 
-- the supported multilingual E5 Small profile and its pinned Xenova revision;
-- explicit download of a `.ssmodel` from a user-supplied HTTPS URL, with an unverified-host warning;
+- an official catalog loaded from `https://marcel322gg-png.github.io/StopSlop/catalog/v1/catalog.json`;
+- compatible model details including language evidence, size, version, runtime profile, license, source revision and package SHA-256;
+- explicit download from the model's canonical GitHub Release URL, checked against catalog size and SHA-256 before package validation;
+- cached catalog fallback for offline browsing, bounded to 64 KiB and at most 16 entries;
+- the existing advanced direct HTTPS `.ssmodel` URL flow, with an unverified-host warning;
 - local `.ssmodel` import through Android's `ACTION_OPEN_DOCUMENT` picker;
 - installed model details, active selection/switching, storage totals, and deletion;
 - progress, cancellation, validation errors, and status text.
@@ -32,24 +35,36 @@ The pinned entry is `Xenova/multilingual-e5-small` revision `761b726dd34fb83930e
 
 `tools/package_stop_slop_e5_model.py` verifies those source files and creates `artifacts/model-packages/multilingual-e5-small.ssmodel`. The audited package is 86,306,396 bytes with SHA-256 `7a631638566759f87960f1e90eb913bcb50052148ae7a06730886069692235ee`. It contains no DEX, JAR, `.so`, or script entries. The package artifact and model inputs are ignored by Git.
 
-The package is generated locally; this repository has no hosted `.ssmodel` download URL or signed catalog. **Browse models** shows the pinned profile, while **Download** requires the user to enter a direct HTTPS URL for a hosted package. The host is not authenticated. Exact pinned E5 file hashes are app-pinned; other packages are accepted only for the same E5 profile and are clearly identified as unverified. This does not support arbitrary Hugging Face models or other tokenizer/runtime formats.
+The app accepts only the fixed public catalog origin and canonical release URLs for catalog entries. Unknown runtime profiles, package schemas, revisions, ABI/API constraints or non-canonical download URLs are shown as unavailable; catalog metadata cannot make an arbitrary ONNX package compatible. Catalog and release metadata use HTTPS and SHA-256; SHA-256 is a corruption check, **not** a publisher signature. No private key or GitHub token is embedded in the app. The manual URL route is retained as an explicitly unverified fallback. Hugging Face is used only by CI to retrieve the pinned source files; the Android app never calls the Hub.
+
+## Model publication and Pages deployment
+
+`.github/workflows/publish-model-release.yml` runs only by deliberate `workflow_dispatch` or a `model-vX.Y.Z` tag. It uses the built-in `GITHUB_TOKEN`, pinned full-commit GitHub Actions, a locked Python 3.11.9 converter environment, and anonymous HTTPS downloads from the immutable Hugging Face revision. It regenerates the tokenizer graph, builds the `.ssmodel`, and fails closed unless exact encoder/tokenizer/license/notice hashes, archive paths, schema, license, size and package metadata pass. It creates a draft GitHub Release only after validation, attaches the package, SHA-256 file, release manifest and catalog JSON, then publishes it. A version collision fails instead of replacing an existing release.
+
+The generator's pinned dependency set is new and the current worktree did not run a GitHub-hosted tokenizer rebuild; the expected tokenizer hash is enforced before publication. Thus a release is **not** claimed until the workflow successfully rebuilds the graph and publishes its assets.
+
+`.github/workflows/deploy-model-catalog.yml` runs after the publisher workflow completes successfully and receives only the version through a five-day Actions artifact. This works with the release created using `GITHUB_TOKEN` without granting Actions write access or depending on a token-generated `release` event. It checks release metadata/assets against the catalog, validates the v1 schema contract and uses the official Pages Actions pinned by full commit SHA. A Pages setup failure can be retried by rerunning this workflow for the existing version, without recreating or overwriting the Release.
+
+The intended Pages base is `https://marcel322gg-png.github.io/StopSlop/`; the catalog URL above is the app's fixed endpoint. A read-only GitHub Pages API check returned HTTP 404, and the public Release list has no `model-v*` Release. Thus neither URL is live yet. One-time repository setup is required: GitHub repository **Settings → Pages → Build and deployment → Source → GitHub Actions**. No PAT or Actions secret is required. After enabling it, run **Actions → Publish StopSlop E5 model release → Run workflow** with version `1.0.0`; after the release publishes, the catalog deployment runs automatically. If the Pages job failed before setup, rerun **Deploy StopSlop model catalog** for the already-published version.
+
+The release workflow refuses an existing release/tag collision. If tokenizer regeneration does not produce the pinned graph checksum, the release job stops before uploading anything; inspect the failed Actions log before changing the lock or expected hash.
 
 ## Model-free release MPP
 
 Built with the repository's pinned Gradle 9.9.1 and Morphe plugin 2.1.1. `verifyBundle` passed for 156 patches and all three non-empty DEX payloads. ZIP integrity passed, there are no duplicate entries, and the archive contains no model or tokenizer files. The extension patch maps only the eight pinned ONNX/ORT Extensions native libraries to standard ARM64 and ARM32 library paths. The existing patch name and Settings dependency remain stable.
 
-`patches/build/release/patches-0.84.0.mpp` is 26,132,162 bytes (24.922 MiB), SHA-256 `88c6893551528d0a7cae81bc97e4b11301844f47f78a983be76daa8e5dea82b2`. It is unsigned; the release receipt was refused because the source tree is dirty. ZIP integrity passed with no duplicate paths or model/tokenizer payloads (one empty `stop_slop/models/` directory entry remains). Size breakdown:
+`patches/build/release/patches-0.84.0.mpp` is 26,136,171 bytes (24.925 MiB), SHA-256 `af49c659196faa76e77da57d095df5c52f60336a7e9f44c032dd47ae4e8e38f2`. It is unsigned; the release receipt was refused because the source tree is dirty. ZIP integrity passed with no duplicate paths or model/tokenizer files. Size breakdown:
 
 | Payload | Uncompressed bytes | Compressed bytes in MPP |
 |---|---:|---:|
-| TikTok and shared extension MPEs (DEX) | 8,985,544 | 3,783,326 |
+| TikTok and shared extension MPEs (DEX) | 9,001,548 | 3,787,335 |
 | Eight ARM64/ARM32 native runtime libraries | 41,853,012 | 16,896,457 |
-| Other patch payloads and metadata | 13,053,682 | 5,070,811 |
+| Other patch payloads and metadata, including `classes.dex` | 13,053,682 | 5,070,811 |
 | ZIP headers and directory overhead | — | 381,568 |
-| **Total** | **63,892,238** | **26,132,162** |
+| **Total** | **63,908,242** | **26,136,171** |
 
 The compressed native libraries alone exceed 15 MiB, so this build misses both the 10 MiB stretch goal and 15 MiB target while preserving the current generic ONNX/ORT Extensions runtime and both ARM ABIs. No custom operator-pruned runtime has been built or validated. API 23+ device execution remains unverified.
 
 ## Manual verification still needed
 
-Install the MPP with Morphe Manager, then verify on the phone: no model is selected by default; deterministic filters remain active; model import and a hosted HTTPS download show progress and cancel cleanly; invalid/hash-mismatched packages are rejected; a valid package becomes `READY` only after session creation; switching clears stale state; active-model deletion requires switching or disabling AI; inference works offline and no caption/topic data leaves the device. Check both normal use and app-data removal behavior. No automated tests, ADB, emulator, or device checks were run for this implementation.
+Install the MPP with Morphe Manager, then verify on the phone: no model is selected by default; deterministic filters remain active; the official catalog loads, displays the real package metadata and can download the public Release asset; offline cache works; wrong catalog hash/size, corrupted package and unsupported-profile cases fail closed; import and manual HTTPS fallback work; a valid package becomes `READY` only after session creation; switching clears stale state; active-model deletion is safe; inference works offline and no caption/topic data leaves the device. Confirm the target TikTok manifest grants INTERNET; no permission was added by this patch, and the available manifest fixture is not the exact target APK. Check app-data removal behavior, API 23 and both supported ARM ABIs. No automated tests, ADB, emulator, or device checks were run for this implementation.
