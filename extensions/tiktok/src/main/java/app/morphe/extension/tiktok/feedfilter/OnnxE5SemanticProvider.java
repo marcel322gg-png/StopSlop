@@ -57,12 +57,14 @@ final class OnnxE5SemanticProvider implements AutoCloseable {
 
         environment = OrtEnvironment.getEnvironment();
         try (OrtSession.SessionOptions tokenizerOptions = new OrtSession.SessionOptions()) {
+            tokenizerOptions.setExecutionMode(OrtSession.SessionOptions.ExecutionMode.SEQUENTIAL);
             tokenizerOptions.setIntraOpNumThreads(1);
             tokenizerOptions.setInterOpNumThreads(1);
             tokenizerOptions.registerCustomOpLibrary(OrtxPackage.getLibraryPath());
             tokenizerSession = environment.createSession(tokenizerFile.getAbsolutePath(), tokenizerOptions);
         }
         try (OrtSession.SessionOptions modelOptions = new OrtSession.SessionOptions()) {
+            modelOptions.setExecutionMode(OrtSession.SessionOptions.ExecutionMode.SEQUENTIAL);
             modelOptions.setIntraOpNumThreads(1);
             modelOptions.setInterOpNumThreads(1);
             modelSession = environment.createSession(modelFile.getAbsolutePath(), modelOptions);
