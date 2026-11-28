@@ -40,8 +40,7 @@ final class TopicFilter implements IFilter {
                 && !rules.semanticTopics().isEmpty(); }
         catch (RuntimeException | LinkageError unavailablePreference) { /* AI stays off. */ }
         try {
-            // This only queues initialization. Model files are checked on the inference worker.
-            LocalContentInference.setEnabled(semanticRequested);
+            // Feed evaluation never starts or binds the isolated AI service.
             if (semanticRequested) {
                 LocalContentInference.updateTopicConfiguration(Long.toString(rules.version), semanticThreshold());
             }

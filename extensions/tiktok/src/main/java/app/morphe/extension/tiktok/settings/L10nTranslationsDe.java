@@ -15,7 +15,7 @@ final class L10nTranslationsDe {
     }
 
     static Map<String, String> build() {
-        Map<String, String> table = new HashMap<>(6358);
+        Map<String, String> table = new HashMap<>(6384);
         fill0(table);
         fill1(table);
         fill2(table);
@@ -69,6 +69,7 @@ final class L10nTranslationsDe {
         fill50(table);
         fill51(table);
         fill52(table);
+        fill53(table);
         return table;
     }
 
@@ -480,6 +481,10 @@ final class L10nTranslationsDe {
                 "KI Tako");
         table.put("AI chat",
                 "KI-Chat");
+        table.put("AI diagnostics",
+                "KI-Diagnose");
+        table.put("AI diagnostics copied. It contains runtime and process details but no captions or account data.",
+                "KI-Diagnosedaten kopiert. Sie enthalten Laufzeit- und Prozessdetails, aber keine Beschreibungen oder Kontodaten.");
         table.put("AI model: Not installed. Browse models or import an E5 package; deterministic filters stay available.",
                 "KI-Modell: Nicht installiert. Durchsuche Modelle oder importiere ein E5-Paket. Die deterministischen Filter bleiben verfügbar.");
         table.put("AI model: Not installed. Browse or import a compatible E5 package to enable semantic filtering.",
@@ -488,6 +493,8 @@ final class L10nTranslationsDe {
                 "KI-Modell: Nicht installiert. Durchsuche Modelle oder importiere ein kompatibles E5-Paket.");
         table.put("AI theater",
                 "KI-Theater");
+        table.put("AI unavailable: isolated process is not supported by this patch target",
+                "KI nicht verfügbar: Dieses Patch-Ziel unterstützt keinen isolierten Prozess");
         table.put("AI-generated content",
                 "KI-generierte Inhalte");
         table.put("AI-generated posts",
@@ -556,15 +563,15 @@ final class L10nTranslationsDe {
                 "Neben der Blockieren-Schaltfläche eine Schaltfläche hinzufügen, um Feedback zum aktuellen Video zu senden.");
         table.put("Add a button that hides the current creator on this phone without blocking them.",
                 "Eine Schaltfläche hinzufügen, die den aktuellen Creator auf diesem Gerät ausblendet, ohne ihn zu blockieren.");
+    }
+
+    private static void fill4(Map<String, String> table) {
         table.put("Add a creator",
                 "Creator hinzufügen");
         table.put("Add a line along the bottom of a sound's cover while its preview plays, with the time played and the preview's length. Tap or drag it to move through the preview.",
                 "Eine Linie am unteren Rand des Covers eines Sounds hinzufügen, solange seine Vorschau läuft, mit der gespielten Zeit und der Länge der Vorschau. Tippe darauf oder ziehe sie, um in der Vorschau zu springen.");
         table.put("Add a seen-history file saved by Hushfeed to the videos @%1$s has seen. A video in both keeps the newer date.",
                 "Eine von Hushfeed gesicherte Verlaufsdatei zu den Videos hinzufügen, die @%1$s gesehen hat. Ein Video, das in beiden steht, behält das neuere Datum.");
-    }
-
-    private static void fill4(Map<String, String> table) {
         table.put("Add a seen-history file saved by Hushfeed to this account's seen videos. A video in both keeps the newer date.",
                 "Eine von Hushfeed gesicherte Verlaufsdatei zu den gesehenen Videos dieses Kontos hinzufügen. Ein Video, das in beiden steht, behält das neuere Datum.");
         table.put("Add a separate button that skips videos using the current sound.",
@@ -679,15 +686,15 @@ final class L10nTranslationsDe {
                 "Bereits als „nicht interessiert“ markiert");
         table.put("Already saved. Open TikTok to save another copy.",
                 "Schon gespeichert. Weitere Kopie? Öffne TikTok.");
+    }
+
+    private static void fill5(Map<String, String> table) {
         table.put("Also apply these filters to downloaded videos TikTok uses when the feed can't load enough new items.",
                 "Diese Filter auch auf heruntergeladene Videos anwenden, die TikTok nutzt, wenn der Feed nicht genug neue Beiträge laden kann.");
         table.put("Also change the region TikTok reports internally and set TikTok to the country's time zone. Keeps your interface language. Your IP address and your account's own rules still apply.",
                 "Ändert außerdem die Region, die TikTok intern meldet, und stellt TikTok auf die Zeitzone des Landes. Die Sprache der Oberfläche bleibt. Deine IP-Adresse und die Regeln deines Kontos gelten weiterhin.");
         table.put("Also filter it",
                 "Auch filtern");
-    }
-
-    private static void fill5(Map<String, String> table) {
         table.put("Also hide videos whose text stickers match a blocked caption word. Text stickers are the words a creator types over the video in TikTok's editor. Text that's part of the picture itself can't be read.",
                 "Blendet auch Videos aus, deren Textsticker ein gesperrtes Wort aus den Beschreibungen enthalten. Textsticker sind die Wörter, die jemand im TikTok-Editor über das Video schreibt. Text, der zum Bild selbst gehört, kann nicht gelesen werden.");
         table.put("Also listens to the LIVE's sound, so your name counts when it's said out loud in rooms without captions. Your phone's own speech recognition does the listening, with TikTok's microphone permission. It hears only the LIVE, though Android shows its microphone dot, and it uses a little more data.",
@@ -802,15 +809,15 @@ final class L10nTranslationsDe {
                 "Automatisches Weiterschalten");
         table.put("Auto-advance in search results",
                 "Automatisch weiter in Suchergebnissen");
+    }
+
+    private static void fill6(Map<String, String> table) {
         table.put("Auto-advance session limit",
                 "Limit für automatisches Weiterschalten pro Sitzung");
         table.put("Auto-advance stopped after %1$d videos",
                 "Automatisches Weiterschalten nach %1$d Videos angehalten");
         table.put("Auto-advance stopped after one video",
                 "Automatisches Weiterschalten nach einem Video angehalten");
-    }
-
-    private static void fill6(Map<String, String> table) {
         table.put("Auto-advance videos",
                 "Videos automatisch weiterschalten");
         table.put("Automatic",
@@ -925,15 +932,15 @@ final class L10nTranslationsDe {
                 "Macht im Haupt-Feed den Teil des Videos unscharf, der hinter der Glaskapsel liegt, sodass sie wie Milchglas aussieht. Braucht Liquid-Glass-Look und Android 12 oder neuer.");
         table.put("Blur the video behind the bar",
                 "Video hinter der Leiste unscharf machen");
+    }
+
+    private static void fill7(Map<String, String> table) {
         table.put("Bold",
                 "Fett");
         table.put("Bottom bar height",
                 "Höhe der unteren Leiste");
         table.put("Bottom bar icons",
                 "Symbole der unteren Leiste");
-    }
-
-    private static void fill7(Map<String, String> table) {
         table.put("Bottom left double tap",
                 "Doppeltippen unten links");
         table.put("Bottom right double tap",
@@ -1048,15 +1055,15 @@ final class L10nTranslationsDe {
                 "Wähle die Datei nach diesem Durchlauf noch mal, um die anderen %1$s zu speichern");
         table.put("Choose what reaches your feed",
                 "Wähle aus, was in deinem Feed erscheint");
+    }
+
+    private static void fill8(Map<String, String> table) {
         table.put("Choose which bottom tabs stay visible.",
                 "Wähle, welche unteren Tabs sichtbar bleiben.");
         table.put("Choose which feed tabs stay visible. If only For You is left, its tab name is hidden.",
                 "Wähle, welche Feed-Tabs sichtbar bleiben. Bleibt nur For You übrig, wird sein Tab-Name ausgeblendet.");
         table.put("Choose which rows and controls appear",
                 "Wähle sichtbare Zeilen und Bedienelemente");
-    }
-
-    private static void fill8(Map<String, String> table) {
         table.put("Circle",
                 "Kreis");
         table.put("Clean up shared links",
@@ -1095,6 +1102,8 @@ final class L10nTranslationsDe {
                 "Suchverlauf löschen");
         table.put("Clear seen videos",
                 "Gesehene Videos löschen");
+        table.put("Clear the saved opt-in without starting the isolated AI process.",
+                "Die gespeicherte Aktivierung löschen, ohne den isolierten KI-Prozess zu starten.");
         table.put("Clear the search",
                 "Suche löschen");
         table.put("Cleared. Tap to undo before TikTok closes.",
@@ -1169,6 +1178,9 @@ final class L10nTranslationsDe {
                 "Kompaktes Menü beim langen Drücken überall");
         table.put("Compare caption and hashtag text with your first 16 topic rules using the local model. The first feed evaluation stays visible while it loads.",
                 "Vergleicht Beschriftung und Hashtags mit den ersten 16 Themenregeln mithilfe des lokalen Modells. Beim ersten Feed-Durchlauf bleiben Videos sichtbar, während das Modell lädt.");
+    }
+
+    private static void fill9(Map<String, String> table) {
         table.put("Compare gate reads with their previous values.",
                 "Gate-Zugriffe mit ihren vorherigen Werten vergleichen.");
         table.put("Config",
@@ -1177,9 +1189,6 @@ final class L10nTranslationsDe {
                 "Konfiguration (Settings Manager)");
         table.put("Confirm before a quick repost",
                 "Vor einem schnellen Repost bestätigen");
-    }
-
-    private static void fill9(Map<String, String> table) {
         table.put("Confirm before following",
                 "Vor dem Folgen bestätigen");
         table.put("Confirm before liking",
@@ -1212,6 +1221,8 @@ final class L10nTranslationsDe {
                 "Build-Informationen kopieren");
         table.put("Copy comments without username",
                 "Kommentare ohne Nutzernamen kopieren");
+        table.put("Copy isolated AI diagnostics",
+                "Diagnosedaten des isolierten KI-Prozesses kopieren");
         table.put("Copy name",
                 "Namen kopieren");
         table.put("Copy only the comment text when using TikTok's copy comment action.",
@@ -1290,6 +1301,9 @@ final class L10nTranslationsDe {
                 "Export-Dateiauswahl nicht geöffnet. Versuch es erneut.");
         table.put("Couldn't open the file picker to import. Try again.",
                 "Import-Dateiauswahl nicht geöffnet. Versuch es erneut.");
+    }
+
+    private static void fill10(Map<String, String> table) {
         table.put("Couldn't open your photos. Try again.",
                 "Fotos nicht erreichbar. Versuch es noch einmal.");
         table.put("Couldn't put back the diagnostic data. Try again.",
@@ -1300,9 +1314,6 @@ final class L10nTranslationsDe {
                 "TikTok nicht erreichbar. Öffne das LIVE erneut.");
         table.put("Couldn't read %1$s. Write days and hours like Mon-Fri 21:00-07:00.",
                 "%1$s konnte nicht gelesen werden. Schreibe Tage und Uhrzeiten wie Mon-Fri 21:00-07:00.");
-    }
-
-    private static void fill10(Map<String, String> table) {
         table.put("Couldn't read TikTok's current values. Refresh values from the menu to try again.",
                 "TikToks aktuelle Werte ließen sich nicht lesen. Aktualisiere die Werte über das Menü, um es erneut zu versuchen.");
         table.put("Couldn't read a field value. Check and try again.",
@@ -1413,6 +1424,9 @@ final class L10nTranslationsDe {
                 "Deckt das ganze Fenster ab, ohne etwas abzuschneiden. Das Video wird dafür etwas höher oder breiter. Ein Video, dessen Form stark vom Bildschirm abweicht, behält die Größe von TikTok.");
         table.put("Create",
                 "Erstellen");
+    }
+
+    private static void fill11(Map<String, String> table) {
         table.put("Creator exceptions",
                 "Creator-Ausnahmen");
         table.put("Creators and sounds",
@@ -1423,9 +1437,6 @@ final class L10nTranslationsDe {
                 "Creator, die du bei einem Video ausgeblendet hast. Durchsuche die Liste und entferne einzelne Einträge.");
         table.put("Crop and stretch to fill the screen",
                 "Zuschneiden und strecken, um den Bildschirm zu füllen");
-    }
-
-    private static void fill11(Map<String, String> table) {
         table.put("Crop the video until it covers the whole window. On a tall phone the black strip TikTok leaves under a video goes and so does a little of each side.",
                 "Das Video wird beschnitten bis es das ganze Fenster bedeckt. Auf einem hohen Telefon verschwindet der schwarze Streifen unter dem Video und mit ihm ein wenig von jeder Seite.");
         table.put("Current",
@@ -1536,6 +1547,9 @@ final class L10nTranslationsDe {
                 "Entdecken");
         table.put("Discover in the bottom bar",
                 "Entdecken in der unteren Leiste");
+    }
+
+    private static void fill12(Map<String, String> table) {
         table.put("Discover takes the place of Friends in the bottom bar, the way TikTok lays it out in some countries. Your region and your feed stay as they are.",
                 "Entdecken ersetzt Freunde in der unteren Leiste, so wie TikTok sie in manchen Ländern anordnet. Deine Region und dein Feed bleiben, wie sie sind.");
         table.put("Dismiss",
@@ -1546,9 +1560,6 @@ final class L10nTranslationsDe {
                 "Ein Kontovorschlag entfernt");
         table.put("Display",
                 "Anzeige");
-    }
-
-    private static void fill12(Map<String, String> table) {
         table.put("Display name last changed",
                 "Anzeigename zuletzt geändert");
         table.put("Display profile when sharing links",
@@ -1659,6 +1670,9 @@ final class L10nTranslationsDe {
                 "Gib eine Stunde ein, etwa 6 oder 06:00");
         table.put("Enter one speed from %1$s to %2$s",
                 "Gib eine Geschwindigkeit von %1$s bis %2$s ein");
+    }
+
+    private static void fill13(Map<String, String> table) {
         table.put("Enter positive topics separated by semicolons, such as: Dota 2; science; wildlife; programming;",
                 "Gib positive Themen mit Semikolons getrennt ein, zum Beispiel: Dota 2; Wissenschaft; Wildtiere; Programmieren;");
         table.put("Enter true or false",
@@ -1669,9 +1683,6 @@ final class L10nTranslationsDe {
                 "Trag unten ein, wem geschrieben werden soll, um zu beginnen.");
         table.put("Entry %1$d has a field with the wrong data type.",
                 "Eintrag %1$d enthält ein Feld mit dem falschen Datentyp.");
-    }
-
-    private static void fill13(Map<String, String> table) {
         table.put("Entry %1$d isn't an object.",
                 "Eintrag %1$d ist kein Objekt.");
         table.put("Episode %1$s",
@@ -1782,6 +1793,9 @@ final class L10nTranslationsDe {
                 "Untere Tabs filtern");
         table.put("Filter comments by keyword",
                 "Kommentare nach Stichwort filtern");
+    }
+
+    private static void fill14(Map<String, String> table) {
         table.put("Filter feed tabs",
                 "Feed-Tabs filtern");
         table.put("Filter location-tagged videos",
@@ -1792,9 +1806,6 @@ final class L10nTranslationsDe {
                 "LIVE-Feed filtern");
         table.put("Filter the list",
                 "Liste filtern");
-    }
-
-    private static void fill14(Map<String, String> table) {
         table.put("Filter: %1$s",
                 "Filter: %1$s");
         table.put("Filters, translation and copy options",
@@ -1905,6 +1916,9 @@ final class L10nTranslationsDe {
                 "Alle Änderungen");
         table.put("Full comment sort options",
                 "Vollständige Sortieroptionen für Kommentare");
+    }
+
+    private static void fill15(Map<String, String> table) {
         table.put("Full license",
                 "Vollständige Lizenz");
         table.put("Full link copied",
@@ -1915,9 +1929,6 @@ final class L10nTranslationsDe {
                 "Volles Menü bei langem Drücken auf Videos eines Creators");
         table.put("Full report saved to %1$s",
                 "Vollständiger Bericht gespeichert unter %1$s");
-    }
-
-    private static void fill15(Map<String, String> table) {
         table.put("Full screen opens with just your video on most pages, so there's nothing to swipe to. This brings the videos after it along.",
                 "Auf den meisten Seiten öffnet das Vollbild nur dein Video, es gibt also nichts zum Weiterwischen. Damit kommen die Videos danach mit.");
         table.put("Full tick",
@@ -2028,6 +2039,9 @@ final class L10nTranslationsDe {
                 "LIVE-Videos ausblenden");
         table.put("Hide LIVE videos from the feed.",
                 "LIVE-Videos aus dem Feed ausblenden.");
+    }
+
+    private static void fill16(Map<String, String> table) {
         table.put("Hide LIVEs from accounts you don't follow",
                 "LIVEs von Konten ausblenden, denen du nicht folgst");
         table.put("Hide LIVEs hosted by verified accounts.",
@@ -2038,9 +2052,6 @@ final class L10nTranslationsDe {
                 "LIVEs ausblenden, die TikTok mit einem Spiel oder einer Gaming-Kategorie markiert.");
         table.put("Hide LIVEs that sell products or carry a TikTok Shop tag.",
                 "LIVEs ausblenden, die Produkte verkaufen oder einen Tag von TikTok Shop tragen.");
-    }
-
-    private static void fill16(Map<String, String> table) {
         table.put("Hide On this day",
                 "On this day ausblenden");
         table.put("Hide Search this image prompts",
@@ -2151,6 +2162,9 @@ final class L10nTranslationsDe {
                 "Fotobeiträge aus dem Feed ausblenden.");
         table.put("Hide picture comments",
                 "Bild-Kommentare ausblenden");
+    }
+
+    private static void fill17(Map<String, String> table) {
         table.put("Hide place badges on videos, including cards with multiple places. Videos and your location permissions stay unchanged.",
                 "Blende Ortsangaben in Videos aus, auch Karten mit mehreren Orten. Videos und deine Standortberechtigungen bleiben unverändert.");
         table.put("Hide platform ads and disclosed sponsorships, including paid partnership and promotional content.",
@@ -2161,9 +2175,6 @@ final class L10nTranslationsDe {
                 "Playlist-Videos ausblenden");
         table.put("Hide posts only a creator's subscribers can watch, the ones with a lock, on the feed and on profiles.",
                 "Beiträge mit Schloss, die nur die Abonnenten eines Creators ansehen können, im Feed und auf Profilen ausblenden.");
-    }
-
-    private static void fill17(Map<String, String> table) {
         table.put("Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.",
                 "Beiträge ausblenden, deren Beschreibung zu einer Phrase oder einem Hashtag passt. Ausnahmen und freigegebene Ersteller haben Vorrang.");
         table.put("Hide posts with fewer likes than the threshold. Posts without a known like count stay visible.",
@@ -2274,6 +2285,9 @@ final class L10nTranslationsDe {
                 "Vollbild-Schaltfläche ausblenden");
         table.put("Hide the Full screen button over videos. Playback and automatic rotation keep working as before.",
                 "Blende die Vollbild-Schaltfläche über Videos aus. Wiedergabe und automatische Drehung funktionieren wie bisher.");
+    }
+
+    private static void fill18(Map<String, String> table) {
         table.put("Hide the Hushfeed row",
                 "Hushfeed-Zeile ausblenden");
         table.put("Hide the Inbox search button",
@@ -2284,9 +2298,6 @@ final class L10nTranslationsDe {
                 "LIVE-Knopf ausblenden");
         table.put("Hide the LIVE button in the top left corner of the feed.",
                 "Den LIVE-Knopf in der linken oberen Ecke des Feeds ausblenden.");
-    }
-
-    private static void fill18(Map<String, String> table) {
         table.put("Hide the LIVE row on Following",
                 "LIVE-Leiste bei „Gefolgt“ ausblenden");
         table.put("Hide the Products block and product cards in search results.",
@@ -2397,6 +2408,9 @@ final class L10nTranslationsDe {
                 "Rechte Spalte ausblenden");
         table.put("Hide the row of LIVE and story circles across the top of the Following feed, and the pill that counts them. For You is left as it is.",
                 "Die Reihe mit LIVE- und Story-Kreisen oben im Tab „Gefolgt“ ausblenden, samt der Pille, die sie zählt. „Für dich“ bleibt unverändert.");
+    }
+
+    private static void fill19(Map<String, String> table) {
         table.put("Hide the row of friends at the top of the share sheet and in the menu a long press on a comment opens.",
                 "Die Freundesreihe oben im Teilen-Menü und im Menü, das ein langes Drücken auf einen Kommentar öffnet, ausblenden.");
         table.put("Hide the save button in the right column. Ticking Save in the list above hides it too.",
@@ -2407,9 +2421,6 @@ final class L10nTranslationsDe {
                 "Blende die Suchleiste oben in Videos aus, die du aus der Suche, einem Profil oder deinem Wiedergabeverlauf öffnest. Die Zurück-Schaltfläche bleibt.");
         table.put("Hide the search bar below videos",
                 "Suchleiste unter Videos ausblenden");
-    }
-
-    private static void fill19(Map<String, String> table) {
         table.put("Hide the search button on the feed",
                 "Suchschaltfläche im Feed ausblenden");
         table.put("Hide the share prompt after a like",
@@ -2520,6 +2531,9 @@ final class L10nTranslationsDe {
                 "Stil der Haltegeschwindigkeits-Blase");
         table.put("Hold speed on Comment",
                 "Halte-Geschwindigkeit auf Kommentare");
+    }
+
+    private static void fill20(Map<String, String> table) {
         table.put("Hold speed on Favorites",
                 "Halte-Geschwindigkeit auf Favoriten");
         table.put("Hold speed on Share",
@@ -2530,9 +2544,6 @@ final class L10nTranslationsDe {
                 "Feed nach dem Budget anhalten");
         table.put("Hold the music disc at the bottom of the right column still, even where TikTok turns it. This overrides Spin the music disc.",
                 "Die Musikscheibe unten in der rechten Spalte stillhalten, auch wenn TikTok sie dreht. Das hat Vorrang vor Musikscheibe drehen lassen.");
-    }
-
-    private static void fill20(Map<String, String> table) {
         table.put("Home",
                 "Startseite");
         table.put("Home screen shortcuts",
@@ -2643,6 +2654,9 @@ final class L10nTranslationsDe {
                 "Installiere eine und komm dann hierher zurück.");
         table.put("Installed",
                 "Installiert");
+    }
+
+    private static void fill21(Map<String, String> table) {
         table.put("Installed but not selected. Storage used: %1$d MiB",
                 "Installiert, aber nicht ausgewählt. Speicherbedarf: %1$d MiB");
         table.put("Installed models",
@@ -2653,15 +2667,20 @@ final class L10nTranslationsDe {
                 "Lokales Modell wird installiert");
         table.put("Instead of TikTok's Watch history. A tap on Profile works as before. If holding Profile switches accounts for you, this takes that press.",
                 "Statt des Wiedergabeverlaufs von TikTok. Ein Tippen auf Profil funktioniert wie bisher. Wenn du durch langes Drücken auf Profil das Konto wechselst, übernimmt dies diesen Druck.");
-    }
-
-    private static void fill21(Map<String, String> table) {
         table.put("Instead of these settings. The list has a button that brings you back here.",
                 "Statt dieser Einstellungen. Die Liste hat eine Schaltfläche, die dich hierher zurückbringt.");
         table.put("Invisible controls button",
                 "Taste für unsichtbare Steuerelemente");
         table.put("Invite friends",
                 "Freunde einladen");
+        table.put("Isolated AI inference timed out; semantic filtering is unavailable",
+                "Zeitüberschreitung bei der isolierten KI-Auswertung. Der semantische Filter ist nicht verfügbar.");
+        table.put("Isolated AI process stopped unexpectedly",
+                "Der isolierte KI-Prozess wurde unerwartet beendet");
+        table.put("Isolated AI service context is unavailable",
+                "Der Kontext für den isolierten KI-Dienst ist nicht verfügbar");
+        table.put("Isolated AI service did not respond; tap Retry initialization",
+                "Der isolierte KI-Dienst antwortet nicht. Tippe auf „Initialisierung erneut versuchen“.");
         table.put("It stopped before the end of the list, so the file is partial.",
                 "Es wurde vor dem Ende der Liste gestoppt, die Datei ist also unvollständig.");
         table.put("It's in %1$s, under %2$s. Tap to go there.",
@@ -2758,6 +2777,9 @@ final class L10nTranslationsDe {
                 "Halte diese Zeichenkette bei %1$s Zeichen oder weniger");
         table.put("Keep this structured value to %1$s KB or less",
                 "Strukturierter Wert: höchstens %1$s KB");
+    }
+
+    private static void fill22(Map<String, String> table) {
         table.put("Keep unsent messages",
                 "Zurückgezogene Nachrichten behalten");
         table.put("Keep videos out of Watch history",
@@ -2776,9 +2798,6 @@ final class L10nTranslationsDe {
                 "Auf %1$s gesetzt, nächster Wert dieser Zeile");
         table.put("Kinds of post",
                 "Beitragsarten");
-    }
-
-    private static void fill22(Map<String, String> table) {
         table.put("LIVE",
                 "LIVE");
         table.put("LIVE buttons in the long-press menu",
@@ -2881,6 +2900,9 @@ final class L10nTranslationsDe {
                 "Linker Randstreifen");
         table.put("Length and views per like",
                 "Länge und Aufrufe pro Like");
+    }
+
+    private static void fill23(Map<String, String> table) {
         table.put("Less than a minute left",
                 "Weniger als eine Minute übrig");
         table.put("Let a LIVE fill the screen up to the top edge. The status bar comes back when you leave the LIVE. Swipe down from the top to peek at it.",
@@ -2899,9 +2921,6 @@ final class L10nTranslationsDe {
                 "Den Host dich sehen lassen");
         table.put("Let the last video finish",
                 "Letztes Video zu Ende laufen lassen");
-    }
-
-    private static void fill23(Map<String, String> table) {
         table.put("Let the video reach the bottom of the screen on the main feed and show the tabs over it with no bar behind them.",
                 "Das Video reicht im Haupt-Feed bis zum unteren Bildschirmrand, und die Tabs liegen ohne Leiste dahinter darüber.");
         table.put("Let the video reach the top of the screen, with the clock and status icons over it. Works on the main feed and on videos you open from search, a profile or your Liked and Favorites. The tabs at the top stay where they are.",
@@ -3004,6 +3023,9 @@ final class L10nTranslationsDe {
                 "Status des lokalen Modells");
         table.put("Local profile counts",
                 "Lokale Profilzahlen");
+    }
+
+    private static void fill24(Map<String, String> table) {
         table.put("Local verified badge",
                 "Lokales Verifizierungsabzeichen");
         table.put("Location-tagged videos",
@@ -3022,9 +3044,6 @@ final class L10nTranslationsDe {
                 "Heutiges Budget sperren");
         table.put("Locked all week",
                 "Die ganze Woche gesperrt");
-    }
-
-    private static void fill24(Map<String, String> table) {
         table.put("Locked now, until %1$s",
                 "Jetzt gesperrt, bis %1$s");
         table.put("Log diagnostics",
@@ -3127,6 +3146,9 @@ final class L10nTranslationsDe {
                 "Sprache und Zeitzone an das Land anpassen");
         table.put("Match region fields in requests",
                 "Regionsfelder in Anfragen angleichen");
+    }
+
+    private static void fill25(Map<String, String> table) {
         table.put("Match text stickers too",
                 "Auch Textsticker prüfen");
         table.put("Matches the rule: %1$s",
@@ -3145,9 +3167,6 @@ final class L10nTranslationsDe {
                 "Maximale Aufrufe pro Like");
         table.put("Media",
                 "Medien");
-    }
-
-    private static void fill25(Map<String, String> table) {
         table.put("Media config (VE)",
                 "Medienkonfiguration (VE)");
         table.put("Media save",
@@ -3184,6 +3203,8 @@ final class L10nTranslationsDe {
                 "Modelldetails");
         table.put("Model files are removed if TikTok is uninstalled or app data is cleared.",
                 "Modelldateien werden entfernt, wenn TikTok deinstalliert oder die App-Daten gelöscht werden.");
+        table.put("Model files exist but are invalid or incomplete",
+                "Modelldateien sind ungültig oder unvollständig");
         table.put("Model files exist but are invalid or incomplete. Re-import a compatible E5 package.",
                 "Modelldateien sind ungültig oder unvollständig. Importiere ein kompatibles E5-Paket erneut.");
         table.put("Model files or tensor contract are invalid",
@@ -3248,6 +3269,9 @@ final class L10nTranslationsDe {
                 "Native ONNX-Laufzeit oder ABI konnte nicht geladen werden");
         table.put("Nearby",
                 "In der Nähe");
+    }
+
+    private static void fill26(Map<String, String> table) {
         table.put("Needs Android 13 or newer.",
                 "Braucht Android 13 oder neuer.");
         table.put("Network error. %1$d removed.",
@@ -3268,9 +3292,6 @@ final class L10nTranslationsDe {
                 "Neuer Stil 2");
         table.put("New value",
                 "Neuer Wert");
-    }
-
-    private static void fill26(Map<String, String> table) {
         table.put("Newest first",
                 "Neueste zuerst");
         table.put("Newest likes",
@@ -3307,6 +3328,8 @@ final class L10nTranslationsDe {
                 "Es sind noch keine Kommentare zum Exportieren geladen.");
         table.put("No comments to show",
                 "Keine Kommentare vorhanden");
+        table.put("No compatible model is installed",
+                "Kein kompatibles Modell ist installiert");
         table.put("No compatible model is installed.",
                 "Kein kompatibles Modell installiert.");
         table.put("No creator to block on this video",
@@ -3369,6 +3392,9 @@ final class L10nTranslationsDe {
                 "Noch keine Profil-Verknüpfungen gesehen");
         table.put("No recording yet. Start one, use a feature, then return here.",
                 "Noch keine Aufzeichnung. Starte eine, nutze eine Funktion und komm dann hierher zurück.");
+    }
+
+    private static void fill27(Map<String, String> table) {
         table.put("No reviewed presets for TikTok %1$s yet",
                 "Noch keine geprüften Vorlagen für TikTok %1$s");
         table.put("No rule matches this text.",
@@ -3391,9 +3417,6 @@ final class L10nTranslationsDe {
                 "Keine Kontovorschläge zu entfernen");
         table.put("No text",
                 "Kein Text");
-    }
-
-    private static void fill27(Map<String, String> table) {
         table.put("No video saved. The original photos are missing.",
                 "Kein Video gespeichert. Originalfotos fehlen.");
         table.put("No video selected. Open a video first.",
@@ -3492,6 +3515,9 @@ final class L10nTranslationsDe {
                 "Aus. Mechanische Themenregeln bleiben unverändert.");
         table.put("Off. TikTok can report views and typing.",
                 "Aus. TikTok kann Aufrufe und Tippaktivität melden.");
+    }
+
+    private static void fill28(Map<String, String> table) {
         table.put("Off: this phone's speech recognition only hears the microphone. Turn this off and on to try again.",
                 "Aus: Die Spracherkennung dieses Handys hört nur das Mikrofon. Schalte das aus und wieder ein, um es erneut zu versuchen.");
         table.put("Offer Audio only in LIVE quality",
@@ -3514,9 +3540,6 @@ final class L10nTranslationsDe {
                 "Älteste zuerst");
         table.put("On a one-photo post, Download video makes an MP4 with the post's sound and no TikTok logo or end card. On a post with several photos, Download asks if you want the originals or one video. A photo story saves as a video too.",
                 "Bei einem Beitrag mit einem Foto erstellt „Video herunterladen“ ein MP4 mit dem Ton des Beitrags, ohne TikTok-Logo und Endkarte. Bei mehreren Fotos fragt „Herunterladen“, ob du die Originale oder ein Video möchtest. Eine Foto-Story wird ebenfalls als Video gespeichert.");
-    }
-
-    private static void fill28(Map<String, String> table) {
         table.put("On long profile, Liked and sound grids, scrolling brings up a handle you can drag through what's loaded, plus Top, Back and End buttons. Back returns to where you were.",
                 "In langen Profil-, „Gefällt mir“- und Sound-Rastern erscheint beim Scrollen ein Griff, mit dem du durch alles Geladene ziehen kannst, dazu die Tasten Anfang, Zurück und Ende. Zurück führt dorthin, wo du warst.");
         table.put("On mobile data",
@@ -3615,6 +3638,9 @@ final class L10nTranslationsDe {
                 "Externe Links direkt öffnen");
         table.put("Open messages",
                 "Nachrichten öffnen");
+    }
+
+    private static void fill29(Map<String, String> table) {
         table.put("Open profile and story website links in your system browser instead of TikTok's in-app browser.",
                 "Website-Links aus Profilen und Storys im Systembrowser öffnen statt in TikToks In-App-Browser.");
         table.put("Open setting location",
@@ -3637,9 +3663,6 @@ final class L10nTranslationsDe {
                 "Öffne den TikTok-Startfeed, damit geladene Tabs erkannt werden.");
         table.put("Open the profile again and try once more",
                 "Öffne das Profil erneut und versuche es noch einmal");
-    }
-
-    private static void fill29(Map<String, String> table) {
         table.put("Open the search page",
                 "Suchseite öffnen");
         table.put("Open the story again and try once more",
@@ -3738,6 +3761,9 @@ final class L10nTranslationsDe {
                 "Pausiert");
         table.put("Pauses the video behind the comment sheet while you read. It plays on from the same spot when the sheet closes.",
                 "Hält das Video hinter dem Kommentarfeld an, während du liest. Es läuft an derselben Stelle weiter, wenn das Feld geschlossen wird.");
+    }
+
+    private static void fill30(Map<String, String> table) {
         table.put("People you chat with won't see that you're typing. Needs Ghost mode on.",
                 "Deine Chatpartner sehen nicht, dass du schreibst. Dafür muss der Geistermodus an sein.");
         table.put("People, shortcuts and sending controls",
@@ -3760,9 +3786,6 @@ final class L10nTranslationsDe {
                 "Fotos");
         table.put("Photos and stickers",
                 "Fotos und Sticker");
-    }
-
-    private static void fill30(Map<String, String> table) {
         table.put("Photos can't be saved to the folder in that file, so your photo folder was kept",
                 "Im Ordner aus dieser Datei lassen sich keine Fotos speichern, deshalb wurde dein Fotoordner beibehalten");
         table.put("Pick a .ttf or .otf file of up to %1$s MB.",
@@ -3861,6 +3884,9 @@ final class L10nTranslationsDe {
                 "Läuft mit %1$sx");
         table.put("Playlist posts",
                 "Playlist-Beiträge");
+    }
+
+    private static void fill31(Map<String, String> table) {
         table.put("Plays videos that TikTok covers with a content warning without asking you to tap through first.",
                 "Spielt Videos ab, die TikTok mit einem Inhaltshinweis überdeckt, ohne dass du zuerst durchtippen musst.");
         table.put("Policy updates",
@@ -3883,9 +3909,6 @@ final class L10nTranslationsDe {
                 "Beiträge mit weniger Likes als dieser Zahl werden ausgeblendet, wenn Mindestanzahl Likes aktiviert ist.");
         table.put("Prefer H.264 video",
                 "H.264-Video bevorzugen");
-    }
-
-    private static void fill31(Map<String, String> table) {
         table.put("Preferred Content",
                 "Bevorzugte Inhalte");
         table.put("Preferred topics",
@@ -3984,6 +4007,9 @@ final class L10nTranslationsDe {
                 "Proxy %1$s braucht Name und Passwort");
         table.put("Proxy %1$s refused your user name or password",
                 "Proxy %1$s lehnt Name oder Passwort ab");
+    }
+
+    private static void fill32(Map<String, String> table) {
         table.put("Proxy host",
                 "Proxy-Host");
         table.put("Proxy password",
@@ -4006,9 +4032,6 @@ final class L10nTranslationsDe {
                 "Herunterziehen ganz oben in „Für dich“ lädt den Feed nicht mehr neu.");
         table.put("Put %1$s in %2$s first.",
                 "Trag zuerst %1$s in %2$s ein.");
-    }
-
-    private static void fill32(Map<String, String> table) {
         table.put("Put back the settings saved before the last restore or reset.",
                 "Die Einstellungen zurückholen, die vor der letzten Wiederherstellung oder Zurücksetzung gespeichert wurden.");
         table.put("Put every setting back to its default straight away. Your current settings are kept for Undo.",
@@ -4107,6 +4130,9 @@ final class L10nTranslationsDe {
                 "LIVE-Bildschirm wird ab jetzt ohne Ton aufgenommen");
         table.put("Recording what the feed filters keep and hide. Tap to stop and save it in %1$s.",
                 "Es wird aufgezeichnet, was die Feed-Filter behalten und ausblenden. Tippe, um die Aufzeichnung zu beenden und unter %1$s zu speichern.");
+    }
+
+    private static void fill33(Map<String, String> table) {
         table.put("Recording. Use a feature, then come back to stop.",
                 "Läuft. Nutze eine Funktion, dann zurück zum Beenden.");
         table.put("Recovered recording saved to %1$s",
@@ -4129,9 +4155,6 @@ final class L10nTranslationsDe {
                 "Letzte Geschwindigkeit merken");
         table.put("Remembers up to %1$s videos and sounds you saved here. If the file is still there, you get Open or Save again instead of a second copy.",
                 "Merkt sich bis zu %1$s Videos und Sounds, die du hier gespeichert hast. Ist die Datei noch da, bekommst du „Öffnen“ oder „Erneut speichern“ statt einer zweiten Kopie.");
-    }
-
-    private static void fill33(Map<String, String> table) {
         table.put("Remind me every",
                 "Erinnere mich alle");
         table.put("Remove",
@@ -4230,6 +4253,9 @@ final class L10nTranslationsDe {
                 "Recherchierte Werte");
         table.put("Reset",
                 "Zurücksetzen");
+    }
+
+    private static void fill34(Map<String, String> table) {
         table.put("Reset %1$d gates",
                 "%1$d Schalter auf Standard");
         table.put("Reset %1$d of %2$d gates",
@@ -4252,9 +4278,6 @@ final class L10nTranslationsDe {
                 "TikTok neu starten, um %1$d Änderungen anzuwenden");
         table.put("Restart TikTok to apply this",
                 "TikTok neu starten, damit das gilt");
-    }
-
-    private static void fill34(Map<String, String> table) {
         table.put("Restart TikTok to apply this change",
                 "TikTok neu starten, um diese Änderung anzuwenden");
         table.put("Restart TikTok to apply this.",
@@ -4353,6 +4376,9 @@ final class L10nTranslationsDe {
                 "Speicherfenster für Chat-Sticker");
         table.put("Save build details",
                 "Build-Informationen speichern");
+    }
+
+    private static void fill35(Map<String, String> table) {
         table.put("Save cancelled. Nothing was saved.",
                 "Speichern abgebrochen. Es wurde nichts gespeichert.");
         table.put("Save comments to Favorites",
@@ -4375,9 +4401,6 @@ final class L10nTranslationsDe {
                 "Feldwerte speichern");
         table.put("Save full report",
                 "Vollständigen Bericht speichern");
-    }
-
-    private static void fill35(Map<String, String> table) {
         table.put("Save in which quality?",
                 "In welcher Qualität speichern?");
         table.put("Save media",
@@ -4472,8 +4495,13 @@ final class L10nTranslationsDe {
                 "Gespeicherter Beitrag");
         table.put("Saved posts",
                 "Gespeicherte Beiträge");
+        table.put("Saved semantic preference is on but inactive. Start the isolated AI process to use it, or turn it off below. Selected model: %1$s.",
+                "Die gespeicherte semantische Einstellung ist aktiv, aber inaktiv. Starte den isolierten KI-Prozess oder schalte sie unten aus. Ausgewähltes Modell: %1$s.");
         table.put("Saved the photos as a video in %1$s",
                 "Fotos als Video in %1$s gespeichert");
+    }
+
+    private static void fill36(Map<String, String> table) {
         table.put("Saved to %1$s, but without sound",
                 "Gespeichert unter %1$s, aber ohne Ton");
         table.put("Saved videos forgotten. The files are still there.",
@@ -4498,9 +4526,6 @@ final class L10nTranslationsDe {
                 "Speichert Untertiteldateien (SRT) mit dem Video. Sie landen ab Android 11 in Movies, unter Android 10 in Download und bei älteren Versionen in deinem Videoordner. Ab Android 11 mit eingeschaltetem „Details speichern“ wandert das Video nach Download oder Documents, und die Untertitel bleiben in Movies.");
         table.put("Saves the accounts that follow you, or the ones you follow, as a CSV file in Download/Hushfeed. They're read at about the pace of scrolling the list, up to %1$s at a time.",
                 "Speichert die Konten, die dir folgen, oder die, denen du folgst, als CSV-Datei in Download/Hushfeed. Sie werden etwa so schnell gelesen, wie man durch die Liste scrollt, bis zu %1$s auf einmal.");
-    }
-
-    private static void fill36(Map<String, String> table) {
         table.put("Saves the caption, creator, link and post date in a text file next to the video, or one file for a photo post's original photos. On Android 10 and later, they go in Download or Documents under the same folder name. Applies to saves made by Hushfeed.",
                 "Speichert Beschreibung, Creator, Link und Veröffentlichungsdatum in einer Textdatei neben dem Video, bei einem Fotobeitrag in einer Datei für die Originalfotos. Ab Android 10 landen sie in Download oder Documents unter demselben Ordnernamen. Gilt für Speicherungen durch Hushfeed.");
         table.put("Saves the details file in JSON format instead of plain text. Useful if another tool will read it.",
@@ -4597,6 +4622,9 @@ final class L10nTranslationsDe {
                 "Diese Kommentare durchsuchen");
         table.put("Search within comments",
                 "In Kommentaren suchen");
+    }
+
+    private static void fill37(Map<String, String> table) {
         table.put("SecUID",
                 "SecUID");
         table.put("Seconds per photo",
@@ -4621,9 +4649,6 @@ final class L10nTranslationsDe {
                 "Von den Rändern springen");
         table.put("Seen",
                 "Gesehen");
-    }
-
-    private static void fill37(Map<String, String> table) {
         table.put("Seen this session",
                 "In dieser Sitzung gesehen");
         table.put("Seen videos",
@@ -4720,6 +4745,9 @@ final class L10nTranslationsDe {
                 "Trenne Regeln mit Semikolons: Ausdruck; #Hashtag; !Ausdruck; !#Hashtag oder @Benutzername. Die semantische Suche verwendet höchstens die ersten 16 gesperrten Ausdrücke und Hashtags.");
         table.put("Separate the titles of any other Inbox rows you want to hide with commas, spelled exactly. Use this for anything not listed above.",
                 "Trenne die Titel weiterer Posteingang-Zeilen, die du ausblenden willst, mit Kommas und schreibe sie genau so. Nutze das für alles, was oben nicht aufgeführt ist.");
+    }
+
+    private static void fill38(Map<String, String> table) {
         table.put("Separate usernames or display names with commas. Their comments are hidden.",
                 "Trenne Benutzernamen oder Anzeigenamen mit Kommas. Ihre Kommentare werden ausgeblendet.");
         table.put("Separate words or phrases with commas. Videos whose caption matches are hidden. Capital letters don't matter. Write \"a\" & \"b\" to need both phrases, or \"a\" !& \"b\" to need the first without the second.",
@@ -4744,9 +4772,6 @@ final class L10nTranslationsDe {
                 "Einstellungssicherung gespeichert");
         table.put("Settings couldn't open",
                 "Die Einstellungen konnten nicht geöffnet werden");
-    }
-
-    private static void fill38(Map<String, String> table) {
         table.put("Settings couldn't refresh completely. Reopen settings and try again.",
                 "Die Einstellungen konnten nicht vollständig aktualisiert werden. Öffne die Einstellungen erneut und versuche es noch einmal.");
         table.put("Settings restored. Restart TikTok to apply all changes.",
@@ -4843,6 +4868,9 @@ final class L10nTranslationsDe {
                 "Zeigt den @Benutzernamen der Kommentierenden statt des Anzeigenamens, den sie gewählt haben. Eine Antwort auf eine Antwort nennt die Person, der sie antwortet, genauso, sobald deren eigener Kommentar geladen ist.");
         table.put("Show engagement rate",
                 "Interaktionsrate anzeigen");
+    }
+
+    private static void fill39(Map<String, String> table) {
         table.put("Show exact LIVE viewer counts",
                 "Genaue LIVE-Zuschauerzahl anzeigen");
         table.put("Show exact counts",
@@ -4867,9 +4895,6 @@ final class L10nTranslationsDe {
                 "Likes, Kommentare, geteilte und gespeicherte Videos als Prozentsatz der Aufrufe anzeigen, neben dem Namen des Creators und hinter der Aufrufzahl im Profilraster.");
         table.put("Show message times",
                 "Nachrichtenzeiten anzeigen");
-    }
-
-    private static void fill39(Map<String, String> table) {
         table.put("Show one row for each comment or video people liked, with everyone who liked it counted, instead of a new row for every few likes. Applies the next time the Likes list loads.",
                 "Zeigt eine Zeile pro Kommentar oder Video, das Leuten gefällt, und zählt alle mit, die es geliked haben, statt alle paar Likes eine neue Zeile. Gilt beim nächsten Laden der Likes-Liste.");
         table.put("Show only LIVEs from creators with this many followers.",
@@ -4966,6 +4991,9 @@ final class L10nTranslationsDe {
                 "Sekundengenau und mit deiner Zeitzone anzeigen, wann ein Video gepostet wurde, statt TikToks kurzem Datum neben dem Namen des Creators.");
         table.put("Show when an account was made",
                 "Anzeigen, wann ein Konto erstellt wurde");
+    }
+
+    private static void fill40(Map<String, String> table) {
         table.put("Show when the camera or microphone is in use",
                 "Anzeigen, wenn Kamera oder Mikrofon benutzt werden");
         table.put("Show where a video was posted",
@@ -4990,9 +5018,6 @@ final class L10nTranslationsDe {
                 "Zeigt TikToks Text in der Schrift deines Telefons statt in TikTok Sans. Symbole und Geschenk-Animationen behalten ihre eigenen Schriften. Starte TikTok neu, um die Änderung zu sehen.");
         table.put("Shows a search button at the top left of the comments instead of the box, so the comments get that room back. Tap it to search, and tap it again to put the box away. Search within comments must be on.",
                 "Zeigt oben links in den Kommentaren einen Suchknopf statt des Felds, damit die Kommentare den Platz zurückbekommen. Tippe ihn zum Suchen an und noch einmal, um das Feld wegzuräumen. „In Kommentaren suchen“ muss an sein.");
-    }
-
-    private static void fill40(Map<String, String> table) {
         table.put("Shows a small count under TikTok's top tabs of what the feed filter has removed since TikTok started. It shows only on the feed, and taps on it go through to the video under it.",
                 "Zeigt unter TikToks oberen Tabs eine kleine Zahl dessen, was der Feed-Filter seit dem Start von TikTok entfernt hat. Sie erscheint nur im Feed, und Tippen darauf geht direkt zum Video darunter durch.");
         table.put("Shows emoji in the font file you import below, whichever font the text is in. Restart TikTok to see the change.",
@@ -5089,6 +5114,9 @@ final class L10nTranslationsDe {
                 "Geladene Videos in Profilrastern sortieren");
         table.put("Sort loaded videos on sound pages",
                 "Geladene Videos auf Sound-Seiten sortieren");
+    }
+
+    private static void fill41(Map<String, String> table) {
         table.put("Sort pinned videos with the rest",
                 "Angeheftete Videos mit einsortieren");
         table.put("Sort this grid",
@@ -5113,9 +5141,6 @@ final class L10nTranslationsDe {
                 "Sound gespeichert unter %1$s");
         table.put("Sound: %1$s",
                 "Ton: %1$s");
-    }
-
-    private static void fill41(Map<String, String> table) {
         table.put("Sounds",
                 "Sounds");
         table.put("Source",
@@ -5212,6 +5237,9 @@ final class L10nTranslationsDe {
                 "Verhindert, dass TikTok liest, was du kopiert hast. Einen Link aus TikTok zu kopieren funktioniert weiterhin.");
         table.put("Stop TikTok's built-in AI engine from starting, so it doesn't get a copy of everything TikTok logs about your use. TikTok works as if the engine weren't there.",
                 "Verhindert, dass TikToks eingebaute KI-Engine startet, damit sie keine Kopie von allem bekommt, was TikTok über deine Nutzung protokolliert. TikTok funktioniert, als gäbe es die Engine nicht.");
+    }
+
+    private static void fill42(Map<String, String> table) {
         table.put("Stop TikTok's speed tests",
                 "TikToks Geschwindigkeitstests stoppen");
         table.put("Stop a long press on Like from opening TikTok's repost action.",
@@ -5236,9 +5264,6 @@ final class L10nTranslationsDe {
                 "Tippen auf dieses LIVE beenden");
         table.put("Stop the blink under the bar",
                 "Flackern unter der Leiste stoppen");
-    }
-
-    private static void fill42(Map<String, String> table) {
         table.put("Stop the brand animation that plays over the comments when what someone typed matches an advertiser's trigger.",
                 "Stoppt die Markenanimation über den Kommentaren, wenn das Getippte zu einem Werbe-Auslöser passt.");
         table.put("Stop the bubble TikTok floats at the top of the feed to point you to a LIVE.",
@@ -5335,6 +5360,9 @@ final class L10nTranslationsDe {
                 "Story");
         table.put("Story %1$s",
                 "Story %1$s");
+    }
+
+    private static void fill43(Map<String, String> table) {
         table.put("Story position",
                 "Position in der Story");
         table.put("Story saved to %1$s",
@@ -5359,9 +5387,6 @@ final class L10nTranslationsDe {
                 "Untertitel");
         table.put("Subtitles: %1$s",
                 "Untertitel: %1$s");
-    }
-
-    private static void fill43(Map<String, String> table) {
         table.put("Support",
                 "Support");
         table.put("Support Hushfeed",
@@ -5458,6 +5483,9 @@ final class L10nTranslationsDe {
                 "Sagt dir Bescheid, wenn dein Name in einem LIVE fällt, im Chat oder laut gesagt in einem Raum mit Untertiteln. Bei aktiven TikTok-Benachrichtigungen bekommst du eine Benachrichtigung, sonst ein Banner im Raum.");
         table.put("Terms and Policies",
                 "Bedingungen und Richtlinien");
+    }
+
+    private static void fill44(Map<String, String> table) {
         table.put("Text sticker words",
                 "Wörter in Textstickern");
         table.put("That JSON file doesn't contain the supported TikTok watch history.",
@@ -5482,9 +5510,6 @@ final class L10nTranslationsDe {
                 "Die Datei ist größer als %1$s MB. Wähle einen kleineren Export des Wiedergabeverlaufs.");
         table.put("That file is larger than %1$s MB. Choose the JSON file from the export.",
                 "Diese Datei ist größer als %1$s MB. Wähle die JSON-Datei aus dem Export.");
-    }
-
-    private static void fill44(Map<String, String> table) {
         table.put("That file is too large to be a settings backup. Nothing was altered.",
                 "Diese Datei ist zu groß für eine Einstellungssicherung. Es wurde nichts geändert.");
         table.put("That file isn't a font Android can use. Choose a .ttf or .otf file.",
@@ -5581,6 +5606,9 @@ final class L10nTranslationsDe {
                 "Das Steuerelement für den Aktivitätsstatus verschwindet aus der Kopfzeile des Posteingangs. Ob andere dich als aktiv sehen, ändert sich nicht.");
         table.put("The add people icon leaves the Inbox header. Only the shortcut goes, so friend suggestions elsewhere are unchanged.",
                 "Das Symbol Personen hinzufügen verschwindet aus der Kopfzeile des Posteingangs. Nur die Verknüpfung geht weg, Freundesvorschläge an anderen Stellen bleiben unverändert.");
+    }
+
+    private static void fill45(Map<String, String> table) {
         table.put("The already-saved check failed. Try again.",
                 "Prüfung auf Gespeichertes fehlgeschlagen. Nochmal.");
         table.put("The backup didn't start and its partial file couldn't be removed. Delete it from the folder you chose.",
@@ -5605,9 +5633,6 @@ final class L10nTranslationsDe {
                 "Die Feed-Aufzeichnung wird noch gespeichert");
         table.put("The feed doesn't end. This is a fine time to leave it.",
                 "Der Feed hört nicht auf. Jetzt ist ein guter Zeitpunkt zu gehen.");
-    }
-
-    private static void fill45(Map<String, String> table) {
         table.put("The feed is locked",
                 "Der Feed ist gesperrt");
         table.put("The feed is locked until %1$s. Messages, profiles and search still work.",
@@ -5704,6 +5729,9 @@ final class L10nTranslationsDe {
                 "Auswahl zum Video nicht geöffnet. Versuch es erneut.");
         table.put("The saved-video choice is still open",
                 "Auswahl zum gespeicherten Video noch offen");
+    }
+
+    private static void fill46(Map<String, String> table) {
         table.put("The screen recording did not finish. Its files can be exported but may not play.",
                 "Die Bildschirmaufnahme wurde nicht abgeschlossen. Ihre Dateien können exportiert werden, sind aber möglicherweise nicht abspielbar.");
         table.put("The selected model is initializing. Try again when it is ready.",
@@ -5728,9 +5756,6 @@ final class L10nTranslationsDe {
                 "Die Story konnte nicht gespeichert werden.");
         table.put("The supported profile is multilingual E5 text embeddings for captions and hashtags. Model files stay in TikTok private storage. Inference runs locally and AI stays off until enabled. No verified package host is configured.",
                 "Das unterstützte Profil nutzt mehrsprachige E5-Texteinbettungen für Beschreibungen und Hashtags. Modelldateien bleiben im privaten TikTok-Speicher. Die Auswertung erfolgt lokal. KI bleibt aus, bis sie aktiviert wird. Es ist keine verifizierte Paketquelle konfiguriert.");
-    }
-
-    private static void fill46(Map<String, String> table) {
         table.put("The system file picker is unavailable.",
                 "Die Systemdateiauswahl ist nicht verfügbar.");
         table.put("The thumbs down on each comment blocks the commenter instead of disliking. Their comments leave the list right away and an undo banner follows.",
@@ -5827,6 +5852,9 @@ final class L10nTranslationsDe {
                 "Dieser Wert ist erforderlich");
         table.put("This video has no cover to save",
                 "Dieses Video hat kein Titelbild zum Speichern");
+    }
+
+    private static void fill47(Map<String, String> table) {
         table.put("This video has no link to copy",
                 "Dieses Video hat keinen Link zum Kopieren");
         table.put("This video has no original sound to save",
@@ -5851,9 +5879,6 @@ final class L10nTranslationsDe {
                 "TikTok Plus");
         table.put("TikTok account facts",
                 "TikTok-Kontofakten");
-    }
-
-    private static void fill47(Map<String, String> table) {
         table.put("TikTok can't lock without a phone screen lock",
                 "TikTok lässt sich ohne Displaysperre nicht sperren");
         table.put("TikTok checks how it was signed and installed. This answers those checks the way the Play Store version would. Try it if follows or likes undo themselves after a refresh. It may not help, since TikTok has other checks.",
@@ -5950,6 +5975,9 @@ final class L10nTranslationsDe {
                 "TikTok hat vor dem Ende der Liste nicht mehr geantwortet, die Datei ist also unvollständig.");
         table.put("TikTok tests more than one set of icons for the bottom bar. Pick one here, or leave it to TikTok.",
                 "TikTok testet mehrere Symbolsätze für die untere Leiste. Wähle hier einen aus oder überlass es TikTok.");
+    }
+
+    private static void fill48(Map<String, String> table) {
         table.put("TikTok treats your phone as one without passkeys, so signing in asks for your password or a code by email or text instead. Password managers won't hand a passkey to a patched app. If TikTok's 2-step check still wants only a passkey, add email or text as a way to verify on tiktok.com or another phone first.",
                 "TikTok behandelt dein Handy wie eines ohne Passkeys, also fragt die Anmeldung stattdessen nach deinem Passwort oder einem Code per E-Mail oder SMS. Passwortmanager geben einer gepatchten App keinen Passkey. Wenn TikToks Prüfung in zwei Schritten weiterhin nur einen Passkey will, füge zuerst auf tiktok.com oder einem anderen Handy E-Mail oder SMS als Weg zur Bestätigung hinzu.");
         table.put("TikTok's background play and Auto scroll",
@@ -5974,9 +6002,6 @@ final class L10nTranslationsDe {
                 "Der Server von TikTok legt fest, in welchen Qualitäten ein Game-LIVE senden kann, und manche Telefone bekommen weniger, als sie schaffen. Während du ein LIVE einrichtest, meldet das dem LIVE-Server, dass du ein Galaxy S25 Ultra hast. Anmeldung und alles andere sehen weiterhin dein echtes Telefon. Eine Qualität, mit der dein Telefon nicht mithält, kann ruckeln.");
         table.put("TikTok's servers keep sending it new settings, which is how it tests new layouts and features on people. With this on, TikTok keeps the ones it has now and ignores new ones. If something in TikTok stops working, turn this off so it can get fixes.",
                 "TikToks Server schicken ständig neue Einstellungen, so testet TikTok neue Layouts und Funktionen an Leuten. Ist das an, behält TikTok die aktuellen und ignoriert neue. Wenn in TikTok etwas nicht mehr funktioniert, schalte das aus, damit es Korrekturen bekommt.");
-    }
-
-    private static void fill48(Map<String, String> table) {
         table.put("TikTok's size",
                 "TikToks Groesse");
         table.put("TikTok's suggested reply cells and their intro banner stop showing in a chat. Messages you type or receive are untouched.",
@@ -6073,6 +6098,11 @@ final class L10nTranslationsDe {
                 "Haptisches Feedback ausschalten");
         table.put("Turn off push notifications",
                 "Push-Benachrichtigungen ausschalten");
+    }
+
+    private static void fill49(Map<String, String> table) {
+        table.put("Turn off saved semantic preference",
+                "Gespeicherte semantische Einstellung ausschalten");
         table.put("Turn off screen transitions",
                 "Bildschirmübergänge ausschalten");
         table.put("Turn off swipe to reply",
@@ -6097,9 +6127,6 @@ final class L10nTranslationsDe {
                 "%1$d von %2$d deaktiviert");
         table.put("Turned off %1$d overrides. Check them for TikTok %2$s.",
                 "%1$d Überschreibungen aus. Prüfe sie für TikTok %2$s.");
-    }
-
-    private static void fill49(Map<String, String> table) {
         table.put("Turned off 1 gate",
                 "1 Schalter deaktiviert");
         table.put("Turned off 1 of %2$d gates",
@@ -6194,6 +6221,9 @@ final class L10nTranslationsDe {
                 "Anstehende LIVE-Events");
         table.put("Update",
                 "Aktualisieren");
+    }
+
+    private static void fill50(Map<String, String> table) {
         table.put("Use 0 for TikTok's size, or %1$d to %2$d. Applies to the next caption.",
                 "0 für TikToks Größe, sonst %1$d bis %2$d. Gilt ab dem nächsten Untertitel.");
         table.put("Use 0 for TikTok's size, or %1$d to %2$d. Sizes the author's name and the post date next to it, and keeps Android's font scaling.",
@@ -6220,9 +6250,6 @@ final class L10nTranslationsDe {
                 "Displaysperre verwenden");
         table.put("Use system emoji",
                 "System-Emojis verwenden");
-    }
-
-    private static void fill50(Map<String, String> table) {
         table.put("Use system font",
                 "Systemschrift verwenden");
         table.put("Use the preset for the region TikTok reports for your account and its shop too. May affect search.",
@@ -6317,6 +6344,9 @@ final class L10nTranslationsDe {
                 "Videos von %1$s");
         table.put("Videos in search results show their cover and play when you open them. The feed and the videos you open play as usual.",
                 "Videos in den Suchergebnissen zeigen ihr Vorschaubild und spielen erst, wenn du sie öffnest. Der Feed und Videos, die du öffnest, spielen wie gewohnt.");
+    }
+
+    private static void fill51(Map<String, String> table) {
         table.put("Videos posted from %1$s",
                 "Herkunft der Videos: %1$s");
         table.put("Videos tagged %1$s",
@@ -6343,9 +6373,6 @@ final class L10nTranslationsDe {
                 "Lockerungen des Budgets einen Tag warten lassen ist an, daher bleibt Hushfeed an");
         table.put("Wait a day to loosen the budget is on, so StopSlop stays on",
                 "Lockerungen des Budgets einen Tag warten lassen ist an, daher bleibt StopSlop aktiv");
-    }
-
-    private static void fill51(Map<String, String> table) {
         table.put("Wait before hiding the controls.",
                 "Wartezeit, bevor die Bedienelemente ausgeblendet werden.");
         table.put("Wait for loading to finish",
@@ -6440,6 +6467,9 @@ final class L10nTranslationsDe {
                 "Wenn LIVE-Videos ausblenden an ist, bleiben die LIVEs dieser Creator, sobald TikTok sie sendet. Trenne Handles oder Nutzer-IDs mit Kommas.");
         table.put("With Sideways, slide left or right to change the speed and pull down to lock it. With Up and down, slide up for faster and down for slower, and slide to the side to lock it, so a hold near the edge still reaches every speed.",
                 "Bei Seitwärts wischst du nach links oder rechts, um die Geschwindigkeit zu ändern, und ziehst nach unten, um sie zu sperren. Bei Hoch und runter wischst du nach oben für schneller, nach unten für langsamer und zur Seite, um sie zu sperren. So erreicht auch ein Halten nahe am Rand jede Geschwindigkeit.");
+    }
+
+    private static void fill52(Map<String, String> table) {
         table.put("With TikTok in dark mode, a LIVE room still opens its share menu, fan club and other panels in light colors. This opens them dark.",
                 "Auch im Dunkelmodus öffnet ein LIVE-Raum sein Teilen-Menü, den Fanclub und andere Fenster in hellen Farben. Damit öffnen sie sich dunkel.");
         table.put("With the SIM changed, TikTok can keep showing videos you've already watched. Turn this on to stop that. Sticker search and the rest of TikTok still see the SIM above, while For You asks for videos with your phone's own SIM country and carrier. Your IP address and account history still count.",
@@ -6466,9 +6496,6 @@ final class L10nTranslationsDe {
                 "Den Ton des Videos daneben speichern, im Format, das unter Tonformat gewählt ist. Ab Android 10 wird Audio getrennt abgelegt, also landet die Datei unter Music im Ordner mit dem Namen deines Videoordners.");
         table.put("Writes TikTok's date by the creator's name day first, like 29.09, with the year after it for an older video. Ages like 2d ago stay as they are.",
                 "Schreibt TikToks Datum neben dem Namen des Creators mit dem Tag zuerst, etwa 29.09, bei älteren Videos mit dem Jahr dahinter. Angaben wie vor 2 T. bleiben, wie sie sind.");
-    }
-
-    private static void fill52(Map<String, String> table) {
         table.put("Writes TikTok's date by the creator's name with the month's name, like Oct 12. Day before month makes it 12 Oct.",
                 "Schreibt TikToks Datum neben dem Namen des Creators mit dem Monatsnamen, etwa Oct 12. Mit Tag vor Monat wird daraus 12 Oct.");
         table.put("Writes the date before the time to the second the short way your language does, like 10/7/25.",
@@ -6563,6 +6590,9 @@ final class L10nTranslationsDe {
                 "Eingeklappt");
         table.put("debug debugging logs logging",
                 "Fehlersuche Debugging Protokolle Logs");
+    }
+
+    private static void fill53(Map<String, String> table) {
         table.put("dialog popup greeting",
                 "Dialog Popup Begrüßung");
         table.put("download button",

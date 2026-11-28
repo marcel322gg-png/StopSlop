@@ -199,10 +199,13 @@ AI / Models,AI / Models
 AI Self,AI Self
 AI Tako,AI Tako
 AI chat,AI chat
+AI diagnostics,AI diagnostics
+AI diagnostics copied. It contains runtime and process details but no captions or account data.,AI diagnostics copied. It contains runtime and process details but no captions or account data.
 AI model: Not installed. Browse models or import an E5 package; deterministic filters stay available.,AI model: Not installed. Browse models or import an E5 package; deterministic filters stay available.
 AI model: Not installed. Browse or import a compatible E5 package to enable semantic filtering.,AI model: Not installed. Browse or import a compatible E5 package to enable semantic filtering.
 AI model: Not installed. Browse or import a compatible E5 package.,AI model: Not installed. Browse or import a compatible E5 package.
 AI theater,AI theater
+AI unavailable: isolated process is not supported by this patch target,AI unavailable: isolated process is not supported by this patch target
 AI-generated content,AI-generated content
 AI-generated posts,AI-generated posts
 AMOLED dark mode,AMOLED dark mode
@@ -499,6 +502,7 @@ Clear preset,Clear preset
 Clear search,Clear search
 Clear search history,Clear search history
 Clear seen videos,Clear seen videos
+Clear the saved opt-in without starting the isolated AI process.,Clear the saved opt-in without starting the isolated AI process.
 Clear the search,Clear the search
 Cleared. Tap to undo before TikTok closes.,Cleared. Tap to undo before TikTok closes.
 Clearing,Clearing
@@ -556,6 +560,7 @@ Copy a quick report or save the full report as a file.,Copy a quick report or sa
 Copy bio and IDs,Copy bio and IDs
 Copy build details,Copy build details
 Copy comments without username,Copy comments without username
+Copy isolated AI diagnostics,Copy isolated AI diagnostics
 Copy name,Copy name
 Copy only the comment text when using TikTok's copy comment action.,Copy only the comment text when using TikTok's copy comment action.
 Copy or save which patches and options this Hushfeed was built with.,Copy or save which patches and options this Hushfeed was built with.
@@ -1268,6 +1273,10 @@ Installing local model,Installing local model
 Instead of these settings. The list has a button that brings you back here.,Instead of these settings. The list has a button that brings you back here.
 Invisible controls button,Invisible controls button
 Invite friends,Invite friends
+Isolated AI inference timed out; semantic filtering is unavailable,Isolated AI inference timed out; semantic filtering is unavailable
+Isolated AI process stopped unexpectedly,Isolated AI process stopped unexpectedly
+Isolated AI service context is unavailable,Isolated AI service context is unavailable
+Isolated AI service did not respond; tap Retry initialization,Isolated AI service did not respond; tap Retry initialization
 "It stopped before the end of the list, so the file is partial.","It stopped before the end of the list, so the file is partial."
 "It's in %1$s, under %2$s. Tap to go there.","It's in %1$s, under %2$s. Tap to go there."
 Italiano,Italiano
@@ -1523,6 +1532,7 @@ Minimum video length,Minimum video length
 Model catalog unavailable,Model catalog unavailable
 Model details,Model details
 Model files are removed if TikTok is uninstalled or app data is cleared.,Model files are removed if TikTok is uninstalled or app data is cleared.
+Model files exist but are invalid or incomplete,Model files exist but are invalid or incomplete
 Model files exist but are invalid or incomplete. Re-import a compatible E5 package.,Model files exist but are invalid or incomplete. Re-import a compatible E5 package.
 Model files or tensor contract are invalid,Model files or tensor contract are invalid
 Model installed and verified. Select it in Installed models to use it.,Model installed and verified. Select it in Installed models to use it.
@@ -1583,6 +1593,7 @@ No clean copy yet. Saved the watermarked one to %1$s,No clean copy yet. Saved th
 No cleared videos fit the current history limits,No cleared videos fit the current history limits
 No comments are loaded to export yet.,No comments are loaded to export yet.
 No comments to show,No comments to show
+No compatible model is installed,No compatible model is installed
 No compatible model is installed.,No compatible model is installed.
 No creator to block on this video,No creator to block on this video
 No creator to hide on this video,No creator to hide on this video
@@ -2152,6 +2163,7 @@ Saved one video,Saved one video
 "Saved photos, covers, story photos and stickers that don't move are the exact files TikTok sent, not a new JPEG or PNG. Some galleries and computers can't open HEIF or WebP.","Saved photos, covers, story photos and stickers that don't move are the exact files TikTok sent, not a new JPEG or PNG. Some galleries and computers can't open HEIF or WebP."
 Saved post,Saved post
 Saved posts,Saved posts
+"Saved semantic preference is on but inactive. Start the isolated AI process to use it, or turn it off below. Selected model: %1$s.","Saved semantic preference is on but inactive. Start the isolated AI process to use it, or turn it off below. Selected model: %1$s."
 Saved the photos as a video in %1$s,Saved the photos as a video in %1$s
 "Saved to %1$s, but without sound","Saved to %1$s, but without sound"
 Saved videos forgotten. The files are still there.,Saved videos forgotten. The files are still there.
@@ -2936,6 +2948,7 @@ Turn off Line them up over the right column to move it,Turn off Line them up ove
 Turn off double tap to react,Turn off double tap to react
 Turn off haptics,Turn off haptics
 Turn off push notifications,Turn off push notifications
+Turn off saved semantic preference,Turn off saved semantic preference
 Turn off screen transitions,Turn off screen transitions
 Turn off swipe to reply,Turn off swipe to reply
 Turn off the swipe to the side menu,Turn off the swipe to the side menu

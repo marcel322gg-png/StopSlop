@@ -10,6 +10,8 @@ import android.app.AlertDialog;
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.ActivityNotFoundException;
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -86,6 +88,20 @@ final class StopSlopPlaceholders {
 
         screen.addPreference(SectionHeadingPreference.stopSlop(context, "Topic filtering"));
         screen.addPreference(new ModelManagerPreference(context));
+        Preference aiDiagnostics = new Preference(context);
+        aiDiagnostics.setTitle(L10n.t(context, "AI diagnostics"));
+        aiDiagnostics.setSummary(L10n.t(context, "Copy isolated AI diagnostics"));
+        aiDiagnostics.setOnPreferenceClickListener(preference -> {
+            String report = LocalContentInference.diagnosticsSummary();
+            ClipboardManager clipboard = (ClipboardManager) context.getSystemService(Context.CLIPBOARD_SERVICE);
+            if (clipboard != null) {
+                clipboard.setPrimaryClip(ClipData.newPlainText("StopSlop AI diagnostics", report));
+                app.morphe.extension.shared.Utils.showToastLong(L10n.t(context,
+                        "AI diagnostics copied. It contains runtime and process details but no captions or account data."));
+            }
+            return true;
+        });
+        screen.addPreference(aiDiagnostics);
         TogglePreference topicFilter = new TogglePreference(context, "Topic Filter",
                 "Hide posts whose captions match a phrase or hashtag rule. Exceptions and allowed creators take precedence.",
                 Settings.STOP_SLOP_TOPIC_FILTER);
@@ -94,19 +110,35 @@ final class StopSlopPlaceholders {
                 "Compare caption and hashtag text with your first 16 topic rules using the selected local model. Install a compatible model first.",
                 Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED);
         screen.addPreference(semanticTopicFilter);
+        Preference clearSavedSemantic = new Preference(context);
+        clearSavedSemantic.setKey("stop_slop_clear_saved_semantic_preference");
+        clearSavedSemantic.setTitle(L10n.t(context, "Turn off saved semantic preference"));
+        clearSavedSemantic.setSummary(L10n.t(context,
+                "Clear the saved opt-in without starting the isolated AI process."));
+        clearSavedSemantic.setEnabled(Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
+                && !LocalContentInference.isEnabled());
+        clearSavedSemantic.setOnPreferenceClickListener(preference -> {
+            if (!Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.save(false)) return false;
+            setCheckedWithoutPersist(semanticTopicFilter, false);
+            preference.setEnabled(false);
+            semanticTopicFilter.setSummary(modelStatusSummary(context,
+                    app.morphe.extension.shared.Utils.getContext()));
+            return true;
+        });
+        screen.addPreference(clearSavedSemantic);
         Context modelContext = app.morphe.extension.shared.Utils.getContext();
         boolean semanticModelSelected = StopSlopModelManager.selectedModel(modelContext) != null;
         semanticTopicFilter.setEnabled(semanticModelSelected);
         if (!semanticModelSelected) {
             // Keep the persisted user choice. The control is disabled until a compatible model
             // is selected, and inference remains off while that selection is unavailable.
-            semanticTopicFilter.setPersistent(false);
-            semanticTopicFilter.setChecked(false);
-            semanticTopicFilter.setPersistent(true);
+            setCheckedWithoutPersist(semanticTopicFilter, false);
         }
         semanticTopicFilter.setSummary(modelStatusSummary(context, modelContext));
-        LocalContentInference.setEnabled(Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
-                && semanticModelSelected);
+        if (Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
+                && !LocalContentInference.isEnabled()) {
+            setCheckedWithoutPersist(semanticTopicFilter, false);
+        }
         semanticTopicFilter.setOnPreferenceChangeListener((preference, value) -> {
             boolean enable = Boolean.TRUE.equals(value);
             if (enable) {
@@ -124,7 +156,8 @@ final class StopSlopPlaceholders {
                 }
             }
             if (!Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.save(enable)) return false;
-            LocalContentInference.setEnabled(enable);
+            if (enable) LocalContentInference.activateForFiltering();
+            else LocalContentInference.setEnabled(false);
             semanticTopicFilter.setSummary(modelStatusSummary(context,
                     app.morphe.extension.shared.Utils.getContext()));
             return true;
@@ -206,6 +239,7 @@ final class StopSlopPlaceholders {
                     "A selected model is missing or incompatible. Choose another installed model.");
         }
         switch (LocalContentInference.getStatus()) {
+            case STARTING:
             case LOADING:
                 return L10n.f(displayContext,
                         "Selected model is initializing: %1$s. Semantic filtering stays fail-open.", selected.name);
@@ -228,8 +262,16 @@ final class StopSlopPlaceholders {
                 return L10n.f(displayContext,
                         "Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB",
                         selected.name, storage);
+            case INSTALLED_NOT_SELECTED:
+                return L10n.f(displayContext, "Installed but not selected. Storage used: %1$d MiB", storage);
             case OFF:
             default:
+                if (Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
+                        && !LocalContentInference.isEnabled()) {
+                    return L10n.f(displayContext,
+                            "Saved semantic preference is on but inactive. Start the isolated AI process to use it, or turn it off below. Selected model: %1$s.",
+                            selected.name);
+                }
                 return L10n.f(displayContext,
                         "Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB",
                         selected.name, storage);
@@ -241,6 +283,7 @@ final class StopSlopPlaceholders {
         if (!selected) return L10n.t(context, "Installed, not selected");
         switch (LocalContentInference.getStatus()) {
             case LOADING:
+            case STARTING:
                 return L10n.t(context, "Selected · initializing");
             case READY:
                 return LocalContentInference.isReady()
@@ -248,6 +291,8 @@ final class StopSlopPlaceholders {
                         : L10n.t(context, "Selected · initializing");
             case UNAVAILABLE:
                 return L10n.t(context, "Selected · initialization failed");
+            case INSTALLED_NOT_SELECTED:
+                return L10n.t(context, "Installed, not selected");
             case OFF:
             case NOT_INSTALLED:
             default:
@@ -627,14 +672,30 @@ final class StopSlopPlaceholders {
             Preference semantic = group.findPreference(Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.key);
             if (semantic != null) {
                 Context modelContext = app.morphe.extension.shared.Utils.getContext();
-                semantic.setEnabled(StopSlopModelManager.selectedModel(modelContext) != null);
+                boolean selected = StopSlopModelManager.selectedModel(modelContext) != null;
+                semantic.setEnabled(selected);
+                if (selected && Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
+                        && !LocalContentInference.isEnabled()) {
+                    setCheckedWithoutPersist(semantic, false);
+                }
                 semantic.setSummary(modelStatusSummary(semantic.getContext(), modelContext));
             }
+            Preference clearSaved = group.findPreference("stop_slop_clear_saved_semantic_preference");
+            if (clearSaved != null) clearSaved.setEnabled(
+                    Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
+                            && !LocalContentInference.isEnabled());
         }
 
         private interface OperationStarter {
             StopSlopModelManager.Operation start(StopSlopModelManager.Callback callback);
         }
+    }
+
+    private static void setCheckedWithoutPersist(Preference preference, boolean checked) {
+        if (!(preference instanceof android.preference.TwoStatePreference)) return;
+        preference.setPersistent(false);
+        ((android.preference.TwoStatePreference) preference).setChecked(checked);
+        preference.setPersistent(true);
     }
 
     private static final class TopicSemanticStatusPreference extends Preference {

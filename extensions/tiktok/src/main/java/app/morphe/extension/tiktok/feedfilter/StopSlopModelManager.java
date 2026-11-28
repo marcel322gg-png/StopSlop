@@ -276,6 +276,20 @@ public final class StopSlopModelManager {
         catch (IOException unavailable) { return null; }
     }
 
+    /** Verifies the exact model revision explicitly selected by the main process over IPC. */
+    public static Model verifiedModel(Context context, String key, String revision) {
+        if (context == null || key == null || revision == null
+                || !key.matches("[A-Za-z0-9._-]{1,64}/[A-Za-z0-9._-]{1,64}")
+                || !revision.matches("[A-Fa-f0-9]{40,64}")) return null;
+        String[] parts = key.split("/", 2);
+        try {
+            Model model = readModel(new File(new File(modelRoot(context), parts[0]), parts[1]), true);
+            return key.equals(model.key()) && revision.equalsIgnoreCase(model.revision) ? model : null;
+        } catch (IOException unavailable) {
+            return null;
+        }
+    }
+
     /** Returns the persisted selection after validating its manifest, profile, sizes, and required files. */
     public static Model selectedModel(Context context) {
         if (context == null) return null;

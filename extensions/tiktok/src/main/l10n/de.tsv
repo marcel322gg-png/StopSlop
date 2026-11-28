@@ -3337,8 +3337,21 @@ Select a compatible model in AI / Models first.	Wähle zuerst unter „KI / Mode
 Semantic filtering is ready with %1$s. Storage used: %2$d MiB	Semantischer Filter mit %1$s bereit. Speicherbedarf: %2$d MiB
 Semantic model initialization failed: %1$s. Filtering stays fail-open. Retry from Installed models.	Initialisierung des semantischen Modells fehlgeschlagen: %1$s. Inhalte bleiben sichtbar. Erneuter Versuch über „Installierte Modelle“.
 Retry initialization	Initialisierung erneut versuchen
+AI diagnostics	KI-Diagnose
+Copy isolated AI diagnostics	Diagnosedaten des isolierten KI-Prozesses kopieren
+AI diagnostics copied. It contains runtime and process details but no captions or account data.	KI-Diagnosedaten kopiert. Sie enthalten Laufzeit- und Prozessdetails, aber keine Beschreibungen oder Kontodaten.
+Saved semantic preference is on but inactive. Start the isolated AI process to use it, or turn it off below. Selected model: %1$s.	Die gespeicherte semantische Einstellung ist aktiv, aber inaktiv. Starte den isolierten KI-Prozess oder schalte sie unten aus. Ausgewähltes Modell: %1$s.
+Turn off saved semantic preference	Gespeicherte semantische Einstellung ausschalten
+Clear the saved opt-in without starting the isolated AI process.	Die gespeicherte Aktivierung löschen, ohne den isolierten KI-Prozess zu starten.
+Isolated AI service context is unavailable	Der Kontext für den isolierten KI-Dienst ist nicht verfügbar
+Isolated AI service did not respond; tap Retry initialization	Der isolierte KI-Dienst antwortet nicht. Tippe auf „Initialisierung erneut versuchen“.
+Isolated AI inference timed out; semantic filtering is unavailable	Zeitüberschreitung bei der isolierten KI-Auswertung. Der semantische Filter ist nicht verfügbar.
+Isolated AI process stopped unexpectedly	Der isolierte KI-Prozess wurde unerwartet beendet
+AI unavailable: isolated process is not supported by this patch target	KI nicht verfügbar: Dieses Patch-Ziel unterstützt keinen isolierten Prozess
 ONNX initialization failed	ONNX-Initialisierung fehlgeschlagen
 Selected model files are missing or invalid	Dateien des ausgewählten Modells fehlen oder sind ungültig
+No compatible model is installed	Kein kompatibles Modell ist installiert
+Model files exist but are invalid or incomplete	Modelldateien sind ungültig oder unvollständig
 Native ONNX runtime or ABI could not load	Native ONNX-Laufzeit oder ABI konnte nicht geladen werden
 Model files or tensor contract are invalid	Modelldateien oder Tensorvertrag sind ungültig
 ONNX Runtime could not execute the selected model	ONNX Runtime konnte das ausgewählte Modell nicht ausführen

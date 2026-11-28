@@ -360,7 +360,7 @@ val settingsPatch = bytecodePatch(
 ) {
     category("Settings")
     dependsOn(sharedExtensionPatch, forYouShowRepairPatch, managerQueryPatch, ownSettingsActivityPatch,
-        stopSlopModelAssetsPatch)
+        stopSlopModelAssetsPatch, stopSlopAiServiceManifestPatch)
 
     compatibleWith(*AppCompatibilities.tiktokAndLite())
 

@@ -24,7 +24,7 @@ import ai.onnxruntime.OrtSession;
 import ai.onnxruntime.extensions.OrtxPackage;
 
 /** Real CPU-only multilingual-e5-small embedding provider for caption and topic text. */
-final class OnnxE5SemanticProvider implements LocalContentInference.InferenceProvider {
+final class OnnxE5SemanticProvider implements AutoCloseable {
     private static final int MAX_TOKENS = 512;
     private static final int EMBEDDING_DIMENSIONS = 384;
     private static final int MAX_TOPIC_EMBEDDINGS = 32;
@@ -47,7 +47,7 @@ final class OnnxE5SemanticProvider implements LocalContentInference.InferencePro
 
     String modelVersion() { return selectedModel.key(); }
 
-    /** Called only by LocalContentInference's bounded worker. */
+    /** Called only by the isolated service's single serialized inference handler. */
     void initialize() throws Exception {
         File modelFile = selectedModel.modelFile();
         File tokenizerFile = selectedModel.tokenizerFile();
@@ -85,13 +85,11 @@ final class OnnxE5SemanticProvider implements LocalContentInference.InferencePro
         Arrays.fill(probe, 0f);
     }
 
-    @Override
-    public LocalContentInference.ClassificationResult classify(
-            LocalContentInference.Features features, List<String> topics) throws Exception {
-        if (modelSession == null || tokenizerSession == null || features == null
-                || features.text == null || topics == null || topics.isEmpty()) return null;
+    float classify(String text, List<String> topics) throws Exception {
+        if (modelSession == null || tokenizerSession == null || text == null
+                || topics == null || topics.isEmpty()) return Float.NaN;
 
-        float[] caption = embed("passage: " + features.text);
+        float[] caption = embed("passage: " + text);
         float bestSimilarity = -1f;
         for (String topic : topics) {
             if (topic == null || topic.trim().isEmpty()) continue;
@@ -99,8 +97,7 @@ final class OnnxE5SemanticProvider implements LocalContentInference.InferencePro
             float similarity = cosine(caption, topicVector);
             if (similarity > bestSimilarity) bestSimilarity = similarity;
         }
-        return bestSimilarity < -1f ? null
-                : new LocalContentInference.ClassificationResult(bestSimilarity, modelVersion());
+        return bestSimilarity < -1f ? Float.NaN : bestSimilarity;
     }
 
     private float[] topicEmbedding(String topic) throws Exception {
@@ -221,7 +218,6 @@ final class OnnxE5SemanticProvider implements LocalContentInference.InferencePro
         return Math.max(-1f, Math.min(1f, similarity));
     }
 
-    @Override
     public boolean isReady() {
         return modelSession != null && tokenizerSession != null;
     }
