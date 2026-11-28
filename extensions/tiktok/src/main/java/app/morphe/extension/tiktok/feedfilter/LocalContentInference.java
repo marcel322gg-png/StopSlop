@@ -820,5 +820,3 @@ public final class LocalContentInference {
         synchronized void clear() { entries.clear(); }
     }
 }
-
-\n
