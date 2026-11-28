@@ -89,12 +89,14 @@ public final class LocalContentInference {
     private static volatile int servicePid;
     private static volatile int serviceApi;
     private static volatile int servicePssKb;
+    private static volatile long serviceStartupDurationMs;
     private static volatile long initializationDurationMs;
     private static volatile long lastInferenceDurationMs;
     private static String currentRulesVersion = "";
     private static int currentThresholdBits;
     private static long configurationGeneration;
     private static long connectionGeneration;
+    private static long bindStartedAtMs;
     private static boolean binding;
     private static boolean bound;
     private static boolean shutdownPending;
@@ -112,6 +114,11 @@ public final class LocalContentInference {
     private static final ServiceConnection CONNECTION = new ServiceConnection() {
         @Override public void onServiceConnected(ComponentName name, IBinder binder) {
             synchronized (LOCK) {
+                if (bindStartedAtMs > 0L) {
+                    serviceStartupDurationMs = Math.max(0L,
+                            android.os.SystemClock.elapsedRealtime() - bindStartedAtMs);
+                    bindStartedAtMs = 0L;
+                }
                 binding = false;
                 bound = true;
                 remoteBinder = binder;
@@ -285,6 +292,7 @@ public final class LocalContentInference {
                 + "; abi=" + safeDiagnostic(serviceAbi)
                 + "; api=" + serviceApi
                 + "; ort=" + safeDiagnostic(serviceOrt)
+                + "; last_bind_ms=" + serviceStartupDurationMs
                 + "; init_ms=" + initializationDurationMs
                 + "; inference_ms=" + lastInferenceDurationMs
                 + "; pss_kb=" + servicePssKb
@@ -403,9 +411,11 @@ public final class LocalContentInference {
         long generation = ++connectionGeneration;
         Intent intent = new Intent().setClassName(context.getPackageName(), SERVICE_CLASS);
         binding = true;
+        bindStartedAtMs = android.os.SystemClock.elapsedRealtime();
         try {
             if (!context.bindService(intent, CONNECTION, Context.BIND_AUTO_CREATE)) {
                 binding = false;
+                bindStartedAtMs = 0L;
                 failLocked("AI unavailable: isolated process is not supported by this patch target");
                 return;
             }
@@ -420,6 +430,7 @@ public final class LocalContentInference {
             }, SERVICE_TIMEOUT_MS);
         } catch (RuntimeException unavailable) {
             binding = false;
+            bindStartedAtMs = 0L;
             failLocked("AI unavailable: isolated process is not supported by this patch target");
         }
     }
@@ -601,6 +612,7 @@ public final class LocalContentInference {
         }
         bound = false;
         binding = false;
+        bindStartedAtMs = 0L;
         connectionGeneration++;
         if (previous != null) queueDeleteDrainLocked();
     }
