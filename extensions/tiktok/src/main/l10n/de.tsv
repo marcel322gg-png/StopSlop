@@ -3335,7 +3335,17 @@ Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$
 Selected. Semantic filtering remains off until you enable it.	Ausgewählt. Der semantische Filter bleibt aus, bis du ihn aktivierst.
 Select a compatible model in AI / Models first.	Wähle zuerst unter „KI / Modelle“ ein kompatibles Modell aus.
 Semantic filtering is ready with %1$s. Storage used: %2$d MiB	Semantischer Filter mit %1$s bereit. Speicherbedarf: %2$d MiB
-Semantic model initialization failed: %1$s. Filtering stays fail-open.	Initialisierung des semantischen Modells fehlgeschlagen: %1$s. Inhalte bleiben sichtbar.
+Semantic model initialization failed: %1$s. Filtering stays fail-open. Retry from Installed models.	Initialisierung des semantischen Modells fehlgeschlagen: %1$s. Inhalte bleiben sichtbar. Erneuter Versuch über „Installierte Modelle“.
+Retry initialization	Initialisierung erneut versuchen
+ONNX initialization failed	ONNX-Initialisierung fehlgeschlagen
+Selected model files are missing or invalid	Dateien des ausgewählten Modells fehlen oder sind ungültig
+Native ONNX runtime or ABI could not load	Native ONNX-Laufzeit oder ABI konnte nicht geladen werden
+Model files or tensor contract are invalid	Modelldateien oder Tensorvertrag sind ungültig
+ONNX Runtime could not execute the selected model	ONNX Runtime konnte das ausgewählte Modell nicht ausführen
+Android denied access to the selected model files	Android hat den Zugriff auf die ausgewählten Modelldateien verweigert
+Low memory while creating ONNX sessions	Zu wenig Speicher beim Erstellen der ONNX-Sitzungen
+Low memory during semantic inference	Zu wenig Speicher während der semantischen Auswertung
+Inference worker queue is busy	Die Inferenz-Warteschlange ist ausgelastet
 Source revision: %1$s	Quellrevision: %1$s
 Storage: %1$d MiB	Speicher: %1$d MiB
 The selected model is initializing. Try again when it is ready.	Das ausgewählte Modell wird initialisiert. Versuche es erneut, sobald es bereit ist.

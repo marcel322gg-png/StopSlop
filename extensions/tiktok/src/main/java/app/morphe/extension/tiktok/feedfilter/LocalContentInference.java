@@ -29,6 +29,7 @@ import java.util.concurrent.atomic.AtomicLong;
 
 import app.morphe.extension.tiktok.blockauthor.Reflect;
 import app.morphe.extension.shared.Utils;
+import ai.onnxruntime.OrtException;
 
 /**
  * Bounded asynchronous local semantic filtering. Feed callers can only consume a completed cached
@@ -42,6 +43,7 @@ public final class LocalContentInference {
     private static volatile boolean enabled;
     private static volatile boolean prepareSelectedModel;
     private static volatile Status status = Status.OFF;
+    private static volatile String failureReason = "";
     private static final Object PROVIDER_LOCK = new Object();
     private static boolean initializationQueued;
     private static ProviderBinding closeWhenIdle;
@@ -91,12 +93,7 @@ public final class LocalContentInference {
         PENDING.clear();
         if (value) {
             prepareSelectedModel = false;
-            Context context = Utils.getContext();
-            if (!StopSlopModelManager.hasActiveModel(context)) {
-                setStatus(StopSlopModelManager.activeKey(context).isEmpty()
-                        ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
-                return;
-            }
+            failureReason = "";
             if (isReady()) setStatus(Status.READY);
             else {
                 setStatus(Status.LOADING);
@@ -121,22 +118,13 @@ public final class LocalContentInference {
         provider = null;
         if (previous != null) closeOnWorker(previous);
         if (!enabled) {
-            if (StopSlopModelManager.hasActiveModel(Utils.getContext())) {
-                prepareSelectedModel = true;
-                setStatus(Status.LOADING);
-                startProviderInitialization();
-            } else {
-                prepareSelectedModel = false;
-                setStatus(StopSlopModelManager.activeKey(Utils.getContext()).isEmpty()
-                        ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
-            }
-            return;
-        }
-        if (!StopSlopModelManager.hasActiveModel(Utils.getContext())) {
+            prepareSelectedModel = false;
+            failureReason = "";
             setStatus(StopSlopModelManager.activeKey(Utils.getContext()).isEmpty()
-                    ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
+                    ? Status.NOT_INSTALLED : Status.OFF);
             return;
         }
+        failureReason = "";
         setStatus(Status.LOADING);
         startProviderInitialization();
     }
@@ -150,12 +138,13 @@ public final class LocalContentInference {
     public static void prepareSelectedModel() {
         if (enabled) return;
         Context context = Utils.getContext();
-        if (!StopSlopModelManager.hasActiveModel(context)) {
-            setStatus(StopSlopModelManager.activeKey(context).isEmpty()
-                    ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
+        if (StopSlopModelManager.activeKey(context).isEmpty()) {
+            failureReason = "No model is selected";
+            setStatus(Status.NOT_INSTALLED);
             return;
         }
         prepareSelectedModel = true;
+        failureReason = "";
         if (isReady()) {
             setStatus(Status.READY);
             return;
@@ -166,6 +155,19 @@ public final class LocalContentInference {
     }
 
     public static Status getStatus() { return status; }
+    public static String getFailureReason() { return failureReason; }
+
+    /** Explicit retry exposed by the model manager; a failed provider is never retried per item. */
+    public static void retryInitialization() {
+        failureReason = "";
+        if (!enabled) {
+            prepareSelectedModel();
+            return;
+        }
+        CONFIGURATION_GENERATION.incrementAndGet();
+        setStatus(Status.LOADING);
+        startProviderInitialization();
+    }
 
     public static void addStatusListener(StatusListener listener) {
         if (listener != null) STATUS_LISTENERS.add(new WeakReference<>(listener));
@@ -203,8 +205,9 @@ public final class LocalContentInference {
                     if (model == null) {
                         if ((enabled || prepareSelectedModel)
                                 && generation == CONFIGURATION_GENERATION.get()) {
-                            setStatus(StopSlopModelManager.activeKey(context).isEmpty()
-                                    ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
+                            boolean noSelection = StopSlopModelManager.activeKey(context).isEmpty();
+                            failureReason = noSelection ? "No model is selected" : "Selected model files are missing or invalid";
+                            setStatus(noSelection ? Status.NOT_INSTALLED : Status.UNAVAILABLE);
                         }
                         return;
                     }
@@ -216,6 +219,7 @@ public final class LocalContentInference {
                     if ((enabled || prepareSelectedModel)
                             && generation == CONFIGURATION_GENERATION.get()) {
                         provider = binding;
+                        failureReason = "";
                         setStatus(Status.READY);
                     } else {
                         candidate.close();
@@ -224,6 +228,14 @@ public final class LocalContentInference {
                     if (candidate != null) try { candidate.close(); } catch (Exception ignored) { }
                     if ((enabled || prepareSelectedModel)
                             && generation == CONFIGURATION_GENERATION.get()) {
+                        failureReason = failureCategory(unavailable);
+                        setStatus(Status.UNAVAILABLE);
+                    }
+                } catch (OutOfMemoryError lowMemory) {
+                    if (candidate != null) try { candidate.close(); } catch (Exception | LinkageError ignored) { }
+                    if ((enabled || prepareSelectedModel)
+                            && generation == CONFIGURATION_GENERATION.get()) {
+                        failureReason = "Low memory while creating ONNX sessions";
                         setStatus(Status.UNAVAILABLE);
                     }
                 } finally {
@@ -239,6 +251,7 @@ public final class LocalContentInference {
             });
         } catch (RuntimeException queueFull) {
             synchronized (PROVIDER_LOCK) { initializationQueued = false; }
+            failureReason = "Inference worker queue is busy";
             setStatus(Status.UNAVAILABLE);
         }
     }
@@ -250,7 +263,7 @@ public final class LocalContentInference {
                 closeIfDisabled();
             });
         } catch (RuntimeException queueFull) {
-            closeWhenIdle = binding;
+            synchronized (PROVIDER_LOCK) { closeWhenIdle = binding; }
         }
     }
 
@@ -329,8 +342,8 @@ public final class LocalContentInference {
         if (PENDING.putIfAbsent(key, requestToken) != null) return FilterDecision.unknown();
         try {
             WORKER.execute(() -> {
+                ProviderBinding active = provider;
                 try {
-                    ProviderBinding active = provider;
                     if (!isCurrent(generation, active, features.videoId, key)
                             || !active.provider.isReady()) return;
                     ClassificationResult result = active.provider.classify(features, topicSnapshot);
@@ -342,7 +355,9 @@ public final class LocalContentInference {
                                 features.inputFingerprint, FilterDecision.from(result, threshold)));
                     }
                 } catch (Exception | LinkageError unavailable) {
-                    markUnavailable(provider);
+                    markUnavailable(active, failureCategory(unavailable));
+                } catch (OutOfMemoryError lowMemory) {
+                    markUnavailable(active, "Low memory during semantic inference");
                 } finally {
                     removePending(key, requestToken);
                     closeIfDisabled();
@@ -361,15 +376,26 @@ public final class LocalContentInference {
                 && CURRENT_REQUESTS.isCurrent(videoId, requestKey);
     }
 
-    private static void markUnavailable(ProviderBinding failed) {
+    private static void markUnavailable(ProviderBinding failed, String reason) {
         if (failed == null || provider != failed) return;
         provider = null;
         CONFIGURATION_GENERATION.incrementAndGet();
         CACHE.clear();
         CURRENT_REQUESTS.clear();
         PENDING.clear();
+        failureReason = reason;
         setStatus(enabled ? Status.UNAVAILABLE : Status.OFF);
         closeOnWorker(failed);
+    }
+
+    private static String failureCategory(Throwable failure) {
+        if (failure instanceof LinkageError) return "Native ONNX runtime or ABI could not load";
+        if (failure instanceof IOException) return "Model files or tensor contract are invalid";
+        if (failure instanceof OrtException) return "ONNX Runtime could not execute the selected model";
+        if (failure instanceof SecurityException) return "Android denied access to the selected model files";
+        String name = failure == null ? "" : failure.getClass().getSimpleName();
+        if (name.isEmpty()) return "ONNX initialization failed";
+        return name.length() > 48 ? name.substring(0, 48) : name;
     }
 
     private static List<String> boundedTopics(List<String> topics) {

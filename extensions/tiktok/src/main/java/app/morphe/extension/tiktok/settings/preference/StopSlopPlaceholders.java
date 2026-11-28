@@ -98,8 +98,11 @@ final class StopSlopPlaceholders {
         boolean semanticModelSelected = StopSlopModelManager.selectedModel(modelContext) != null;
         semanticTopicFilter.setEnabled(semanticModelSelected);
         if (!semanticModelSelected) {
-            Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.save(false);
+            // Keep the persisted user choice. The control is disabled until a compatible model
+            // is selected, and inference remains off while that selection is unavailable.
+            semanticTopicFilter.setPersistent(false);
             semanticTopicFilter.setChecked(false);
+            semanticTopicFilter.setPersistent(true);
         }
         semanticTopicFilter.setSummary(modelStatusSummary(context, modelContext));
         LocalContentInference.setEnabled(Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
@@ -218,7 +221,9 @@ final class StopSlopPlaceholders {
                         "Selected model is initializing: %1$s. Semantic filtering stays fail-open.", selected.name);
             case UNAVAILABLE:
                 return L10n.f(displayContext,
-                        "Semantic model initialization failed: %1$s. Filtering stays fail-open.", selected.name);
+                        "Semantic model initialization failed: %1$s. Filtering stays fail-open. Retry from Installed models.",
+                        L10n.t(displayContext, LocalContentInference.getFailureReason().isEmpty()
+                                ? "ONNX initialization failed" : LocalContentInference.getFailureReason()));
             case NOT_INSTALLED:
                 return L10n.f(displayContext,
                         "Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB",
@@ -512,13 +517,22 @@ final class StopSlopPlaceholders {
         private void showModelActions(StopSlopModelManager.Model model) {
             String activeKey = StopSlopModelManager.activeKey(getContext());
             boolean selected = model.key().equals(activeKey);
+            boolean failed = selected && LocalContentInference.getStatus()
+                    == LocalContentInference.Status.UNAVAILABLE;
             String details = L10n.f(getContext(), "Package version: %1$s", model.version)
                     + "\n" + modelRowStateLabel(getContext(), selected)
-                    + "\n" + L10n.f(getContext(), "Storage: %1$d MiB", model.installedBytes / (1024 * 1024));
+                    + "\n" + L10n.f(getContext(), "Storage: %1$d MiB", model.installedBytes / (1024 * 1024))
+                    + (failed ? "\n" + L10n.t(getContext(), LocalContentInference.getFailureReason()) : "");
             new AlertDialog.Builder(getContext())
                     .setTitle(model.name).setMessage(details)
-                    .setPositiveButton(L10n.t(getContext(), selected ? "Selected" : "Select model"),
-                            selected ? null : (dialog, which) -> {
+                    .setPositiveButton(L10n.t(getContext(), failed ? "Retry initialization"
+                                    : selected ? "Selected" : "Select model"),
+                            selected && !failed ? null : (dialog, which) -> {
+                if (failed) {
+                    LocalContentInference.retryInitialization();
+                    setSummary(modelSummary(getContext()));
+                    return;
+                }
                 if (StopSlopModelManager.select(getContext(), model.key())) {
                     String selectionMessage = Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.savedValue()
                             ? "Selected. Semantic filtering stays fail-open while the new model initializes."

@@ -321,6 +321,7 @@ An override changes the value TikTok reads from this gate. It doesn't change Tik
 Analytics,Analytics
 And %1$s more saves,And %1$s more saves
 And one more save,And one more save
+Android denied access to the selected model files,Android denied access to the selected model files
 "Android stops telling TikTok a VPN is on, and the VPN's tunnel is left out of the network list. TikTok can still see the VPN's IP address. Leave this off if you need a feature that checks for a VPN.","Android stops telling TikTok a VPN is on, and the VPN's tunnel is left out of the network list. TikTok can still see the VPN's IP address. Leave this off if you need a feature that checks for a VPN."
 Animated sticker format,Animated sticker format
 "Animated stickers and GIFs decode each frame as it's shown instead of a few ahead, so they use a little less memory. Applies to the next ones that load.","Animated stickers and GIFs decode each frame as it's shown instead of a few ahead, so they use a little less memory. Applies to the next ones that load."
@@ -1254,6 +1255,7 @@ Include diagnostic events,Include diagnostic events
 Included diagnostics,Included diagnostics
 Includes all diagnostic events.,Includes all diagnostic events.
 Includes these events: %1$s,Includes these events: %1$s
+Inference worker queue is busy,Inference worker queue is busy
 Inserted cards,Inserted cards
 Install and select a compatible model before enabling semantic filtering.,Install and select a compatible model before enabling semantic filtering.
 "Install one, then come back here.","Install one, then come back here."
@@ -1467,6 +1469,8 @@ Look up a commenter's country,Look up a commenter's country
 Looking for apps,Looking for apps
 Looking up the song,Looking up the song
 Loop a story,Loop a story
+Low memory during semantic inference,Low memory during semantic inference
+Low memory while creating ONNX sessions,Low memory while creating ONNX sessions
 "Lower, near the bottom","Lower, near the bottom"
 Lowest,Lowest
 "MP3 (.mp3), plays anywhere","MP3 (.mp3), plays anywhere"
@@ -1520,6 +1524,7 @@ Model catalog unavailable,Model catalog unavailable
 Model details,Model details
 Model files are removed if TikTok is uninstalled or app data is cleared.,Model files are removed if TikTok is uninstalled or app data is cleared.
 Model files exist but are invalid or incomplete. Re-import a compatible E5 package.,Model files exist but are invalid or incomplete. Re-import a compatible E5 package.
+Model files or tensor contract are invalid,Model files or tensor contract are invalid
 Model installed and verified. Select it in Installed models to use it.,Model installed and verified. Select it in Installed models to use it.
 Model package was not installed: %1$s,Model package was not installed: %1$s
 Model removal was queued after inference stops.,Model removal was queued after inference stops.
@@ -1548,6 +1553,7 @@ My likes on this phone,My likes on this phone
 My watch history,My watch history
 Name copied,Name copied
 Names to listen for,Names to listen for
+Native ONNX runtime or ABI could not load,Native ONNX runtime or ABI could not load
 Nearby,Nearby
 Needs Android 13 or newer.,Needs Android 13 or newer.
 Network error. %1$d removed.,Network error. %1$d removed.
@@ -1659,6 +1665,8 @@ Nothing was sent. Check the streak settings and try again.,Nothing was sent. Che
 Notices from this project and the ones it's built on,Notices from this project and the ones it's built on
 Notifications,Notifications
 OK,OK
+ONNX Runtime could not execute the selected model,ONNX Runtime could not execute the selected model
+ONNX initialization failed,ONNX initialization failed
 Off,Off
 "Off by default. Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count.","Off by default. Hide posts with explicit AI labels, metadata, or AI-generation tags. Language and low engagement alone do not count."
 "Off forces the value to false, on forces it to true. Reset lets TikTok decide again.","Off forces the value to false, on forces it to true. Reset lets TikTok decide again."
@@ -2049,6 +2057,7 @@ Restoring seen history,Restoring seen history
 Restoring your settings,Restoring your settings
 Resume videos after scrolling,Resume videos after scrolling
 Retry,Retry
+Retry initialization,Retry initialization
 Return a copy with the fields below changed,Return a copy with the fields below changed
 Return after using a TikTok feature to see every gate read during the recording.,Return after using a TikTok feature to see every gate read during the recording.
 Returns %1$s,Returns %1$s
@@ -2227,6 +2236,7 @@ Select at least one field,Select at least one field
 Select every tab,Select every tab
 Select model,Select model
 Selected,Selected
+Selected model files are missing or invalid,Selected model files are missing or invalid
 Selected model is initializing: %1$s. Semantic filtering stays fail-open.,Selected model is initializing: %1$s. Semantic filtering stays fail-open.
 Selected model is ready: %1$s. Semantic filtering stays off until enabled.,Selected model is ready: %1$s. Semantic filtering stays off until enabled.
 Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB,Selected model: %1$s. Semantic filter is off; runtime is idle. Storage used: %2$d MiB
@@ -2240,7 +2250,7 @@ Selected. The local runtime is verifying and loading this model.,Selected. The l
 Semantic Topic Filter,Semantic Topic Filter
 Semantic filtering is ready with %1$s. Storage used: %2$d MiB,Semantic filtering is ready with %1$s. Storage used: %2$d MiB
 Semantic match threshold,Semantic match threshold
-Semantic model initialization failed: %1$s. Filtering stays fail-open.,Semantic model initialization failed: %1$s. Filtering stays fail-open.
+Semantic model initialization failed: %1$s. Filtering stays fail-open. Retry from Installed models.,Semantic model initialization failed: %1$s. Filtering stays fail-open. Retry from Installed models.
 Semi-bold,Semi-bold
 Send TikTok through a proxy,Send TikTok through a proxy
 Send it now,Send it now

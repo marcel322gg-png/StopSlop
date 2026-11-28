@@ -55,6 +55,7 @@ public final class StopSlopModelManager {
     private static final String PREFS = "stop_slop_models_v1";
     private static final String CATALOG_CACHE = "official_catalog_v1";
     private static final String ACTIVE = "active_model";
+    private static final String ACTIVE_REVISION = "active_model_revision";
     private static final String ROOT = "stopSlop/models";
     private static final String CATALOG_LOG_TAG = "StopSlopCatalog";
     private static final String[] REQUIRED_FILES = {
@@ -263,25 +264,40 @@ public final class StopSlopModelManager {
     }
 
     public static Model active(Context context) {
+        if (context == null) return null;
         String key = preferences(context).getString(ACTIVE, "");
         if (key == null || !key.matches("[A-Za-z0-9._-]{1,64}/[A-Za-z0-9._-]{1,64}")) return null;
         String[] parts = key.split("/", 2);
         if (parts.length != 2) return null;
-        try { return readModel(new File(new File(modelRoot(context), parts[0]), parts[1]), true); }
+        try {
+            Model model = readModel(new File(new File(modelRoot(context), parts[0]), parts[1]), true);
+            return key.equals(model.key()) && reconcileActiveRevision(context, model) ? model : null;
+        }
         catch (IOException unavailable) { return null; }
     }
 
     /** Returns the persisted selection after validating its manifest, profile, sizes, and required files. */
     public static Model selectedModel(Context context) {
+        if (context == null) return null;
         String key = activeKey(context);
         if (!key.matches("[A-Za-z0-9._-]{1,64}/[A-Za-z0-9._-]{1,64}")) return null;
         String[] parts = key.split("/", 2);
         try {
             Model model = readModel(new File(new File(modelRoot(context), parts[0]), parts[1]), false);
-            return key.equals(model.key()) ? model : null;
+            return key.equals(model.key()) && reconcileActiveRevision(context, model) ? model : null;
         } catch (IOException unavailable) {
             return null;
         }
+    }
+
+    /** Migrates older ID/version-only selections once; a saved revision mismatch is never accepted. */
+    private static boolean reconcileActiveRevision(Context context, Model model) {
+        SharedPreferences preferences = preferences(context);
+        String revision = preferences.getString(ACTIVE_REVISION, "");
+        if (revision == null || revision.isEmpty()) {
+            return preferences.edit().putString(ACTIVE_REVISION, model.revision).commit();
+        }
+        return revision.equals(model.revision);
     }
 
     /** True for package data on disk even when its manifest is corrupt and installed() rejects it. */
@@ -320,7 +336,8 @@ public final class StopSlopModelManager {
         Model selected = null;
         for (Model model : installed(context)) if (key.equals(model.key())) selected = model;
         if (selected == null) return false;
-        if (!preferences(context).edit().putString(ACTIVE, key).commit()) return false;
+        if (!preferences(context).edit().putString(ACTIVE, key)
+                .putString(ACTIVE_REVISION, selected.revision).commit()) return false;
         LocalContentInference.onModelChanged();
         return true;
     }
@@ -341,7 +358,7 @@ public final class StopSlopModelManager {
     }
 
     public static boolean clearActive(Context context) {
-        if (!preferences(context).edit().remove(ACTIVE).commit()) return false;
+        if (!preferences(context).edit().remove(ACTIVE).remove(ACTIVE_REVISION).commit()) return false;
         LocalContentInference.onModelChanged();
         return true;
     }

@@ -75,6 +75,14 @@ final class OnnxE5SemanticProvider implements LocalContentInference.InferencePro
                 || !modelSession.getOutputInfo().containsKey("last_hidden_state")) {
             throw new IOException("The packaged embedding model has an unexpected tensor interface");
         }
+
+        // READY means the selected profile can actually tokenize and execute, not just that two
+        // session objects were created. Initialization is only called on the bounded worker.
+        float[] probe = embed("query: StopSlop initialization check");
+        if (probe.length != EMBEDDING_DIMENSIONS) {
+            throw new IOException("Embedding initialization check returned an unexpected shape");
+        }
+        Arrays.fill(probe, 0f);
     }
 
     @Override
@@ -83,7 +91,7 @@ final class OnnxE5SemanticProvider implements LocalContentInference.InferencePro
         if (modelSession == null || tokenizerSession == null || features == null
                 || features.text == null || topics == null || topics.isEmpty()) return null;
 
-        float[] caption = embed(features.text);
+        float[] caption = embed("passage: " + features.text);
         float bestSimilarity = -1f;
         for (String topic : topics) {
             if (topic == null || topic.trim().isEmpty()) continue;
@@ -100,7 +108,7 @@ final class OnnxE5SemanticProvider implements LocalContentInference.InferencePro
             float[] cached = topicEmbeddings.get(topic);
             if (cached != null) return cached;
         }
-        float[] encoded = embed(topic);
+        float[] encoded = embed("query: " + topic);
         synchronized (topicEmbeddings) {
             topicEmbeddings.put(topic, encoded);
         }
@@ -108,7 +116,7 @@ final class OnnxE5SemanticProvider implements LocalContentInference.InferencePro
     }
 
     private float[] embed(String text) throws Exception {
-        int[] tokenIds = tokenize("query: " + text);
+        int[] tokenIds = tokenize(text);
         if (tokenIds.length == 0 || tokenIds.length > MAX_TOKENS) {
             throw new IOException("Tokenizer returned an unsupported sequence length");
         }

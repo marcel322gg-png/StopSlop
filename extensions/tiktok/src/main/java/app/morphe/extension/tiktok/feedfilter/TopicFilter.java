@@ -8,7 +8,6 @@ package app.morphe.extension.tiktok.feedfilter;
 
 import app.morphe.extension.tiktok.blockauthor.Reflect;
 import app.morphe.extension.tiktok.settings.Settings;
-import app.morphe.extension.shared.Utils;
 
 import com.ss.android.ugc.aweme.feed.model.Aweme;
 
@@ -26,39 +25,56 @@ final class TopicFilter implements IFilter {
 
     @Override
     public boolean getEnabled() {
+        CompiledRules rules;
         try {
-            CompiledRules rules = compiled(Settings.STOP_SLOP_TOPIC_RULES.get());
-            boolean semanticEnabled = Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.get()
-                    && !rules.semanticTopics().isEmpty()
-                    && StopSlopModelManager.hasActiveModel(Utils.getContext());
-            LocalContentInference.setEnabled(semanticEnabled);
-            if (semanticEnabled) {
-                LocalContentInference.updateTopicConfiguration(Long.toString(rules.version), semanticThreshold());
-            }
-            return (Settings.STOP_SLOP_TOPIC_FILTER.get() && !rules.blocksNothing())
-                    || semanticEnabled;
-        } catch (Throwable unavailableRules) {
-            LocalContentInference.setEnabled(false);
+            rules = compiled(Settings.STOP_SLOP_TOPIC_RULES.get());
+        } catch (RuntimeException | LinkageError unavailableRules) {
             return false;
         }
+
+        boolean deterministicEnabled = false;
+        boolean semanticRequested = false;
+        try { deterministicEnabled = Settings.STOP_SLOP_TOPIC_FILTER.get() && !rules.blocksNothing(); }
+        catch (RuntimeException | LinkageError unavailablePreference) { /* Fail open mechanically. */ }
+        try { semanticRequested = Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.get()
+                && !rules.semanticTopics().isEmpty(); }
+        catch (RuntimeException | LinkageError unavailablePreference) { /* AI stays off. */ }
+        try {
+            // This only queues initialization. Model files are checked on the inference worker.
+            LocalContentInference.setEnabled(semanticRequested);
+            if (semanticRequested) {
+                LocalContentInference.updateTopicConfiguration(Long.toString(rules.version), semanticThreshold());
+            }
+        } catch (RuntimeException | LinkageError semanticUnavailable) {
+            // Keep deterministic phrase/hashtag rules active if optional runtime setup fails.
+        }
+        return deterministicEnabled || semanticRequested;
     }
 
     @Override
     public boolean getFiltered(Aweme item) {
+        CompiledRules rules;
         try {
-            CompiledRules rules = compiled(Settings.STOP_SLOP_TOPIC_RULES.get());
-            boolean mechanicalEnabled = Settings.STOP_SLOP_TOPIC_FILTER.get();
-            boolean semanticEnabled = Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.get()
-                    && StopSlopModelManager.hasActiveModel(Utils.getContext());
-            if ((!mechanicalEnabled || rules.blocksNothing())
-                    && (!semanticEnabled || rules.semanticTopics().isEmpty())) return false;
-            String caption = Reflect.string(item, "getDesc", "desc");
-            if (caption == null) return false;
-            String foldedCaption = caption.toLowerCase(Locale.ROOT);
+            rules = compiled(Settings.STOP_SLOP_TOPIC_RULES.get());
+        } catch (RuntimeException | LinkageError unavailableRules) {
+            return false;
+        }
+
+        boolean mechanicalEnabled;
+        try { mechanicalEnabled = Settings.STOP_SLOP_TOPIC_FILTER.get(); }
+        catch (RuntimeException | LinkageError unavailablePreference) { mechanicalEnabled = false; }
+        String caption;
+        try {
+            caption = Reflect.string(item, "getDesc", "desc");
+        } catch (RuntimeException | LinkageError unavailableMetadata) {
+            return false;
+        }
+        if (caption == null) return false;
+
+        String foldedCaption = caption.toLowerCase(Locale.ROOT);
+        try {
             if (matchesPhrase(foldedCaption, rules.allowedPhrases)
-                    || matchesHashtag(caption, rules.allowedHashtags)) {
-                return false;
-            }
+                    || matchesHashtag(caption, rules.allowedHashtags)) return false;
 
             boolean topicMatch = matchesPhrase(foldedCaption, rules.blockedPhrases)
                     || matchesHashtag(caption, rules.blockedHashtags);
@@ -70,26 +86,28 @@ final class TopicFilter implements IFilter {
                         || rules.allowedCreators.contains(creator.normalizedHandle)) return false;
                 return true;
             }
+        } catch (RuntimeException | LinkageError mechanicalUnavailable) {
+            // A mechanical metadata failure must not prevent the optional branch from failing open.
+        }
 
-            if (!semanticEnabled) return false;
+        // The deterministic decision above is complete before optional model state is consulted.
+        try {
+            if (!Settings.STOP_SLOP_TOPIC_SEMANTIC_ENABLED.get()) return false;
+            List<String> semanticTopics = rules.semanticTopics();
+            if (semanticTopics.isEmpty()) return false;
             if (!rules.allowedCreators.isEmpty()) {
                 CreatorIdentity creator = CreatorIdentity.of(item);
                 if (creator.normalizedHandle.isEmpty()
                         || rules.allowedCreators.contains(creator.normalizedHandle)) return false;
             }
-            List<String> semanticTopics = rules.semanticTopics();
-            if (semanticTopics.isEmpty()) return false;
-            LocalContentInference.setEnabled(true);
             float threshold = semanticThreshold();
             LocalContentInference.updateTopicConfiguration(Long.toString(rules.version), threshold);
             LocalContentInference.Features features = LocalContentInference.extract(item);
             if (features == null) return false;
             LocalContentInference.FilterDecision decision = LocalContentInference.request(
-                    features, semanticTopics, Long.toString(rules.version),
-                    threshold, ignored -> { });
+                    features, semanticTopics, Long.toString(rules.version), threshold, ignored -> { });
             return decision.outcome == LocalContentInference.Outcome.BLOCK;
-        } catch (Throwable unavailableMetadata) {
-            // Missing, unreadable or changed TikTok metadata must never hide a post.
+        } catch (RuntimeException | LinkageError semanticUnavailable) {
             return false;
         }
     }
